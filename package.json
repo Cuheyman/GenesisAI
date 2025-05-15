@@ -1,0 +1,28 @@
+{
+  "name": "genesisai",
+  "version": "1.0.0",
+  "main": "proxy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cuheyman/GenesisAI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Cuheyman/GenesisAI/issues"
+  },
+  "homepage": "https://github.com/Cuheyman/GenesisAI#readme",
+  "dependencies": {
+    "@thirdweb-dev/sdk": "^4.0.99",
+    "axios": "^1.9.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0"
+  },
+  "description": ""
+}

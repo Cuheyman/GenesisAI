@@ -1,0 +1,356 @@
+2025-05-15 14:55:48,868 - INFO - Database initialization complete
+2025-05-15 14:55:48,891 - INFO - Thirdweb Nebula AI client initialized via local proxy
+2025-05-15 14:55:48,892 - INFO - Risk Manager initialized with equity protection: Warning at 3.0%, Risk Reduction at 7.000000000000001%, High Alert at 12.0%, Emergency at 15.0%
+2025-05-15 14:55:48,893 - INFO - Hybrid Trading Bot initialized with 10000.00 equity
+2025-05-15 14:55:48,893 - INFO - Mode: TEST trading
+2025-05-15 14:55:48,894 - INFO - Testing API connections...
+2025-05-15 14:55:49,597 - INFO - Binance server time: 2025-05-15 14:55:27.624000
+2025-05-15 14:55:49,726 - INFO - Nebula AI connection successful: -0.72
+2025-05-15 14:55:49,726 - INFO - Preloading historical data for analysis...
+2025-05-15 14:55:49,727 - INFO - Preloading historical data for analysis...
+2025-05-15 14:55:49,727 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-05-15 14:55:50,666 - INFO - Found trending pairs: KMNOUSDT, BABYUSDT, XVGUSDT, SIGNUSDT, RSRUSDT...
+2025-05-15 14:55:50,666 - INFO - Preloading data for pairs: RENDERUSDT, VANAUSDT, BNBUSDT, KMNOUSDT, SIGNUSDT
+2025-05-15 14:56:20,666 - INFO - Preloading data for pairs: PIXELUSDT, NOTUSDT, BIGTIMEUSDT, ETHUSDT, RSRUSDT
+2025-05-15 14:56:52,000 - INFO - Preloading data for pairs: WCTUSDT, ADAUSDT, AMPUSDT, XVGUSDT, LAYERUSDT
+2025-05-15 14:57:23,198 - INFO - Preloading data for pairs: SYRUPUSDT, RAYUSDT, OMUSDT, COTIUSDT, EOSUSDT
+2025-05-15 14:57:54,540 - INFO - Preloading data for pairs: BTCUSDT, BABYUSDT, ENAUSDT, JUPUSDT, SOLUSDT
+2025-05-15 14:58:26,843 - INFO - Historical data preloading complete
+2025-05-15 14:58:35,239 - INFO - Updating correlation matrix...
+2025-05-15 14:58:35,240 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 14:58:35,241 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 14:59:08,357 - INFO - Selected optimal assets: OMUSDT, EOSUSDT, RENDERUSDT, LAYERUSDT, PEPEUSDT... (15 total)
+2025-05-15 14:59:08,357 - INFO -   OMUSDT: score 5.35
+2025-05-15 14:59:08,357 - INFO -   EOSUSDT: score 5.05
+2025-05-15 14:59:08,358 - INFO -   RENDERUSDT: score 4.85
+2025-05-15 14:59:08,358 - INFO -   LAYERUSDT: score 4.75
+2025-05-15 14:59:08,358 - INFO -   PEPEUSDT: score 4.05
+2025-05-15 14:59:08,370 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 10000.0,
+    "start": 10000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0.0,
+    "avg_daily_return_pct": NaN,
+    "avg_weekly_return_pct": NaN
+  },
+  "trades": {
+    "total": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "profit_factor": 0,
+    "avg_profit": 0,
+    "avg_loss": 0,
+    "expected_value": 0,
+    "recent_win_rate_pct": 0
+  },
+  "pairs": {
+    "best_pair": "None",
+    "best_pair_profit": 0,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-05-15 14:59:08"
+}
+2025-05-15 14:59:43,932 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 14:59:44,622 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 14:59:44,622 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:59:51,560 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 14:59:51,794 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 14:59:51,794 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:59:56,060 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 14:59:56,299 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 14:59:56,299 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 15:00:01,205 - WARNING - Insufficient data for LAYERUSDT on 1d timeframe
+2025-05-15 15:00:01,436 - ERROR - Error analyzing LAYERUSDT: name 'asyncio' is not defined
+2025-05-15 15:00:01,437 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 15:00:07,054 - WARNING - Insufficient data for PEPEUSDT on 1d timeframe
+2025-05-15 15:00:07,286 - ERROR - Error analyzing PEPEUSDT: name 'asyncio' is not defined
+2025-05-15 15:00:07,286 - INFO - PEPEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 15:00:12,832 - WARNING - Insufficient data for BONKUSDT on 1d timeframe
+2025-05-15 15:00:13,522 - ERROR - Error analyzing BONKUSDT: name 'asyncio' is not defined
+2025-05-15 15:00:13,523 - INFO - BONKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 15:00:15,885 - INFO - Bot stopped by user
+2025-05-15 15:00:15,920 - ERROR - Task was destroyed but it is pending!
+task: <Task cancelling name='Task-1' coro=<HybridTradingBot.run() done, defined at C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py:172> wait_for=<_GatheringFuture finished exception=CancelledError()> cb=[gather.<locals>._done_callback() at C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\tasks.py:820]>
+2025-05-15 15:00:15,920 - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-3' coro=<HybridTradingBot.trading_task() done, defined at C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py:327> exception=KeyboardInterrupt()>
+Traceback (most recent call last):
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\main.py", line 30, in <module>
+    asyncio.run(bot.run())
+    ~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 193, in run
+    with Runner(debug=debug, loop_factory=loop_factory) as runner:
+         ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 62, in __exit__
+    self.close()
+    ~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 70, in close
+    _cancel_all_tasks(loop)
+    ~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 205, in _cancel_all_tasks
+    loop.run_until_complete(tasks.gather(*to_cancel, return_exceptions=True))
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 708, in run_until_complete
+    self.run_forever()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 679, in run_forever
+    self._run_once()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2027, in _run_once
+    handle._run()
+    ~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py", line 379, in trading_task
+    await asyncio.gather(*analysis_tasks)
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 194, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 708, in run_until_complete
+    self.run_forever()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 679, in run_forever
+    self._run_once()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2027, in _run_once
+    handle._run()
+    ~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py", line 479, in analyze_and_trade
+    mtf_analysis = await self.market_analysis.get_multi_timeframe_analysis(pair)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\market_analysis.py", line 41, in get_multi_timeframe_analysis
+    klines = await self.get_klines(pair, now - lookback_ms, interval)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\market_analysis.py", line 214, in get_klines
+    klines = self.binance_client.get_historical_klines(
+        pair, interval, start_time, limit=1000
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 830, in get_historical_klines
+    return self._historical_klines(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        symbol,
+        ^^^^^^^
+    ...<4 lines>...
+        klines_type=klines_type,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 900, in _historical_klines
+    temp_data = self._klines(
+        klines_type=klines_type,
+    ...<4 lines>...
+        endTime=end_ts,
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 759, in _klines
+    return self.get_klines(**params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 742, in get_klines
+    return self._get("klines", data=params, version=self.PRIVATE_API_VERSION)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 180, in _get
+    return self._request_api("get", path, signed, version, **kwargs)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 117, in _request_api
+    return self._request(method, uri, signed, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 88, in _request
+    self.response = getattr(self.session, method)(uri, headers=headers, data=data, **kwargs)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connection.py", line 516, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 1428, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 331, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 292, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\socket.py", line 719, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 157, in _on_sigint
+    raise KeyboardInterrupt()
+KeyboardInterrupt
+2025-05-15 15:00:15,929 - ERROR - _GatheringFuture exception was never retrieved
+future: <_GatheringFuture finished exception=CancelledError()>
+Traceback (most recent call last):
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\main.py", line 30, in <module>
+    asyncio.run(bot.run())
+    ~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 193, in run
+    with Runner(debug=debug, loop_factory=loop_factory) as runner:
+         ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 62, in __exit__
+    self.close()
+    ~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 70, in close
+    _cancel_all_tasks(loop)
+    ~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 205, in _cancel_all_tasks
+    loop.run_until_complete(tasks.gather(*to_cancel, return_exceptions=True))
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 708, in run_until_complete
+    self.run_forever()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 679, in run_forever
+    self._run_once()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2027, in _run_once
+    handle._run()
+    ~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py", line 379, in trading_task
+    await asyncio.gather(*analysis_tasks)
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 194, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 708, in run_until_complete
+    self.run_forever()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 679, in run_forever
+    self._run_once()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2027, in _run_once
+    handle._run()
+    ~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py", line 479, in analyze_and_trade
+    mtf_analysis = await self.market_analysis.get_multi_timeframe_analysis(pair)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\market_analysis.py", line 41, in get_multi_timeframe_analysis
+    klines = await self.get_klines(pair, now - lookback_ms, interval)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\market_analysis.py", line 214, in get_klines
+    klines = self.binance_client.get_historical_klines(
+        pair, interval, start_time, limit=1000
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 830, in get_historical_klines
+    return self._historical_klines(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        symbol,
+        ^^^^^^^
+    ...<4 lines>...
+        klines_type=klines_type,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 900, in _historical_klines
+    temp_data = self._klines(
+        klines_type=klines_type,
+    ...<4 lines>...
+        endTime=end_ts,
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 759, in _klines
+    return self.get_klines(**params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 742, in get_klines
+    return self._get("klines", data=params, version=self.PRIVATE_API_VERSION)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 180, in _get
+    return self._request_api("get", path, signed, version, **kwargs)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 117, in _request_api
+    return self._request(method, uri, signed, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 88, in _request
+    self.response = getattr(self.session, method)(uri, headers=headers, data=data, **kwargs)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connection.py", line 516, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 1428, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 331, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 292, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\socket.py", line 719, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 157, in _on_sigint
+    raise KeyboardInterrupt()
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py", line 416, in position_monitor_task
+    await asyncio.sleep(30)
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\tasks.py", line 718, in sleep
+    return await future
+           ^^^^^^^^^^^^
+asyncio.exceptions.CancelledError

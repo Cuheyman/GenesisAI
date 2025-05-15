@@ -57,7 +57,8 @@ class DatabaseManager:
                     win_rate REAL,
                     win_count INTEGER,
                     loss_count INTEGER,
-                    profit_factor REAL
+                    profit_factor REAL,
+                    drawdown REAL
                 )
             ''')
             
@@ -128,6 +129,8 @@ class DatabaseManager:
             # Add new columns to positions table if they don't exist
             schema_updates = []
             
+            
+
             if 'take_profit_pct' not in existing_columns:
                 schema_updates.append("ALTER TABLE positions ADD COLUMN take_profit_pct REAL")
                 
@@ -161,6 +164,14 @@ class DatabaseManager:
                 
             if 'signal_strength' not in existing_columns:
                 schema_updates.append("ALTER TABLE trades ADD COLUMN signal_strength REAL")
+
+
+            # After checking trades table columns
+            cursor.execute("PRAGMA table_info(performance)")
+            existing_performance_columns = [col[1] for col in cursor.fetchall()]
+
+            if 'drawdown' not in existing_performance_columns:
+                schema_updates.append("ALTER TABLE performance ADD COLUMN drawdown REAL")    
                 
             # Execute all schema updates
             for update in schema_updates:

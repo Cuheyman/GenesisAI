@@ -1,0 +1,1858 @@
+2025-05-15 12:55:55,478 - INFO - Database initialization complete
+2025-05-15 12:55:55,483 - INFO - Schema update applied: ALTER TABLE performance ADD COLUMN drawdown REAL
+2025-05-15 12:55:55,484 - INFO - Database schema updated successfully with 1 changes
+2025-05-15 12:55:55,484 - INFO - Thirdweb Nebula AI client initialized
+2025-05-15 12:55:55,485 - INFO - Risk Manager initialized with equity protection: Warning at 3.0%, Risk Reduction at 7.000000000000001%, High Alert at 12.0%, Emergency at 15.0%
+2025-05-15 12:55:55,486 - INFO - Hybrid Trading Bot initialized with 10000.00 equity
+2025-05-15 12:55:55,486 - INFO - Mode: TEST trading
+2025-05-15 12:55:55,487 - INFO - Testing API connections...
+2025-05-15 12:55:55,725 - INFO - Binance server time: 2025-05-15 12:55:33.866000
+2025-05-15 12:56:05,792 - ERROR - Nebula API timeout after 10 seconds
+2025-05-15 12:56:05,792 - INFO - Nebula AI connection successful: 0
+2025-05-15 12:56:05,792 - INFO - Preloading historical data for analysis...
+2025-05-15 12:56:05,792 - INFO - Preloading historical data for analysis...
+2025-05-15 12:56:05,793 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-05-15 12:56:06,724 - INFO - Found trending pairs: BABYUSDT, KMNOUSDT, SIGNUSDT, PIXELUSDT, ENAUSDT...
+2025-05-15 12:56:06,725 - INFO - Preloading data for pairs: JUPUSDT, BABYUSDT, PIXELUSDT, SOLUSDT, ETHUSDT
+2025-05-15 12:56:39,889 - INFO - Preloading data for pairs: RSRUSDT, XVGUSDT, EOSUSDT, RAYUSDT, BIGTIMEUSDT
+2025-05-15 12:57:13,167 - INFO - Preloading data for pairs: COTIUSDT, BNBUSDT, SIGNUSDT, VANAUSDT, CRVUSDT
+2025-05-15 12:57:48,345 - INFO - Preloading data for pairs: ZROUSDT, ADAUSDT, GUNUSDT, KMNOUSDT, BTCUSDT
+2025-05-15 12:58:23,496 - INFO - Preloading data for pairs: CKBUSDT, ENAUSDT, OMUSDT, SYRUPUSDT, RENDERUSDT
+2025-05-15 12:58:57,442 - INFO - Historical data preloading complete
+2025-05-15 12:59:04,469 - INFO - Updating correlation matrix...
+2025-05-15 12:59:04,470 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 12:59:04,470 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 12:59:36,793 - INFO - Selected optimal assets: EOSUSDT, OMUSDT, RENDERUSDT, ETHUSDT, BNBUSDT... (15 total)
+2025-05-15 12:59:36,793 - INFO -   EOSUSDT: score 4.85
+2025-05-15 12:59:36,793 - INFO -   OMUSDT: score 4.60
+2025-05-15 12:59:36,794 - INFO -   RENDERUSDT: score 4.50
+2025-05-15 12:59:36,794 - INFO -   ETHUSDT: score 3.35
+2025-05-15 12:59:36,794 - INFO -   BNBUSDT: score 3.35
+2025-05-15 12:59:36,803 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 10000.0,
+    "start": 10000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0,
+    "avg_daily_return_pct": 0,
+    "avg_weekly_return_pct": 0
+  },
+  "trades": {
+    "total": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "profit_factor": 0,
+    "avg_profit": 0,
+    "avg_loss": 0,
+    "expected_value": 0,
+    "recent_win_rate_pct": 0
+  },
+  "pairs": {
+    "best_pair": "None",
+    "best_pair_profit": 0,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-05-15 12:59:36"
+}
+2025-05-15 13:00:12,945 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 13:00:13,179 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 13:00:13,180 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:00:18,344 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 13:00:18,581 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 13:00:18,581 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:00:22,368 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 13:00:22,604 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 13:00:22,604 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:00:26,391 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:00:27,091 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 13:00:27,092 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:00:32,684 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 13:00:32,919 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 13:00:32,920 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:00:37,871 - WARNING - Insufficient data for XLMUSDT on 1d timeframe
+2025-05-15 13:00:38,103 - ERROR - Error analyzing XLMUSDT: name 'asyncio' is not defined
+2025-05-15 13:00:38,103 - INFO - XLMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:00:43,719 - WARNING - Insufficient data for LTCUSDT on 1d timeframe
+2025-05-15 13:00:43,956 - ERROR - Error analyzing LTCUSDT: name 'asyncio' is not defined
+2025-05-15 13:00:43,956 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:00:48,414 - WARNING - Insufficient data for PEPEUSDT on 1d timeframe
+2025-05-15 13:00:48,651 - ERROR - Error analyzing PEPEUSDT: name 'asyncio' is not defined
+2025-05-15 13:00:48,651 - INFO - PEPEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:00:52,909 - WARNING - Insufficient data for ICPUSDT on 1d timeframe
+2025-05-15 13:00:53,144 - ERROR - Error analyzing ICPUSDT: name 'asyncio' is not defined
+2025-05-15 13:00:53,145 - INFO - ICPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:00:57,349 - WARNING - Insufficient data for BONKUSDT on 1d timeframe
+2025-05-15 13:00:58,054 - ERROR - Error analyzing BONKUSDT: name 'asyncio' is not defined
+2025-05-15 13:00:58,054 - INFO - BONKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:01:02,763 - WARNING - Insufficient data for ZECUSDT on 1d timeframe
+2025-05-15 13:01:02,997 - ERROR - Error analyzing ZECUSDT: name 'asyncio' is not defined
+2025-05-15 13:01:02,998 - INFO - ZECUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:01:08,576 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 13:01:08,809 - ERROR - Error analyzing XRPUSDT: name 'asyncio' is not defined
+2025-05-15 13:01:08,809 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:01:14,429 - WARNING - Insufficient data for SOLUSDT on 1d timeframe
+2025-05-15 13:01:14,678 - ERROR - Error analyzing SOLUSDT: name 'asyncio' is not defined
+2025-05-15 13:01:14,678 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:01:18,655 - WARNING - Insufficient data for TRXUSDT on 1d timeframe
+2025-05-15 13:01:18,887 - ERROR - Error analyzing TRXUSDT: name 'asyncio' is not defined
+2025-05-15 13:01:18,888 - INFO - TRXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:01:24,043 - WARNING - Insufficient data for HBARUSDT on 1d timeframe
+2025-05-15 13:01:24,279 - ERROR - Error analyzing HBARUSDT: name 'asyncio' is not defined
+2025-05-15 13:01:24,279 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:01:24,345 - INFO - Correlation matrix updated for 42 pairs
+2025-05-15 13:01:28,798 - WARNING - Insufficient data for BTCUSDT on 1d timeframe
+2025-05-15 13:01:32,356 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:01:32,357 - INFO - Market state: Regime=NEUTRAL, Trend=neutral, Volatility=normal, Breadth=0.50
+2025-05-15 13:01:32,357 - INFO - Trading cycle completed in 147.89 seconds
+2025-05-15 13:02:02,363 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 13:02:02,364 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 13:02:30,089 - INFO - Selected optimal assets: EOSUSDT, OMUSDT, RENDERUSDT, ETHUSDT, XRPUSDT... (15 total)
+2025-05-15 13:02:30,089 - INFO -   EOSUSDT: score 4.85
+2025-05-15 13:02:30,089 - INFO -   OMUSDT: score 4.60
+2025-05-15 13:02:30,090 - INFO -   RENDERUSDT: score 4.50
+2025-05-15 13:02:30,090 - INFO -   ETHUSDT: score 3.35
+2025-05-15 13:02:30,090 - INFO -   XRPUSDT: score 3.35
+2025-05-15 13:02:34,770 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 13:02:35,005 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 13:02:35,005 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:02:40,834 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 13:02:41,521 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 13:02:41,522 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:02:47,137 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 13:02:47,824 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 13:02:47,824 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:02:51,814 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:02:52,049 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 13:02:52,050 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:02:56,717 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 13:02:56,951 - ERROR - Error analyzing XRPUSDT: name 'asyncio' is not defined
+2025-05-15 13:02:56,951 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:03:00,951 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 13:03:01,187 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 13:03:01,187 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:03:05,195 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 13:03:05,427 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 13:03:05,427 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:03:10,552 - WARNING - Insufficient data for AVAXUSDT on 1d timeframe
+2025-05-15 13:03:10,789 - ERROR - Error analyzing AVAXUSDT: name 'asyncio' is not defined
+2025-05-15 13:03:10,789 - INFO - AVAXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:03:14,793 - WARNING - Insufficient data for XLMUSDT on 1d timeframe
+2025-05-15 13:03:15,029 - ERROR - Error analyzing XLMUSDT: name 'asyncio' is not defined
+2025-05-15 13:03:15,029 - INFO - XLMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:03:21,369 - WARNING - Insufficient data for HBARUSDT on 1d timeframe
+2025-05-15 13:03:21,604 - ERROR - Error analyzing HBARUSDT: name 'asyncio' is not defined
+2025-05-15 13:03:21,605 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:03:25,841 - WARNING - Insufficient data for LTCUSDT on 1d timeframe
+2025-05-15 13:03:26,080 - ERROR - Error analyzing LTCUSDT: name 'asyncio' is not defined
+2025-05-15 13:03:26,080 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:03:31,912 - WARNING - Insufficient data for BCHUSDT on 1d timeframe
+2025-05-15 13:03:32,143 - ERROR - Error analyzing BCHUSDT: name 'asyncio' is not defined
+2025-05-15 13:03:32,144 - INFO - BCHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:03:36,825 - WARNING - Insufficient data for PEPEUSDT on 1d timeframe
+2025-05-15 13:03:37,516 - ERROR - Error analyzing PEPEUSDT: name 'asyncio' is not defined
+2025-05-15 13:03:37,516 - INFO - PEPEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:03:44,886 - WARNING - Insufficient data for ICPUSDT on 1d timeframe
+2025-05-15 13:03:45,586 - ERROR - Error analyzing ICPUSDT: name 'asyncio' is not defined
+2025-05-15 13:03:45,587 - INFO - ICPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:03:51,192 - WARNING - Insufficient data for ALGOUSDT on 1d timeframe
+2025-05-15 13:03:51,892 - ERROR - Error analyzing ALGOUSDT: name 'asyncio' is not defined
+2025-05-15 13:03:51,892 - INFO - ALGOUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:03:51,892 - INFO - Trading cycle completed in 109.53 seconds
+2025-05-15 13:04:21,897 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 13:04:21,898 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 13:04:59,858 - INFO - Selected optimal assets: EOSUSDT, OMUSDT, RENDERUSDT, ETHUSDT, XRPUSDT... (15 total)
+2025-05-15 13:04:59,858 - INFO -   EOSUSDT: score 4.85
+2025-05-15 13:04:59,858 - INFO -   OMUSDT: score 4.60
+2025-05-15 13:04:59,858 - INFO -   RENDERUSDT: score 4.50
+2025-05-15 13:04:59,859 - INFO -   ETHUSDT: score 3.35
+2025-05-15 13:04:59,859 - INFO -   XRPUSDT: score 3.35
+2025-05-15 13:05:05,796 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 13:05:06,479 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 13:05:06,479 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:05:10,652 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 13:05:11,347 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 13:05:11,347 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:05:19,178 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 13:05:19,410 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 13:05:19,411 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:05:24,755 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:05:25,444 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 13:05:25,444 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:05:30,789 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 13:05:31,019 - ERROR - Error analyzing XRPUSDT: name 'asyncio' is not defined
+2025-05-15 13:05:31,019 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:05:37,075 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 13:05:37,762 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 13:05:37,762 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:05:42,211 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 13:05:42,443 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 13:05:42,444 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:05:49,417 - WARNING - Insufficient data for AVAXUSDT on 1d timeframe
+2025-05-15 13:05:50,092 - ERROR - Error analyzing AVAXUSDT: name 'asyncio' is not defined
+2025-05-15 13:05:50,092 - INFO - AVAXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:05:55,423 - WARNING - Insufficient data for XLMUSDT on 1d timeframe
+2025-05-15 13:05:55,653 - ERROR - Error analyzing XLMUSDT: name 'asyncio' is not defined
+2025-05-15 13:05:55,653 - INFO - XLMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:06:01,696 - WARNING - Insufficient data for HBARUSDT on 1d timeframe
+2025-05-15 13:06:01,934 - ERROR - Error analyzing HBARUSDT: name 'asyncio' is not defined
+2025-05-15 13:06:01,934 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:06:08,877 - WARNING - Insufficient data for LTCUSDT on 1d timeframe
+2025-05-15 13:06:09,109 - ERROR - Error analyzing LTCUSDT: name 'asyncio' is not defined
+2025-05-15 13:06:09,110 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:06:13,097 - WARNING - Insufficient data for BCHUSDT on 1d timeframe
+2025-05-15 13:06:13,336 - ERROR - Error analyzing BCHUSDT: name 'asyncio' is not defined
+2025-05-15 13:06:13,336 - INFO - BCHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:06:18,444 - WARNING - Insufficient data for PEPEUSDT on 1d timeframe
+2025-05-15 13:06:18,678 - ERROR - Error analyzing PEPEUSDT: name 'asyncio' is not defined
+2025-05-15 13:06:18,678 - INFO - PEPEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:06:23,379 - WARNING - Insufficient data for ICPUSDT on 1d timeframe
+2025-05-15 13:06:24,068 - ERROR - Error analyzing ICPUSDT: name 'asyncio' is not defined
+2025-05-15 13:06:24,068 - INFO - ICPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:06:29,006 - WARNING - Insufficient data for ALGOUSDT on 1d timeframe
+2025-05-15 13:06:29,692 - ERROR - Error analyzing ALGOUSDT: name 'asyncio' is not defined
+2025-05-15 13:06:29,692 - INFO - ALGOUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:06:29,704 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 10000.0,
+    "start": 10000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0.0,
+    "avg_daily_return_pct": NaN,
+    "avg_weekly_return_pct": NaN
+  },
+  "trades": {
+    "total": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "profit_factor": 0,
+    "avg_profit": 0,
+    "avg_loss": 0,
+    "expected_value": 0,
+    "recent_win_rate_pct": 0
+  },
+  "pairs": {
+    "best_pair": "None",
+    "best_pair_profit": 0,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-05-15 13:06:29"
+}
+2025-05-15 13:06:29,705 - INFO - Trading cycle completed in 127.81 seconds
+2025-05-15 13:06:59,720 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 13:06:59,721 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 13:07:35,002 - INFO - Selected optimal assets: EOSUSDT, OMUSDT, RENDERUSDT, ETHUSDT, XRPUSDT... (15 total)
+2025-05-15 13:07:35,002 - INFO -   EOSUSDT: score 4.85
+2025-05-15 13:07:35,002 - INFO -   OMUSDT: score 4.60
+2025-05-15 13:07:35,003 - INFO -   RENDERUSDT: score 4.60
+2025-05-15 13:07:35,003 - INFO -   ETHUSDT: score 3.35
+2025-05-15 13:07:35,003 - INFO -   XRPUSDT: score 3.35
+2025-05-15 13:07:40,313 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 13:07:41,002 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 13:07:41,002 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:07:46,333 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 13:07:47,028 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 13:07:47,029 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:07:52,626 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 13:07:53,320 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 13:07:53,321 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:07:58,922 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:07:59,611 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 13:07:59,612 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:08:05,607 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 13:08:05,841 - ERROR - Error analyzing XRPUSDT: name 'asyncio' is not defined
+2025-05-15 13:08:05,841 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:08:11,837 - WARNING - Insufficient data for SOLUSDT on 1d timeframe
+2025-05-15 13:08:12,541 - ERROR - Error analyzing SOLUSDT: name 'asyncio' is not defined
+2025-05-15 13:08:12,542 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:08:16,968 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 13:08:17,658 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 13:08:17,658 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:08:22,793 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 13:08:23,025 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 13:08:23,026 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:08:27,715 - WARNING - Insufficient data for AVAXUSDT on 1d timeframe
+2025-05-15 13:08:27,956 - ERROR - Error analyzing AVAXUSDT: name 'asyncio' is not defined
+2025-05-15 13:08:27,956 - INFO - AVAXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:08:32,916 - WARNING - Insufficient data for XLMUSDT on 1d timeframe
+2025-05-15 13:08:33,152 - ERROR - Error analyzing XLMUSDT: name 'asyncio' is not defined
+2025-05-15 13:08:33,152 - INFO - XLMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:08:38,746 - WARNING - Insufficient data for HBARUSDT on 1d timeframe
+2025-05-15 13:08:39,439 - ERROR - Error analyzing HBARUSDT: name 'asyncio' is not defined
+2025-05-15 13:08:39,440 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:08:45,504 - WARNING - Insufficient data for DOTUSDT on 1d timeframe
+2025-05-15 13:08:45,733 - ERROR - Error analyzing DOTUSDT: name 'asyncio' is not defined
+2025-05-15 13:08:45,734 - INFO - DOTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:08:52,216 - WARNING - Insufficient data for LTCUSDT on 1d timeframe
+2025-05-15 13:08:52,451 - ERROR - Error analyzing LTCUSDT: name 'asyncio' is not defined
+2025-05-15 13:08:52,451 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:08:57,556 - WARNING - Insufficient data for BCHUSDT on 1d timeframe
+2025-05-15 13:08:57,790 - ERROR - Error analyzing BCHUSDT: name 'asyncio' is not defined
+2025-05-15 13:08:57,790 - INFO - BCHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:09:04,529 - WARNING - Insufficient data for PEPEUSDT on 1d timeframe
+2025-05-15 13:09:04,768 - ERROR - Error analyzing PEPEUSDT: name 'asyncio' is not defined
+2025-05-15 13:09:04,768 - INFO - PEPEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:09:04,768 - INFO - Trading cycle completed in 125.05 seconds
+2025-05-15 13:09:34,780 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 13:09:34,781 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 13:10:11,420 - INFO - Selected optimal assets: EOSUSDT, OMUSDT, RENDERUSDT, ETHUSDT, XRPUSDT... (15 total)
+2025-05-15 13:10:11,420 - INFO -   EOSUSDT: score 4.85
+2025-05-15 13:10:11,420 - INFO -   OMUSDT: score 4.60
+2025-05-15 13:10:11,420 - INFO -   RENDERUSDT: score 4.60
+2025-05-15 13:10:11,421 - INFO -   ETHUSDT: score 3.35
+2025-05-15 13:10:11,421 - INFO -   XRPUSDT: score 3.35
+2025-05-15 13:10:16,786 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 13:10:17,479 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 13:10:17,479 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:10:22,171 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 13:10:22,876 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 13:10:22,876 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:10:29,416 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 13:10:29,650 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 13:10:29,650 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:10:35,882 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:10:36,575 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 13:10:36,576 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:10:43,511 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 13:10:43,750 - ERROR - Error analyzing XRPUSDT: name 'asyncio' is not defined
+2025-05-15 13:10:43,750 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:10:47,749 - WARNING - Insufficient data for SOLUSDT on 1d timeframe
+2025-05-15 13:10:47,983 - ERROR - Error analyzing SOLUSDT: name 'asyncio' is not defined
+2025-05-15 13:10:47,984 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:10:55,214 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 13:10:55,451 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 13:10:55,451 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:11:00,561 - WARNING - Insufficient data for DOGEUSDT on 1d timeframe
+2025-05-15 13:11:01,259 - ERROR - Error analyzing DOGEUSDT: name 'asyncio' is not defined
+2025-05-15 13:11:01,259 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:11:06,379 - WARNING - Insufficient data for ADAUSDT on 1d timeframe
+2025-05-15 13:11:07,070 - ERROR - Error analyzing ADAUSDT: name 'asyncio' is not defined
+2025-05-15 13:11:07,070 - INFO - ADAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:11:12,656 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 13:11:12,891 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 13:11:12,891 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:11:17,101 - WARNING - Insufficient data for AVAXUSDT on 1d timeframe
+2025-05-15 13:11:17,794 - ERROR - Error analyzing AVAXUSDT: name 'asyncio' is not defined
+2025-05-15 13:11:17,795 - INFO - AVAXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:11:22,954 - WARNING - Insufficient data for XLMUSDT on 1d timeframe
+2025-05-15 13:11:23,644 - ERROR - Error analyzing XLMUSDT: name 'asyncio' is not defined
+2025-05-15 13:11:23,644 - INFO - XLMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:11:30,568 - WARNING - Insufficient data for HBARUSDT on 1d timeframe
+2025-05-15 13:11:31,263 - ERROR - Error analyzing HBARUSDT: name 'asyncio' is not defined
+2025-05-15 13:11:31,263 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:11:34,789 - WARNING - Insufficient data for DOTUSDT on 1d timeframe
+2025-05-15 13:11:35,467 - ERROR - Error analyzing DOTUSDT: name 'asyncio' is not defined
+2025-05-15 13:11:35,468 - INFO - DOTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:11:41,286 - WARNING - Insufficient data for LTCUSDT on 1d timeframe
+2025-05-15 13:11:41,518 - ERROR - Error analyzing LTCUSDT: name 'asyncio' is not defined
+2025-05-15 13:11:41,518 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:11:41,519 - INFO - Trading cycle completed in 126.74 seconds
+2025-05-15 13:12:11,530 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 13:12:11,530 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 13:12:47,166 - INFO - Selected optimal assets: EOSUSDT, OMUSDT, RENDERUSDT, ETHUSDT, XRPUSDT... (15 total)
+2025-05-15 13:12:47,166 - INFO -   EOSUSDT: score 4.85
+2025-05-15 13:12:47,166 - INFO -   OMUSDT: score 4.60
+2025-05-15 13:12:47,167 - INFO -   RENDERUSDT: score 4.60
+2025-05-15 13:12:47,167 - INFO -   ETHUSDT: score 3.35
+2025-05-15 13:12:47,167 - INFO -   XRPUSDT: score 3.35
+2025-05-15 13:12:54,157 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 13:12:54,392 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 13:12:54,392 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:12:57,725 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 13:12:58,406 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 13:12:58,406 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:13:04,454 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 13:13:05,160 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 13:13:05,160 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:13:08,933 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:13:09,169 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 13:13:09,169 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:13:15,235 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 13:13:15,914 - ERROR - Error analyzing XRPUSDT: name 'asyncio' is not defined
+2025-05-15 13:13:15,914 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:13:21,514 - WARNING - Insufficient data for SOLUSDT on 1d timeframe
+2025-05-15 13:13:21,752 - ERROR - Error analyzing SOLUSDT: name 'asyncio' is not defined
+2025-05-15 13:13:21,752 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:13:27,840 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 13:13:28,543 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 13:13:28,543 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:13:33,249 - WARNING - Insufficient data for ADAUSDT on 1d timeframe
+2025-05-15 13:13:33,490 - ERROR - Error analyzing ADAUSDT: name 'asyncio' is not defined
+2025-05-15 13:13:33,490 - INFO - ADAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:13:38,923 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 13:13:39,614 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 13:13:39,614 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:13:44,513 - WARNING - Insufficient data for AVAXUSDT on 1d timeframe
+2025-05-15 13:13:44,753 - ERROR - Error analyzing AVAXUSDT: name 'asyncio' is not defined
+2025-05-15 13:13:44,754 - INFO - AVAXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:13:50,863 - WARNING - Insufficient data for XLMUSDT on 1d timeframe
+2025-05-15 13:13:51,550 - ERROR - Error analyzing XLMUSDT: name 'asyncio' is not defined
+2025-05-15 13:13:51,550 - INFO - XLMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:13:56,722 - WARNING - Insufficient data for HBARUSDT on 1d timeframe
+2025-05-15 13:13:56,959 - ERROR - Error analyzing HBARUSDT: name 'asyncio' is not defined
+2025-05-15 13:13:56,960 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:14:01,878 - WARNING - Insufficient data for DOTUSDT on 1d timeframe
+2025-05-15 13:14:02,584 - ERROR - Error analyzing DOTUSDT: name 'asyncio' is not defined
+2025-05-15 13:14:02,585 - INFO - DOTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:14:07,923 - WARNING - Insufficient data for LTCUSDT on 1d timeframe
+2025-05-15 13:14:08,597 - ERROR - Error analyzing LTCUSDT: name 'asyncio' is not defined
+2025-05-15 13:14:08,597 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:14:12,583 - WARNING - Insufficient data for BCHUSDT on 1d timeframe
+2025-05-15 13:14:13,273 - ERROR - Error analyzing BCHUSDT: name 'asyncio' is not defined
+2025-05-15 13:14:13,273 - INFO - BCHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:14:13,274 - INFO - Trading cycle completed in 121.75 seconds
+2025-05-15 13:14:43,283 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 13:14:43,284 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 13:15:21,401 - INFO - Selected optimal assets: EOSUSDT, OMUSDT, RENDERUSDT, ETHUSDT, XRPUSDT... (15 total)
+2025-05-15 13:15:21,402 - INFO -   EOSUSDT: score 4.85
+2025-05-15 13:15:21,402 - INFO -   OMUSDT: score 4.60
+2025-05-15 13:15:21,402 - INFO -   RENDERUSDT: score 4.60
+2025-05-15 13:15:21,402 - INFO -   ETHUSDT: score 3.35
+2025-05-15 13:15:21,402 - INFO -   XRPUSDT: score 3.35
+2025-05-15 13:15:27,012 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 13:15:27,697 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 13:15:27,697 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:15:32,800 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 13:15:33,483 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 13:15:33,484 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:15:39,107 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 13:15:39,798 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 13:15:39,799 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:15:44,505 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:15:44,745 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 13:15:44,746 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:15:50,822 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 13:15:51,503 - ERROR - Error analyzing XRPUSDT: name 'asyncio' is not defined
+2025-05-15 13:15:51,504 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:15:58,236 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 13:15:58,932 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 13:15:58,932 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:16:05,016 - WARNING - Insufficient data for DOGEUSDT on 1d timeframe
+2025-05-15 13:16:05,273 - ERROR - Error analyzing DOGEUSDT: name 'asyncio' is not defined
+2025-05-15 13:16:05,273 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:16:10,698 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 13:16:10,967 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 13:16:10,968 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:16:16,790 - WARNING - Insufficient data for AVAXUSDT on 1d timeframe
+2025-05-15 13:16:17,030 - ERROR - Error analyzing AVAXUSDT: name 'asyncio' is not defined
+2025-05-15 13:16:17,030 - INFO - AVAXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:16:22,856 - WARNING - Insufficient data for XLMUSDT on 1d timeframe
+2025-05-15 13:16:23,089 - ERROR - Error analyzing XLMUSDT: name 'asyncio' is not defined
+2025-05-15 13:16:23,089 - INFO - XLMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:16:29,582 - WARNING - Insufficient data for HBARUSDT on 1d timeframe
+2025-05-15 13:16:30,273 - ERROR - Error analyzing HBARUSDT: name 'asyncio' is not defined
+2025-05-15 13:16:30,273 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:16:35,445 - WARNING - Insufficient data for DOTUSDT on 1d timeframe
+2025-05-15 13:16:36,125 - ERROR - Error analyzing DOTUSDT: name 'asyncio' is not defined
+2025-05-15 13:16:36,125 - INFO - DOTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:16:42,587 - WARNING - Insufficient data for LTCUSDT on 1d timeframe
+2025-05-15 13:16:43,279 - ERROR - Error analyzing LTCUSDT: name 'asyncio' is not defined
+2025-05-15 13:16:43,279 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:16:47,281 - WARNING - Insufficient data for BCHUSDT on 1d timeframe
+2025-05-15 13:16:47,516 - ERROR - Error analyzing BCHUSDT: name 'asyncio' is not defined
+2025-05-15 13:16:47,516 - INFO - BCHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:16:53,366 - WARNING - Insufficient data for PEPEUSDT on 1d timeframe
+2025-05-15 13:16:53,600 - ERROR - Error analyzing PEPEUSDT: name 'asyncio' is not defined
+2025-05-15 13:16:53,601 - INFO - PEPEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:16:53,601 - INFO - Trading cycle completed in 130.32 seconds
+2025-05-15 13:17:23,607 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 13:17:23,608 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 13:17:58,677 - INFO - Selected optimal assets: EOSUSDT, OMUSDT, RENDERUSDT, ETHUSDT, XRPUSDT... (15 total)
+2025-05-15 13:17:58,677 - INFO -   EOSUSDT: score 4.85
+2025-05-15 13:17:58,677 - INFO -   OMUSDT: score 4.60
+2025-05-15 13:17:58,678 - INFO -   RENDERUSDT: score 4.60
+2025-05-15 13:17:58,678 - INFO -   ETHUSDT: score 3.35
+2025-05-15 13:17:58,678 - INFO -   XRPUSDT: score 3.35
+2025-05-15 13:18:05,599 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 13:18:05,834 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 13:18:05,834 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:18:11,201 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 13:18:11,432 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 13:18:11,432 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:18:16,554 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 13:18:17,239 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 13:18:17,239 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:18:22,355 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:18:22,589 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 13:18:22,589 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:18:28,644 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 13:18:29,337 - ERROR - Error analyzing XRPUSDT: name 'asyncio' is not defined
+2025-05-15 13:18:29,337 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:18:35,146 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 13:18:35,380 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 13:18:35,380 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:18:41,193 - WARNING - Insufficient data for DOGEUSDT on 1d timeframe
+2025-05-15 13:18:41,428 - ERROR - Error analyzing DOGEUSDT: name 'asyncio' is not defined
+2025-05-15 13:18:41,428 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:18:46,421 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 13:18:47,109 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 13:18:47,109 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:18:51,793 - WARNING - Insufficient data for AVAXUSDT on 1d timeframe
+2025-05-15 13:18:52,472 - ERROR - Error analyzing AVAXUSDT: name 'asyncio' is not defined
+2025-05-15 13:18:52,472 - INFO - AVAXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:18:58,540 - WARNING - Insufficient data for XLMUSDT on 1d timeframe
+2025-05-15 13:18:58,779 - ERROR - Error analyzing XLMUSDT: name 'asyncio' is not defined
+2025-05-15 13:18:58,779 - INFO - XLMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:19:04,183 - WARNING - Insufficient data for HBARUSDT on 1d timeframe
+2025-05-15 13:19:04,421 - ERROR - Error analyzing HBARUSDT: name 'asyncio' is not defined
+2025-05-15 13:19:04,421 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:19:10,282 - WARNING - Insufficient data for DOTUSDT on 1d timeframe
+2025-05-15 13:19:10,523 - ERROR - Error analyzing DOTUSDT: name 'asyncio' is not defined
+2025-05-15 13:19:10,523 - INFO - DOTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:19:15,646 - WARNING - Insufficient data for LTCUSDT on 1d timeframe
+2025-05-15 13:19:16,333 - ERROR - Error analyzing LTCUSDT: name 'asyncio' is not defined
+2025-05-15 13:19:16,333 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:19:22,176 - WARNING - Insufficient data for BCHUSDT on 1d timeframe
+2025-05-15 13:19:22,412 - ERROR - Error analyzing BCHUSDT: name 'asyncio' is not defined
+2025-05-15 13:19:22,413 - INFO - BCHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:19:27,556 - WARNING - Insufficient data for PEPEUSDT on 1d timeframe
+2025-05-15 13:19:28,252 - ERROR - Error analyzing PEPEUSDT: name 'asyncio' is not defined
+2025-05-15 13:19:28,252 - INFO - PEPEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:19:28,252 - INFO - Trading cycle completed in 124.65 seconds
+2025-05-15 13:19:58,261 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 13:19:58,261 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 13:20:34,551 - INFO - Selected optimal assets: EOSUSDT, OMUSDT, RENDERUSDT, ETHUSDT, XRPUSDT... (15 total)
+2025-05-15 13:20:34,551 - INFO -   EOSUSDT: score 4.85
+2025-05-15 13:20:34,551 - INFO -   OMUSDT: score 4.60
+2025-05-15 13:20:34,551 - INFO -   RENDERUSDT: score 4.60
+2025-05-15 13:20:34,551 - INFO -   ETHUSDT: score 3.35
+2025-05-15 13:20:34,551 - INFO -   XRPUSDT: score 3.35
+2025-05-15 13:20:40,608 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 13:20:41,307 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 13:20:41,308 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:20:46,895 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 13:20:47,596 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 13:20:47,596 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:20:52,738 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 13:20:53,415 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 13:20:53,415 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:20:58,568 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:20:59,266 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 13:20:59,266 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:21:06,263 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 13:21:06,494 - ERROR - Error analyzing XRPUSDT: name 'asyncio' is not defined
+2025-05-15 13:21:06,494 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:21:13,007 - WARNING - Insufficient data for SOLUSDT on 1d timeframe
+2025-05-15 13:21:13,706 - ERROR - Error analyzing SOLUSDT: name 'asyncio' is not defined
+2025-05-15 13:21:13,706 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:21:19,712 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 13:21:20,400 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 13:21:20,400 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:21:25,534 - WARNING - Insufficient data for DOGEUSDT on 1d timeframe
+2025-05-15 13:21:26,227 - ERROR - Error analyzing DOGEUSDT: name 'asyncio' is not defined
+2025-05-15 13:21:26,227 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:21:31,363 - WARNING - Insufficient data for ADAUSDT on 1d timeframe
+2025-05-15 13:21:31,594 - ERROR - Error analyzing ADAUSDT: name 'asyncio' is not defined
+2025-05-15 13:21:31,594 - INFO - ADAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:21:36,940 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 13:21:37,636 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 13:21:37,636 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:21:42,804 - WARNING - Insufficient data for AVAXUSDT on 1d timeframe
+2025-05-15 13:21:43,042 - ERROR - Error analyzing AVAXUSDT: name 'asyncio' is not defined
+2025-05-15 13:21:43,042 - INFO - AVAXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:21:48,205 - WARNING - Insufficient data for XLMUSDT on 1d timeframe
+2025-05-15 13:21:48,890 - ERROR - Error analyzing XLMUSDT: name 'asyncio' is not defined
+2025-05-15 13:21:48,891 - INFO - XLMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:21:55,378 - WARNING - Insufficient data for HBARUSDT on 1d timeframe
+2025-05-15 13:21:55,610 - ERROR - Error analyzing HBARUSDT: name 'asyncio' is not defined
+2025-05-15 13:21:55,610 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:22:00,605 - WARNING - Insufficient data for DOTUSDT on 1d timeframe
+2025-05-15 13:22:00,838 - ERROR - Error analyzing DOTUSDT: name 'asyncio' is not defined
+2025-05-15 13:22:00,838 - INFO - DOTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:22:06,914 - WARNING - Insufficient data for LTCUSDT on 1d timeframe
+2025-05-15 13:22:07,147 - ERROR - Error analyzing LTCUSDT: name 'asyncio' is not defined
+2025-05-15 13:22:07,147 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:22:07,147 - INFO - Trading cycle completed in 128.89 seconds
+2025-05-15 13:22:37,155 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 13:22:37,156 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 13:23:11,994 - INFO - Selected optimal assets: EOSUSDT, OMUSDT, RENDERUSDT, EGLDUSDT, ETHUSDT... (15 total)
+2025-05-15 13:23:11,995 - INFO -   EOSUSDT: score 4.85
+2025-05-15 13:23:11,995 - INFO -   OMUSDT: score 4.60
+2025-05-15 13:23:11,995 - INFO -   RENDERUSDT: score 4.60
+2025-05-15 13:23:11,995 - INFO -   EGLDUSDT: score 3.55
+2025-05-15 13:23:11,995 - INFO -   ETHUSDT: score 3.35
+2025-05-15 13:23:18,965 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 13:23:19,200 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 13:23:19,200 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:23:24,786 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 13:23:25,477 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 13:23:25,478 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:23:31,490 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 13:23:31,723 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 13:23:31,723 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:23:36,187 - WARNING - Insufficient data for EGLDUSDT on 1d timeframe
+2025-05-15 13:23:36,878 - ERROR - Error analyzing EGLDUSDT: name 'asyncio' is not defined
+2025-05-15 13:23:36,878 - INFO - EGLDUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:23:41,108 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:23:41,784 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 13:23:41,785 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:23:47,569 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 13:23:47,802 - ERROR - Error analyzing XRPUSDT: name 'asyncio' is not defined
+2025-05-15 13:23:47,803 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:23:53,388 - WARNING - Insufficient data for SOLUSDT on 1d timeframe
+2025-05-15 13:23:54,067 - ERROR - Error analyzing SOLUSDT: name 'asyncio' is not defined
+2025-05-15 13:23:54,067 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:24:00,103 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 13:24:00,793 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 13:24:00,793 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:24:06,359 - WARNING - Insufficient data for DOGEUSDT on 1d timeframe
+2025-05-15 13:24:06,594 - ERROR - Error analyzing DOGEUSDT: name 'asyncio' is not defined
+2025-05-15 13:24:06,595 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:24:12,382 - WARNING - Insufficient data for ADAUSDT on 1d timeframe
+2025-05-15 13:24:12,619 - ERROR - Error analyzing ADAUSDT: name 'asyncio' is not defined
+2025-05-15 13:24:12,619 - INFO - ADAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:24:18,633 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 13:24:18,872 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 13:24:18,872 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:24:24,212 - WARNING - Insufficient data for AVAXUSDT on 1d timeframe
+2025-05-15 13:24:24,449 - ERROR - Error analyzing AVAXUSDT: name 'asyncio' is not defined
+2025-05-15 13:24:24,449 - INFO - AVAXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:24:29,989 - WARNING - Insufficient data for XLMUSDT on 1d timeframe
+2025-05-15 13:24:30,669 - ERROR - Error analyzing XLMUSDT: name 'asyncio' is not defined
+2025-05-15 13:24:30,669 - INFO - XLMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:24:37,615 - WARNING - Insufficient data for HBARUSDT on 1d timeframe
+2025-05-15 13:24:37,852 - ERROR - Error analyzing HBARUSDT: name 'asyncio' is not defined
+2025-05-15 13:24:37,852 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:24:43,222 - WARNING - Insufficient data for DOTUSDT on 1d timeframe
+2025-05-15 13:24:43,910 - ERROR - Error analyzing DOTUSDT: name 'asyncio' is not defined
+2025-05-15 13:24:43,910 - INFO - DOTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:24:43,910 - INFO - Trading cycle completed in 126.76 seconds
+2025-05-15 13:25:13,922 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 13:25:13,923 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 13:25:49,748 - INFO - Selected optimal assets: EOSUSDT, OMUSDT, RENDERUSDT, EGLDUSDT, ETHUSDT... (15 total)
+2025-05-15 13:25:49,748 - INFO -   EOSUSDT: score 4.85
+2025-05-15 13:25:49,748 - INFO -   OMUSDT: score 4.60
+2025-05-15 13:25:49,748 - INFO -   RENDERUSDT: score 4.60
+2025-05-15 13:25:49,749 - INFO -   EGLDUSDT: score 3.55
+2025-05-15 13:25:49,749 - INFO -   ETHUSDT: score 3.35
+2025-05-15 13:25:55,854 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 13:25:56,088 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 13:25:56,088 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:26:00,987 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 13:26:01,684 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 13:26:01,685 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:26:08,139 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 13:26:08,369 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 13:26:08,369 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:26:15,365 - WARNING - Insufficient data for EGLDUSDT on 1d timeframe
+2025-05-15 13:26:15,600 - ERROR - Error analyzing EGLDUSDT: name 'asyncio' is not defined
+2025-05-15 13:26:15,600 - INFO - EGLDUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:26:20,733 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:26:21,419 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 13:26:21,420 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:26:27,005 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 13:26:27,684 - ERROR - Error analyzing XRPUSDT: name 'asyncio' is not defined
+2025-05-15 13:26:27,684 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:26:35,120 - WARNING - Insufficient data for SOLUSDT on 1d timeframe
+2025-05-15 13:26:35,800 - ERROR - Error analyzing SOLUSDT: name 'asyncio' is not defined
+2025-05-15 13:26:35,800 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:26:40,048 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 13:26:40,285 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 13:26:40,285 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:26:47,671 - WARNING - Insufficient data for DOGEUSDT on 1d timeframe
+2025-05-15 13:26:47,904 - ERROR - Error analyzing DOGEUSDT: name 'asyncio' is not defined
+2025-05-15 13:26:47,904 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:26:54,411 - WARNING - Insufficient data for ADAUSDT on 1d timeframe
+2025-05-15 13:26:54,644 - ERROR - Error analyzing ADAUSDT: name 'asyncio' is not defined
+2025-05-15 13:26:54,644 - INFO - ADAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:27:00,231 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 13:27:00,922 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 13:27:00,923 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:27:06,267 - WARNING - Insufficient data for AVAXUSDT on 1d timeframe
+2025-05-15 13:27:06,497 - ERROR - Error analyzing AVAXUSDT: name 'asyncio' is not defined
+2025-05-15 13:27:06,497 - INFO - AVAXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:27:12,124 - WARNING - Insufficient data for XLMUSDT on 1d timeframe
+2025-05-15 13:27:12,813 - ERROR - Error analyzing XLMUSDT: name 'asyncio' is not defined
+2025-05-15 13:27:12,813 - INFO - XLMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:27:18,200 - WARNING - Insufficient data for HBARUSDT on 1d timeframe
+2025-05-15 13:27:18,907 - ERROR - Error analyzing HBARUSDT: name 'asyncio' is not defined
+2025-05-15 13:27:18,907 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:27:24,024 - WARNING - Insufficient data for DOTUSDT on 1d timeframe
+2025-05-15 13:27:24,279 - ERROR - Error analyzing DOTUSDT: name 'asyncio' is not defined
+2025-05-15 13:27:24,279 - INFO - DOTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:27:24,280 - INFO - Trading cycle completed in 130.36 seconds
+2025-05-15 13:27:54,283 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 13:27:54,283 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 13:28:31,477 - INFO - Selected optimal assets: EOSUSDT, OMUSDT, RENDERUSDT, EGLDUSDT, ETHUSDT... (15 total)
+2025-05-15 13:28:31,477 - INFO -   EOSUSDT: score 4.85
+2025-05-15 13:28:31,478 - INFO -   OMUSDT: score 4.60
+2025-05-15 13:28:31,478 - INFO -   RENDERUSDT: score 4.60
+2025-05-15 13:28:31,478 - INFO -   EGLDUSDT: score 3.55
+2025-05-15 13:28:31,478 - INFO -   ETHUSDT: score 3.35
+2025-05-15 13:28:37,073 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 13:28:37,307 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 13:28:37,307 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:28:42,232 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 13:28:42,469 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 13:28:42,470 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:28:46,722 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 13:28:46,955 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 13:28:46,955 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:28:52,316 - WARNING - Insufficient data for EGLDUSDT on 1d timeframe
+2025-05-15 13:28:53,002 - ERROR - Error analyzing EGLDUSDT: name 'asyncio' is not defined
+2025-05-15 13:28:53,002 - INFO - EGLDUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:28:58,139 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:28:58,829 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 13:28:58,829 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:29:03,758 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 13:29:04,456 - ERROR - Error analyzing XRPUSDT: name 'asyncio' is not defined
+2025-05-15 13:29:04,456 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:29:09,337 - WARNING - Insufficient data for SOLUSDT on 1d timeframe
+2025-05-15 13:29:09,570 - ERROR - Error analyzing SOLUSDT: name 'asyncio' is not defined
+2025-05-15 13:29:09,570 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:29:14,713 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 13:29:14,948 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 13:29:14,948 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:29:20,985 - WARNING - Insufficient data for DOGEUSDT on 1d timeframe
+2025-05-15 13:29:21,681 - ERROR - Error analyzing DOGEUSDT: name 'asyncio' is not defined
+2025-05-15 13:29:21,681 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:29:27,486 - WARNING - Insufficient data for ADAUSDT on 1d timeframe
+2025-05-15 13:29:27,721 - ERROR - Error analyzing ADAUSDT: name 'asyncio' is not defined
+2025-05-15 13:29:27,722 - INFO - ADAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:29:33,568 - WARNING - Insufficient data for TRXUSDT on 1d timeframe
+2025-05-15 13:29:33,802 - ERROR - Error analyzing TRXUSDT: name 'asyncio' is not defined
+2025-05-15 13:29:33,802 - INFO - TRXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:29:39,875 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 13:29:40,559 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 13:29:40,559 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:29:45,458 - WARNING - Insufficient data for AVAXUSDT on 1d timeframe
+2025-05-15 13:29:45,692 - ERROR - Error analyzing AVAXUSDT: name 'asyncio' is not defined
+2025-05-15 13:29:45,692 - INFO - AVAXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:29:50,858 - WARNING - Insufficient data for XLMUSDT on 1d timeframe
+2025-05-15 13:29:51,531 - ERROR - Error analyzing XLMUSDT: name 'asyncio' is not defined
+2025-05-15 13:29:51,532 - INFO - XLMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:29:56,625 - WARNING - Insufficient data for HBARUSDT on 1d timeframe
+2025-05-15 13:29:56,862 - ERROR - Error analyzing HBARUSDT: name 'asyncio' is not defined
+2025-05-15 13:29:56,862 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:29:56,862 - INFO - Trading cycle completed in 122.58 seconds
+2025-05-15 13:30:26,871 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 13:30:26,871 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 13:31:02,631 - INFO - Selected optimal assets: EOSUSDT, OMUSDT, RENDERUSDT, EGLDUSDT, LAYERUSDT... (15 total)
+2025-05-15 13:31:02,631 - INFO -   EOSUSDT: score 4.85
+2025-05-15 13:31:02,631 - INFO -   OMUSDT: score 4.60
+2025-05-15 13:31:02,631 - INFO -   RENDERUSDT: score 4.60
+2025-05-15 13:31:02,632 - INFO -   EGLDUSDT: score 3.55
+2025-05-15 13:31:02,632 - INFO -   LAYERUSDT: score 3.40
+2025-05-15 13:31:08,663 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 13:31:09,366 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 13:31:09,366 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:31:15,189 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 13:31:15,885 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 13:31:15,886 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:31:20,563 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 13:31:21,247 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 13:31:21,247 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:31:26,410 - WARNING - Insufficient data for EGLDUSDT on 1d timeframe
+2025-05-15 13:31:26,642 - ERROR - Error analyzing EGLDUSDT: name 'asyncio' is not defined
+2025-05-15 13:31:26,642 - INFO - EGLDUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:31:32,079 - WARNING - Insufficient data for LAYERUSDT on 1d timeframe
+2025-05-15 13:31:32,320 - ERROR - Error analyzing LAYERUSDT: name 'asyncio' is not defined
+2025-05-15 13:31:32,320 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:31:36,609 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:31:37,295 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 13:31:37,295 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:31:42,676 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 13:31:43,372 - ERROR - Error analyzing XRPUSDT: name 'asyncio' is not defined
+2025-05-15 13:31:43,373 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:31:49,018 - WARNING - Insufficient data for SOLUSDT on 1d timeframe
+2025-05-15 13:31:49,253 - ERROR - Error analyzing SOLUSDT: name 'asyncio' is not defined
+2025-05-15 13:31:49,253 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:31:54,848 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 13:31:55,080 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 13:31:55,080 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:31:59,813 - WARNING - Insufficient data for DOGEUSDT on 1d timeframe
+2025-05-15 13:32:00,050 - ERROR - Error analyzing DOGEUSDT: name 'asyncio' is not defined
+2025-05-15 13:32:00,051 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:32:05,660 - WARNING - Insufficient data for ADAUSDT on 1d timeframe
+2025-05-15 13:32:06,351 - ERROR - Error analyzing ADAUSDT: name 'asyncio' is not defined
+2025-05-15 13:32:06,351 - INFO - ADAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:32:11,716 - WARNING - Insufficient data for TRXUSDT on 1d timeframe
+2025-05-15 13:32:12,415 - ERROR - Error analyzing TRXUSDT: name 'asyncio' is not defined
+2025-05-15 13:32:12,415 - INFO - TRXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:32:17,123 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 13:32:17,358 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 13:32:17,358 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:32:23,414 - WARNING - Insufficient data for AVAXUSDT on 1d timeframe
+2025-05-15 13:32:23,647 - ERROR - Error analyzing AVAXUSDT: name 'asyncio' is not defined
+2025-05-15 13:32:23,647 - INFO - AVAXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:32:29,715 - WARNING - Insufficient data for XLMUSDT on 1d timeframe
+2025-05-15 13:32:30,401 - ERROR - Error analyzing XLMUSDT: name 'asyncio' is not defined
+2025-05-15 13:32:30,401 - INFO - XLMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:32:30,401 - INFO - Trading cycle completed in 123.53 seconds
+2025-05-15 13:32:37,814 - INFO - Updating correlation matrix...
+2025-05-15 13:33:11,200 - INFO - Correlation matrix updated for 42 pairs
+2025-05-15 13:33:17,290 - WARNING - Insufficient data for BTCUSDT on 1d timeframe
+2025-05-15 13:33:21,536 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:33:21,537 - INFO - Market state: Regime=NEUTRAL, Trend=neutral, Volatility=normal, Breadth=0.50
+2025-05-15 13:33:21,538 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 13:33:21,539 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 13:34:00,014 - INFO - Selected optimal assets: EOSUSDT, OMUSDT, RENDERUSDT, ETHUSDT, EGLDUSDT... (15 total)
+2025-05-15 13:34:00,014 - INFO -   EOSUSDT: score 4.85
+2025-05-15 13:34:00,014 - INFO -   OMUSDT: score 4.60
+2025-05-15 13:34:00,015 - INFO -   RENDERUSDT: score 4.60
+2025-05-15 13:34:00,015 - INFO -   ETHUSDT: score 3.60
+2025-05-15 13:34:00,015 - INFO -   EGLDUSDT: score 3.55
+2025-05-15 13:34:04,707 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 13:34:04,943 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 13:34:04,943 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:34:11,435 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 13:34:12,137 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 13:34:12,137 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:34:17,743 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 13:34:18,444 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 13:34:18,444 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:34:24,048 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:34:24,747 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 13:34:24,747 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:34:30,094 - WARNING - Insufficient data for EGLDUSDT on 1d timeframe
+2025-05-15 13:34:30,327 - ERROR - Error analyzing EGLDUSDT: name 'asyncio' is not defined
+2025-05-15 13:34:30,327 - INFO - EGLDUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:34:36,379 - WARNING - Insufficient data for LAYERUSDT on 1d timeframe
+2025-05-15 13:34:37,057 - ERROR - Error analyzing LAYERUSDT: name 'asyncio' is not defined
+2025-05-15 13:34:37,057 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:34:44,048 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 13:34:44,293 - ERROR - Error analyzing XRPUSDT: name 'asyncio' is not defined
+2025-05-15 13:34:44,293 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:34:50,570 - WARNING - Insufficient data for SOLUSDT on 1d timeframe
+2025-05-15 13:34:50,806 - ERROR - Error analyzing SOLUSDT: name 'asyncio' is not defined
+2025-05-15 13:34:50,806 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:34:53,908 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 13:34:54,141 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 13:34:54,141 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:35:00,431 - WARNING - Insufficient data for DOGEUSDT on 1d timeframe
+2025-05-15 13:35:00,664 - ERROR - Error analyzing DOGEUSDT: name 'asyncio' is not defined
+2025-05-15 13:35:00,664 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:35:07,160 - WARNING - Insufficient data for ADAUSDT on 1d timeframe
+2025-05-15 13:35:07,396 - ERROR - Error analyzing ADAUSDT: name 'asyncio' is not defined
+2025-05-15 13:35:07,397 - INFO - ADAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:35:12,961 - WARNING - Insufficient data for TRXUSDT on 1d timeframe
+2025-05-15 13:35:13,661 - ERROR - Error analyzing TRXUSDT: name 'asyncio' is not defined
+2025-05-15 13:35:13,661 - INFO - TRXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:35:18,589 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 13:35:18,824 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 13:35:18,824 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:35:23,302 - WARNING - Insufficient data for AVAXUSDT on 1d timeframe
+2025-05-15 13:35:23,998 - ERROR - Error analyzing AVAXUSDT: name 'asyncio' is not defined
+2025-05-15 13:35:23,998 - INFO - AVAXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:35:29,386 - WARNING - Insufficient data for XLMUSDT on 1d timeframe
+2025-05-15 13:35:29,626 - ERROR - Error analyzing XLMUSDT: name 'asyncio' is not defined
+2025-05-15 13:35:29,626 - INFO - XLMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:35:29,627 - INFO - Trading cycle completed in 128.09 seconds
+2025-05-15 13:35:59,642 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 13:35:59,643 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 13:36:35,882 - INFO - Selected optimal assets: EOSUSDT, OMUSDT, RENDERUSDT, EGLDUSDT, SUIUSDT... (15 total)
+2025-05-15 13:36:35,883 - INFO -   EOSUSDT: score 4.85
+2025-05-15 13:36:35,883 - INFO -   OMUSDT: score 4.60
+2025-05-15 13:36:35,883 - INFO -   RENDERUSDT: score 4.60
+2025-05-15 13:36:35,883 - INFO -   EGLDUSDT: score 3.55
+2025-05-15 13:36:35,883 - INFO -   SUIUSDT: score 3.40
+2025-05-15 13:36:42,367 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 13:36:43,070 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 13:36:43,071 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:36:48,408 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 13:36:49,089 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 13:36:49,089 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:36:55,131 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 13:36:55,365 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 13:36:55,366 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:37:01,436 - WARNING - Insufficient data for EGLDUSDT on 1d timeframe
+2025-05-15 13:37:01,675 - ERROR - Error analyzing EGLDUSDT: name 'asyncio' is not defined
+2025-05-15 13:37:01,675 - INFO - EGLDUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:37:09,021 - WARNING - Insufficient data for SUIUSDT on 1d timeframe
+2025-05-15 13:37:09,254 - ERROR - Error analyzing SUIUSDT: name 'asyncio' is not defined
+2025-05-15 13:37:09,254 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:37:13,916 - WARNING - Insufficient data for LAYERUSDT on 1d timeframe
+2025-05-15 13:37:14,147 - ERROR - Error analyzing LAYERUSDT: name 'asyncio' is not defined
+2025-05-15 13:37:14,147 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:37:18,870 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:37:19,552 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 13:37:19,552 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:37:26,504 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 13:37:26,745 - ERROR - Error analyzing XRPUSDT: name 'asyncio' is not defined
+2025-05-15 13:37:26,745 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:37:31,868 - WARNING - Insufficient data for SOLUSDT on 1d timeframe
+2025-05-15 13:37:32,557 - ERROR - Error analyzing SOLUSDT: name 'asyncio' is not defined
+2025-05-15 13:37:32,557 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:37:38,144 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 13:37:38,383 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 13:37:38,383 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:37:43,966 - WARNING - Insufficient data for DOGEUSDT on 1d timeframe
+2025-05-15 13:37:44,665 - ERROR - Error analyzing DOGEUSDT: name 'asyncio' is not defined
+2025-05-15 13:37:44,665 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:37:50,929 - WARNING - Insufficient data for ADAUSDT on 1d timeframe
+2025-05-15 13:37:51,620 - ERROR - Error analyzing ADAUSDT: name 'asyncio' is not defined
+2025-05-15 13:37:51,621 - INFO - ADAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:37:56,094 - WARNING - Insufficient data for TRXUSDT on 1d timeframe
+2025-05-15 13:37:56,785 - ERROR - Error analyzing TRXUSDT: name 'asyncio' is not defined
+2025-05-15 13:37:56,785 - INFO - TRXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:38:03,530 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 13:38:03,774 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 13:38:03,774 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:38:08,465 - WARNING - Insufficient data for AVAXUSDT on 1d timeframe
+2025-05-15 13:38:09,159 - ERROR - Error analyzing AVAXUSDT: name 'asyncio' is not defined
+2025-05-15 13:38:09,159 - INFO - AVAXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:38:09,160 - INFO - Trading cycle completed in 129.52 seconds
+2025-05-15 13:38:39,171 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 13:38:39,171 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 13:39:14,490 - INFO - Selected optimal assets: EOSUSDT, OMUSDT, RENDERUSDT, EGLDUSDT, SUIUSDT... (15 total)
+2025-05-15 13:39:14,491 - INFO -   EOSUSDT: score 4.85
+2025-05-15 13:39:14,491 - INFO -   OMUSDT: score 4.60
+2025-05-15 13:39:14,491 - INFO -   RENDERUSDT: score 4.60
+2025-05-15 13:39:14,491 - INFO -   EGLDUSDT: score 3.55
+2025-05-15 13:39:14,491 - INFO -   SUIUSDT: score 3.40
+2025-05-15 13:39:20,755 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 13:39:20,989 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 13:39:20,990 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:39:27,264 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 13:39:27,954 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 13:39:27,954 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:39:33,106 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 13:39:33,342 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 13:39:33,342 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:39:38,228 - WARNING - Insufficient data for EGLDUSDT on 1d timeframe
+2025-05-15 13:39:38,922 - ERROR - Error analyzing EGLDUSDT: name 'asyncio' is not defined
+2025-05-15 13:39:38,922 - INFO - EGLDUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:39:44,056 - WARNING - Insufficient data for SUIUSDT on 1d timeframe
+2025-05-15 13:39:44,285 - ERROR - Error analyzing SUIUSDT: name 'asyncio' is not defined
+2025-05-15 13:39:44,285 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:39:48,263 - WARNING - Insufficient data for LAYERUSDT on 1d timeframe
+2025-05-15 13:39:48,498 - ERROR - Error analyzing LAYERUSDT: name 'asyncio' is not defined
+2025-05-15 13:39:48,498 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:39:54,066 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:39:54,306 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 13:39:54,306 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:39:59,940 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 13:40:00,175 - ERROR - Error analyzing XRPUSDT: name 'asyncio' is not defined
+2025-05-15 13:40:00,175 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:40:05,276 - WARNING - Insufficient data for SOLUSDT on 1d timeframe
+2025-05-15 13:40:05,508 - ERROR - Error analyzing SOLUSDT: name 'asyncio' is not defined
+2025-05-15 13:40:05,508 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:40:10,882 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 13:40:11,116 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 13:40:11,116 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:40:15,573 - WARNING - Insufficient data for DOGEUSDT on 1d timeframe
+2025-05-15 13:40:16,276 - ERROR - Error analyzing DOGEUSDT: name 'asyncio' is not defined
+2025-05-15 13:40:16,276 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:40:22,744 - WARNING - Insufficient data for ADAUSDT on 1d timeframe
+2025-05-15 13:40:22,977 - ERROR - Error analyzing ADAUSDT: name 'asyncio' is not defined
+2025-05-15 13:40:22,977 - INFO - ADAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:40:28,828 - WARNING - Insufficient data for TRXUSDT on 1d timeframe
+2025-05-15 13:40:29,520 - ERROR - Error analyzing TRXUSDT: name 'asyncio' is not defined
+2025-05-15 13:40:29,520 - INFO - TRXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:40:34,445 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 13:40:34,681 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 13:40:34,681 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:40:40,700 - WARNING - Insufficient data for AVAXUSDT on 1d timeframe
+2025-05-15 13:40:41,388 - ERROR - Error analyzing AVAXUSDT: name 'asyncio' is not defined
+2025-05-15 13:40:41,389 - INFO - AVAXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:40:41,389 - INFO - Trading cycle completed in 122.22 seconds
+2025-05-15 13:41:11,398 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 13:41:11,399 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 13:41:46,364 - INFO - Selected optimal assets: EOSUSDT, OMUSDT, RENDERUSDT, ZECUSDT, EGLDUSDT... (15 total)
+2025-05-15 13:41:46,365 - INFO -   EOSUSDT: score 4.85
+2025-05-15 13:41:46,365 - INFO -   OMUSDT: score 4.60
+2025-05-15 13:41:46,365 - INFO -   RENDERUSDT: score 4.60
+2025-05-15 13:41:46,365 - INFO -   ZECUSDT: score 3.65
+2025-05-15 13:41:46,365 - INFO -   EGLDUSDT: score 3.55
+2025-05-15 13:41:52,879 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 13:41:53,118 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 13:41:53,118 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:41:59,659 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 13:41:59,897 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 13:41:59,897 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:42:05,503 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 13:42:06,185 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 13:42:06,185 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:42:11,771 - WARNING - Insufficient data for ZECUSDT on 1d timeframe
+2025-05-15 13:42:12,002 - ERROR - Error analyzing ZECUSDT: name 'asyncio' is not defined
+2025-05-15 13:42:12,002 - INFO - ZECUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:42:17,151 - WARNING - Insufficient data for EGLDUSDT on 1d timeframe
+2025-05-15 13:42:17,388 - ERROR - Error analyzing EGLDUSDT: name 'asyncio' is not defined
+2025-05-15 13:42:17,388 - INFO - EGLDUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:42:22,353 - WARNING - Insufficient data for SUIUSDT on 1d timeframe
+2025-05-15 13:42:23,041 - ERROR - Error analyzing SUIUSDT: name 'asyncio' is not defined
+2025-05-15 13:42:23,041 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:42:28,383 - WARNING - Insufficient data for LAYERUSDT on 1d timeframe
+2025-05-15 13:42:29,075 - ERROR - Error analyzing LAYERUSDT: name 'asyncio' is not defined
+2025-05-15 13:42:29,075 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:42:34,679 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:42:35,381 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 13:42:35,381 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:42:41,859 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 13:42:42,095 - ERROR - Error analyzing XRPUSDT: name 'asyncio' is not defined
+2025-05-15 13:42:42,096 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:42:48,388 - WARNING - Insufficient data for SOLUSDT on 1d timeframe
+2025-05-15 13:42:49,076 - ERROR - Error analyzing SOLUSDT: name 'asyncio' is not defined
+2025-05-15 13:42:49,077 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:42:56,502 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 13:42:56,739 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 13:42:56,740 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:43:01,411 - WARNING - Insufficient data for DOGEUSDT on 1d timeframe
+2025-05-15 13:43:02,114 - ERROR - Error analyzing DOGEUSDT: name 'asyncio' is not defined
+2025-05-15 13:43:02,115 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:43:05,448 - WARNING - Insufficient data for TRXUSDT on 1d timeframe
+2025-05-15 13:43:05,679 - ERROR - Error analyzing TRXUSDT: name 'asyncio' is not defined
+2025-05-15 13:43:05,680 - INFO - TRXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:43:10,741 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 13:43:10,978 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 13:43:10,978 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:43:15,868 - WARNING - Insufficient data for AVAXUSDT on 1d timeframe
+2025-05-15 13:43:16,109 - ERROR - Error analyzing AVAXUSDT: name 'asyncio' is not defined
+2025-05-15 13:43:16,109 - INFO - AVAXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:43:16,109 - INFO - Trading cycle completed in 124.71 seconds
+2025-05-15 13:43:46,122 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 13:43:46,123 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 13:44:24,160 - INFO - Selected optimal assets: EOSUSDT, OMUSDT, RENDERUSDT, ZECUSDT, EGLDUSDT... (15 total)
+2025-05-15 13:44:24,160 - INFO -   EOSUSDT: score 4.85
+2025-05-15 13:44:24,161 - INFO -   OMUSDT: score 4.60
+2025-05-15 13:44:24,161 - INFO -   RENDERUSDT: score 4.60
+2025-05-15 13:44:24,161 - INFO -   ZECUSDT: score 3.65
+2025-05-15 13:44:24,161 - INFO -   EGLDUSDT: score 3.55
+2025-05-15 13:44:29,753 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 13:44:29,986 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 13:44:29,986 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:44:36,235 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 13:44:36,922 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 13:44:36,922 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:44:42,270 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 13:44:42,508 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 13:44:42,508 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:44:48,110 - WARNING - Insufficient data for ZECUSDT on 1d timeframe
+2025-05-15 13:44:48,801 - ERROR - Error analyzing ZECUSDT: name 'asyncio' is not defined
+2025-05-15 13:44:48,801 - INFO - ZECUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:44:55,268 - WARNING - Insufficient data for EGLDUSDT on 1d timeframe
+2025-05-15 13:44:55,504 - ERROR - Error analyzing EGLDUSDT: name 'asyncio' is not defined
+2025-05-15 13:44:55,504 - INFO - EGLDUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:45:00,202 - WARNING - Insufficient data for SUIUSDT on 1d timeframe
+2025-05-15 13:45:00,881 - ERROR - Error analyzing SUIUSDT: name 'asyncio' is not defined
+2025-05-15 13:45:00,881 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:45:06,958 - WARNING - Insufficient data for LAYERUSDT on 1d timeframe
+2025-05-15 13:45:07,196 - ERROR - Error analyzing LAYERUSDT: name 'asyncio' is not defined
+2025-05-15 13:45:07,196 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:45:11,664 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:45:11,902 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 13:45:11,902 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:45:17,479 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 13:45:17,712 - ERROR - Error analyzing XRPUSDT: name 'asyncio' is not defined
+2025-05-15 13:45:17,713 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:45:23,802 - WARNING - Insufficient data for SOLUSDT on 1d timeframe
+2025-05-15 13:45:24,499 - ERROR - Error analyzing SOLUSDT: name 'asyncio' is not defined
+2025-05-15 13:45:24,499 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:45:30,101 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 13:45:30,801 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 13:45:30,802 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:45:37,839 - WARNING - Insufficient data for DOGEUSDT on 1d timeframe
+2025-05-15 13:45:38,069 - ERROR - Error analyzing DOGEUSDT: name 'asyncio' is not defined
+2025-05-15 13:45:38,070 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:45:44,073 - WARNING - Insufficient data for ADAUSDT on 1d timeframe
+2025-05-15 13:45:44,774 - ERROR - Error analyzing ADAUSDT: name 'asyncio' is not defined
+2025-05-15 13:45:44,774 - INFO - ADAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:45:51,025 - WARNING - Insufficient data for TRXUSDT on 1d timeframe
+2025-05-15 13:45:51,704 - ERROR - Error analyzing TRXUSDT: name 'asyncio' is not defined
+2025-05-15 13:45:51,705 - INFO - TRXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:45:56,851 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 13:45:57,084 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 13:45:57,085 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:45:57,085 - INFO - Trading cycle completed in 130.96 seconds
+2025-05-15 13:46:27,099 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 13:46:27,100 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 13:47:03,780 - INFO - Selected optimal assets: EOSUSDT, OMUSDT, RENDERUSDT, ZECUSDT, EGLDUSDT... (15 total)
+2025-05-15 13:47:03,780 - INFO -   EOSUSDT: score 4.85
+2025-05-15 13:47:03,780 - INFO -   OMUSDT: score 4.60
+2025-05-15 13:47:03,781 - INFO -   RENDERUSDT: score 4.60
+2025-05-15 13:47:03,781 - INFO -   ZECUSDT: score 3.65
+2025-05-15 13:47:03,781 - INFO -   EGLDUSDT: score 3.55
+2025-05-15 13:47:09,868 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 13:47:10,101 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 13:47:10,101 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:47:15,489 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 13:47:15,723 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 13:47:15,723 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:47:21,553 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 13:47:21,789 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 13:47:21,790 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:47:26,023 - WARNING - Insufficient data for ZECUSDT on 1d timeframe
+2025-05-15 13:47:26,260 - ERROR - Error analyzing ZECUSDT: name 'asyncio' is not defined
+2025-05-15 13:47:26,260 - INFO - ZECUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:47:32,103 - WARNING - Insufficient data for EGLDUSDT on 1d timeframe
+2025-05-15 13:47:32,336 - ERROR - Error analyzing EGLDUSDT: name 'asyncio' is not defined
+2025-05-15 13:47:32,336 - INFO - EGLDUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:47:39,296 - WARNING - Insufficient data for SUIUSDT on 1d timeframe
+2025-05-15 13:47:39,531 - ERROR - Error analyzing SUIUSDT: name 'asyncio' is not defined
+2025-05-15 13:47:39,532 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:47:45,154 - WARNING - Insufficient data for LAYERUSDT on 1d timeframe
+2025-05-15 13:47:45,387 - ERROR - Error analyzing LAYERUSDT: name 'asyncio' is not defined
+2025-05-15 13:47:45,388 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:47:50,095 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:47:50,328 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 13:47:50,329 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:47:56,831 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 13:47:57,070 - ERROR - Error analyzing XRPUSDT: name 'asyncio' is not defined
+2025-05-15 13:47:57,070 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:48:03,606 - WARNING - Insufficient data for SOLUSDT on 1d timeframe
+2025-05-15 13:48:03,843 - ERROR - Error analyzing SOLUSDT: name 'asyncio' is not defined
+2025-05-15 13:48:03,843 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:48:11,305 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 13:48:11,993 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 13:48:11,994 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:48:17,318 - WARNING - Insufficient data for DOGEUSDT on 1d timeframe
+2025-05-15 13:48:17,998 - ERROR - Error analyzing DOGEUSDT: name 'asyncio' is not defined
+2025-05-15 13:48:17,998 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:48:23,604 - WARNING - Insufficient data for TRXUSDT on 1d timeframe
+2025-05-15 13:48:23,845 - ERROR - Error analyzing TRXUSDT: name 'asyncio' is not defined
+2025-05-15 13:48:23,846 - INFO - TRXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:48:30,384 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 13:48:30,615 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 13:48:30,615 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:48:35,077 - WARNING - Insufficient data for AVAXUSDT on 1d timeframe
+2025-05-15 13:48:35,782 - ERROR - Error analyzing AVAXUSDT: name 'asyncio' is not defined
+2025-05-15 13:48:35,782 - INFO - AVAXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:48:35,782 - INFO - Trading cycle completed in 128.68 seconds
+2025-05-15 13:49:05,785 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 13:49:05,786 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 13:49:42,013 - INFO - Selected optimal assets: EOSUSDT, OMUSDT, RENDERUSDT, EGLDUSDT, ZECUSDT... (15 total)
+2025-05-15 13:49:42,014 - INFO -   EOSUSDT: score 4.85
+2025-05-15 13:49:42,014 - INFO -   OMUSDT: score 4.60
+2025-05-15 13:49:42,014 - INFO -   RENDERUSDT: score 4.60
+2025-05-15 13:49:42,014 - INFO -   EGLDUSDT: score 3.80
+2025-05-15 13:49:42,015 - INFO -   ZECUSDT: score 3.65
+2025-05-15 13:49:49,440 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 13:49:50,120 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 13:49:50,121 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:49:55,726 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 13:49:55,962 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 13:49:55,962 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:50:02,904 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 13:50:03,593 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 13:50:03,593 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:50:09,179 - WARNING - Insufficient data for EGLDUSDT on 1d timeframe
+2025-05-15 13:50:09,875 - ERROR - Error analyzing EGLDUSDT: name 'asyncio' is not defined
+2025-05-15 13:50:09,875 - INFO - EGLDUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:50:14,336 - WARNING - Insufficient data for ZECUSDT on 1d timeframe
+2025-05-15 13:50:14,570 - ERROR - Error analyzing ZECUSDT: name 'asyncio' is not defined
+2025-05-15 13:50:14,570 - INFO - ZECUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:50:20,628 - WARNING - Insufficient data for SUIUSDT on 1d timeframe
+2025-05-15 13:50:20,868 - ERROR - Error analyzing SUIUSDT: name 'asyncio' is not defined
+2025-05-15 13:50:20,868 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:50:27,174 - WARNING - Insufficient data for LAYERUSDT on 1d timeframe
+2025-05-15 13:50:27,413 - ERROR - Error analyzing LAYERUSDT: name 'asyncio' is not defined
+2025-05-15 13:50:27,413 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:50:34,392 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:50:35,081 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 13:50:35,082 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:50:40,018 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 13:50:40,702 - ERROR - Error analyzing XRPUSDT: name 'asyncio' is not defined
+2025-05-15 13:50:40,702 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:50:47,224 - WARNING - Insufficient data for SOLUSDT on 1d timeframe
+2025-05-15 13:50:47,914 - ERROR - Error analyzing SOLUSDT: name 'asyncio' is not defined
+2025-05-15 13:50:47,914 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:50:52,366 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 13:50:52,602 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 13:50:52,602 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:50:58,662 - WARNING - Insufficient data for DOGEUSDT on 1d timeframe
+2025-05-15 13:50:58,901 - ERROR - Error analyzing DOGEUSDT: name 'asyncio' is not defined
+2025-05-15 13:50:58,901 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:51:04,741 - WARNING - Insufficient data for ADAUSDT on 1d timeframe
+2025-05-15 13:51:05,436 - ERROR - Error analyzing ADAUSDT: name 'asyncio' is not defined
+2025-05-15 13:51:05,437 - INFO - ADAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:51:10,841 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 13:51:11,079 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 13:51:11,079 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:51:16,947 - WARNING - Insufficient data for AVAXUSDT on 1d timeframe
+2025-05-15 13:51:17,184 - ERROR - Error analyzing AVAXUSDT: name 'asyncio' is not defined
+2025-05-15 13:51:17,184 - INFO - AVAXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:51:17,184 - INFO - Trading cycle completed in 131.40 seconds
+2025-05-15 13:51:47,188 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 13:51:47,189 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 13:52:24,351 - INFO - Selected optimal assets: EOSUSDT, OMUSDT, RENDERUSDT, EGLDUSDT, ZECUSDT... (15 total)
+2025-05-15 13:52:24,351 - INFO -   EOSUSDT: score 4.85
+2025-05-15 13:52:24,352 - INFO -   OMUSDT: score 4.60
+2025-05-15 13:52:24,352 - INFO -   RENDERUSDT: score 4.60
+2025-05-15 13:52:24,352 - INFO -   EGLDUSDT: score 3.90
+2025-05-15 13:52:24,353 - INFO -   ZECUSDT: score 3.65
+2025-05-15 13:52:30,835 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 13:52:31,066 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 13:52:31,067 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:52:36,620 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 13:52:37,323 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 13:52:37,323 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:52:42,479 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 13:52:43,170 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 13:52:43,170 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:52:49,389 - WARNING - Insufficient data for EGLDUSDT on 1d timeframe
+2025-05-15 13:52:49,619 - ERROR - Error analyzing EGLDUSDT: name 'asyncio' is not defined
+2025-05-15 13:52:49,619 - INFO - EGLDUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:52:55,665 - WARNING - Insufficient data for ZECUSDT on 1d timeframe
+2025-05-15 13:52:56,351 - ERROR - Error analyzing ZECUSDT: name 'asyncio' is not defined
+2025-05-15 13:52:56,352 - INFO - ZECUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:53:03,328 - WARNING - Insufficient data for SUIUSDT on 1d timeframe
+2025-05-15 13:53:03,561 - ERROR - Error analyzing SUIUSDT: name 'asyncio' is not defined
+2025-05-15 13:53:03,562 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:53:09,850 - WARNING - Insufficient data for LAYERUSDT on 1d timeframe
+2025-05-15 13:53:10,083 - ERROR - Error analyzing LAYERUSDT: name 'asyncio' is not defined
+2025-05-15 13:53:10,083 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:53:16,601 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:53:17,297 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 13:53:17,298 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:53:22,410 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 13:53:23,101 - ERROR - Error analyzing XRPUSDT: name 'asyncio' is not defined
+2025-05-15 13:53:23,101 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:53:28,469 - WARNING - Insufficient data for SOLUSDT on 1d timeframe
+2025-05-15 13:53:28,703 - ERROR - Error analyzing SOLUSDT: name 'asyncio' is not defined
+2025-05-15 13:53:28,704 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:53:34,298 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 13:53:34,531 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 13:53:34,531 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:53:40,339 - WARNING - Insufficient data for DOGEUSDT on 1d timeframe
+2025-05-15 13:53:41,036 - ERROR - Error analyzing DOGEUSDT: name 'asyncio' is not defined
+2025-05-15 13:53:41,037 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:53:48,028 - WARNING - Insufficient data for ADAUSDT on 1d timeframe
+2025-05-15 13:53:48,262 - ERROR - Error analyzing ADAUSDT: name 'asyncio' is not defined
+2025-05-15 13:53:48,262 - INFO - ADAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:53:54,061 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 13:53:54,293 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 13:53:54,294 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:53:58,750 - WARNING - Insufficient data for AVAXUSDT on 1d timeframe
+2025-05-15 13:53:59,453 - ERROR - Error analyzing AVAXUSDT: name 'asyncio' is not defined
+2025-05-15 13:53:59,454 - INFO - AVAXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:53:59,454 - INFO - Trading cycle completed in 132.27 seconds
+2025-05-15 13:54:29,469 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 13:54:29,470 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 13:55:03,822 - INFO - Selected optimal assets: EOSUSDT, OMUSDT, RENDERUSDT, EGLDUSDT, ZECUSDT... (15 total)
+2025-05-15 13:55:03,823 - INFO -   EOSUSDT: score 4.85
+2025-05-15 13:55:03,823 - INFO -   OMUSDT: score 4.60
+2025-05-15 13:55:03,823 - INFO -   RENDERUSDT: score 4.60
+2025-05-15 13:55:03,823 - INFO -   EGLDUSDT: score 3.90
+2025-05-15 13:55:03,824 - INFO -   ZECUSDT: score 3.65
+2025-05-15 13:55:10,384 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 13:55:10,623 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 13:55:10,623 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:55:15,087 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 13:55:15,786 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 13:55:15,786 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:55:21,854 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 13:55:22,565 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 13:55:22,565 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:55:29,535 - WARNING - Insufficient data for EGLDUSDT on 1d timeframe
+2025-05-15 13:55:29,775 - ERROR - Error analyzing EGLDUSDT: name 'asyncio' is not defined
+2025-05-15 13:55:29,775 - INFO - EGLDUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:55:34,244 - WARNING - Insufficient data for ZECUSDT on 1d timeframe
+2025-05-15 13:55:34,484 - ERROR - Error analyzing ZECUSDT: name 'asyncio' is not defined
+2025-05-15 13:55:34,485 - INFO - ZECUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:55:39,147 - WARNING - Insufficient data for SUIUSDT on 1d timeframe
+2025-05-15 13:55:39,383 - ERROR - Error analyzing SUIUSDT: name 'asyncio' is not defined
+2025-05-15 13:55:39,383 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:55:46,377 - WARNING - Insufficient data for POLUSDT on 1d timeframe
+2025-05-15 13:55:46,612 - ERROR - Error analyzing POLUSDT: name 'asyncio' is not defined
+2025-05-15 13:55:46,612 - INFO - POLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:55:53,155 - WARNING - Insufficient data for LAYERUSDT on 1d timeframe
+2025-05-15 13:55:53,393 - ERROR - Error analyzing LAYERUSDT: name 'asyncio' is not defined
+2025-05-15 13:55:53,394 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:55:59,635 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:55:59,866 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 13:55:59,867 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:56:05,421 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 13:56:06,121 - ERROR - Error analyzing XRPUSDT: name 'asyncio' is not defined
+2025-05-15 13:56:06,121 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:56:11,750 - WARNING - Insufficient data for SOLUSDT on 1d timeframe
+2025-05-15 13:56:11,983 - ERROR - Error analyzing SOLUSDT: name 'asyncio' is not defined
+2025-05-15 13:56:11,984 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:56:18,261 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 13:56:18,497 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 13:56:18,497 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:56:22,009 - WARNING - Insufficient data for DOGEUSDT on 1d timeframe
+2025-05-15 13:56:22,709 - ERROR - Error analyzing DOGEUSDT: name 'asyncio' is not defined
+2025-05-15 13:56:22,709 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:56:28,357 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 13:56:29,038 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 13:56:29,039 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:56:36,025 - WARNING - Insufficient data for AVAXUSDT on 1d timeframe
+2025-05-15 13:56:36,264 - ERROR - Error analyzing AVAXUSDT: name 'asyncio' is not defined
+2025-05-15 13:56:36,264 - INFO - AVAXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:56:36,264 - INFO - Trading cycle completed in 126.80 seconds
+2025-05-15 13:57:06,267 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 13:57:06,268 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 13:57:06,268 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-05-15 13:57:07,224 - INFO - Found trending pairs: BABYUSDT, KMNOUSDT, SIGNUSDT, PIXELUSDT, JUPUSDT...
+2025-05-15 13:57:40,462 - INFO - Selected optimal assets: OMUSDT, RENDERUSDT, EGLDUSDT, HBARUSDT, ZECUSDT... (15 total)
+2025-05-15 13:57:40,463 - INFO -   OMUSDT: score 5.20
+2025-05-15 13:57:40,463 - INFO -   RENDERUSDT: score 4.60
+2025-05-15 13:57:40,463 - INFO -   EGLDUSDT: score 3.90
+2025-05-15 13:57:40,463 - INFO -   HBARUSDT: score 3.65
+2025-05-15 13:57:40,463 - INFO -   ZECUSDT: score 3.65
+2025-05-15 13:57:46,503 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 13:57:46,742 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 13:57:46,742 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:57:53,238 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 13:57:53,474 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 13:57:53,474 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:57:59,584 - WARNING - Insufficient data for EGLDUSDT on 1d timeframe
+2025-05-15 13:57:59,824 - ERROR - Error analyzing EGLDUSDT: name 'asyncio' is not defined
+2025-05-15 13:57:59,824 - INFO - EGLDUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:58:05,946 - WARNING - Insufficient data for HBARUSDT on 1d timeframe
+2025-05-15 13:58:06,650 - ERROR - Error analyzing HBARUSDT: name 'asyncio' is not defined
+2025-05-15 13:58:06,650 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:58:12,712 - WARNING - Insufficient data for ZECUSDT on 1d timeframe
+2025-05-15 13:58:13,406 - ERROR - Error analyzing ZECUSDT: name 'asyncio' is not defined
+2025-05-15 13:58:13,406 - INFO - ZECUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:58:19,477 - WARNING - Insufficient data for SUIUSDT on 1d timeframe
+2025-05-15 13:58:20,167 - ERROR - Error analyzing SUIUSDT: name 'asyncio' is not defined
+2025-05-15 13:58:20,167 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:58:24,841 - WARNING - Insufficient data for POLUSDT on 1d timeframe
+2025-05-15 13:58:25,074 - ERROR - Error analyzing POLUSDT: name 'asyncio' is not defined
+2025-05-15 13:58:25,075 - INFO - POLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:58:31,571 - WARNING - Insufficient data for LAYERUSDT on 1d timeframe
+2025-05-15 13:58:32,266 - ERROR - Error analyzing LAYERUSDT: name 'asyncio' is not defined
+2025-05-15 13:58:32,266 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:58:37,828 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 13:58:38,517 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 13:58:38,517 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:58:45,269 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 13:58:45,506 - ERROR - Error analyzing XRPUSDT: name 'asyncio' is not defined
+2025-05-15 13:58:45,506 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:58:50,904 - WARNING - Insufficient data for SOLUSDT on 1d timeframe
+2025-05-15 13:58:51,141 - ERROR - Error analyzing SOLUSDT: name 'asyncio' is not defined
+2025-05-15 13:58:51,141 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:58:57,218 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 13:58:57,907 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 13:58:57,907 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:59:04,430 - WARNING - Insufficient data for DOGEUSDT on 1d timeframe
+2025-05-15 13:59:04,666 - ERROR - Error analyzing DOGEUSDT: name 'asyncio' is not defined
+2025-05-15 13:59:04,666 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:59:10,268 - WARNING - Insufficient data for ADAUSDT on 1d timeframe
+2025-05-15 13:59:10,971 - ERROR - Error analyzing ADAUSDT: name 'asyncio' is not defined
+2025-05-15 13:59:10,971 - INFO - ADAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:59:16,380 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 13:59:17,065 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 13:59:17,065 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 13:59:17,066 - INFO - Trading cycle completed in 130.80 seconds
+2025-05-15 13:59:47,068 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 13:59:47,068 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 14:00:25,611 - INFO - Selected optimal assets: OMUSDT, RENDERUSDT, EGLDUSDT, HBARUSDT, ZECUSDT... (15 total)
+2025-05-15 14:00:25,611 - INFO -   OMUSDT: score 5.20
+2025-05-15 14:00:25,612 - INFO -   RENDERUSDT: score 4.60
+2025-05-15 14:00:25,612 - INFO -   EGLDUSDT: score 3.90
+2025-05-15 14:00:25,612 - INFO -   HBARUSDT: score 3.65
+2025-05-15 14:00:25,612 - INFO -   ZECUSDT: score 3.65
+2025-05-15 14:00:33,051 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 14:00:33,751 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 14:00:33,752 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:00:40,281 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 14:00:40,977 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 14:00:40,977 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:00:46,549 - WARNING - Insufficient data for EGLDUSDT on 1d timeframe
+2025-05-15 14:00:47,238 - ERROR - Error analyzing EGLDUSDT: name 'asyncio' is not defined
+2025-05-15 14:00:47,238 - INFO - EGLDUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:00:52,183 - WARNING - Insufficient data for HBARUSDT on 1d timeframe
+2025-05-15 14:00:52,420 - ERROR - Error analyzing HBARUSDT: name 'asyncio' is not defined
+2025-05-15 14:00:52,421 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:00:57,356 - WARNING - Insufficient data for ZECUSDT on 1d timeframe
+2025-05-15 14:00:58,054 - ERROR - Error analyzing ZECUSDT: name 'asyncio' is not defined
+2025-05-15 14:00:58,055 - INFO - ZECUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:01:03,000 - WARNING - Insufficient data for SUIUSDT on 1d timeframe
+2025-05-15 14:01:03,699 - ERROR - Error analyzing SUIUSDT: name 'asyncio' is not defined
+2025-05-15 14:01:03,699 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:01:09,530 - WARNING - Insufficient data for POLUSDT on 1d timeframe
+2025-05-15 14:01:09,761 - ERROR - Error analyzing POLUSDT: name 'asyncio' is not defined
+2025-05-15 14:01:09,762 - INFO - POLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:01:15,383 - WARNING - Insufficient data for LAYERUSDT on 1d timeframe
+2025-05-15 14:01:16,073 - ERROR - Error analyzing LAYERUSDT: name 'asyncio' is not defined
+2025-05-15 14:01:16,073 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:01:22,777 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 14:01:23,013 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 14:01:23,013 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:01:27,478 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 14:01:27,715 - ERROR - Error analyzing XRPUSDT: name 'asyncio' is not defined
+2025-05-15 14:01:27,715 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:01:32,877 - WARNING - Insufficient data for SOLUSDT on 1d timeframe
+2025-05-15 14:01:33,562 - ERROR - Error analyzing SOLUSDT: name 'asyncio' is not defined
+2025-05-15 14:01:33,563 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:01:39,120 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 14:01:39,353 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 14:01:39,354 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:01:43,819 - WARNING - Insufficient data for DOGEUSDT on 1d timeframe
+2025-05-15 14:01:44,057 - ERROR - Error analyzing DOGEUSDT: name 'asyncio' is not defined
+2025-05-15 14:01:44,057 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:01:49,891 - WARNING - Insufficient data for ADAUSDT on 1d timeframe
+2025-05-15 14:01:50,128 - ERROR - Error analyzing ADAUSDT: name 'asyncio' is not defined
+2025-05-15 14:01:50,128 - INFO - ADAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:01:55,057 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 14:01:55,292 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 14:01:55,292 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:01:55,292 - INFO - Trading cycle completed in 128.23 seconds
+2025-05-15 14:02:25,306 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 14:02:25,306 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 14:03:01,139 - INFO - Selected optimal assets: OMUSDT, RENDERUSDT, BONKUSDT, PEPEUSDT, EGLDUSDT... (15 total)
+2025-05-15 14:03:01,139 - INFO -   OMUSDT: score 5.35
+2025-05-15 14:03:01,140 - INFO -   RENDERUSDT: score 4.75
+2025-05-15 14:03:01,140 - INFO -   BONKUSDT: score 3.85
+2025-05-15 14:03:01,140 - INFO -   PEPEUSDT: score 3.75
+2025-05-15 14:03:01,140 - INFO -   EGLDUSDT: score 3.60
+2025-05-15 14:03:06,743 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 14:03:06,976 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 14:03:06,976 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:03:13,935 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 14:03:14,619 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 14:03:14,619 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:03:21,616 - WARNING - Insufficient data for BONKUSDT on 1d timeframe
+2025-05-15 14:03:21,851 - ERROR - Error analyzing BONKUSDT: name 'asyncio' is not defined
+2025-05-15 14:03:21,852 - INFO - BONKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:03:28,131 - WARNING - Insufficient data for PEPEUSDT on 1d timeframe
+2025-05-15 14:03:28,363 - ERROR - Error analyzing PEPEUSDT: name 'asyncio' is not defined
+2025-05-15 14:03:28,364 - INFO - PEPEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:03:33,942 - WARNING - Insufficient data for EGLDUSDT on 1d timeframe
+2025-05-15 14:03:34,181 - ERROR - Error analyzing EGLDUSDT: name 'asyncio' is not defined
+2025-05-15 14:03:34,182 - INFO - EGLDUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:03:39,562 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 14:03:40,260 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 14:03:40,261 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:03:46,103 - WARNING - Insufficient data for LTCUSDT on 1d timeframe
+2025-05-15 14:03:46,341 - ERROR - Error analyzing LTCUSDT: name 'asyncio' is not defined
+2025-05-15 14:03:46,341 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:03:52,877 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 14:03:53,563 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 14:03:53,563 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:04:00,135 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 14:04:00,375 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 14:04:00,375 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:04:05,305 - WARNING - Insufficient data for SOLUSDT on 1d timeframe
+2025-05-15 14:04:06,007 - ERROR - Error analyzing SOLUSDT: name 'asyncio' is not defined
+2025-05-15 14:04:06,008 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:04:10,287 - WARNING - Insufficient data for DOGEUSDT on 1d timeframe
+2025-05-15 14:04:10,526 - ERROR - Error analyzing DOGEUSDT: name 'asyncio' is not defined
+2025-05-15 14:04:10,526 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:04:16,620 - WARNING - Insufficient data for ADAUSDT on 1d timeframe
+2025-05-15 14:04:17,307 - ERROR - Error analyzing ADAUSDT: name 'asyncio' is not defined
+2025-05-15 14:04:17,307 - INFO - ADAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:04:22,471 - WARNING - Insufficient data for TRXUSDT on 1d timeframe
+2025-05-15 14:04:23,172 - ERROR - Error analyzing TRXUSDT: name 'asyncio' is not defined
+2025-05-15 14:04:23,172 - INFO - TRXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:04:29,675 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 14:04:29,908 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 14:04:29,908 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:04:34,571 - WARNING - Insufficient data for SUIUSDT on 1d timeframe
+2025-05-15 14:04:34,802 - ERROR - Error analyzing SUIUSDT: name 'asyncio' is not defined
+2025-05-15 14:04:34,802 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:04:34,802 - INFO - Trading cycle completed in 129.50 seconds
+2025-05-15 14:04:42,707 - INFO - Updating correlation matrix...
+2025-05-15 14:04:42,720 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 10000.0,
+    "start": 10000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0.0,
+    "avg_daily_return_pct": NaN,
+    "avg_weekly_return_pct": NaN
+  },
+  "trades": {
+    "total": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "profit_factor": 0,
+    "avg_profit": 0,
+    "avg_loss": 0,
+    "expected_value": 0,
+    "recent_win_rate_pct": 0
+  },
+  "pairs": {
+    "best_pair": "None",
+    "best_pair_profit": 0,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-05-15 14:04:42"
+}
+2025-05-15 14:05:19,632 - INFO - Correlation matrix updated for 42 pairs
+2025-05-15 14:05:26,220 - WARNING - Insufficient data for BTCUSDT on 1d timeframe
+2025-05-15 14:05:31,378 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 14:05:31,378 - INFO - Market state: Regime=NEUTRAL, Trend=neutral, Volatility=normal, Breadth=0.50
+2025-05-15 14:05:31,379 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 14:05:31,379 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 14:06:09,383 - INFO - Selected optimal assets: OMUSDT, RENDERUSDT, BONKUSDT, PEPEUSDT, EGLDUSDT... (15 total)
+2025-05-15 14:06:09,383 - INFO -   OMUSDT: score 5.35
+2025-05-15 14:06:09,383 - INFO -   RENDERUSDT: score 4.75
+2025-05-15 14:06:09,383 - INFO -   BONKUSDT: score 4.05
+2025-05-15 14:06:09,384 - INFO -   PEPEUSDT: score 3.75
+2025-05-15 14:06:09,384 - INFO -   EGLDUSDT: score 3.60
+2025-05-15 14:06:15,413 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 14:06:15,643 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 14:06:15,644 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:06:20,560 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 14:06:20,791 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 14:06:20,791 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:06:26,855 - WARNING - Insufficient data for BONKUSDT on 1d timeframe
+2025-05-15 14:06:27,542 - ERROR - Error analyzing BONKUSDT: name 'asyncio' is not defined
+2025-05-15 14:06:27,542 - INFO - BONKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:06:31,784 - WARNING - Insufficient data for PEPEUSDT on 1d timeframe
+2025-05-15 14:06:32,020 - ERROR - Error analyzing PEPEUSDT: name 'asyncio' is not defined
+2025-05-15 14:06:32,020 - INFO - PEPEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:06:36,497 - WARNING - Insufficient data for EGLDUSDT on 1d timeframe
+2025-05-15 14:06:37,198 - ERROR - Error analyzing EGLDUSDT: name 'asyncio' is not defined
+2025-05-15 14:06:37,198 - INFO - EGLDUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:06:42,793 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 14:06:43,032 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 14:06:43,032 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:06:50,021 - WARNING - Insufficient data for LTCUSDT on 1d timeframe
+2025-05-15 14:06:50,252 - ERROR - Error analyzing LTCUSDT: name 'asyncio' is not defined
+2025-05-15 14:06:50,252 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:06:56,090 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 14:06:56,326 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 14:06:56,326 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:07:02,406 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 14:07:03,091 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 14:07:03,091 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:07:09,160 - WARNING - Insufficient data for SOLUSDT on 1d timeframe
+2025-05-15 14:07:09,398 - ERROR - Error analyzing SOLUSDT: name 'asyncio' is not defined
+2025-05-15 14:07:09,399 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:07:14,787 - WARNING - Insufficient data for ADAUSDT on 1d timeframe
+2025-05-15 14:07:15,027 - ERROR - Error analyzing ADAUSDT: name 'asyncio' is not defined
+2025-05-15 14:07:15,027 - INFO - ADAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:07:20,429 - WARNING - Insufficient data for TRXUSDT on 1d timeframe
+2025-05-15 14:07:21,117 - ERROR - Error analyzing TRXUSDT: name 'asyncio' is not defined
+2025-05-15 14:07:21,117 - INFO - TRXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:07:26,740 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 14:07:26,972 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 14:07:26,973 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:07:33,289 - WARNING - Insufficient data for SUIUSDT on 1d timeframe
+2025-05-15 14:07:33,525 - ERROR - Error analyzing SUIUSDT: name 'asyncio' is not defined
+2025-05-15 14:07:33,526 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:07:38,934 - WARNING - Insufficient data for UNIUSDT on 1d timeframe
+2025-05-15 14:07:39,168 - ERROR - Error analyzing UNIUSDT: name 'asyncio' is not defined
+2025-05-15 14:07:39,169 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:07:39,169 - INFO - Trading cycle completed in 127.79 seconds
+2025-05-15 14:08:09,181 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 14:08:09,181 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 14:08:45,495 - INFO - Selected optimal assets: OMUSDT, RENDERUSDT, BONKUSDT, PEPEUSDT, EGLDUSDT... (15 total)
+2025-05-15 14:08:45,495 - INFO -   OMUSDT: score 5.35
+2025-05-15 14:08:45,496 - INFO -   RENDERUSDT: score 4.75
+2025-05-15 14:08:45,496 - INFO -   BONKUSDT: score 4.05
+2025-05-15 14:08:45,496 - INFO -   PEPEUSDT: score 3.75
+2025-05-15 14:08:45,496 - INFO -   EGLDUSDT: score 3.60
+2025-05-15 14:08:50,230 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 14:08:50,467 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 14:08:50,467 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:08:56,107 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
+2025-05-15 14:08:56,345 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
+2025-05-15 14:08:56,346 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:09:01,755 - WARNING - Insufficient data for BONKUSDT on 1d timeframe
+2025-05-15 14:09:01,990 - ERROR - Error analyzing BONKUSDT: name 'asyncio' is not defined
+2025-05-15 14:09:01,991 - INFO - BONKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:09:09,220 - WARNING - Insufficient data for PEPEUSDT on 1d timeframe
+2025-05-15 14:09:09,456 - ERROR - Error analyzing PEPEUSDT: name 'asyncio' is not defined
+2025-05-15 14:09:09,457 - INFO - PEPEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:09:14,368 - WARNING - Insufficient data for EGLDUSDT on 1d timeframe
+2025-05-15 14:09:14,606 - ERROR - Error analyzing EGLDUSDT: name 'asyncio' is not defined
+2025-05-15 14:09:14,606 - INFO - EGLDUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:09:20,599 - WARNING - Insufficient data for LTCUSDT on 1d timeframe
+2025-05-15 14:09:20,831 - ERROR - Error analyzing LTCUSDT: name 'asyncio' is not defined
+2025-05-15 14:09:20,832 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:09:26,400 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 14:09:26,634 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 14:09:26,635 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:09:33,823 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 14:09:34,058 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 14:09:34,058 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:09:38,080 - WARNING - Insufficient data for TRXUSDT on 1d timeframe
+2025-05-15 14:09:38,776 - ERROR - Error analyzing TRXUSDT: name 'asyncio' is not defined
+2025-05-15 14:09:38,776 - INFO - TRXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:09:44,363 - WARNING - Insufficient data for SUIUSDT on 1d timeframe
+2025-05-15 14:09:45,060 - ERROR - Error analyzing SUIUSDT: name 'asyncio' is not defined
+2025-05-15 14:09:45,060 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:09:49,732 - WARNING - Insufficient data for SHIBUSDT on 1d timeframe
+2025-05-15 14:09:50,430 - ERROR - Error analyzing SHIBUSDT: name 'asyncio' is not defined
+2025-05-15 14:09:50,430 - INFO - SHIBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 14:09:55,090 - INFO - Bot stopped by user
+2025-05-15 14:09:55,288 - ERROR - Task was destroyed but it is pending!
+task: <Task cancelling name='Task-1' coro=<HybridTradingBot.run() done, defined at C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py:172> wait_for=<_GatheringFuture finished exception=CancelledError()> cb=[gather.<locals>._done_callback() at C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\tasks.py:820]>
+2025-05-15 14:09:55,289 - ERROR - _GatheringFuture exception was never retrieved
+future: <_GatheringFuture finished exception=CancelledError()>
+Traceback (most recent call last):
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\main.py", line 30, in <module>
+    asyncio.run(bot.run())
+    ~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 193, in run
+    with Runner(debug=debug, loop_factory=loop_factory) as runner:
+         ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 62, in __exit__
+    self.close()
+    ~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 70, in close
+    _cancel_all_tasks(loop)
+    ~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 205, in _cancel_all_tasks
+    loop.run_until_complete(tasks.gather(*to_cancel, return_exceptions=True))
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 708, in run_until_complete
+    self.run_forever()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 679, in run_forever
+    self._run_once()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2027, in _run_once
+    handle._run()
+    ~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py", line 379, in trading_task
+    await asyncio.gather(*analysis_tasks)
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 194, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 708, in run_until_complete
+    self.run_forever()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 679, in run_forever
+    self._run_once()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2027, in _run_once
+    handle._run()
+    ~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py", line 479, in analyze_and_trade
+    mtf_analysis = await self.market_analysis.get_multi_timeframe_analysis(pair)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\market_analysis.py", line 41, in get_multi_timeframe_analysis
+    klines = await self.get_klines(pair, now - lookback_ms, interval)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\market_analysis.py", line 214, in get_klines
+    klines = self.binance_client.get_historical_klines(
+        pair, interval, start_time, limit=1000
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 830, in get_historical_klines
+    return self._historical_klines(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        symbol,
+        ^^^^^^^
+    ...<4 lines>...
+        klines_type=klines_type,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 887, in _historical_klines
+    first_valid_ts = self._get_earliest_valid_timestamp(
+        symbol, interval, klines_type
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 793, in _get_earliest_valid_timestamp
+    kline = self._klines(
+        klines_type=klines_type,
+    ...<4 lines>...
+        endTime=int(time.time() * 1000),
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 759, in _klines
+    return self.get_klines(**params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 742, in get_klines
+    return self._get("klines", data=params, version=self.PRIVATE_API_VERSION)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 180, in _get
+    return self._request_api("get", path, signed, version, **kwargs)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 117, in _request_api
+    return self._request(method, uri, signed, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 88, in _request
+    self.response = getattr(self.session, method)(uri, headers=headers, data=data, **kwargs)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connection.py", line 516, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 1428, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 331, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 292, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\socket.py", line 719, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 157, in _on_sigint
+    raise KeyboardInterrupt()
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py", line 319, in market_monitor_task
+    await asyncio.sleep(1800)
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\tasks.py", line 718, in sleep
+    return await future
+           ^^^^^^^^^^^^
+asyncio.exceptions.CancelledError
+2025-05-15 14:09:55,327 - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-3' coro=<HybridTradingBot.trading_task() done, defined at C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py:327> exception=KeyboardInterrupt()>
+Traceback (most recent call last):
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\main.py", line 30, in <module>
+    asyncio.run(bot.run())
+    ~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 193, in run
+    with Runner(debug=debug, loop_factory=loop_factory) as runner:
+         ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 62, in __exit__
+    self.close()
+    ~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 70, in close
+    _cancel_all_tasks(loop)
+    ~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 205, in _cancel_all_tasks
+    loop.run_until_complete(tasks.gather(*to_cancel, return_exceptions=True))
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 708, in run_until_complete
+    self.run_forever()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 679, in run_forever
+    self._run_once()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2027, in _run_once
+    handle._run()
+    ~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py", line 379, in trading_task
+    await asyncio.gather(*analysis_tasks)
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 194, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 708, in run_until_complete
+    self.run_forever()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 679, in run_forever
+    self._run_once()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2027, in _run_once
+    handle._run()
+    ~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py", line 479, in analyze_and_trade
+    mtf_analysis = await self.market_analysis.get_multi_timeframe_analysis(pair)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\market_analysis.py", line 41, in get_multi_timeframe_analysis
+    klines = await self.get_klines(pair, now - lookback_ms, interval)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\market_analysis.py", line 214, in get_klines
+    klines = self.binance_client.get_historical_klines(
+        pair, interval, start_time, limit=1000
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 830, in get_historical_klines
+    return self._historical_klines(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        symbol,
+        ^^^^^^^
+    ...<4 lines>...
+        klines_type=klines_type,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 887, in _historical_klines
+    first_valid_ts = self._get_earliest_valid_timestamp(
+        symbol, interval, klines_type
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 793, in _get_earliest_valid_timestamp
+    kline = self._klines(
+        klines_type=klines_type,
+    ...<4 lines>...
+        endTime=int(time.time() * 1000),
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 759, in _klines
+    return self.get_klines(**params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 742, in get_klines
+    return self._get("klines", data=params, version=self.PRIVATE_API_VERSION)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 180, in _get
+    return self._request_api("get", path, signed, version, **kwargs)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 117, in _request_api
+    return self._request(method, uri, signed, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 88, in _request
+    self.response = getattr(self.session, method)(uri, headers=headers, data=data, **kwargs)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connection.py", line 516, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 1428, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 331, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 292, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\socket.py", line 719, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 157, in _on_sigint
+    raise KeyboardInterrupt()
+KeyboardInterrupt

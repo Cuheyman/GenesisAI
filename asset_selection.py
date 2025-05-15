@@ -149,14 +149,16 @@ class AssetSelection:
         """Get available trading pairs from Binance"""
         try:
             # Define a whitelist of top cryptocurrencies
+         # In asset_selection.py, update the WHITELISTED_CRYPTOS list
             WHITELISTED_CRYPTOS = [
                 'BTC', 'ETH', 'XRP', 'SOL', 'BNB', 'DOGE', 'ADA', 'TRX', 'LINK',
-                'AVAX', 'SUI', 'XLM', 'TON', 'SHIB', 'HBAR', 'DOT', 'BGB',
-                'LTC', 'BCH', 'OM', 'UNI', 'PEPE', 'NEAR', 'XMR', 'APT', 'ETC',
-                'MNT', 'ICP', 'TRUMP', 'TAO', 'VET', 'CRO', 'OKB', 'POL', 'ALGO',
-                'KAS', 'RENDER', 'FIL', 'ARB', 'FET', 'ATOM', 'THETA', 'BONK',
+                'AVAX', 'SUI', 'XLM', 'TON', 'SHIB', 'HBAR', 'DOT', 
+                'LTC', 'BCH', 'OM', 'UNI', 'PEPE', 'NEAR', 'APT', 'ETC',
+                'ICP', 'VET', 'POL', 'ALGO',
+                'RENDER', 'FIL', 'ARB', 'FET', 'ATOM', 'THETA', 'BONK',
                 'EOS', 'XTZ', 'IOTA', 'NEO', 'EGLD', 'ZEC', 'LAYER'
             ]
+
             
             # Create trading pairs by adding USDT suffix
             whitelisted_pairs = [f"{crypto}USDT" for crypto in WHITELISTED_CRYPTOS]

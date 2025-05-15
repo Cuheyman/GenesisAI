@@ -1,0 +1,210 @@
+2025-05-15 11:49:12,927 - INFO - Database initialization complete
+2025-05-15 11:49:12,927 - INFO - Thirdweb Nebula AI client initialized
+2025-05-15 11:49:12,928 - INFO - Risk Manager initialized with equity protection: Warning at 3.0%, Risk Reduction at 7.000000000000001%, High Alert at 12.0%, Emergency at 15.0%
+2025-05-15 11:49:12,928 - INFO - Hybrid Trading Bot initialized with 10000.00 equity
+2025-05-15 11:49:12,929 - INFO - Mode: TEST trading
+2025-05-15 11:49:12,930 - INFO - Testing API connections...
+2025-05-15 11:49:13,175 - INFO - Binance server time: 2025-05-15 11:48:51.375000
+2025-05-15 11:49:26,831 - INFO - Nebula AI connection successful: 0
+2025-05-15 11:49:26,831 - INFO - Preloading historical data for analysis...
+2025-05-15 11:49:26,832 - INFO - Preloading historical data for analysis...
+2025-05-15 11:49:26,832 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-05-15 11:49:28,282 - INFO - Found trending pairs: KMNOUSDT, BABYUSDT, PIXELUSDT, ENAUSDT, XVGUSDT...
+2025-05-15 11:49:28,282 - INFO - Preloading data for pairs: PIXELUSDT, OMUSDT, ENAUSDT, PENDLEUSDT, BTCUSDT
+2025-05-15 11:50:00,861 - INFO - Preloading data for pairs: WCTUSDT, BABYUSDT, ETHUSDT, COTIUSDT, INITUSDT
+2025-05-15 11:50:35,766 - INFO - Preloading data for pairs: CRVUSDT, JUPUSDT, KMNOUSDT, BNBUSDT, RSRUSDT
+2025-05-15 11:51:11,193 - INFO - Preloading data for pairs: SIGNUSDT, SYRUPUSDT, XVGUSDT, AMPUSDT, ADAUSDT
+2025-05-15 11:51:50,097 - INFO - Preloading data for pairs: BIGTIMEUSDT, VANAUSDT, SOLUSDT, EOSUSDT, RAYUSDT
+2025-05-15 11:52:26,243 - INFO - Historical data preloading complete
+2025-05-15 11:52:35,878 - INFO - Updating correlation matrix...
+2025-05-15 11:52:35,879 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 11:52:35,883 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 11:52:52,031 - ERROR - Error getting klines for BGBUSDT 4h: APIError(code=-1121): Invalid symbol.
+2025-05-15 11:52:57,099 - ERROR - Error getting klines for XMRUSDT 4h: APIError(code=-1121): Invalid symbol.
+2025-05-15 11:52:59,284 - ERROR - Error getting klines for MNTUSDT 4h: APIError(code=-1121): Invalid symbol.
+2025-05-15 11:53:03,852 - ERROR - Error getting klines for CROUSDT 4h: APIError(code=-1121): Invalid symbol.
+2025-05-15 11:53:04,567 - ERROR - Error getting klines for OKBUSDT 4h: APIError(code=-1121): Invalid symbol.
+2025-05-15 11:53:06,751 - ERROR - Error getting klines for KASUSDT 4h: APIError(code=-1121): Invalid symbol.
+2025-05-15 11:53:19,765 - INFO - Selected optimal assets: EOSUSDT, OMUSDT, ETHUSDT, XRPUSDT, SOLUSDT... (15 total)
+2025-05-15 11:53:19,766 - INFO -   EOSUSDT: score 4.85
+2025-05-15 11:53:19,766 - INFO -   OMUSDT: score 4.60
+2025-05-15 11:53:19,766 - INFO -   ETHUSDT: score 3.35
+2025-05-15 11:53:19,767 - INFO -   XRPUSDT: score 3.35
+2025-05-15 11:53:19,767 - INFO -   SOLUSDT: score 3.35
+2025-05-15 11:53:19,770 - ERROR - Error recording equity: table performance has no column named drawdown
+2025-05-15 11:53:19,773 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 0,
+    "start": 0,
+    "total_return_pct": 0,
+    "max_drawdown_pct": 0,
+    "avg_daily_return_pct": 0,
+    "avg_weekly_return_pct": 0
+  },
+  "trades": {
+    "total": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "profit_factor": 0,
+    "avg_profit": 0,
+    "avg_loss": 0,
+    "expected_value": 0,
+    "recent_win_rate_pct": 0
+  },
+  "pairs": {
+    "best_pair": "None",
+    "best_pair_profit": 0,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-05-15 11:53:19"
+}
+2025-05-15 11:53:36,409 - ERROR - Error getting klines for BGBUSDT 1h: APIError(code=-1121): Invalid symbol.
+2025-05-15 11:53:42,461 - ERROR - Error getting klines for XMRUSDT 1h: APIError(code=-1121): Invalid symbol.
+2025-05-15 11:53:44,155 - ERROR - Error getting klines for MNTUSDT 1h: APIError(code=-1121): Invalid symbol.
+2025-05-15 11:53:47,320 - ERROR - Error getting klines for CROUSDT 1h: APIError(code=-1121): Invalid symbol.
+2025-05-15 11:53:48,038 - ERROR - Error getting klines for OKBUSDT 1h: APIError(code=-1121): Invalid symbol.
+2025-05-15 11:53:50,679 - ERROR - Error getting klines for KASUSDT 1h: APIError(code=-1121): Invalid symbol.
+2025-05-15 11:54:12,367 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 11:54:18,433 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 11:54:24,267 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 11:54:31,748 - WARNING - Insufficient data for XRPUSDT on 1d timeframe
+2025-05-15 11:54:38,297 - WARNING - Insufficient data for SOLUSDT on 1d timeframe
+2025-05-15 11:54:44,367 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 11:54:50,656 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 11:54:57,672 - WARNING - Insufficient data for AVAXUSDT on 1d timeframe
+2025-05-15 11:55:03,991 - WARNING - Insufficient data for XLMUSDT on 1d timeframe
+2025-05-15 11:55:10,332 - WARNING - Insufficient data for HBARUSDT on 1d timeframe
+2025-05-15 11:55:16,870 - WARNING - Insufficient data for LTCUSDT on 1d timeframe
+2025-05-15 11:55:21,524 - WARNING - Insufficient data for BCHUSDT on 1d timeframe
+2025-05-15 11:55:27,832 - WARNING - Insufficient data for PEPEUSDT on 1d timeframe
+2025-05-15 11:55:32,706 - WARNING - Insufficient data for ETCUSDT on 1d timeframe
+2025-05-15 11:55:40,192 - WARNING - Insufficient data for ICPUSDT on 1d timeframe
+2025-05-15 11:56:20,333 - INFO - Correlation matrix updated for 44 pairs
+2025-05-15 11:56:25,920 - WARNING - Insufficient data for BTCUSDT on 1d timeframe
+2025-05-15 11:56:30,546 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 11:56:30,547 - INFO - Market state: Regime=NEUTRAL, Trend=neutral, Volatility=normal, Breadth=0.50
+2025-05-15 11:58:34,493 - ERROR - Nebula API error: 502 - <!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en-US"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en-US"> <!--<![endif]-->
+<head>
+
+
+<title>nebula-api.thirdweb.com | 502: Bad gateway</title>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="stylesheet" id="cf_styles-css" href="/cdn-cgi/styles/main.css" />
+
+
+</head>
+<body>
+<div id="cf-wrapper">
+    <div id="cf-error-details" class="p-0">
+        <header class="mx-auto pt-10 lg:pt-6 lg:px-8 w-240 lg:w-full mb-8">
+            <h1 class="inline-block sm:block sm:mb-2 font-light text-60 lg:text-4xl text-black-dark leading-tight mr-2">
+              <span class="inline-block">Bad gateway</span>
+              <span class="code-label">Error code 502</span>
+            </h1>
+            <div>
+               Visit <a href="https://www.cloudflare.com/5xx-error-landing?utm_source=errorcode_502&utm_campaign=nebula-api.thirdweb.com" target="_blank" rel="noopener noreferrer">cloudflare.com</a> for more information.
+            </div>
+            <div class="mt-3">2025-05-15 09:58:12 UTC</div>
+        </header>
+        <div class="my-8 bg-gradient-gray">
+            <div class="w-240 lg:w-full mx-auto">
+                <div class="clearfix md:px-8">
+                  
+<div id="cf-browser-status" class=" relative w-1/3 md:w-full py-15 md:p-0 md:py-8 md:text-left md:border-solid md:border-0 md:border-b md:border-gray-400 overflow-hidden float-left md:float-none text-center">
+  <div class="relative mb-10 md:m-0">
+    
+    <span class="cf-icon-browser block md:hidden h-20 bg-center bg-no-repeat"></span>
+    <span class="cf-icon-ok w-12 h-12 absolute left-1/2 md:left-auto md:right-0 md:top-0 -ml-6 -bottom-4"></span>
+    
+  </div>
+  <span class="md:block w-full truncate">You</span>
+  <h3 class="md:inline-block mt-3 md:mt-0 text-2xl text-gray-600 font-light leading-1.3">
+    
+    Browser
+    
+  </h3>
+  <span class="leading-1.3 text-2xl text-green-success">Working</span>
+</div>
+
+<div id="cf-cloudflare-status" class=" relative w-1/3 md:w-full py-15 md:p-0 md:py-8 md:text-left md:border-solid md:border-0 md:border-b md:border-gray-400 overflow-hidden float-left md:float-none text-center">
+  <div class="relative mb-10 md:m-0">
+    <a href="https://www.cloudflare.com/5xx-error-landing?utm_source=errorcode_502&utm_campaign=nebula-api.thirdweb.com" target="_blank" rel="noopener noreferrer">
+    <span class="cf-icon-cloud block md:hidden h-20 bg-center bg-no-repeat"></span>
+    <span class="cf-icon-ok w-12 h-12 absolute left-1/2 md:left-auto md:right-0 md:top-0 -ml-6 -bottom-4"></span>
+    </a>
+  </div>
+  <span class="md:block w-full truncate">Stockholm</span>
+  <h3 class="md:inline-block mt-3 md:mt-0 text-2xl text-gray-600 font-light leading-1.3">
+    <a href="https://www.cloudflare.com/5xx-error-landing?utm_source=errorcode_502&utm_campaign=nebula-api.thirdweb.com" target="_blank" rel="noopener noreferrer">
+    Cloudflare
+    </a>
+  </h3>
+  <span class="leading-1.3 text-2xl text-green-success">Working</span>
+</div>
+
+<div id="cf-host-status" class="cf-error-source relative w-1/3 md:w-full py-15 md:p-0 md:py-8 md:text-left md:border-solid md:border-0 md:border-b md:border-gray-400 overflow-hidden float-left md:float-none text-center">
+  <div class="relative mb-10 md:m-0">
+    
+    <span class="cf-icon-server block md:hidden h-20 bg-center bg-no-repeat"></span>
+    <span class="cf-icon-error w-12 h-12 absolute left-1/2 md:left-auto md:right-0 md:top-0 -ml-6 -bottom-4"></span>
+    
+  </div>
+  <span class="md:block w-full truncate">nebula-api.thirdweb.com</span>
+  <h3 class="md:inline-block mt-3 md:mt-0 text-2xl text-gray-600 font-light leading-1.3">
+    
+    Host
+    
+  </h3>
+  <span class="leading-1.3 text-2xl text-red-error">Error</span>
+</div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="w-240 lg:w-full mx-auto mb-8 lg:px-8">
+            <div class="clearfix">
+                <div class="w-1/2 md:w-full float-left pr-6 md:pb-10 md:pr-0 leading-relaxed">
+                    <h2 class="text-3xl font-normal leading-1.3 mb-4">What happened?</h2>
+                    <p>The web server reported a bad gateway error.</p>
+                </div>
+                <div class="w-1/2 md:w-full float-left leading-relaxed">
+                    <h2 class="text-3xl font-normal leading-1.3 mb-4">What can I do?</h2>
+                    <p class="mb-6">Please try again in a few minutes.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cf-error-footer cf-wrapper w-240 lg:w-full py-10 sm:py-4 sm:px-8 mx-auto text-center sm:text-left border-solid border-0 border-t border-gray-300">
+  <p class="text-13">
+    <span class="cf-footer-item sm:block sm:mb-1">Cloudflare Ray ID: <strong class="font-semibold">9401c4fcaf2a2d81</strong></span>
+    <span class="cf-footer-separator sm:hidden">&bull;</span>
+    <span id="cf-footer-item-ip" class="cf-footer-item hidden sm:block sm:mb-1">
+      Your IP:
+      <button type="button" id="cf-footer-ip-reveal" class="cf-footer-ip-reveal-btn">Click to reveal</button>
+      <span class="hidden" id="cf-footer-ip">80.71.143.182</span>
+      <span class="cf-footer-separator sm:hidden">&bull;</span>
+    </span>
+    <span class="cf-footer-item sm:block sm:mb-1"><span>Performance &amp; security by</span> <a rel="noopener noreferrer" href="https://www.cloudflare.com/5xx-error-landing?utm_source=errorcode_502&utm_campaign=nebula-api.thirdweb.com" id="brand_link" target="_blank">Cloudflare</a></span>
+    
+  </p>
+  <script>(function(){function d(){var b=a.getElementById("cf-footer-item-ip"),c=a.getElementById("cf-footer-ip-reveal");b&&"classList"in b&&(b.classList.remove("hidden"),c.addEventListener("click",function(){c.classList.add("hidden");a.getElementById("cf-footer-ip").classList.remove("hidden")}))}var a=document;document.addEventListener&&a.addEventListener("DOMContentLoaded",d)})();</script>
+</div><!-- /.error-footer -->
+
+
+    </div>
+</div>
+</body>
+</html>
+
+2025-05-15 12:09:14,855 - INFO - Bot stopped by user

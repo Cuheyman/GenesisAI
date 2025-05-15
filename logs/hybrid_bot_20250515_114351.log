@@ -1,0 +1,15 @@
+2025-05-15 11:43:51,831 - INFO - Database initialization complete
+2025-05-15 11:43:51,833 - INFO - Thirdweb Nebula AI client initialized
+2025-05-15 11:43:51,834 - INFO - Risk Manager initialized with equity protection: Warning at 3.0%, Risk Reduction at 7.000000000000001%, High Alert at 12.0%, Emergency at 15.0%
+2025-05-15 11:43:51,834 - INFO - Hybrid Trading Bot initialized with 10000.00 equity
+2025-05-15 11:43:51,834 - INFO - Mode: TEST trading
+2025-05-15 11:43:51,835 - INFO - Testing API connections...
+2025-05-15 11:43:52,080 - INFO - Binance server time: 2025-05-15 11:43:30.286000
+2025-05-15 11:43:52,734 - ERROR - Nebula API error: 404 - {"message":"Route POST:/nebula/analyze not found","error":"Not Found","statusCode":404}
+2025-05-15 11:43:52,734 - WARNING - Nebula AI connection failed - check API key
+2025-05-15 11:43:52,734 - INFO - Preloading historical data for analysis...
+2025-05-15 11:43:52,735 - INFO - Preloading historical data for analysis...
+2025-05-15 11:43:52,735 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-05-15 11:43:53,237 - INFO - Found trending pairs: KMNOUSDT, BABYUSDT, PIXELUSDT, SIGNUSDT, ENAUSDT...
+2025-05-15 11:43:53,237 - INFO - Preloading data for pairs: RSRUSDT, SIGNUSDT, EOSUSDT, COTIUSDT, ENAUSDT
+2025-05-15 11:44:06,649 - INFO - Bot stopped by user

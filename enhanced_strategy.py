@@ -13,41 +13,49 @@ class EnhancedStrategy:
         self.cache = {}
         self.cache_expiry = {}
         
+    # In enhanced_strategy.py, modify analyze_pair method
     async def analyze_pair(self, pair: str, mtf_analysis=None, order_book_data=None, 
-                        correlation_data=None, market_state=None) -> Dict[str, Any]:
-        """Analyze a trading pair using all available data sources
-        
-        Args:
-            pair: Trading pair to analyze
-            mtf_analysis: Pre-computed multi-timeframe analysis (optional)
-            order_book_data: Pre-computed order book data (optional)
-            correlation_data: Correlation data with existing portfolio (optional)
-            market_state: Current market state information (optional)
-            
-        Returns:
-            Dict with analysis results
-        """
+                     correlation_data=None, market_state=None) -> Dict[str, Any]:
         try:
-            # 1. Get technical analysis from multi-timeframe data
+            # Get technical analysis from multi-timeframe data
             if not mtf_analysis:
                 mtf_analysis = await self.market_analysis.get_multi_timeframe_analysis(pair)
                 
-            # 2. Get order book analysis
+            # Get order book analysis
             if not order_book_data:
                 order_book_data = await self.order_book.get_order_book_data(pair)
                 
-            # 3. Get Nebula AI insights
-            token = pair.replace("USDT", "")
-            nebula_insights = await self.nebula.get_consolidated_insights(token)
-            
-            # 4. Use market state for context
-            if not market_state:
-                market_state = {
-                    'regime': 'NEUTRAL',
-                    'trend': 'neutral',
-                    'volatility': 'normal',
-                    'breadth': 0.5
+            # Try to get Nebula AI insights but with timeout protection
+            nebula_insights = None
+            try:
+                token = pair.replace("USDT", "")
+                # Create a timeout for the nebula call
+                nebula_task = asyncio.create_task(self.nebula.get_consolidated_insights(token))
+                nebula_insights = await asyncio.wait_for(nebula_task, timeout=15)  # 15 second timeout
+            except asyncio.TimeoutError:
+                logging.warning(f"Nebula insights timed out for {pair}")
+                nebula_insights = {
+                    "metrics": {
+                        "overall_sentiment": 0,
+                        "prediction_direction": "neutral",
+                        "prediction_confidence": 0.5,
+                        "whale_accumulation": 0,
+                        "smart_money_direction": "neutral"
+                    }
                 }
+            except Exception as e:
+                logging.warning(f"Nebula insights unavailable for {pair}: {str(e)}")
+                nebula_insights = {
+                    "metrics": {
+                        "overall_sentiment": 0,
+                        "prediction_direction": "neutral",
+                        "prediction_confidence": 0.5,
+                        "whale_accumulation": 0,
+                        "smart_money_direction": "neutral"
+                    }
+                }
+            
+       
                 
             # 5. Generate initial signals from technical analysis
             technical_signals = self._get_technical_signals(mtf_analysis)
