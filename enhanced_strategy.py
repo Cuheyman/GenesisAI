@@ -15,7 +15,7 @@ class EnhancedStrategy:
         
     # In enhanced_strategy.py, modify analyze_pair method
     async def analyze_pair(self, pair: str, mtf_analysis=None, order_book_data=None, 
-                     correlation_data=None, market_state=None) -> Dict[str, Any]:
+                    correlation_data=None, market_state=None) -> Dict[str, Any]:
         try:
             # Get technical analysis from multi-timeframe data
             if not mtf_analysis:
@@ -25,37 +25,33 @@ class EnhancedStrategy:
             if not order_book_data:
                 order_book_data = await self.order_book.get_order_book_data(pair)
                 
-            # Try to get Nebula AI insights but with timeout protection
-            nebula_insights = None
-            try:
-                token = pair.replace("USDT", "")
-                # Create a timeout for the nebula call
-                nebula_task = asyncio.create_task(self.nebula.get_consolidated_insights(token))
-                nebula_insights = await asyncio.wait_for(nebula_task, timeout=15)  # 15 second timeout
-            except asyncio.TimeoutError:
-                logging.warning(f"Nebula insights timed out for {pair}")
-                nebula_insights = {
-                    "metrics": {
-                        "overall_sentiment": 0,
-                        "prediction_direction": "neutral",
-                        "prediction_confidence": 0.5,
-                        "whale_accumulation": 0,
-                        "smart_money_direction": "neutral"
-                    }
-                }
-            except Exception as e:
-                logging.warning(f"Nebula insights unavailable for {pair}: {str(e)}")
-                nebula_insights = {
-                    "metrics": {
-                        "overall_sentiment": 0,
-                        "prediction_direction": "neutral",
-                        "prediction_confidence": 0.5,
-                        "whale_accumulation": 0,
-                        "smart_money_direction": "neutral"
-                    }
-                }
+            # Extract token from pair (removing USDT)
+            token = pair.replace("USDT", "")
             
-       
+            # Get Nebula AI insights with improved error handling
+            nebula_insights = None
+            
+            # Check if Nebula is available before attempting to use it
+            if hasattr(self.nebula, 'proxy_available') and self.nebula.proxy_available:
+                try:
+                    # Create a timeout for the nebula call
+                    nebula_task = asyncio.create_task(self.nebula.get_consolidated_insights(token))
+                    nebula_insights = await asyncio.wait_for(nebula_task, timeout=12)  # 12 second timeout
+                    
+                    # Verify we got valid data
+                    if not nebula_insights or not isinstance(nebula_insights, dict) or 'metrics' not in nebula_insights:
+                        logging.warning(f"Invalid Nebula insights for {pair}")
+                        nebula_insights = self._get_default_nebula_insights()
+                        
+                except asyncio.TimeoutError:
+                    logging.warning(f"Nebula insights timed out for {pair}")
+                    nebula_insights = self._get_default_nebula_insights()
+                except Exception as e:
+                    logging.warning(f"Nebula insights unavailable for {pair}: {str(e)}")
+                    nebula_insights = self._get_default_nebula_insights()
+            else:
+                logging.debug(f"Skipping Nebula insights for {pair} - proxy unavailable")
+                nebula_insights = self._get_default_nebula_insights()
                 
             # 5. Generate initial signals from technical analysis
             technical_signals = self._get_technical_signals(mtf_analysis)
@@ -85,72 +81,7 @@ class EnhancedStrategy:
                 "signal_strength": 0,
                 "error": str(e)
             }
-    
-    def _get_technical_signals(self, mtf_analysis: Dict) -> Dict:
-        """Generate signals from technical analysis"""
-        try:
-            mtf_trend = mtf_analysis.get('mtf_trend', 0)
-            mtf_momentum = mtf_analysis.get('mtf_momentum', 0)
-            mtf_overall = mtf_analysis.get('overall_score', 0)
-            
-            # Determine buy/sell signals
-            buy_signal = False
-            sell_signal = False
-            
-            # Strong buy if both trend and momentum are positive
-            if mtf_trend > 0.3 and mtf_momentum > 0.3:
-                buy_signal = True
-                signal_strength = min(0.9, (mtf_trend + mtf_momentum) / 2)
-            
-            # Strong sell if both trend and momentum are negative
-            elif mtf_trend < -0.3 and mtf_momentum < -0.3:
-                sell_signal = True
-                signal_strength = min(0.9, (abs(mtf_trend) + abs(mtf_momentum)) / 2)
-                
-            # Moderate buy if trend is positive with neutral momentum
-            elif mtf_trend > 0.5 and mtf_momentum > -0.2:
-                buy_signal = True
-                signal_strength = min(0.7, mtf_trend * 0.8)
-                
-            # Moderate sell if trend is negative with neutral momentum
-            elif mtf_trend < -0.5 and mtf_momentum < 0.2:
-                sell_signal = True
-                signal_strength = min(0.7, abs(mtf_trend) * 0.8)
-                
-            # Momentum-based signals when trend is neutral
-            elif abs(mtf_trend) < 0.3 and abs(mtf_momentum) > 0.6:
-                if mtf_momentum > 0:
-                    buy_signal = True
-                    signal_strength = min(0.6, mtf_momentum * 0.7)
-                else:
-                    sell_signal = True
-                    signal_strength = min(0.6, abs(mtf_momentum) * 0.7)
-            else:
-                # No clear signal
-                signal_strength = 0
-                
-            return {
-                "buy_signal": buy_signal,
-                "sell_signal": sell_signal,
-                "signal_strength": signal_strength,
-                "source": "technical",
-                "details": {
-                    "mtf_trend": mtf_trend,
-                    "mtf_momentum": mtf_momentum,
-                    "mtf_overall": mtf_overall
-                }
-            }
-            
-        except Exception as e:
-            logging.error(f"Error in technical signals: {str(e)}")
-            return {
-                "buy_signal": False,
-                "sell_signal": False,
-                "signal_strength": 0,
-                "source": "technical",
-                "error": str(e)
-            }
-    
+        
     def _get_orderbook_signals(self, order_book_data: Dict) -> Dict:
         """Generate signals from order book data"""
         try:
@@ -196,8 +127,23 @@ class EnhancedStrategy:
                 "error": str(e)
             }
     
+
+    def _get_default_nebula_insights(self):
+        
+        return {
+            "metrics": {
+                "overall_sentiment": 0,
+                "prediction_direction": "neutral",
+                "prediction_confidence": 0.5,
+                "whale_accumulation": 0,
+                "smart_money_direction": "neutral"
+            }
+    }
+
+
+
     def _get_nebula_signals(self, nebula_insights: Dict) -> Dict:
-        """Generate signals from Nebula AI insights"""
+        """Generate signals from Nebula AI insights with improved reliability"""
         try:
             # Extract metrics
             metrics = nebula_insights.get('metrics', {})
@@ -207,47 +153,104 @@ class EnhancedStrategy:
             whale_activity = metrics.get('whale_accumulation', 0)
             smart_money = metrics.get('smart_money_direction', 'neutral')
             
+            # Get signal strength from NebulaAI
+            signal_strength = self.nebula.get_nebula_signal_strength(nebula_insights)
+            
+            # Determine buy/sell signals more reliably with consolidated logic
             buy_signal = False
             sell_signal = False
-            signal_strength = 0
             
-            # Combined signal calculation
-            if prediction == 'bullish' and sentiment > 0.2:
+            # Prediction-based signals
+            if prediction == 'bullish' and confidence > 0.5:
                 buy_signal = True
-                signal_strength = min(0.9, confidence * 0.8 + abs(sentiment) * 0.2)
-            elif prediction == 'bearish' and sentiment < -0.2:
+                pred_strength = min(0.9, confidence * 1.2)  # Scale up confidence as strength
+            elif prediction == 'bearish' and confidence > 0.5:
                 sell_signal = True
-                signal_strength = min(0.9, confidence * 0.8 + abs(sentiment) * 0.2)
-            elif whale_activity > 0.5:  # Strong whale accumulation
-                buy_signal = True
-                signal_strength = min(0.8, whale_activity)
-            elif whale_activity < -0.5:  # Strong whale distribution
-                sell_signal = True
-                signal_strength = min(0.8, abs(whale_activity))
-            elif smart_money == 'bullish':
-                buy_signal = True
-                signal_strength = 0.7
-            elif smart_money == 'bearish':
-                sell_signal = True
-                signal_strength = 0.7
-            elif sentiment > 0.5:  # Very positive sentiment without prediction
-                buy_signal = True
-                signal_strength = min(0.6, sentiment)
-            elif sentiment < -0.5:  # Very negative sentiment without prediction
-                sell_signal = True
-                signal_strength = min(0.6, abs(sentiment))
+                pred_strength = min(0.9, confidence * 1.2)
+            else:
+                pred_strength = 0
+            
+            # Sentiment-based signals (if no strong prediction)
+            if not buy_signal and not sell_signal:
+                if sentiment > 0.3:  # Positive sentiment
+                    buy_signal = True
+                    sentiment_strength = min(0.7, sentiment + 0.2)  # Scale up sentiment as strength
+                elif sentiment < -0.3:  # Negative sentiment
+                    sell_signal = True 
+                    sentiment_strength = min(0.7, abs(sentiment) + 0.2)
+                else:
+                    sentiment_strength = 0
+            else:
+                sentiment_strength = 0
+            
+            # Whale activity signals (if no strong prediction or sentiment)
+            if not buy_signal and not sell_signal:
+                if whale_activity > 0.3:  # Accumulation
+                    buy_signal = True
+                    whale_strength = min(0.8, whale_activity + 0.2)
+                elif whale_activity < -0.3:  # Distribution
+                    sell_signal = True
+                    whale_strength = min(0.8, abs(whale_activity) + 0.2)
+                else:
+                    whale_strength = 0
+            else:
+                whale_strength = 0
+                
+            # Smart money signals (only if we have nothing else)
+            if not buy_signal and not sell_signal:
+                if smart_money == 'bullish':
+                    buy_signal = True
+                    sm_strength = 0.6  # Fixed moderate strength
+                elif smart_money == 'bearish':
+                    sell_signal = True
+                    sm_strength = 0.6
+                else:
+                    sm_strength = 0
+            else:
+                sm_strength = 0
+                
+            # Determine final signal strength (use the strongest one)
+            final_strength = max(pred_strength, sentiment_strength, whale_strength, sm_strength)
+            
+            # Safety check for both buy and sell signals (shouldn't happen)
+            if buy_signal and sell_signal:
+                # In case of conflict, use prediction confidence direction
+                if prediction == 'bullish':
+                    sell_signal = False
+                elif prediction == 'bearish':
+                    buy_signal = False
+                else:
+                    # If still ambiguous, use sentiment
+                    if sentiment > 0:
+                        sell_signal = False
+                    else:
+                        buy_signal = False
+            
+            # Create source text for logging
+            source_parts = []
+            if pred_strength > 0:
+                source_parts.append(f"prediction:{prediction}")
+            if sentiment_strength > 0:
+                source_parts.append(f"sentiment:{sentiment:.2f}")
+            if whale_strength > 0:
+                source_parts.append(f"whale:{whale_activity:.2f}")
+            if sm_strength > 0:
+                source_parts.append(f"smart_money:{smart_money}")
+                
+            source_text = ",".join(source_parts) if source_parts else "neutral"
             
             return {
                 "buy_signal": buy_signal,
                 "sell_signal": sell_signal,
-                "signal_strength": signal_strength,
-                "source": "nebula",
+                "signal_strength": final_strength if (buy_signal or sell_signal) else 0,
+                "source": f"nebula:{source_text}",
                 "details": {
                     "sentiment": sentiment,
                     "prediction": prediction,
                     "confidence": confidence,
                     "whale_activity": whale_activity,
-                    "smart_money": smart_money
+                    "smart_money": smart_money,
+                    "raw_strength": signal_strength
                 }
             }
             
@@ -257,7 +260,7 @@ class EnhancedStrategy:
                 "buy_signal": False,
                 "sell_signal": False,
                 "signal_strength": 0,
-                "source": "nebula",
+                "source": "nebula:error",
                 "error": str(e)
             }
     
@@ -278,6 +281,25 @@ class EnhancedStrategy:
             nb_sell = nebula_signals.get('sell_signal', False)
             nb_strength = nebula_signals.get('signal_strength', 0)
             
+              # Add direct Nebula signal if available
+            direct_nb_action = None
+            direct_nb_strength = 0
+            
+            if nebula_signal:
+                direct_nb_action = nebula_signal.get('action', 'hold')
+                direct_nb_strength = nebula_signal.get('strength', 0.5)
+            
+            # Convert action to buy/sell signal
+            if direct_nb_action == 'buy' and direct_nb_strength > 0.6:
+                nb_buy = True
+                nb_strength = max(nb_strength, direct_nb_strength)
+            elif direct_nb_action == 'sell' and direct_nb_strength > 0.6:
+                nb_sell = True
+                nb_strength = max(nb_strength, direct_nb_strength)
+
+
+
+
             # Initial values (will be modified based on signals)
             final_buy = False
             final_sell = False

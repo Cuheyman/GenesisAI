@@ -1,0 +1,14 @@
+2025-05-15 18:16:09,932 - INFO - Nebula proxy monitor started
+2025-05-15 18:16:09,938 - INFO - Proxy health: OK - {'status': 'ok', 'timestamp': '2025-05-15T16:16:09.936Z'}
+2025-05-15 18:17:09,960 - INFO - Proxy health: OK - {'status': 'ok', 'timestamp': '2025-05-15T16:17:09.959Z'}
+2025-05-15 18:18:09,979 - INFO - Proxy health: OK - {'status': 'ok', 'timestamp': '2025-05-15T16:18:09.978Z'}
+2025-05-15 18:19:10,001 - INFO - Proxy health: OK - {'status': 'ok', 'timestamp': '2025-05-15T16:19:09.999Z'}
+2025-05-15 18:20:10,014 - INFO - Proxy health: OK - {'status': 'ok', 'timestamp': '2025-05-15T16:20:10.013Z'}
+2025-05-15 18:20:10,061 - INFO - Endpoint tests: {"predict": "Error: 503", "analyze": "Error: 503", "whale-tracking": "Error: 503", "smart-money": "Error: 503"}
+2025-05-15 18:21:10,088 - INFO - Proxy health: OK - {'status': 'ok', 'timestamp': '2025-05-15T16:21:10.086Z'}
+2025-05-15 18:22:10,102 - INFO - Proxy health: OK - {'status': 'ok', 'timestamp': '2025-05-15T16:22:10.100Z'}
+2025-05-15 18:23:10,117 - INFO - Proxy health: OK - {'status': 'ok', 'timestamp': '2025-05-15T16:23:10.115Z'}
+2025-05-15 18:24:10,143 - INFO - Proxy health: OK - {'status': 'ok', 'timestamp': '2025-05-15T16:24:10.142Z'}
+2025-05-15 18:25:10,168 - INFO - Proxy health: OK - {'status': 'ok', 'timestamp': '2025-05-15T16:25:10.168Z'}
+2025-05-15 18:25:10,216 - INFO - Endpoint tests: {"predict": "Error: 503", "analyze": "Error: 503", "whale-tracking": "Error: 503", "smart-money": "Error: 503"}
+2025-05-15 18:25:14,464 - INFO - Monitor stopped by user

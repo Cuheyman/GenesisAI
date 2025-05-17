@@ -1,2 +1,0 @@
-2025-05-15 12:52:43,601 - INFO - Database initialization complete
-2025-05-15 12:52:43,602 - ERROR - Critical error: name 'existing_performance_columns' is not defined

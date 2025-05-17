@@ -36,6 +36,14 @@ class HybridTradingBot:
             testnet=config.TEST_MODE
         )
         
+        if config.ENABLE_NEBULA:
+            self.nebula = NebulaAI(config.THIRDWEB_API_KEY)
+        else:
+            # Create a dummy nebula client
+            from nebula_integration import DummyNebulaAI
+            self.nebula = DummyNebulaAI()
+
+        
         # Initialize database manager
         self.db_manager = DatabaseManager(config.DB_PATH)
         
@@ -170,22 +178,70 @@ class HybridTradingBot:
         return total
     
     async def run(self):
-        """Main execution loop"""
-        try:
-            # Test API connections
-            logging.info("Testing API connections...")
-            
-            # Test Binance connection
-            server_time = self.binance_client.get_server_time()
-            logging.info(f"Binance server time: {datetime.fromtimestamp(server_time['serverTime']/1000)}")
-            
-            # Test Nebula connection
-            token = "ETH"
-            sentiment = await self.nebula.get_sentiment_analysis(token)
-            if sentiment:
-                logging.info(f"Nebula AI connection successful: {sentiment.get('sentiment_score', 'N/A')}")
-            else:
-                logging.warning("Nebula AI connection failed - check API key")
+        
+        
+            try:
+                # Test API connections
+                logging.info("Testing API connections...")
+                
+                # Test Binance connection
+                server_time = self.binance_client.get_server_time()
+                logging.info(f"Binance server time: {datetime.fromtimestamp(server_time['serverTime']/1000)}")
+                
+                # Test Nebula connection with retry
+                retry_count = 0
+                max_retries = 3
+                proxy_available = False
+                
+                while retry_count < max_retries and not proxy_available:
+                    try:
+                        # Check proxy health endpoint
+                        if hasattr(self.nebula, 'proxy_available'):
+                            self.nebula.proxy_available = self.nebula._check_proxy_connection()
+                            proxy_available = self.nebula.proxy_available
+                            
+                        if proxy_available:
+                            token = "ETH"
+                            sentiment = await self.nebula.get_sentiment_analysis(token)
+                            if sentiment:
+                                logging.info(f"Nebula AI connection successful: {sentiment.get('sentiment_score', 'N/A')}")
+                                break
+                            else:
+                                raise Exception("No data returned from Nebula")
+                        else:
+                            logging.warning(f"Nebula proxy unavailable (attempt {retry_count+1}/{max_retries})")
+                            # Wait before retry
+                            await asyncio.sleep(2)
+                    except Exception as e:
+                        logging.warning(f"Nebula connection test failed (attempt {retry_count+1}/{max_retries}): {str(e)}")
+                        await asyncio.sleep(2)
+                    finally:
+                        retry_count += 1
+                
+                if not proxy_available:
+                    logging.warning("Nebula AI proxy connection failed after retries - will operate in fallback mode")
+                
+                # Rest of your existing run() method continues...
+                # Preload historical data for analysis
+                logging.info("Preloading historical data for analysis...")
+                await self.preload_historical_data()
+                logging.info("Historical data preloading complete")
+                
+                # Create tasks for different components
+                tasks = [
+                    self.market_monitor_task(),
+                    self.trading_task(),
+                    self.position_monitor_task(),
+                    self.performance_track_task()
+                ]
+                
+                # Run all tasks concurrently
+                await asyncio.gather(*tasks)
+                
+            except Exception as e:
+                logging.error(f"Critical error running bot: {str(e)}")
+                traceback.print_exc()
+                raise
             
             # Preload historical data for analysis
             logging.info("Preloading historical data for analysis...")
@@ -203,10 +259,7 @@ class HybridTradingBot:
             # Run all tasks concurrently
             await asyncio.gather(*tasks)
             
-        except Exception as e:
-            logging.error(f"Critical error running bot: {str(e)}")
-            traceback.print_exc()
-            raise
+            
     
     async def preload_historical_data(self):
         """Preload sufficient historical data for all needed timeframes"""
@@ -475,6 +528,12 @@ class HybridTradingBot:
             # Check if we already have a position
             have_position = pair in self.active_positions
             
+            # Extract token from pair
+            token = pair.replace("USDT", "")
+            
+            # Get trading signal from Nebula
+            nebula_signal = await self.nebula.get_trading_signal(token)
+            
             # Run multi-timeframe analysis
             mtf_analysis = await self.market_analysis.get_multi_timeframe_analysis(pair)
             
@@ -488,13 +547,14 @@ class HybridTradingBot:
                 'is_diversified': self.correlation.are_pairs_diversified(pair, active_positions)
             }
             
-            # Get combined analysis from all sources (including Nebula AI)
+            # Get combined analysis from all sources
             analysis = await self.strategy.analyze_pair(
                 pair,
                 mtf_analysis=mtf_analysis,
                 order_book_data=order_book_data,
                 correlation_data=correlation_data,
-                market_state=self.market_state
+                market_state=self.market_state,
+                nebula_signal=nebula_signal  # Pass the new signal to the strategy
             )
             
             # Log the analysis
@@ -504,9 +564,10 @@ class HybridTradingBot:
             # Store analysis
             self.analyzed_pairs[pair] = {
                 "timestamp": time.time(),
-                "analysis": analysis
+                "analysis": analysis,
+                "nebula_signal": nebula_signal
             }
-            
+
             # Execute trades based on signals
             if analysis['buy_signal'] and not have_position:
                 # Check risk management
@@ -517,7 +578,7 @@ class HybridTradingBot:
                 if can_trade:
                     # Execute buy
                     position_size = trade_details['position_size']
-                    success = await self.execute_buy(pair, position_size, analysis)
+                    success = self.execute_buy(pair, position_size, analysis)
                     
                     if success:
                         # Update risk manager
@@ -537,7 +598,7 @@ class HybridTradingBot:
                 
                 if should_sell:
                     # Execute sell
-                    success = await self.execute_sell(pair, analysis)
+                    success =  self.execute_sell(pair, analysis)
                     
                     if success:
                         # Update risk manager

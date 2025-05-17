@@ -1,0 +1,9 @@
+2025-05-15 18:52:59,157 - INFO - Nebula proxy monitor started
+2025-05-15 18:52:59,165 - WARNING - Proxy health check failed (1/5): Status code: 400
+2025-05-15 18:53:59,180 - WARNING - Proxy health check failed (2/5): Status code: 400
+2025-05-15 18:54:59,197 - WARNING - Proxy health check failed (3/5): Status code: 400
+2025-05-15 18:55:59,218 - WARNING - Proxy health check failed (4/5): Status code: 400
+2025-05-15 18:57:03,316 - WARNING - Proxy health check failed (5/5): HTTPConnectionPool(host='localhost', port=3000): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000012B33457230>: Failed to establish a new connection: [WinError 10061] Der kunne ikke oprettes forbindelse, fordi destinationscomputeren aktivt nægtede det'))
+2025-05-15 18:57:03,317 - WARNING - Attempting to restart Nebula proxy...
+2025-05-15 18:57:05,403 - INFO - Proxy restart command issued
+2025-05-15 18:58:00,193 - INFO - Monitor stopped by user

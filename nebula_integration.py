@@ -327,78 +327,167 @@ class NebulaAI:
             return {"position": "neutral"}
         return result
     
+
+    def get_nebula_signal_strength(self, insights):
+        
+        if not insights or not isinstance(insights, dict):
+            return 0.5
+        
+        try:
+            metrics = insights.get('metrics', {})
+            if not metrics:
+                return 0.5
+            
+            # Get individual metrics
+            prediction_conf = metrics.get('prediction_confidence', 0.5)
+            prediction_dir = metrics.get('prediction_direction', 'neutral')
+            sentiment = metrics.get('overall_sentiment', 0)
+            whale_acc = metrics.get('whale_accumulation', 0)
+            smart_money = metrics.get('smart_money_direction', 'neutral')
+            
+            # Get weights from config
+            weights = getattr(config, 'NEBULA_WEIGHTS', {
+                'PREDICTION': 0.3,
+                'SENTIMENT': 0.2,
+                'WHALE': 0.25,
+                'SMART_MONEY': 0.25
+            })
+            
+            # Calculate direction multipliers (-1 to 1)
+            pred_mult = 1 if prediction_dir == 'bullish' else (-1 if prediction_dir == 'bearish' else 0)
+            sm_mult = 1 if smart_money == 'bullish' else (-1 if smart_money == 'bearish' else 0)
+            
+            # Calculate weighted components
+            prediction_comp = pred_mult * prediction_conf * weights['PREDICTION']
+            sentiment_comp = sentiment * weights['SENTIMENT']
+            whale_comp = whale_acc * weights['WHALE']
+            sm_comp = sm_mult * weights['SMART_MONEY'] * 0.5  # Half weight as no confidence value
+            
+            # Calculate final signal (-1 to 1 range)
+            signal = prediction_comp + sentiment_comp + whale_comp + sm_comp
+            
+            # Convert to 0-1 range
+            normalized_signal = (signal + 1) / 2
+            
+            return normalized_signal
+            
+        except Exception as e:
+            logging.error(f"Error calculating Nebula signal strength: {str(e)}")
+            return 0.5
+
+
+
+
+
     async def get_consolidated_insights(self, token, max_wait_time=15):
-        """Get consolidated insights from all Nebula models with timeout protection"""
+        
         token = token.replace("USDT", "").lower()
         
         # If proxy is unavailable when in proxy mode, use fallback
         if self.use_proxy and not self.proxy_available:
+            logging.warning(f"Nebula proxy unavailable for {token} analysis - using fallback data")
             return self._get_fallback_insights(token)
         
         try:
+            # Before making any API calls, check if proxy is still available
+            if self.use_proxy:
+                self.proxy_available = self._check_proxy_connection()
+                if not self.proxy_available:
+                    logging.warning(f"Nebula proxy connection failed - using fallback data")
+                    return self._get_fallback_insights(token)
+            
             # Use a timeout to prevent hanging
             # Gather data from all models in parallel with timeout protection
-            tasks = [
-                asyncio.create_task(self.get_market_prediction(token)),
-                asyncio.create_task(self.get_sentiment_analysis(token)),
-                asyncio.create_task(self.get_whale_activity(token)),
-                asyncio.create_task(self.get_smart_money_positions(token))
-            ]
+            results = {}
             
-            # Wait for all tasks to complete with timeout
-            done, pending = await asyncio.wait(tasks, timeout=max_wait_time)
-            
-            # Cancel any pending tasks that didn't complete within the timeout
-            for task in pending:
-                task.cancel()
+            # First try to get market prediction (most important)
+            try:
+                prediction_task = asyncio.create_task(self.get_market_prediction(token))
+                results['market_prediction'] = await asyncio.wait_for(prediction_task, timeout=5)
                 
-            # Get results from completed tasks
-            results = []
-            for i, task in enumerate(tasks):
-                try:
-                    if task in done:
-                        results.append(task.result())
-                    else:
-                        # Use default values for tasks that didn't complete
-                        if i == 0:  # market prediction
-                            results.append({"prediction": {"direction": "neutral", "confidence": 0.5}})
-                        elif i == 1:  # sentiment
-                            results.append({"sentiment_score": 0})
-                        elif i == 2:  # whale activity
-                            results.append({"accumulation_score": 0})
+                # If prediction succeeds, try other models in parallel
+                tasks = [
+                    asyncio.create_task(self.get_sentiment_analysis(token)),
+                    asyncio.create_task(self.get_whale_activity(token)),
+                    asyncio.create_task(self.get_smart_money_positions(token))
+                ]
+                
+                # Wait for all tasks to complete with timeout (remaining time)
+                remaining_time = max(1, max_wait_time - 5)
+                done, pending = await asyncio.wait(tasks, timeout=remaining_time)
+                
+                # Cancel any pending tasks that didn't complete within the timeout
+                for task in pending:
+                    task.cancel()
+                    
+                # Get results from completed tasks
+                results_list = []
+                for task in tasks:
+                    try:
+                        if task in done:
+                            results_list.append(task.result())
+                        else:
+                            # Use appropriate default value based on task type
+                            if len(results_list) == 0:  # sentiment
+                                results_list.append({"sentiment_score": 0})
+                            elif len(results_list) == 1:  # whale activity
+                                results_list.append({"accumulation_score": 0})
+                            else:  # smart money
+                                results_list.append({"position": "neutral"})
+                    except Exception as e:
+                        logging.error(f"Error getting Nebula data: {str(e)}")
+                        # Use appropriate default value based on task index
+                        if len(results_list) == 0:  # sentiment
+                            results_list.append({"sentiment_score": 0})
+                        elif len(results_list) == 1:  # whale activity
+                            results_list.append({"accumulation_score": 0})
                         else:  # smart money
-                            results.append({"position": "neutral"})
-                except Exception as e:
-                    logging.error(f"Error getting task result: {str(e)}")
-                    # Use appropriate default value based on task index
-                    if i == 0:  # market prediction
-                        results.append({"prediction": {"direction": "neutral", "confidence": 0.5}})
-                    elif i == 1:  # sentiment
-                        results.append({"sentiment_score": 0})
-                    elif i == 2:  # whale activity
-                        results.append({"accumulation_score": 0})
-                    else:  # smart money
-                        results.append({"position": "neutral"})
+                            results_list.append({"position": "neutral"})
+                
+                # Assign results
+                results['sentiment'] = results_list[0]
+                results['whale_activity'] = results_list[1]
+                results['smart_money'] = results_list[2]
+                
+            except asyncio.TimeoutError:
+                logging.warning(f"Timeout getting Nebula market prediction for {token}")
+                results['market_prediction'] = {"prediction": {"direction": "neutral", "confidence": 0.5}}
+                results['sentiment'] = {"sentiment_score": 0}
+                results['whale_activity'] = {"accumulation_score": 0}
+                results['smart_money'] = {"position": "neutral"}
+            except Exception as e:
+                logging.error(f"Error in Nebula prediction: {str(e)}")
+                results['market_prediction'] = {"prediction": {"direction": "neutral", "confidence": 0.5}}
+                results['sentiment'] = {"sentiment_score": 0}
+                results['whale_activity'] = {"accumulation_score": 0}
+                results['smart_money'] = {"position": "neutral"}
             
             # Consolidate results
             consolidated = {
-                "market_prediction": results[0],
-                "sentiment": results[1],
-                "whale_activity": results[2],
-                "smart_money": results[3],
+                "market_prediction": results.get('market_prediction', {}),
+                "sentiment": results.get('sentiment', {}),
+                "whale_activity": results.get('whale_activity', {}),
+                "smart_money": results.get('smart_money', {}),
                 "timestamp": time.time()
             }
             
-            # Extract key metrics for easier access
+            # Extract key metrics for easier access (used by enhanced_strategy.py)
             metrics = {
-                "overall_sentiment": self._extract_sentiment(results[1]),
-                "prediction_direction": self._extract_prediction(results[0]),
-                "prediction_confidence": self._extract_confidence(results[0]),
-                "whale_accumulation": self._extract_whale_trend(results[2]),
-                "smart_money_direction": self._extract_smart_money(results[3])
+                "overall_sentiment": self._extract_sentiment(results.get('sentiment', {})),
+                "prediction_direction": self._extract_prediction(results.get('market_prediction', {})),
+                "prediction_confidence": self._extract_confidence(results.get('market_prediction', {})),
+                "whale_accumulation": self._extract_whale_trend(results.get('whale_activity', {})),
+                "smart_money_direction": self._extract_smart_money(results.get('smart_money', {}))
             }
             
             consolidated["metrics"] = metrics
+            
+            # Log successful data retrieval
+            logging.info(f"Nebula insights for {token}: {metrics['prediction_direction']} "
+                        f"({metrics['prediction_confidence']:.2f} confidence), "
+                        f"sentiment: {metrics['overall_sentiment']:.2f}, "
+                        f"whale: {metrics['whale_accumulation']:.2f}, "
+                        f"smart money: {metrics['smart_money_direction']}")
             
             return consolidated
             
@@ -406,7 +495,7 @@ class NebulaAI:
             logging.error(f"Error in get_consolidated_insights: {str(e)}")
             # Return default data in case of any error
             return self._get_fallback_insights(token)
-    
+        
     def _get_fallback_insights(self, token):
         """Provide fallback insights data when Nebula is unavailable"""
         return {

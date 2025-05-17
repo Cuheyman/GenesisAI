@@ -1,0 +1,962 @@
+2025-05-17 18:18:06,601 - INFO - Dummy Nebula AI client initialized (fallback mode)
+2025-05-17 18:18:06,606 - INFO - Database initialization complete
+2025-05-17 18:18:10,635 - WARNING - Thirdweb Nebula AI proxy not available - will use fallback mode
+2025-05-17 18:18:10,636 - INFO - Risk Manager initialized with equity protection: Warning at 3.0%, Risk Reduction at 7.000000000000001%, High Alert at 12.0%, Emergency at 15.0%
+2025-05-17 18:18:10,636 - INFO - Hybrid Trading Bot initialized with 10000.00 equity
+2025-05-17 18:18:10,636 - INFO - Mode: TEST trading
+2025-05-17 18:18:10,638 - INFO - Testing API connections...
+2025-05-17 18:18:11,470 - INFO - Binance server time: 2025-05-17 18:18:07.668000
+2025-05-17 18:18:15,484 - WARNING - Nebula proxy unavailable (attempt 1/3)
+2025-05-17 18:18:21,504 - WARNING - Nebula proxy unavailable (attempt 2/3)
+2025-05-17 18:18:37,836 - ERROR - Nebula API timeout after 10 seconds
+2025-05-17 18:18:37,837 - INFO - Nebula AI connection successful: 0
+2025-05-17 18:18:37,837 - INFO - Preloading historical data for analysis...
+2025-05-17 18:18:37,837 - INFO - Preloading historical data for analysis...
+2025-05-17 18:18:37,837 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-05-17 18:18:39,259 - INFO - Found trending pairs: INITUSDT, KAITOUSDT, PIXELUSDT, BABYUSDT, VIRTUALUSDT...
+2025-05-17 18:18:39,259 - INFO - Preloading data for pairs: SOLUSDT, KAITOUSDT, ADAUSDT, CKBUSDT, UNIUSDT
+2025-05-17 18:19:19,129 - INFO - Preloading data for pairs: NEIROUSDT, PIXELUSDT, ALICEUSDT, ETHUSDT, BTCUSDT
+2025-05-17 18:19:57,012 - INFO - Preloading data for pairs: BNBUSDT, BABYUSDT, WCTUSDT, SUSDT, OMUSDT
+2025-05-17 18:20:37,188 - INFO - Preloading data for pairs: LPTUSDT, SIGNUSDT, VANAUSDT, BIGTIMEUSDT, DYDXUSDT
+2025-05-17 18:21:11,377 - INFO - Preloading data for pairs: RENDERUSDT, INITUSDT, KMNOUSDT, NOTUSDT, VIRTUALUSDT
+2025-05-17 18:21:51,070 - INFO - Historical data preloading complete
+2025-05-17 18:22:01,329 - INFO - Updating correlation matrix...
+2025-05-17 18:22:01,330 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:22:01,336 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:22:42,425 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, TRXUSDT, SOLUSDT... (15 total)
+2025-05-17 18:22:42,426 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:22:42,426 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:22:42,426 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:22:42,426 - INFO -   TRXUSDT: score 3.55
+2025-05-17 18:22:42,427 - INFO -   SOLUSDT: score 3.35
+2025-05-17 18:22:42,461 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 10000.0,
+    "start": 10000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0.0,
+    "avg_daily_return_pct": 0.0,
+    "avg_weekly_return_pct": NaN
+  },
+  "trades": {
+    "total": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "profit_factor": 0,
+    "avg_profit": 0,
+    "avg_loss": 0,
+    "expected_value": 0,
+    "recent_win_rate_pct": 0
+  },
+  "pairs": {
+    "best_pair": "None",
+    "best_pair_profit": 0,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-05-17 18:22:42"
+}
+2025-05-17 18:23:20,924 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:23:20,924 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:23:20,925 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:23:20,925 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:23:20,925 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:23:20,926 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:23:20,926 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:23:20,926 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:23:20,927 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:23:20,927 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:23:20,927 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:23:20,927 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:23:20,927 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:23:20,928 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:23:20,928 - ERROR - Error analyzing THETAUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:23:20,993 - INFO - Correlation matrix updated for 42 pairs
+2025-05-17 18:23:33,340 - INFO - Market state: Regime=NEUTRAL, Trend=neutral, Volatility=normal, Breadth=0.50
+2025-05-17 18:23:33,341 - INFO - Trading cycle completed in 92.01 seconds
+2025-05-17 18:24:03,343 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:24:03,343 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:24:41,480 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, TRXUSDT, SOLUSDT... (15 total)
+2025-05-17 18:24:41,480 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:24:41,480 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:24:41,481 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:24:41,481 - INFO -   TRXUSDT: score 3.55
+2025-05-17 18:24:41,481 - INFO -   SOLUSDT: score 3.35
+2025-05-17 18:24:41,481 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:24:41,482 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:24:41,482 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:24:41,482 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:24:41,482 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:24:41,483 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:24:41,483 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:24:41,483 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:24:41,483 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:24:41,483 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:24:41,483 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:24:41,484 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:24:41,484 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:24:41,484 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:24:41,484 - ERROR - Error analyzing THETAUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:24:41,484 - INFO - Trading cycle completed in 38.14 seconds
+2025-05-17 18:25:11,498 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:25:11,499 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:25:48,767 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, TRXUSDT, SOLUSDT... (15 total)
+2025-05-17 18:25:48,767 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:25:48,768 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:25:48,768 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:25:48,768 - INFO -   TRXUSDT: score 3.55
+2025-05-17 18:25:48,769 - INFO -   SOLUSDT: score 3.35
+2025-05-17 18:25:48,769 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:25:48,769 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:25:48,770 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:25:48,770 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:25:48,770 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:25:48,770 - ERROR - Error analyzing SUIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:25:48,770 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:25:48,771 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:25:48,771 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:25:48,771 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:25:48,771 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:25:48,771 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:25:48,771 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:25:48,772 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:25:48,772 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:25:48,772 - INFO - Trading cycle completed in 37.27 seconds
+2025-05-17 18:26:18,785 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:26:18,786 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:26:56,269 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, TRXUSDT, ETHUSDT... (15 total)
+2025-05-17 18:26:56,270 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:26:56,270 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:26:56,270 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:26:56,271 - INFO -   TRXUSDT: score 3.55
+2025-05-17 18:26:56,271 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:26:56,271 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:26:56,271 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:26:56,272 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:26:56,272 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:26:56,272 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:26:56,272 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:26:56,272 - ERROR - Error analyzing SUIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:26:56,273 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:26:56,273 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:26:56,273 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:26:56,273 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:26:56,273 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:26:56,273 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:26:56,273 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:26:56,274 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:26:56,274 - INFO - Trading cycle completed in 37.49 seconds
+2025-05-17 18:27:26,289 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:27:26,290 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:28:07,685 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, TRXUSDT, ETHUSDT... (15 total)
+2025-05-17 18:28:07,686 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:28:07,686 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:28:07,687 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:28:07,687 - INFO -   TRXUSDT: score 3.55
+2025-05-17 18:28:07,687 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:28:07,687 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:28:07,688 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:28:07,688 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:28:07,688 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:28:07,688 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:28:07,688 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:28:07,688 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:28:07,688 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:28:07,689 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:28:07,689 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:28:07,689 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:28:07,689 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:28:07,689 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:28:07,689 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:28:07,689 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:28:07,694 - INFO - Trading cycle completed in 41.40 seconds
+2025-05-17 18:28:37,707 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:28:37,707 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:29:18,632 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, TRXUSDT, ETHUSDT... (15 total)
+2025-05-17 18:29:18,632 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:29:18,632 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:29:18,633 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:29:18,633 - INFO -   TRXUSDT: score 3.55
+2025-05-17 18:29:18,633 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:29:18,634 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:29:18,634 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:29:18,634 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:29:18,634 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:29:18,634 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:29:18,634 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:29:18,635 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:29:18,635 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:29:18,635 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:29:18,635 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:29:18,635 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:29:18,635 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:29:18,635 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:29:18,635 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:29:18,636 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:29:18,636 - INFO - Trading cycle completed in 40.93 seconds
+2025-05-17 18:29:48,649 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:29:48,650 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:30:29,566 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, TRXUSDT, ETHUSDT... (15 total)
+2025-05-17 18:30:29,567 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:30:29,567 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:30:29,567 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:30:29,567 - INFO -   TRXUSDT: score 3.55
+2025-05-17 18:30:29,567 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:30:29,567 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:30:29,568 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:30:29,568 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:30:29,568 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:30:29,568 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:30:29,568 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:30:29,568 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:30:29,569 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:30:29,569 - ERROR - Error analyzing LTCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:30:29,569 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:30:29,569 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:30:29,569 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:30:29,570 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:30:29,570 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:30:29,570 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:30:29,570 - INFO - Trading cycle completed in 40.92 seconds
+2025-05-17 18:30:59,579 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:30:59,580 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:31:38,858 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, TRXUSDT, ETHUSDT... (15 total)
+2025-05-17 18:31:38,859 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:31:38,859 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:31:38,859 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:31:38,859 - INFO -   TRXUSDT: score 3.55
+2025-05-17 18:31:38,860 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:31:38,860 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:31:38,860 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:31:38,860 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:31:38,861 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:31:38,861 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:31:38,861 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:31:38,861 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:31:38,861 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:31:38,861 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:31:38,861 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:31:38,862 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:31:38,862 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:31:38,862 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:31:38,862 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:31:38,862 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:31:38,862 - INFO - Trading cycle completed in 39.28 seconds
+2025-05-17 18:32:08,866 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:32:08,867 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:32:47,186 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, TRXUSDT, ETHUSDT... (15 total)
+2025-05-17 18:32:47,186 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:32:47,187 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:32:47,187 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:32:47,187 - INFO -   TRXUSDT: score 3.55
+2025-05-17 18:32:47,187 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:32:47,188 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:32:47,188 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:32:47,188 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:32:47,189 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:32:47,189 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:32:47,189 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:32:47,189 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:32:47,189 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:32:47,189 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:32:47,190 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:32:47,190 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:32:47,190 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:32:47,190 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:32:47,190 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:32:47,190 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:32:47,190 - INFO - Trading cycle completed in 38.32 seconds
+2025-05-17 18:33:17,202 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:33:17,203 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:33:56,035 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, TRXUSDT, ETHUSDT... (15 total)
+2025-05-17 18:33:56,036 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:33:56,036 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:33:56,036 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:33:56,037 - INFO -   TRXUSDT: score 3.55
+2025-05-17 18:33:56,037 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:33:56,037 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:33:56,037 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:33:56,038 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:33:56,038 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:33:56,038 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:33:56,038 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:33:56,038 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:33:56,038 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:33:56,039 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:33:56,039 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:33:56,039 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:33:56,039 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:33:56,039 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:33:56,039 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:33:56,040 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:33:56,040 - INFO - Trading cycle completed in 38.84 seconds
+2025-05-17 18:34:26,045 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:34:26,046 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:35:04,566 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, TRXUSDT, ETHUSDT... (15 total)
+2025-05-17 18:35:04,567 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:35:04,567 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:35:04,567 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:35:04,567 - INFO -   TRXUSDT: score 3.55
+2025-05-17 18:35:04,567 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:35:04,568 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:35:04,568 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:35:04,568 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:35:04,568 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:35:04,568 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:35:04,569 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:35:04,570 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:35:04,570 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:35:04,570 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:35:04,570 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:35:04,570 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:35:04,571 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:35:04,571 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:35:04,571 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:35:04,571 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:35:04,571 - INFO - Trading cycle completed in 38.53 seconds
+2025-05-17 18:35:34,577 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:35:34,578 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:36:16,352 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, TRXUSDT, ETHUSDT... (15 total)
+2025-05-17 18:36:16,352 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:36:16,352 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:36:16,352 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:36:16,352 - INFO -   TRXUSDT: score 3.55
+2025-05-17 18:36:16,353 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:36:16,353 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:36:16,353 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:36:16,353 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:36:16,353 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:36:16,353 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:36:16,354 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:36:16,354 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:36:16,354 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:36:16,354 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:36:16,354 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:36:16,354 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:36:16,354 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:36:16,354 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:36:16,355 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:36:16,355 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:36:16,355 - INFO - Trading cycle completed in 41.78 seconds
+2025-05-17 18:36:46,358 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:36:46,359 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:37:25,964 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, ETHUSDT, SOLUSDT... (15 total)
+2025-05-17 18:37:25,965 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:37:25,965 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:37:25,965 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:37:25,965 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:37:25,965 - INFO -   SOLUSDT: score 3.35
+2025-05-17 18:37:25,966 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:37:25,966 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:37:25,966 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:37:25,967 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:37:25,967 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:37:25,967 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:37:25,967 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:37:25,967 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:37:25,968 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:37:25,968 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:37:25,968 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:37:25,968 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:37:25,968 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:37:25,968 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:37:25,969 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:37:25,969 - INFO - Trading cycle completed in 39.61 seconds
+2025-05-17 18:37:55,984 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:37:55,985 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:38:35,994 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, ETHUSDT, SOLUSDT... (15 total)
+2025-05-17 18:38:35,994 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:38:35,995 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:38:35,995 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:38:35,995 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:38:35,996 - INFO -   SOLUSDT: score 3.35
+2025-05-17 18:38:35,996 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:38:35,996 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:38:35,996 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:38:35,997 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:38:35,997 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:38:35,997 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:38:35,997 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:38:35,997 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:38:35,997 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:38:35,998 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:38:35,998 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:38:35,998 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:38:35,998 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:38:35,998 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:38:35,998 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:38:36,006 - INFO - Trading cycle completed in 40.02 seconds
+2025-05-17 18:39:06,020 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:39:06,021 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:39:43,809 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, ETHUSDT, SOLUSDT... (15 total)
+2025-05-17 18:39:43,809 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:39:43,810 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:39:43,810 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:39:43,810 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:39:43,810 - INFO -   SOLUSDT: score 3.35
+2025-05-17 18:39:43,810 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:39:43,810 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:39:43,810 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:39:43,811 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:39:43,811 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:39:43,811 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:39:43,811 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:39:43,811 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:39:43,811 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:39:43,811 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:39:43,812 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:39:43,812 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:39:43,812 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:39:43,812 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:39:43,812 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:39:43,812 - INFO - Trading cycle completed in 37.79 seconds
+2025-05-17 18:40:13,819 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:40:13,820 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:40:50,105 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, ETHUSDT, SOLUSDT... (15 total)
+2025-05-17 18:40:50,105 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:40:50,106 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:40:50,106 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:40:50,106 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:40:50,107 - INFO -   SOLUSDT: score 3.35
+2025-05-17 18:40:50,107 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:40:50,107 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:40:50,108 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:40:50,108 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:40:50,108 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:40:50,108 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:40:50,108 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:40:50,109 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:40:50,109 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:40:50,109 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:40:50,109 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:40:50,109 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:40:50,109 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:40:50,109 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:40:50,109 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:40:50,110 - INFO - Trading cycle completed in 36.29 seconds
+2025-05-17 18:41:20,120 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:41:20,120 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:41:56,869 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, ETHUSDT, SOLUSDT... (15 total)
+2025-05-17 18:41:56,869 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:41:56,870 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:41:56,870 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:41:56,870 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:41:56,870 - INFO -   SOLUSDT: score 3.35
+2025-05-17 18:41:56,871 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:41:56,871 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:41:56,871 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:41:56,871 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:41:56,872 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:41:56,872 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:41:56,872 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:41:56,872 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:41:56,872 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:41:56,873 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:41:56,873 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:41:56,873 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:41:56,873 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:41:56,873 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:41:56,873 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:41:56,874 - INFO - Trading cycle completed in 36.76 seconds
+2025-05-17 18:42:26,876 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:42:26,877 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:43:04,600 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, ETHUSDT, SOLUSDT... (15 total)
+2025-05-17 18:43:04,601 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:43:04,601 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:43:04,601 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:43:04,601 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:43:04,602 - INFO -   SOLUSDT: score 3.35
+2025-05-17 18:43:04,602 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:43:04,602 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:43:04,602 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:43:04,602 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:43:04,602 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:43:04,603 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:43:04,603 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:43:04,603 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:43:04,603 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:43:04,603 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:43:04,603 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:43:04,603 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:43:04,604 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:43:04,604 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:43:04,604 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:43:04,604 - INFO - Trading cycle completed in 37.73 seconds
+2025-05-17 18:43:34,620 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:43:34,621 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:44:13,968 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, ETHUSDT, SOLUSDT... (15 total)
+2025-05-17 18:44:13,968 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:44:13,968 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:44:13,969 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:44:13,969 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:44:13,969 - INFO -   SOLUSDT: score 3.35
+2025-05-17 18:44:13,969 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:44:13,969 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:44:13,969 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:44:13,970 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:44:13,970 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:44:13,970 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:44:13,970 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:44:13,970 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:44:13,970 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:44:13,971 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:44:13,971 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:44:13,971 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:44:13,971 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:44:13,971 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:44:13,971 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:44:13,981 - INFO - Trading cycle completed in 39.36 seconds
+2025-05-17 18:44:43,996 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:44:43,997 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:45:21,906 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, ETHUSDT, SOLUSDT... (15 total)
+2025-05-17 18:45:21,906 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:45:21,906 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:45:21,906 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:45:21,907 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:45:21,907 - INFO -   SOLUSDT: score 3.35
+2025-05-17 18:45:21,907 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:45:21,907 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:45:21,908 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:45:21,908 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:45:21,908 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:45:21,908 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:45:21,908 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:45:21,908 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:45:21,909 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:45:21,909 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:45:21,909 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:45:21,909 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:45:21,909 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:45:21,909 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:45:21,909 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:45:21,910 - INFO - Trading cycle completed in 37.92 seconds
+2025-05-17 18:45:51,915 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:45:51,916 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:46:31,868 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, ETHUSDT, SOLUSDT... (15 total)
+2025-05-17 18:46:31,869 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:46:31,869 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:46:31,869 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:46:31,869 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:46:31,869 - INFO -   SOLUSDT: score 3.35
+2025-05-17 18:46:31,870 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:46:31,870 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:46:31,870 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:46:31,870 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:46:31,870 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:46:31,871 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:46:31,871 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:46:31,871 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:46:31,871 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:46:31,871 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:46:31,871 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:46:31,871 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:46:31,871 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:46:31,872 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:46:31,872 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:46:31,872 - INFO - Trading cycle completed in 39.96 seconds
+2025-05-17 18:47:01,879 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:47:01,880 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:47:41,525 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, ETHUSDT, SOLUSDT... (15 total)
+2025-05-17 18:47:41,526 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:47:41,526 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:47:41,526 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:47:41,526 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:47:41,526 - INFO -   SOLUSDT: score 3.35
+2025-05-17 18:47:41,527 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:47:41,527 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:47:41,527 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:47:41,527 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:47:41,527 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:47:41,527 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:47:41,527 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:47:41,528 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:47:41,528 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:47:41,528 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:47:41,528 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:47:41,528 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:47:41,528 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:47:41,528 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:47:41,528 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:47:41,528 - INFO - Trading cycle completed in 39.65 seconds
+2025-05-17 18:48:11,537 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:48:11,538 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:48:54,144 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, ETHUSDT, SOLUSDT... (15 total)
+2025-05-17 18:48:54,145 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:48:54,145 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:48:54,145 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:48:54,146 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:48:54,146 - INFO -   SOLUSDT: score 3.35
+2025-05-17 18:48:54,146 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:48:54,146 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:48:54,147 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:48:54,147 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:48:54,147 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:48:54,147 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:48:54,147 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:48:54,148 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:48:54,148 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:48:54,148 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:48:54,148 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:48:54,148 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:48:54,149 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:48:54,149 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:48:54,149 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:48:54,149 - INFO - Trading cycle completed in 42.61 seconds
+2025-05-17 18:49:24,166 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:49:24,166 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:50:06,454 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, SOLUSDT, TRXUSDT... (15 total)
+2025-05-17 18:50:06,455 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:50:06,455 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:50:06,455 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:50:06,455 - INFO -   SOLUSDT: score 3.35
+2025-05-17 18:50:06,455 - INFO -   TRXUSDT: score 3.35
+2025-05-17 18:50:06,455 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:50:06,456 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:50:06,456 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:50:06,456 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:50:06,456 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:50:06,456 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:50:06,456 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:50:06,456 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:50:06,457 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:50:06,457 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:50:06,457 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:50:06,457 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:50:06,457 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:50:06,457 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:50:06,457 - ERROR - Error analyzing THETAUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:50:06,458 - INFO - Trading cycle completed in 42.29 seconds
+2025-05-17 18:50:36,459 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:50:36,460 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:51:17,777 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, ETHUSDT, SOLUSDT... (15 total)
+2025-05-17 18:51:17,777 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:51:17,777 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:51:17,778 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:51:17,778 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:51:17,778 - INFO -   SOLUSDT: score 3.35
+2025-05-17 18:51:17,778 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:51:17,778 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:51:17,779 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:51:17,779 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:51:17,779 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:51:17,779 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:51:17,779 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:51:17,779 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:51:17,780 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:51:17,780 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:51:17,780 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:51:17,780 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:51:17,780 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:51:17,780 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:51:17,780 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:51:17,781 - INFO - Trading cycle completed in 41.32 seconds
+2025-05-17 18:51:47,790 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:51:47,791 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:52:25,846 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, ETHUSDT, SOLUSDT... (15 total)
+2025-05-17 18:52:25,846 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:52:25,846 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:52:25,847 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:52:25,847 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:52:25,847 - INFO -   SOLUSDT: score 3.35
+2025-05-17 18:52:25,848 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:52:25,848 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:52:25,848 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:52:25,848 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:52:25,848 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:52:25,849 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:52:25,849 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:52:25,849 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:52:25,849 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:52:25,849 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:52:25,849 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:52:25,849 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:52:25,850 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:52:25,850 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:52:25,850 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:52:25,850 - INFO - Trading cycle completed in 38.06 seconds
+2025-05-17 18:52:55,863 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:52:55,863 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:53:36,792 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, ETHUSDT, SOLUSDT... (15 total)
+2025-05-17 18:53:36,792 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:53:36,792 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:53:36,793 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:53:36,793 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:53:36,793 - INFO -   SOLUSDT: score 3.35
+2025-05-17 18:53:36,793 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:53:36,794 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:53:36,794 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:53:36,794 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:53:36,794 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:53:36,794 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:53:36,794 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:53:36,795 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:53:36,795 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:53:36,795 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:53:36,795 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:53:36,795 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:53:36,795 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:53:36,795 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:53:36,795 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:53:46,160 - INFO - Updating correlation matrix...
+2025-05-17 18:53:46,160 - INFO - Trading cycle completed in 50.30 seconds
+2025-05-17 18:54:26,140 - INFO - Correlation matrix updated for 42 pairs
+2025-05-17 18:54:40,401 - INFO - Market state: Regime=NEUTRAL, Trend=neutral, Volatility=normal, Breadth=0.50
+2025-05-17 18:54:40,409 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:54:40,410 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:55:21,319 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, ETHUSDT, SOLUSDT... (15 total)
+2025-05-17 18:55:21,319 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:55:21,320 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:55:21,320 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:55:21,320 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:55:21,320 - INFO -   SOLUSDT: score 3.35
+2025-05-17 18:55:21,321 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:55:21,321 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:55:21,321 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:55:21,321 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:55:21,322 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:55:21,322 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:55:21,322 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:55:21,322 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:55:21,322 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:55:21,322 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:55:21,322 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:55:21,323 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:55:21,323 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:55:21,323 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:55:21,323 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:55:21,323 - INFO - Trading cycle completed in 40.91 seconds
+2025-05-17 18:55:51,331 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:55:51,331 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:56:32,132 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, ETHUSDT, SOLUSDT... (15 total)
+2025-05-17 18:56:32,132 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:56:32,133 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:56:32,133 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:56:32,133 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:56:32,133 - INFO -   SOLUSDT: score 3.35
+2025-05-17 18:56:32,133 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:56:32,133 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:56:32,134 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:56:32,134 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:56:32,134 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:56:32,134 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:56:32,134 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:56:32,134 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:56:32,134 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:56:32,135 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:56:32,135 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:56:32,135 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:56:32,135 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:56:32,135 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:56:32,135 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:56:32,136 - INFO - Trading cycle completed in 40.81 seconds
+2025-05-17 18:57:02,145 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:57:02,146 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:57:41,217 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, ETHUSDT, SOLUSDT... (15 total)
+2025-05-17 18:57:41,217 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:57:41,217 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:57:41,217 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:57:41,218 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:57:41,218 - INFO -   SOLUSDT: score 3.35
+2025-05-17 18:57:41,218 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:57:41,219 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:57:41,219 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:57:41,219 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:57:41,219 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:57:41,219 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:57:41,220 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:57:41,220 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:57:41,220 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:57:41,220 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:57:41,220 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:57:41,220 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:57:41,220 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:57:41,221 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:57:41,221 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:57:41,221 - INFO - Trading cycle completed in 39.08 seconds
+2025-05-17 18:58:11,236 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:58:11,237 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:58:49,433 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, ETHUSDT, SOLUSDT... (15 total)
+2025-05-17 18:58:49,434 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:58:49,434 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:58:49,434 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:58:49,434 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:58:49,434 - INFO -   SOLUSDT: score 3.35
+2025-05-17 18:58:49,434 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:58:49,435 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:58:49,435 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:58:49,435 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:58:49,435 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:58:49,436 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:58:49,436 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:58:49,436 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:58:49,437 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:58:49,437 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:58:49,437 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:58:49,437 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:58:49,437 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:58:49,437 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:58:49,437 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:58:49,437 - INFO - Trading cycle completed in 38.20 seconds
+2025-05-17 18:59:19,450 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 18:59:19,451 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 18:59:59,048 - INFO - Selected optimal assets: OMUSDT, UNIUSDT, RENDERUSDT, ETHUSDT, SOLUSDT... (15 total)
+2025-05-17 18:59:59,048 - INFO -   OMUSDT: score 4.75
+2025-05-17 18:59:59,049 - INFO -   UNIUSDT: score 4.75
+2025-05-17 18:59:59,049 - INFO -   RENDERUSDT: score 4.75
+2025-05-17 18:59:59,049 - INFO -   ETHUSDT: score 3.35
+2025-05-17 18:59:59,049 - INFO -   SOLUSDT: score 3.35
+2025-05-17 18:59:59,049 - ERROR - Error analyzing OMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:59:59,049 - ERROR - Error analyzing UNIUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:59:59,049 - ERROR - Error analyzing RENDERUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:59:59,049 - ERROR - Error analyzing ETHUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:59:59,050 - ERROR - Error analyzing SOLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:59:59,050 - ERROR - Error analyzing TRXUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:59:59,050 - ERROR - Error analyzing TONUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:59:59,050 - ERROR - Error analyzing SHIBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:59:59,050 - ERROR - Error analyzing PEPEUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:59:59,051 - ERROR - Error analyzing APTUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:59:59,051 - ERROR - Error analyzing ETCUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:59:59,051 - ERROR - Error analyzing POLUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:59:59,051 - ERROR - Error analyzing ARBUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:59:59,051 - ERROR - Error analyzing FETUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:59:59,051 - ERROR - Error analyzing ATOMUSDT: 'NebulaAI' object has no attribute 'get_trading_signal'
+2025-05-17 18:59:59,083 - INFO - Trading cycle completed in 39.63 seconds
+2025-05-17 19:00:29,090 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-17 19:00:29,090 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-17 19:00:32,340 - INFO - Bot stopped by user
+2025-05-17 19:00:32,385 - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-1' coro=<HybridTradingBot.run() done, defined at C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py:180> exception=KeyboardInterrupt()>
+Traceback (most recent call last):
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\main.py", line 30, in <module>
+    asyncio.run(bot.run())
+    ~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 193, in run
+    with Runner(debug=debug, loop_factory=loop_factory) as runner:
+         ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 62, in __exit__
+    self.close()
+    ~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 70, in close
+    _cancel_all_tasks(loop)
+    ~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 205, in _cancel_all_tasks
+    loop.run_until_complete(tasks.gather(*to_cancel, return_exceptions=True))
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 708, in run_until_complete
+    self.run_forever()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 679, in run_forever
+    self._run_once()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2027, in _run_once
+    handle._run()
+    ~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py", line 239, in run
+    await asyncio.gather(*tasks)
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 194, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 708, in run_until_complete
+    self.run_forever()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 679, in run_forever
+    self._run_once()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2027, in _run_once
+    handle._run()
+    ~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py", line 419, in trading_task
+    pairs_to_analyze = await self.asset_selection.select_optimal_assets(limit=15)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\asset_selection.py", line 43, in select_optimal_assets
+    klines = await self.market_analysis.get_klines(pair, start_time, '4h')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\market_analysis.py", line 214, in get_klines
+    klines = self.binance_client.get_historical_klines(
+        pair, interval, start_time, limit=1000
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 830, in get_historical_klines
+    return self._historical_klines(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        symbol,
+        ^^^^^^^
+    ...<4 lines>...
+        klines_type=klines_type,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 900, in _historical_klines
+    temp_data = self._klines(
+        klines_type=klines_type,
+    ...<4 lines>...
+        endTime=end_ts,
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 759, in _klines
+    return self.get_klines(**params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 742, in get_klines
+    return self._get("klines", data=params, version=self.PRIVATE_API_VERSION)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 180, in _get
+    return self._request_api("get", path, signed, version, **kwargs)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 117, in _request_api
+    return self._request(method, uri, signed, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 88, in _request
+    self.response = getattr(self.session, method)(uri, headers=headers, data=data, **kwargs)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connection.py", line 516, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 1428, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 331, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 292, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\socket.py", line 719, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 157, in _on_sigint
+    raise KeyboardInterrupt()
+KeyboardInterrupt

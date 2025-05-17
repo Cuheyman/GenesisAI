@@ -1,31 +1,33 @@
-2025-05-15 14:55:48,868 - INFO - Database initialization complete
-2025-05-15 14:55:48,891 - INFO - Thirdweb Nebula AI client initialized via local proxy
-2025-05-15 14:55:48,892 - INFO - Risk Manager initialized with equity protection: Warning at 3.0%, Risk Reduction at 7.000000000000001%, High Alert at 12.0%, Emergency at 15.0%
-2025-05-15 14:55:48,893 - INFO - Hybrid Trading Bot initialized with 10000.00 equity
-2025-05-15 14:55:48,893 - INFO - Mode: TEST trading
-2025-05-15 14:55:48,894 - INFO - Testing API connections...
-2025-05-15 14:55:49,597 - INFO - Binance server time: 2025-05-15 14:55:27.624000
-2025-05-15 14:55:49,726 - INFO - Nebula AI connection successful: -0.72
-2025-05-15 14:55:49,726 - INFO - Preloading historical data for analysis...
-2025-05-15 14:55:49,727 - INFO - Preloading historical data for analysis...
-2025-05-15 14:55:49,727 - INFO - Fetching top 20 trending cryptocurrency pairs
-2025-05-15 14:55:50,666 - INFO - Found trending pairs: KMNOUSDT, BABYUSDT, XVGUSDT, SIGNUSDT, RSRUSDT...
-2025-05-15 14:55:50,666 - INFO - Preloading data for pairs: RENDERUSDT, VANAUSDT, BNBUSDT, KMNOUSDT, SIGNUSDT
-2025-05-15 14:56:20,666 - INFO - Preloading data for pairs: PIXELUSDT, NOTUSDT, BIGTIMEUSDT, ETHUSDT, RSRUSDT
-2025-05-15 14:56:52,000 - INFO - Preloading data for pairs: WCTUSDT, ADAUSDT, AMPUSDT, XVGUSDT, LAYERUSDT
-2025-05-15 14:57:23,198 - INFO - Preloading data for pairs: SYRUPUSDT, RAYUSDT, OMUSDT, COTIUSDT, EOSUSDT
-2025-05-15 14:57:54,540 - INFO - Preloading data for pairs: BTCUSDT, BABYUSDT, ENAUSDT, JUPUSDT, SOLUSDT
-2025-05-15 14:58:26,843 - INFO - Historical data preloading complete
-2025-05-15 14:58:35,239 - INFO - Updating correlation matrix...
-2025-05-15 14:58:35,240 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
-2025-05-15 14:58:35,241 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
-2025-05-15 14:59:08,357 - INFO - Selected optimal assets: OMUSDT, EOSUSDT, RENDERUSDT, LAYERUSDT, PEPEUSDT... (15 total)
-2025-05-15 14:59:08,357 - INFO -   OMUSDT: score 5.35
-2025-05-15 14:59:08,357 - INFO -   EOSUSDT: score 5.05
-2025-05-15 14:59:08,358 - INFO -   RENDERUSDT: score 4.85
-2025-05-15 14:59:08,358 - INFO -   LAYERUSDT: score 4.75
-2025-05-15 14:59:08,358 - INFO -   PEPEUSDT: score 4.05
-2025-05-15 14:59:08,370 - INFO - Hourly performance report: {
+2025-05-15 18:15:42,093 - INFO - Dummy Nebula AI client initialized (fallback mode)
+2025-05-15 18:15:42,095 - INFO - Database initialization complete
+2025-05-15 18:15:46,119 - WARNING - Thirdweb Nebula AI proxy not available - will use fallback mode
+2025-05-15 18:15:46,120 - INFO - Risk Manager initialized with equity protection: Warning at 3.0%, Risk Reduction at 7.000000000000001%, High Alert at 12.0%, Emergency at 15.0%
+2025-05-15 18:15:46,120 - INFO - Hybrid Trading Bot initialized with 10000.00 equity
+2025-05-15 18:15:46,121 - INFO - Mode: TEST trading
+2025-05-15 18:15:46,137 - INFO - Testing API connections...
+2025-05-15 18:15:46,821 - INFO - Binance server time: 2025-05-15 18:15:46.677000
+2025-05-15 18:15:47,388 - ERROR - Nebula API error: 503 - {"error":"Nebula AI service not available","message":"ThirdWeb SDK initialization failed"}
+2025-05-15 18:15:47,388 - INFO - Nebula AI connection successful: 0
+2025-05-15 18:15:47,388 - INFO - Preloading historical data for analysis...
+2025-05-15 18:15:47,389 - INFO - Preloading historical data for analysis...
+2025-05-15 18:15:47,389 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-05-15 18:15:48,323 - INFO - Found trending pairs: GUNUSDT, BABYUSDT, AMPUSDT, SIGNUSDT, WCTUSDT...
+2025-05-15 18:15:48,324 - INFO - Preloading data for pairs: SOLUSDT, COTIUSDT, BABYUSDT, BTCUSDT, ETHUSDT
+2025-05-15 18:16:19,357 - INFO - Preloading data for pairs: OMUSDT, LAYERUSDT, RAYUSDT, ONDOUSDT, NOTUSDT
+2025-05-15 18:16:52,459 - INFO - Preloading data for pairs: VANAUSDT, SPELLUSDT, WCTUSDT, ENAUSDT, BNBUSDT
+2025-05-15 18:17:28,031 - INFO - Preloading data for pairs: RSRUSDT, JUPUSDT, AMPUSDT, SIGNUSDT, PIXELUSDT
+2025-05-15 18:18:02,339 - INFO - Preloading data for pairs: ADAUSDT, BIGTIMEUSDT, KMNOUSDT, GUNUSDT, CKBUSDT
+2025-05-15 18:18:37,353 - INFO - Historical data preloading complete
+2025-05-15 18:18:46,209 - INFO - Updating correlation matrix...
+2025-05-15 18:18:46,210 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 18:18:46,211 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 18:19:23,077 - INFO - Selected optimal assets: OMUSDT, LAYERUSDT, ZECUSDT, TRXUSDT, EGLDUSDT... (15 total)
+2025-05-15 18:19:23,078 - INFO -   OMUSDT: score 5.35
+2025-05-15 18:19:23,078 - INFO -   LAYERUSDT: score 4.85
+2025-05-15 18:19:23,078 - INFO -   ZECUSDT: score 4.10
+2025-05-15 18:19:23,079 - INFO -   TRXUSDT: score 3.80
+2025-05-15 18:19:23,079 - INFO -   EGLDUSDT: score 3.60
+2025-05-15 18:19:23,099 - INFO - Hourly performance report: {
   "equity": {
     "current": 10000.0,
     "start": 10000.0,
@@ -51,165 +53,123 @@
     "worst_pair": "None",
     "worst_pair_profit": 0
   },
-  "timestamp": "2025-05-15 14:59:08"
+  "timestamp": "2025-05-15 18:19:23"
 }
-2025-05-15 14:59:43,932 - WARNING - Insufficient data for OMUSDT on 1d timeframe
-2025-05-15 14:59:44,622 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
-2025-05-15 14:59:44,622 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
-2025-05-15 14:59:51,560 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
-2025-05-15 14:59:51,794 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
-2025-05-15 14:59:51,794 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
-2025-05-15 14:59:56,060 - WARNING - Insufficient data for RENDERUSDT on 1d timeframe
-2025-05-15 14:59:56,299 - ERROR - Error analyzing RENDERUSDT: name 'asyncio' is not defined
-2025-05-15 14:59:56,299 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
-2025-05-15 15:00:01,205 - WARNING - Insufficient data for LAYERUSDT on 1d timeframe
-2025-05-15 15:00:01,436 - ERROR - Error analyzing LAYERUSDT: name 'asyncio' is not defined
-2025-05-15 15:00:01,437 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
-2025-05-15 15:00:07,054 - WARNING - Insufficient data for PEPEUSDT on 1d timeframe
-2025-05-15 15:00:07,286 - ERROR - Error analyzing PEPEUSDT: name 'asyncio' is not defined
-2025-05-15 15:00:07,286 - INFO - PEPEUSDT analysis: NEUTRAL signal with 0.00 strength
-2025-05-15 15:00:12,832 - WARNING - Insufficient data for BONKUSDT on 1d timeframe
-2025-05-15 15:00:13,522 - ERROR - Error analyzing BONKUSDT: name 'asyncio' is not defined
-2025-05-15 15:00:13,523 - INFO - BONKUSDT analysis: NEUTRAL signal with 0.00 strength
-2025-05-15 15:00:15,885 - INFO - Bot stopped by user
-2025-05-15 15:00:15,920 - ERROR - Task was destroyed but it is pending!
-task: <Task cancelling name='Task-1' coro=<HybridTradingBot.run() done, defined at C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py:172> wait_for=<_GatheringFuture finished exception=CancelledError()> cb=[gather.<locals>._done_callback() at C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\tasks.py:820]>
-2025-05-15 15:00:15,920 - ERROR - Task exception was never retrieved
-future: <Task finished name='Task-3' coro=<HybridTradingBot.trading_task() done, defined at C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py:327> exception=KeyboardInterrupt()>
-Traceback (most recent call last):
-  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\main.py", line 30, in <module>
-    asyncio.run(bot.run())
-    ~~~~~~~~~~~^^^^^^^^^^^
-  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 193, in run
-    with Runner(debug=debug, loop_factory=loop_factory) as runner:
-         ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 62, in __exit__
-    self.close()
-    ~~~~~~~~~~^^
-  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 70, in close
-    _cancel_all_tasks(loop)
-    ~~~~~~~~~~~~~~~~~^^^^^^
-  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 205, in _cancel_all_tasks
-    loop.run_until_complete(tasks.gather(*to_cancel, return_exceptions=True))
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 708, in run_until_complete
-    self.run_forever()
-    ~~~~~~~~~~~~~~~~^^
-  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 679, in run_forever
-    self._run_once()
-    ~~~~~~~~~~~~~~^^
-  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2027, in _run_once
-    handle._run()
-    ~~~~~~~~~~~^^
-  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
-    self._context.run(self._callback, *self._args)
-    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py", line 379, in trading_task
-    await asyncio.gather(*analysis_tasks)
-  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 194, in run
-    return runner.run(main)
-           ~~~~~~~~~~^^^^^^
-  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
-  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 708, in run_until_complete
-    self.run_forever()
-    ~~~~~~~~~~~~~~~~^^
-  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 679, in run_forever
-    self._run_once()
-    ~~~~~~~~~~~~~~^^
-  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2027, in _run_once
-    handle._run()
-    ~~~~~~~~~~~^^
-  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
-    self._context.run(self._callback, *self._args)
-    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py", line 479, in analyze_and_trade
-    mtf_analysis = await self.market_analysis.get_multi_timeframe_analysis(pair)
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\market_analysis.py", line 41, in get_multi_timeframe_analysis
-    klines = await self.get_klines(pair, now - lookback_ms, interval)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\market_analysis.py", line 214, in get_klines
-    klines = self.binance_client.get_historical_klines(
-        pair, interval, start_time, limit=1000
-    )
-  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 830, in get_historical_klines
-    return self._historical_klines(
-           ~~~~~~~~~~~~~~~~~~~~~~~^
-        symbol,
-        ^^^^^^^
-    ...<4 lines>...
-        klines_type=klines_type,
-        ^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 900, in _historical_klines
-    temp_data = self._klines(
-        klines_type=klines_type,
-    ...<4 lines>...
-        endTime=end_ts,
-    )
-  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 759, in _klines
-    return self.get_klines(**params)
-           ~~~~~~~~~~~~~~~^^^^^^^^^^
-  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 742, in get_klines
-    return self._get("klines", data=params, version=self.PRIVATE_API_VERSION)
-           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 180, in _get
-    return self._request_api("get", path, signed, version, **kwargs)
-           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 117, in _request_api
-    return self._request(method, uri, signed, **kwargs)
-           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 88, in _request
-    self.response = getattr(self.session, method)(uri, headers=headers, data=data, **kwargs)
-                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 602, in get
-    return self.request("GET", url, **kwargs)
-           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 589, in request
-    resp = self.send(prep, **send_kwargs)
-  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 703, in send
-    r = adapter.send(request, **kwargs)
-  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\adapters.py", line 667, in send
-    resp = conn.urlopen(
-        method=request.method,
-    ...<9 lines>...
-        chunked=chunked,
-    )
-  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
-    response = self._make_request(
-        conn,
-    ...<10 lines>...
-        **response_kw,
-    )
-  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connectionpool.py", line 534, in _make_request
-    response = conn.getresponse()
-  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connection.py", line 516, in getresponse
-    httplib_response = super().getresponse()
-  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 1428, in getresponse
-    response.begin()
-    ~~~~~~~~~~~~~~^^
-  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 331, in begin
-    version, status, reason = self._read_status()
-                              ~~~~~~~~~~~~~~~~~^^
-  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 292, in _read_status
-    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
-               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
-  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\socket.py", line 719, in readinto
-    return self._sock.recv_into(b)
-           ~~~~~~~~~~~~~~~~~~~~^^^
-  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1304, in recv_into
-    return self.read(nbytes, buffer)
-           ~~~~~~~~~^^^^^^^^^^^^^^^^
-  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1138, in read
-    return self._sslobj.read(len, buffer)
-           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
-  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 157, in _on_sigint
-    raise KeyboardInterrupt()
-KeyboardInterrupt
-2025-05-15 15:00:15,929 - ERROR - _GatheringFuture exception was never retrieved
+2025-05-15 18:20:09,429 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 18:20:09,664 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 18:20:09,664 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:20:16,652 - WARNING - Insufficient data for LAYERUSDT on 1d timeframe
+2025-05-15 18:20:17,344 - ERROR - Error analyzing LAYERUSDT: name 'asyncio' is not defined
+2025-05-15 18:20:17,345 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:20:24,281 - WARNING - Insufficient data for ZECUSDT on 1d timeframe
+2025-05-15 18:20:24,511 - ERROR - Error analyzing ZECUSDT: name 'asyncio' is not defined
+2025-05-15 18:20:24,512 - INFO - ZECUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:20:30,137 - WARNING - Insufficient data for TRXUSDT on 1d timeframe
+2025-05-15 18:20:30,819 - ERROR - Error analyzing TRXUSDT: name 'asyncio' is not defined
+2025-05-15 18:20:30,820 - INFO - TRXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:20:36,448 - WARNING - Insufficient data for EGLDUSDT on 1d timeframe
+2025-05-15 18:20:36,684 - ERROR - Error analyzing EGLDUSDT: name 'asyncio' is not defined
+2025-05-15 18:20:36,685 - INFO - EGLDUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:20:41,569 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 18:20:41,803 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 18:20:41,803 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:20:47,435 - WARNING - Insufficient data for DOGEUSDT on 1d timeframe
+2025-05-15 18:20:47,672 - ERROR - Error analyzing DOGEUSDT: name 'asyncio' is not defined
+2025-05-15 18:20:47,672 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:20:52,613 - WARNING - Insufficient data for LINKUSDT on 1d timeframe
+2025-05-15 18:20:53,309 - ERROR - Error analyzing LINKUSDT: name 'asyncio' is not defined
+2025-05-15 18:20:53,309 - INFO - LINKUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:20:59,617 - WARNING - Insufficient data for SUIUSDT on 1d timeframe
+2025-05-15 18:21:00,308 - ERROR - Error analyzing SUIUSDT: name 'asyncio' is not defined
+2025-05-15 18:21:00,308 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:21:05,457 - WARNING - Insufficient data for TONUSDT on 1d timeframe
+2025-05-15 18:21:05,691 - ERROR - Error analyzing TONUSDT: name 'asyncio' is not defined
+2025-05-15 18:21:05,691 - INFO - TONUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:21:12,210 - WARNING - Insufficient data for SHIBUSDT on 1d timeframe
+2025-05-15 18:21:12,446 - ERROR - Error analyzing SHIBUSDT: name 'asyncio' is not defined
+2025-05-15 18:21:12,446 - INFO - SHIBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:21:17,534 - WARNING - Insufficient data for LTCUSDT on 1d timeframe
+2025-05-15 18:21:17,766 - ERROR - Error analyzing LTCUSDT: name 'asyncio' is not defined
+2025-05-15 18:21:17,766 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:21:24,313 - WARNING - Insufficient data for BCHUSDT on 1d timeframe
+2025-05-15 18:21:25,015 - ERROR - Error analyzing BCHUSDT: name 'asyncio' is not defined
+2025-05-15 18:21:25,016 - INFO - BCHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:21:30,584 - WARNING - Insufficient data for PEPEUSDT on 1d timeframe
+2025-05-15 18:21:31,286 - ERROR - Error analyzing PEPEUSDT: name 'asyncio' is not defined
+2025-05-15 18:21:31,286 - INFO - PEPEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:21:35,935 - WARNING - Insufficient data for NEARUSDT on 1d timeframe
+2025-05-15 18:21:36,166 - ERROR - Error analyzing NEARUSDT: name 'asyncio' is not defined
+2025-05-15 18:21:36,166 - INFO - NEARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:21:36,231 - INFO - Correlation matrix updated for 42 pairs
+2025-05-15 18:21:42,970 - WARNING - Insufficient data for BTCUSDT on 1d timeframe
+2025-05-15 18:21:49,513 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 18:21:49,513 - INFO - Market state: Regime=NEUTRAL, Trend=neutral, Volatility=high, Breadth=0.50
+2025-05-15 18:21:49,513 - INFO - Trading cycle completed in 183.30 seconds
+2025-05-15 18:22:19,529 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 18:22:19,530 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 18:22:53,540 - INFO - Selected optimal assets: OMUSDT, LAYERUSDT, ZECUSDT, TRXUSDT, EGLDUSDT... (15 total)
+2025-05-15 18:22:53,540 - INFO -   OMUSDT: score 5.35
+2025-05-15 18:22:53,541 - INFO -   LAYERUSDT: score 4.85
+2025-05-15 18:22:53,541 - INFO -   ZECUSDT: score 3.85
+2025-05-15 18:22:53,541 - INFO -   TRXUSDT: score 3.80
+2025-05-15 18:22:53,541 - INFO -   EGLDUSDT: score 3.60
+2025-05-15 18:22:53,542 - INFO - High volatility - limiting analysis to 10 pairs
+2025-05-15 18:23:00,051 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 18:23:00,741 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 18:23:00,741 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:23:06,119 - WARNING - Insufficient data for LAYERUSDT on 1d timeframe
+2025-05-15 18:23:06,357 - ERROR - Error analyzing LAYERUSDT: name 'asyncio' is not defined
+2025-05-15 18:23:06,357 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:23:12,401 - WARNING - Insufficient data for ZECUSDT on 1d timeframe
+2025-05-15 18:23:12,632 - ERROR - Error analyzing ZECUSDT: name 'asyncio' is not defined
+2025-05-15 18:23:12,632 - INFO - ZECUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:23:17,799 - WARNING - Insufficient data for TRXUSDT on 1d timeframe
+2025-05-15 18:23:18,498 - ERROR - Error analyzing TRXUSDT: name 'asyncio' is not defined
+2025-05-15 18:23:18,499 - INFO - TRXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:23:24,569 - WARNING - Insufficient data for EGLDUSDT on 1d timeframe
+2025-05-15 18:23:24,799 - ERROR - Error analyzing EGLDUSDT: name 'asyncio' is not defined
+2025-05-15 18:23:24,799 - INFO - EGLDUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:23:30,170 - WARNING - Insufficient data for EOSUSDT on 1d timeframe
+2025-05-15 18:23:30,404 - ERROR - Error analyzing EOSUSDT: name 'asyncio' is not defined
+2025-05-15 18:23:30,404 - INFO - EOSUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:23:35,574 - WARNING - Insufficient data for ETHUSDT on 1d timeframe
+2025-05-15 18:23:36,272 - ERROR - Error analyzing ETHUSDT: name 'asyncio' is not defined
+2025-05-15 18:23:36,273 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:23:40,314 - WARNING - Insufficient data for SOLUSDT on 1d timeframe
+2025-05-15 18:23:40,551 - ERROR - Error analyzing SOLUSDT: name 'asyncio' is not defined
+2025-05-15 18:23:40,552 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:23:46,408 - WARNING - Insufficient data for BNBUSDT on 1d timeframe
+2025-05-15 18:23:47,101 - ERROR - Error analyzing BNBUSDT: name 'asyncio' is not defined
+2025-05-15 18:23:47,102 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:23:53,411 - WARNING - Insufficient data for DOGEUSDT on 1d timeframe
+2025-05-15 18:23:53,652 - ERROR - Error analyzing DOGEUSDT: name 'asyncio' is not defined
+2025-05-15 18:23:53,653 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:23:53,653 - INFO - Trading cycle completed in 94.12 seconds
+2025-05-15 18:24:23,660 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-15 18:24:23,661 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-15 18:24:59,265 - INFO - Selected optimal assets: OMUSDT, LAYERUSDT, ZECUSDT, TRXUSDT, EGLDUSDT... (15 total)
+2025-05-15 18:24:59,265 - INFO -   OMUSDT: score 5.35
+2025-05-15 18:24:59,265 - INFO -   LAYERUSDT: score 4.85
+2025-05-15 18:24:59,266 - INFO -   ZECUSDT: score 3.85
+2025-05-15 18:24:59,266 - INFO -   TRXUSDT: score 3.80
+2025-05-15 18:24:59,266 - INFO -   EGLDUSDT: score 3.60
+2025-05-15 18:24:59,266 - INFO - High volatility - limiting analysis to 10 pairs
+2025-05-15 18:25:04,884 - WARNING - Insufficient data for OMUSDT on 1d timeframe
+2025-05-15 18:25:05,565 - ERROR - Error analyzing OMUSDT: name 'asyncio' is not defined
+2025-05-15 18:25:05,565 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:25:10,264 - WARNING - Insufficient data for LAYERUSDT on 1d timeframe
+2025-05-15 18:25:10,968 - ERROR - Error analyzing LAYERUSDT: name 'asyncio' is not defined
+2025-05-15 18:25:10,968 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:25:15,673 - WARNING - Insufficient data for ZECUSDT on 1d timeframe
+2025-05-15 18:25:16,373 - ERROR - Error analyzing ZECUSDT: name 'asyncio' is not defined
+2025-05-15 18:25:16,373 - INFO - ZECUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:25:20,622 - WARNING - Insufficient data for TRXUSDT on 1d timeframe
+2025-05-15 18:25:21,326 - ERROR - Error analyzing TRXUSDT: name 'asyncio' is not defined
+2025-05-15 18:25:21,326 - INFO - TRXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-05-15 18:25:26,691 - INFO - Bot stopped by user
+2025-05-15 18:25:26,735 - ERROR - Task was destroyed but it is pending!
+task: <Task cancelling name='Task-1' coro=<HybridTradingBot.run() done, defined at C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py:180> wait_for=<_GatheringFuture finished exception=CancelledError()> cb=[gather.<locals>._done_callback() at C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\tasks.py:820]>
+2025-05-15 18:25:26,735 - ERROR - _GatheringFuture exception was never retrieved
 future: <_GatheringFuture finished exception=CancelledError()>
 Traceback (most recent call last):
   File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\main.py", line 30, in <module>
@@ -239,7 +199,7 @@ Traceback (most recent call last):
   File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
     self._context.run(self._callback, *self._args)
     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py", line 379, in trading_task
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py", line 432, in trading_task
     await asyncio.gather(*analysis_tasks)
   File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 194, in run
     return runner.run(main)
@@ -259,7 +219,7 @@ Traceback (most recent call last):
   File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
     self._context.run(self._callback, *self._args)
     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py", line 479, in analyze_and_trade
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py", line 532, in analyze_and_trade
     mtf_analysis = await self.market_analysis.get_multi_timeframe_analysis(pair)
                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\market_analysis.py", line 41, in get_multi_timeframe_analysis
@@ -279,11 +239,15 @@ Traceback (most recent call last):
         ^^^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
-  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 900, in _historical_klines
-    temp_data = self._klines(
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 887, in _historical_klines
+    first_valid_ts = self._get_earliest_valid_timestamp(
+        symbol, interval, klines_type
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 793, in _get_earliest_valid_timestamp
+    kline = self._klines(
         klines_type=klines_type,
     ...<4 lines>...
-        endTime=end_ts,
+        endTime=int(time.time() * 1000),
     )
   File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 759, in _klines
     return self.get_klines(**params)
@@ -348,9 +312,148 @@ KeyboardInterrupt
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py", line 416, in position_monitor_task
-    await asyncio.sleep(30)
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py", line 372, in market_monitor_task
+    await asyncio.sleep(1800)
   File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\tasks.py", line 718, in sleep
     return await future
            ^^^^^^^^^^^^
 asyncio.exceptions.CancelledError
+2025-05-15 18:25:26,744 - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-3' coro=<HybridTradingBot.trading_task() done, defined at C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py:380> exception=KeyboardInterrupt()>
+Traceback (most recent call last):
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\main.py", line 30, in <module>
+    asyncio.run(bot.run())
+    ~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 193, in run
+    with Runner(debug=debug, loop_factory=loop_factory) as runner:
+         ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 62, in __exit__
+    self.close()
+    ~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 70, in close
+    _cancel_all_tasks(loop)
+    ~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 205, in _cancel_all_tasks
+    loop.run_until_complete(tasks.gather(*to_cancel, return_exceptions=True))
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 708, in run_until_complete
+    self.run_forever()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 679, in run_forever
+    self._run_once()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2027, in _run_once
+    handle._run()
+    ~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py", line 432, in trading_task
+    await asyncio.gather(*analysis_tasks)
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 194, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 708, in run_until_complete
+    self.run_forever()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 679, in run_forever
+    self._run_once()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2027, in _run_once
+    handle._run()
+    ~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\hybrid_bot.py", line 532, in analyze_and_trade
+    mtf_analysis = await self.market_analysis.get_multi_timeframe_analysis(pair)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\market_analysis.py", line 41, in get_multi_timeframe_analysis
+    klines = await self.get_klines(pair, now - lookback_ms, interval)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\market_analysis.py", line 214, in get_klines
+    klines = self.binance_client.get_historical_klines(
+        pair, interval, start_time, limit=1000
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 830, in get_historical_klines
+    return self._historical_klines(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        symbol,
+        ^^^^^^^
+    ...<4 lines>...
+        klines_type=klines_type,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 887, in _historical_klines
+    first_valid_ts = self._get_earliest_valid_timestamp(
+        symbol, interval, klines_type
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 793, in _get_earliest_valid_timestamp
+    kline = self._klines(
+        klines_type=klines_type,
+    ...<4 lines>...
+        endTime=int(time.time() * 1000),
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 759, in _klines
+    return self.get_klines(**params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 742, in get_klines
+    return self._get("klines", data=params, version=self.PRIVATE_API_VERSION)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 180, in _get
+    return self._request_api("get", path, signed, version, **kwargs)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 117, in _request_api
+    return self._request(method, uri, signed, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 88, in _request
+    self.response = getattr(self.session, method)(uri, headers=headers, data=data, **kwargs)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connection.py", line 516, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 1428, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 331, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 292, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\socket.py", line 719, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 157, in _on_sigint
+    raise KeyboardInterrupt()
+KeyboardInterrupt
