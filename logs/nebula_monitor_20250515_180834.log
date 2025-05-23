@@ -1,6 +1,0 @@
-2025-05-15 18:08:34,913 - INFO - Nebula proxy monitor started
-2025-05-15 18:08:34,919 - INFO - Proxy health: OK - {'status': 'ok', 'timestamp': '2025-05-15T16:08:34.917Z'}
-2025-05-15 18:09:34,939 - INFO - Proxy health: OK - {'status': 'ok', 'timestamp': '2025-05-15T16:09:34.937Z'}
-2025-05-15 18:10:34,961 - INFO - Proxy health: OK - {'status': 'ok', 'timestamp': '2025-05-15T16:10:34.959Z'}
-2025-05-15 18:10:35,023 - INFO - Endpoint tests: {"predict": "Error: 503", "analyze": "Error: 503", "whale-tracking": "Error: 503", "smart-money": "Error: 503"}
-2025-05-15 18:11:34,703 - INFO - Monitor stopped by user

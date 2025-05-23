@@ -1,3 +1,0 @@
-2025-05-15 18:52:36,148 - INFO - Nebula proxy monitor started
-2025-05-15 18:52:36,157 - WARNING - Proxy health check failed (1/5): Status code: 400
-2025-05-15 18:52:42,898 - INFO - Monitor stopped by user

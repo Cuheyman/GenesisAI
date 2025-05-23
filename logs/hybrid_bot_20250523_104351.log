@@ -1,0 +1,63 @@
+2025-05-23 10:43:52,037 - INFO - Dummy AI client initialized (fallback mode)
+2025-05-23 10:43:52,037 - INFO - AI analysis disabled - using dummy client
+2025-05-23 10:43:52,038 - INFO - Database initialization complete
+2025-05-23 10:43:52,040 - INFO - Risk Manager initialized with equity protection: Warning at 3.0%, Risk Reduction at 7.000000000000001%, High Alert at 12.0%, Emergency at 15.0%
+2025-05-23 10:43:52,040 - INFO - Hybrid Trading Bot initialized with 10000.00 equity
+2025-05-23 10:43:52,040 - INFO - Mode: TEST trading
+2025-05-23 10:43:52,041 - INFO - Testing API connections...
+2025-05-23 10:43:52,273 - INFO - Binance server time: 2025-05-23 10:43:35.995000
+2025-05-23 10:43:52,274 - WARNING - LunarCrush API not available - using fallback mode
+2025-05-23 10:43:52,274 - INFO - Preloading historical data for analysis...
+2025-05-23 10:43:52,274 - INFO - Preloading historical data for analysis...
+2025-05-23 10:43:52,275 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-05-23 10:43:53,203 - INFO - Found trending pairs: CETUSUSDT, COOKIEUSDT, LAYERUSDT, FORMUSDT, JUPUSDT...
+2025-05-23 10:43:53,204 - INFO - Preloading data for pairs: SYRUPUSDT, ADAUSDT, SAGAUSDT, LAYERUSDT, VANAUSDT
+2025-05-23 10:44:29,536 - INFO - Preloading data for pairs: VIRTUALUSDT, SUIUSDT, JUPUSDT, COOKIEUSDT, INITUSDT
+2025-05-23 10:45:07,953 - INFO - Preloading data for pairs: FORMUSDT, ETHUSDT, APTUSDT, NEIROUSDT, BABYUSDT
+2025-05-23 10:45:44,512 - INFO - Preloading data for pairs: ORDIUSDT, SOLUSDT, RENDERUSDT, BCHUSDT, CETUSUSDT
+2025-05-23 10:46:21,340 - INFO - Preloading data for pairs: BNBUSDT, BTCUSDT, NEARUSDT
+2025-05-23 10:46:47,489 - INFO - Historical data preloading complete
+2025-05-23 10:46:57,200 - INFO - Updating correlation matrix...
+2025-05-23 10:46:57,201 - INFO - Current equity: $10000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal
+2025-05-23 10:46:57,209 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.0%)
+2025-05-23 10:47:35,024 - INFO - Selected optimal assets: LAYERUSDT, APTUSDT, SUIUSDT, SOLUSDT, ADAUSDT... (15 total)
+2025-05-23 10:47:35,024 - INFO -   LAYERUSDT: score 6.80
+2025-05-23 10:47:35,025 - INFO -   APTUSDT: score 6.05
+2025-05-23 10:47:35,025 - INFO -   SUIUSDT: score 5.45
+2025-05-23 10:47:35,025 - INFO -   SOLUSDT: score 5.10
+2025-05-23 10:47:35,025 - INFO -   ADAUSDT: score 5.10
+2025-05-23 10:47:35,060 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 10000.0,
+    "start": 10000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0.0,
+    "avg_daily_return_pct": 0.0,
+    "avg_weekly_return_pct": 0.0
+  },
+  "trades": {
+    "total": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "profit_factor": 0,
+    "avg_profit": 0,
+    "avg_loss": 0,
+    "expected_value": 0,
+    "recent_win_rate_pct": 0
+  },
+  "pairs": {
+    "best_pair": "None",
+    "best_pair_profit": 0,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-05-23 10:47:35"
+}
+2025-05-23 10:48:16,848 - ERROR - Error analyzing LAYERUSDT: EnhancedStrategy.analyze_pair() got an unexpected keyword argument 'nebula_signal'
+2025-05-23 10:48:22,870 - ERROR - Error analyzing APTUSDT: EnhancedStrategy.analyze_pair() got an unexpected keyword argument 'nebula_signal'
+2025-05-23 10:48:30,060 - ERROR - Error analyzing SUIUSDT: EnhancedStrategy.analyze_pair() got an unexpected keyword argument 'nebula_signal'
+2025-05-23 10:48:37,045 - ERROR - Error analyzing SOLUSDT: EnhancedStrategy.analyze_pair() got an unexpected keyword argument 'nebula_signal'
+2025-05-23 10:48:41,751 - ERROR - Error analyzing ADAUSDT: EnhancedStrategy.analyze_pair() got an unexpected keyword argument 'nebula_signal'
+2025-05-23 10:48:48,028 - ERROR - Error analyzing NEARUSDT: EnhancedStrategy.analyze_pair() got an unexpected keyword argument 'nebula_signal'
+2025-05-23 10:48:48,029 - INFO - Bot stopped by user

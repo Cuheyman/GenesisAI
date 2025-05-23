@@ -1,0 +1,15 @@
+2025-05-23 10:32:07,870 - INFO - Dummy AI client initialized (fallback mode)
+2025-05-23 10:32:07,870 - INFO - AI analysis disabled - using dummy client
+2025-05-23 10:32:07,871 - INFO - Database initialization complete
+2025-05-23 10:32:07,872 - INFO - Risk Manager initialized with equity protection: Warning at 3.0%, Risk Reduction at 7.000000000000001%, High Alert at 12.0%, Emergency at 15.0%
+2025-05-23 10:32:07,872 - INFO - Hybrid Trading Bot initialized with 10000.00 equity
+2025-05-23 10:32:07,873 - INFO - Mode: TEST trading
+2025-05-23 10:32:07,873 - INFO - Testing API connections...
+2025-05-23 10:32:08,107 - INFO - Binance server time: 2025-05-23 10:31:51.840000
+2025-05-23 10:32:08,107 - WARNING - LunarCrush API not available - using fallback mode
+2025-05-23 10:32:08,108 - INFO - Preloading historical data for analysis...
+2025-05-23 10:32:08,108 - INFO - Preloading historical data for analysis...
+2025-05-23 10:32:08,108 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-05-23 10:32:09,036 - INFO - Found trending pairs: COOKIEUSDT, CETUSUSDT, LAYERUSDT, FORMUSDT, JUPUSDT...
+2025-05-23 10:32:09,037 - INFO - Preloading data for pairs: CETUSUSDT, APTUSDT, SOLUSDT, VANAUSDT, COOKIEUSDT
+2025-05-23 10:32:16,988 - INFO - Bot stopped by user

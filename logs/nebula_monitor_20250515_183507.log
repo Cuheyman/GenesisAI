@@ -1,5 +1,0 @@
-2025-05-15 18:35:07,012 - INFO - Nebula proxy monitor started
-2025-05-15 18:35:07,018 - INFO - Proxy health: OK - {'status': 'ok', 'timestamp': '2025-05-15T16:35:07.017Z', 'nebula_session': True}
-2025-05-15 18:35:45,639 - INFO - Endpoint tests: {"predict": "Exception: HTTPConnectionPool(host='localhost', port=3000): Read timed out. (read timeout=10)", "analyze": "Exception: HTTPConnectionPool(host='localhost', port=3000): Read timed out. (read timeout=10)", "whale-tracking": "OK", "smart-money": "Exception: HTTPConnectionPool(host='localhost', port=3000): Read timed out. (read timeout=10)"}
-2025-05-15 18:36:45,665 - INFO - Proxy health: OK - {'status': 'ok', 'timestamp': '2025-05-15T16:36:45.663Z', 'nebula_session': True}
-2025-05-15 18:37:11,202 - INFO - Monitor stopped by user

@@ -1,4 +1,0 @@
-2025-05-15 18:50:41,633 - INFO - Nebula proxy monitor started
-2025-05-15 18:50:45,750 - WARNING - Proxy health check failed (1/5): HTTPConnectionPool(host='localhost', port=3000): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001F922DA3CB0>: Failed to establish a new connection: [WinError 10061] Der kunne ikke oprettes forbindelse, fordi destinationscomputeren aktivt nægtede det'))
-2025-05-15 18:51:49,867 - WARNING - Proxy health check failed (2/5): HTTPConnectionPool(host='localhost', port=3000): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001F922D97B10>: Failed to establish a new connection: [WinError 10061] Der kunne ikke oprettes forbindelse, fordi destinationscomputeren aktivt nægtede det'))
-2025-05-15 18:52:34,827 - INFO - Monitor stopped by user
