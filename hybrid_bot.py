@@ -11,7 +11,7 @@ import numpy as np
 import pandas as pd
 
 # Import components
-from nebula_integration import NebulaAI
+from lunar_crush_ai import LunarCrushAI, DummyNebulaAI  # LunarCrush is in nebula_integration.py
 from market_analysis import MarketAnalysis
 from order_book import OrderBookAnalysis
 from db_manager import DatabaseManager
@@ -36,13 +36,21 @@ class HybridTradingBot:
             testnet=config.TEST_MODE
         )
         
-        if config.ENABLE_NEBULA:
-            self.nebula = NebulaAI(config.THIRDWEB_API_KEY)
+        # Initialize LunarCrush AI client
+        if hasattr(config, 'ENABLE_LUNARCRUSH') and config.ENABLE_LUNARCRUSH:
+            try:
+                self.ai_client = LunarCrushAI(config.LUNARCRUSH_API_KEY)
+                logging.info("LunarCrush AI client initialized")
+            except Exception as e:
+                logging.warning(f"Failed to initialize LunarCrush: {str(e)} - using fallback mode")
+                self.ai_client = DummyNebulaAI()  # Keep the name for compatibility
         else:
-            # Create a dummy nebula client
-            from nebula_integration import DummyNebulaAI
-            self.nebula = DummyNebulaAI()
+            # Create a dummy AI client
+            self.ai_client = DummyNebulaAI()
+            logging.info("AI analysis disabled - using dummy client")
 
+        # Keep nebula reference for backward compatibility with existing code
+        self.nebula = self.ai_client
         
         # Initialize database manager
         self.db_manager = DatabaseManager(config.DB_PATH)
@@ -62,16 +70,13 @@ class HybridTradingBot:
         # Initialize correlation analysis
         self.correlation = CorrelationAnalysis(self.market_analysis)
         
-        # Initialize Nebula AI
-        self.nebula = NebulaAI(config.THIRDWEB_API_KEY)
-        
         # Get initial equity
         self.initial_equity = self.get_total_equity()
         
         # Initialize strategy
         self.strategy = EnhancedStrategy(
             self.binance_client, 
-            self.nebula, 
+            self.ai_client,  # Use ai_client instead of nebula
             self.market_analysis, 
             self.order_book
         )
@@ -178,70 +183,27 @@ class HybridTradingBot:
         return total
     
     async def run(self):
-        
-        
+        try:
+            # Test API connections
+            logging.info("Testing API connections...")
+            
+            # Test Binance connection
+            server_time = self.binance_client.get_server_time()
+            logging.info(f"Binance server time: {datetime.fromtimestamp(server_time['serverTime']/1000)}")
+            
+            # Test LunarCrush connection
             try:
-                # Test API connections
-                logging.info("Testing API connections...")
-                
-                # Test Binance connection
-                server_time = self.binance_client.get_server_time()
-                logging.info(f"Binance server time: {datetime.fromtimestamp(server_time['serverTime']/1000)}")
-                
-                # Test Nebula connection with retry
-                retry_count = 0
-                max_retries = 3
-                proxy_available = False
-                
-                while retry_count < max_retries and not proxy_available:
-                    try:
-                        # Check proxy health endpoint
-                        if hasattr(self.nebula, 'proxy_available'):
-                            self.nebula.proxy_available = self.nebula._check_proxy_connection()
-                            proxy_available = self.nebula.proxy_available
-                            
-                        if proxy_available:
-                            token = "ETH"
-                            sentiment = await self.nebula.get_sentiment_analysis(token)
-                            if sentiment:
-                                logging.info(f"Nebula AI connection successful: {sentiment.get('sentiment_score', 'N/A')}")
-                                break
-                            else:
-                                raise Exception("No data returned from Nebula")
-                        else:
-                            logging.warning(f"Nebula proxy unavailable (attempt {retry_count+1}/{max_retries})")
-                            # Wait before retry
-                            await asyncio.sleep(2)
-                    except Exception as e:
-                        logging.warning(f"Nebula connection test failed (attempt {retry_count+1}/{max_retries}): {str(e)}")
-                        await asyncio.sleep(2)
-                    finally:
-                        retry_count += 1
-                
-                if not proxy_available:
-                    logging.warning("Nebula AI proxy connection failed after retries - will operate in fallback mode")
-                
-                # Rest of your existing run() method continues...
-                # Preload historical data for analysis
-                logging.info("Preloading historical data for analysis...")
-                await self.preload_historical_data()
-                logging.info("Historical data preloading complete")
-                
-                # Create tasks for different components
-                tasks = [
-                    self.market_monitor_task(),
-                    self.trading_task(),
-                    self.position_monitor_task(),
-                    self.performance_track_task()
-                ]
-                
-                # Run all tasks concurrently
-                await asyncio.gather(*tasks)
-                
+                if hasattr(self.ai_client, 'api_available') and self.ai_client.api_available:
+                    token = "ETH"
+                    sentiment = await self.ai_client.get_sentiment_analysis(token)
+                    if sentiment:
+                        logging.info(f"LunarCrush AI connection successful: {sentiment.get('sentiment_score', 'N/A')}")
+                    else:
+                        logging.warning("LunarCrush API connected but no data returned - using fallback mode")
+                else:
+                    logging.warning("LunarCrush API not available - using fallback mode")
             except Exception as e:
-                logging.error(f"Critical error running bot: {str(e)}")
-                traceback.print_exc()
-                raise
+                logging.warning(f"LunarCrush connection test failed: {str(e)} - using fallback mode")
             
             # Preload historical data for analysis
             logging.info("Preloading historical data for analysis...")
@@ -259,7 +221,10 @@ class HybridTradingBot:
             # Run all tasks concurrently
             await asyncio.gather(*tasks)
             
-            
+        except Exception as e:
+            logging.error(f"Critical error running bot: {str(e)}")
+            traceback.print_exc()
+            raise
     
     async def preload_historical_data(self):
         """Preload sufficient historical data for all needed timeframes"""
@@ -531,8 +496,8 @@ class HybridTradingBot:
             # Extract token from pair
             token = pair.replace("USDT", "")
             
-            # Get trading signal from Nebula
-            nebula_signal = await self.nebula.get_trading_signal(token)
+            # Get trading signal from AI client (LunarCrush)
+            ai_signal = await self.ai_client.get_trading_signal(token)
             
             # Run multi-timeframe analysis
             mtf_analysis = await self.market_analysis.get_multi_timeframe_analysis(pair)
@@ -554,7 +519,7 @@ class HybridTradingBot:
                 order_book_data=order_book_data,
                 correlation_data=correlation_data,
                 market_state=self.market_state,
-                nebula_signal=nebula_signal  # Pass the new signal to the strategy
+                nebula_signal=ai_signal  # Pass the AI signal to the strategy (keep parameter name for compatibility)
             )
             
             # Log the analysis
@@ -565,7 +530,7 @@ class HybridTradingBot:
             self.analyzed_pairs[pair] = {
                 "timestamp": time.time(),
                 "analysis": analysis,
-                "nebula_signal": nebula_signal
+                "ai_signal": ai_signal
             }
 
             # Execute trades based on signals
@@ -578,7 +543,7 @@ class HybridTradingBot:
                 if can_trade:
                     # Execute buy
                     position_size = trade_details['position_size']
-                    success = self.execute_buy(pair, position_size, analysis)
+                    success = await self.execute_buy(pair, position_size, analysis)
                     
                     if success:
                         # Update risk manager
@@ -598,7 +563,7 @@ class HybridTradingBot:
                 
                 if should_sell:
                     # Execute sell
-                    success =  self.execute_sell(pair, analysis)
+                    success = await self.execute_sell(pair, analysis)
                     
                     if success:
                         # Update risk manager
@@ -611,6 +576,8 @@ class HybridTradingBot:
             
         except Exception as e:
             logging.error(f"Error analyzing {pair}: {str(e)}")
+    
+    # [Rest of the methods remain the same - execute_buy, execute_sell, etc. - just keeping the key methods for brevity]
     
     async def get_current_price(self, pair: str) -> float:
         """Get current price of a trading pair with caching"""
@@ -682,6 +649,9 @@ class HybridTradingBot:
         except Exception as e:
             logging.error(f"Error tracking API call for {endpoint}: {str(e)}")
             return 0
+
+    # [Include all other methods from the original file - execute_buy, execute_sell, monitor_positions, etc.]
+    # For brevity, I'm not repeating all methods, but they should remain exactly the same as in your original file
     
     async def execute_buy(self, pair, position_size, analysis):
         """Execute a buy order"""
