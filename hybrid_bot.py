@@ -11,7 +11,7 @@ import numpy as np
 import pandas as pd
 
 # Import components
-from lunar_crush_ai import LunarCrushAI, DummyNebulaAI  # LunarCrush is in nebula_integration.py
+from lunar_crush_ai import LunarCrushAI, DummyNebulaAI 
 from market_analysis import MarketAnalysis
 from order_book import OrderBookAnalysis
 from db_manager import DatabaseManager
