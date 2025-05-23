@@ -10,8 +10,8 @@ from binance.client import Client
 import numpy as np
 import pandas as pd
 
-# Import components
-from lunar_crush_ai import LunarCrushAI, DummyNebulaAI 
+# Import components - Updated to use CoinGecko instead of LunarCrush
+from coingecko_ai import CoinGeckoAI, DummyCoinGeckoAI 
 from market_analysis import MarketAnalysis
 from order_book import OrderBookAnalysis
 from db_manager import DatabaseManager
@@ -36,18 +36,18 @@ class HybridTradingBot:
             testnet=config.TEST_MODE
         )
         
-        # Initialize LunarCrush AI client
-        if hasattr(config, 'ENABLE_LUNARCRUSH') and config.ENABLE_LUNARCRUSH:
+        # Initialize CoinGecko AI client
+        if hasattr(config, 'ENABLE_COINGECKO') and config.ENABLE_COINGECKO:
             try:
-                self.ai_client = LunarCrushAI(config.LUNARCRUSH_API_KEY)
-                logging.info("LunarCrush AI client initialized")
+                self.ai_client = CoinGeckoAI(config.COINGECKO_API_KEY)
+                logging.info("CoinGecko AI client initialized")
             except Exception as e:
-                logging.warning(f"Failed to initialize LunarCrush: {str(e)} - using fallback mode")
-                self.ai_client = DummyNebulaAI()  # Keep the name for compatibility
+                logging.warning(f"Failed to initialize CoinGecko: {str(e)} - using fallback mode")
+                self.ai_client = DummyCoinGeckoAI()
         else:
             # Create a dummy AI client
-            self.ai_client = DummyNebulaAI()
-            logging.info("AI analysis disabled - using dummy client")
+            self.ai_client = DummyCoinGeckoAI()
+            logging.info("CoinGecko AI analysis disabled - using dummy client")
 
         # Keep nebula reference for backward compatibility with existing code
         self.nebula = self.ai_client
@@ -114,6 +114,7 @@ class HybridTradingBot:
         
         logging.info(f"Hybrid Trading Bot initialized with {self.initial_equity:.2f} equity")
         logging.info(f"Mode: {'TEST' if config.TEST_MODE else 'LIVE'} trading")
+        logging.info(f"AI Provider: {'CoinGecko' if config.ENABLE_COINGECKO else 'Disabled'}")
     
     def _setup_logging(self):
         """Set up logging configuration"""
@@ -191,19 +192,19 @@ class HybridTradingBot:
             server_time = self.binance_client.get_server_time()
             logging.info(f"Binance server time: {datetime.fromtimestamp(server_time['serverTime']/1000)}")
             
-            # Test LunarCrush connection
+            # Test CoinGecko connection
             try:
                 if hasattr(self.ai_client, 'api_available') and self.ai_client.api_available:
                     token = "ETH"
                     sentiment = await self.ai_client.get_sentiment_analysis(token)
                     if sentiment:
-                        logging.info(f"LunarCrush AI connection successful: {sentiment.get('sentiment_score', 'N/A')}")
+                        logging.info(f"CoinGecko AI connection successful: {sentiment.get('sentiment_score', 'N/A')}")
                     else:
-                        logging.warning("LunarCrush API connected but no data returned - using fallback mode")
+                        logging.warning("CoinGecko API connected but no data returned - using fallback mode")
                 else:
-                    logging.warning("LunarCrush API not available - using fallback mode")
+                    logging.warning("CoinGecko API not available - using fallback mode")
             except Exception as e:
-                logging.warning(f"LunarCrush connection test failed: {str(e)} - using fallback mode")
+                logging.warning(f"CoinGecko connection test failed: {str(e)} - using fallback mode")
             
             # Preload historical data for analysis
             logging.info("Preloading historical data for analysis...")
@@ -496,7 +497,7 @@ class HybridTradingBot:
             # Extract token from pair
             token = pair.replace("USDT", "")
             
-            # Get trading signal from AI client (LunarCrush)
+            # Get trading signal from AI client (CoinGecko)
             ai_signal = await self.ai_client.get_trading_signal(token)
             
             # Run multi-timeframe analysis
@@ -577,7 +578,8 @@ class HybridTradingBot:
         except Exception as e:
             logging.error(f"Error analyzing {pair}: {str(e)}")
     
-    # [Rest of the methods remain the same - execute_buy, execute_sell, etc. - just keeping the key methods for brevity]
+    # [Include all other methods from the original file - execute_buy, execute_sell, monitor_positions, etc.]
+    # These methods remain exactly the same as in your original file
     
     async def get_current_price(self, pair: str) -> float:
         """Get current price of a trading pair with caching"""
@@ -650,8 +652,8 @@ class HybridTradingBot:
             logging.error(f"Error tracking API call for {endpoint}: {str(e)}")
             return 0
 
-    # [Include all other methods from the original file - execute_buy, execute_sell, monitor_positions, etc.]
-    # For brevity, I'm not repeating all methods, but they should remain exactly the same as in your original file
+    # [All other methods remain the same - execute_buy, execute_sell, monitor_positions, etc.]
+    # I'm not including them here for brevity, but they should remain exactly as they were in your original file
     
     async def execute_buy(self, pair, position_size, analysis):
         """Execute a buy order"""
@@ -822,6 +824,10 @@ class HybridTradingBot:
         except Exception as e:
             logging.error(f"Error executing buy for {pair}: {str(e)}")
             return False
+    
+ 
+    
+ 
     
     async def execute_sell(self, pair, analysis):
         """Execute a sell order"""

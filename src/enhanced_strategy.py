@@ -1,21 +1,21 @@
 import logging
 import numpy as np
 import time
+import asyncio
 from typing import Dict, List, Any, Tuple
 import config
 
 class EnhancedStrategy:
-    def __init__(self, binance_client, nebula_client, market_analysis, order_book):
+    def __init__(self, binance_client, ai_client, market_analysis, order_book):
         self.binance_client = binance_client
-        self.nebula = nebula_client
+        self.ai_client = ai_client  # Now using CoinGecko AI client
         self.market_analysis = market_analysis
         self.order_book = order_book
         self.cache = {}
         self.cache_expiry = {}
         
-    # In enhanced_strategy.py, modify analyze_pair method
     async def analyze_pair(self, pair: str, mtf_analysis=None, order_book_data=None, 
-                    correlation_data=None, market_state=None) -> Dict[str, Any]:
+                    correlation_data=None, market_state=None, nebula_signal=None) -> Dict[str, Any]:
         try:
             # Get technical analysis from multi-timeframe data
             if not mtf_analysis:
@@ -28,30 +28,30 @@ class EnhancedStrategy:
             # Extract token from pair (removing USDT)
             token = pair.replace("USDT", "")
             
-            # Get Nebula AI insights with improved error handling
-            nebula_insights = None
+            # Get AI insights with improved error handling
+            ai_insights = None
             
-            # Check if Nebula is available before attempting to use it
-            if hasattr(self.nebula, 'proxy_available') and self.nebula.proxy_available:
+            # Check if AI client is available before attempting to use it
+            if hasattr(self.ai_client, 'api_available') and self.ai_client.api_available:
                 try:
-                    # Create a timeout for the nebula call
-                    nebula_task = asyncio.create_task(self.nebula.get_consolidated_insights(token))
-                    nebula_insights = await asyncio.wait_for(nebula_task, timeout=12)  # 12 second timeout
+                    # Create a timeout for the AI call
+                    ai_task = asyncio.create_task(self.ai_client.get_consolidated_insights(token))
+                    ai_insights = await asyncio.wait_for(ai_task, timeout=12)  # 12 second timeout
                     
                     # Verify we got valid data
-                    if not nebula_insights or not isinstance(nebula_insights, dict) or 'metrics' not in nebula_insights:
-                        logging.warning(f"Invalid Nebula insights for {pair}")
-                        nebula_insights = self._get_default_nebula_insights()
+                    if not ai_insights or not isinstance(ai_insights, dict) or 'metrics' not in ai_insights:
+                        logging.warning(f"Invalid AI insights for {pair}")
+                        ai_insights = self._get_default_ai_insights()
                         
                 except asyncio.TimeoutError:
-                    logging.warning(f"Nebula insights timed out for {pair}")
-                    nebula_insights = self._get_default_nebula_insights()
+                    logging.warning(f"AI insights timed out for {pair}")
+                    ai_insights = self._get_default_ai_insights()
                 except Exception as e:
-                    logging.warning(f"Nebula insights unavailable for {pair}: {str(e)}")
-                    nebula_insights = self._get_default_nebula_insights()
+                    logging.warning(f"AI insights unavailable for {pair}: {str(e)}")
+                    ai_insights = self._get_default_ai_insights()
             else:
-                logging.debug(f"Skipping Nebula insights for {pair} - proxy unavailable")
-                nebula_insights = self._get_default_nebula_insights()
+                logging.debug(f"Skipping AI insights for {pair} - API unavailable")
+                ai_insights = self._get_default_ai_insights()
                 
             # 5. Generate initial signals from technical analysis
             technical_signals = self._get_technical_signals(mtf_analysis)
@@ -59,16 +59,17 @@ class EnhancedStrategy:
             # 6. Generate order book signals
             orderbook_signals = self._get_orderbook_signals(order_book_data)
             
-            # 7. Generate signals from Nebula insights
-            nebula_signals = self._get_nebula_signals(nebula_insights)
+            # 7. Generate signals from AI insights
+            ai_signals = self._get_ai_signals(ai_insights)
             
             # 8. Combine all signals with appropriate weights
             combined_signals = self._combine_all_signals(
                 technical_signals,
                 orderbook_signals,
-                nebula_signals,
+                ai_signals,
                 correlation_data,
-                market_state
+                market_state,
+                nebula_signal  # Keep parameter name for compatibility
             )
             
             return combined_signals
@@ -79,6 +80,56 @@ class EnhancedStrategy:
                 "buy_signal": False,
                 "sell_signal": False,
                 "signal_strength": 0,
+                "error": str(e)
+            }
+    
+    def _get_technical_signals(self, mtf_analysis: Dict) -> Dict:
+        """Generate signals from multi-timeframe technical analysis"""
+        try:
+            # Extract key metrics
+            mtf_trend = mtf_analysis.get('mtf_trend', 0)
+            mtf_momentum = mtf_analysis.get('mtf_momentum', 0)
+            overall_score = mtf_analysis.get('overall_score', 0)
+            
+            buy_signal = False
+            sell_signal = False
+            signal_strength = 0
+            
+            # Strong bullish technical signals
+            if overall_score > 0.3 and mtf_trend > 0.2:
+                buy_signal = True
+                signal_strength = min(0.9, abs(overall_score) + 0.1)
+            # Strong bearish technical signals
+            elif overall_score < -0.3 and mtf_trend < -0.2:
+                sell_signal = True
+                signal_strength = min(0.9, abs(overall_score) + 0.1)
+            # Moderate signals
+            elif abs(overall_score) > 0.15:
+                if overall_score > 0:
+                    buy_signal = True
+                else:
+                    sell_signal = True
+                signal_strength = min(0.7, abs(overall_score) + 0.2)
+            
+            return {
+                "buy_signal": buy_signal,
+                "sell_signal": sell_signal,
+                "signal_strength": signal_strength,
+                "source": "technical",
+                "details": {
+                    "trend": mtf_trend,
+                    "momentum": mtf_momentum,
+                    "overall_score": overall_score
+                }
+            }
+            
+        except Exception as e:
+            logging.error(f"Error in technical signals: {str(e)}")
+            return {
+                "buy_signal": False,
+                "sell_signal": False,
+                "signal_strength": 0,
+                "source": "technical",
                 "error": str(e)
             }
         
@@ -127,9 +178,8 @@ class EnhancedStrategy:
                 "error": str(e)
             }
     
-
-    def _get_default_nebula_insights(self):
-        
+    def _get_default_ai_insights(self):
+        """Get default AI insights when CoinGecko is unavailable"""
         return {
             "metrics": {
                 "overall_sentiment": 0,
@@ -138,23 +188,21 @@ class EnhancedStrategy:
                 "whale_accumulation": 0,
                 "smart_money_direction": "neutral"
             }
-    }
+        }
 
-
-
-    def _get_nebula_signals(self, nebula_insights: Dict) -> Dict:
-        """Generate signals from Nebula AI insights with improved reliability"""
+    def _get_ai_signals(self, ai_insights: Dict) -> Dict:
+        """Generate signals from CoinGecko AI insights with improved reliability"""
         try:
             # Extract metrics
-            metrics = nebula_insights.get('metrics', {})
+            metrics = ai_insights.get('metrics', {})
             sentiment = metrics.get('overall_sentiment', 0)
             prediction = metrics.get('prediction_direction', 'neutral')
             confidence = metrics.get('prediction_confidence', 0.5)
             whale_activity = metrics.get('whale_accumulation', 0)
             smart_money = metrics.get('smart_money_direction', 'neutral')
             
-            # Get signal strength from NebulaAI
-            signal_strength = self.nebula.get_nebula_signal_strength(nebula_insights)
+            # Get signal strength from AI client
+            signal_strength = self.ai_client.get_signal_strength(ai_insights)
             
             # Determine buy/sell signals more reliably with consolidated logic
             buy_signal = False
@@ -243,7 +291,7 @@ class EnhancedStrategy:
                 "buy_signal": buy_signal,
                 "sell_signal": sell_signal,
                 "signal_strength": final_strength if (buy_signal or sell_signal) else 0,
-                "source": f"nebula:{source_text}",
+                "source": f"coingecko:{source_text}",
                 "details": {
                     "sentiment": sentiment,
                     "prediction": prediction,
@@ -255,17 +303,17 @@ class EnhancedStrategy:
             }
             
         except Exception as e:
-            logging.error(f"Error in Nebula signals: {str(e)}")
+            logging.error(f"Error in CoinGecko AI signals: {str(e)}")
             return {
                 "buy_signal": False,
                 "sell_signal": False,
                 "signal_strength": 0,
-                "source": "nebula:error",
+                "source": "coingecko:error",
                 "error": str(e)
             }
     
     def _combine_all_signals(self, technical_signals, orderbook_signals, 
-                           nebula_signals, correlation_data, market_state):
+                           ai_signals, correlation_data, market_state, nebula_signal=None):
         """Combine all signals from different sources"""
         try:
             # Extract signals
@@ -277,28 +325,25 @@ class EnhancedStrategy:
             ob_sell = orderbook_signals.get('sell_signal', False)
             ob_strength = orderbook_signals.get('signal_strength', 0)
             
-            nb_buy = nebula_signals.get('buy_signal', False)
-            nb_sell = nebula_signals.get('sell_signal', False)
-            nb_strength = nebula_signals.get('signal_strength', 0)
+            ai_buy = ai_signals.get('buy_signal', False)
+            ai_sell = ai_signals.get('sell_signal', False)
+            ai_strength = ai_signals.get('signal_strength', 0)
             
-              # Add direct Nebula signal if available
-            direct_nb_action = None
-            direct_nb_strength = 0
+            # Add direct signal if available (from nebula_signal parameter for compatibility)
+            direct_signal_action = None
+            direct_signal_strength = 0
             
             if nebula_signal:
-                direct_nb_action = nebula_signal.get('action', 'hold')
-                direct_nb_strength = nebula_signal.get('strength', 0.5)
+                direct_signal_action = nebula_signal.get('action', 'hold')
+                direct_signal_strength = nebula_signal.get('strength', 0.5)
             
             # Convert action to buy/sell signal
-            if direct_nb_action == 'buy' and direct_nb_strength > 0.6:
-                nb_buy = True
-                nb_strength = max(nb_strength, direct_nb_strength)
-            elif direct_nb_action == 'sell' and direct_nb_strength > 0.6:
-                nb_sell = True
-                nb_strength = max(nb_strength, direct_nb_strength)
-
-
-
+            if direct_signal_action == 'buy' and direct_signal_strength > 0.6:
+                ai_buy = True
+                ai_strength = max(ai_strength, direct_signal_strength)
+            elif direct_signal_action == 'sell' and direct_signal_strength > 0.6:
+                ai_sell = True
+                ai_strength = max(ai_strength, direct_signal_strength)
 
             # Initial values (will be modified based on signals)
             final_buy = False
@@ -309,33 +354,33 @@ class EnhancedStrategy:
             # Weight factors based on market state
             ta_weight = config.TECHNICAL_WEIGHT  # Default technical weight
             ob_weight = 0.15  # Default orderbook weight
-            nb_weight = config.ONCHAIN_WEIGHT  # Default nebula weight
+            ai_weight = config.ONCHAIN_WEIGHT  # Default AI weight
             
             # Adjust weights based on market regime
-            regime = market_state.get('regime', 'NEUTRAL')
+            regime = market_state.get('regime', 'NEUTRAL') if market_state else 'NEUTRAL'
             
             if regime == "BULL_TRENDING":
-                # In bullish trend, emphasize technical and nebula
+                # In bullish trend, emphasize technical and AI
                 ta_weight = 0.55
                 ob_weight = 0.10
-                nb_weight = 0.35  # Increase nebula weight
+                ai_weight = 0.35  # Increase AI weight
             elif regime == "BEAR_TRENDING":
                 # In bearish trend, emphasize technical and orderbook
                 ta_weight = 0.55
                 ob_weight = 0.25  # Increase orderbook weight
-                nb_weight = 0.20
+                ai_weight = 0.20
             elif regime == "BULL_VOLATILE" or regime == "BEAR_VOLATILE":
                 # In volatile markets, orderbook becomes more important
                 ta_weight = 0.50
                 ob_weight = 0.30  # Increase orderbook weight
-                nb_weight = 0.20
+                ai_weight = 0.20
             
             # SIGNAL COMBINATION LOGIC
             
             # Calculate weighted signal strengths
             ta_weighted = ta_strength * ta_weight
             ob_weighted = ob_strength * ob_weight
-            nb_weighted = nb_strength * nb_weight
+            ai_weighted = ai_strength * ai_weight
             
             # BUY SIGNAL LOGIC
             buy_sources = []
@@ -349,9 +394,9 @@ class EnhancedStrategy:
                 buy_sources.append(f"OB:{ob_weighted:.2f}")
                 buy_strength += ob_weighted
             
-            if nb_buy:
-                buy_sources.append(f"NB:{nb_weighted:.2f}")
-                buy_strength += nb_weighted
+            if ai_buy:
+                buy_sources.append(f"AI:{ai_weighted:.2f}")
+                buy_strength += ai_weighted
             
             # SELL SIGNAL LOGIC
             sell_sources = []
@@ -365,9 +410,9 @@ class EnhancedStrategy:
                 sell_sources.append(f"OB:{ob_weighted:.2f}")
                 sell_strength += ob_weighted
             
-            if nb_sell:
-                sell_sources.append(f"NB:{nb_weighted:.2f}")
-                sell_strength += nb_weighted
+            if ai_sell:
+                sell_sources.append(f"AI:{ai_weighted:.2f}")
+                sell_strength += ai_weighted
             
             # DETERMINE FINAL SIGNAL
             
@@ -423,7 +468,7 @@ class EnhancedStrategy:
                 "source": signal_source,
                 "technical": technical_signals.get('details', {}),
                 "orderbook": orderbook_signals.get('details', {}),
-                "nebula": nebula_signals.get('details', {}),
+                "ai": ai_signals.get('details', {}),
                 "timestamp": time.time()
             }
             
