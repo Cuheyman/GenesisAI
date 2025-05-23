@@ -11,7 +11,7 @@ import numpy as np
 import pandas as pd
 
 # Import components - Updated to use CoinGecko instead of LunarCrush
-from coingecko_ai import CoinGeckoAI, DummyCoinGeckoAI 
+from coin_gecko_ai import CoinGeckoAI, DummyCoinGeckoAI 
 from market_analysis import MarketAnalysis
 from order_book import OrderBookAnalysis
 from db_manager import DatabaseManager
