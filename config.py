@@ -11,6 +11,21 @@ THIRDWEB_API_KEY = os.getenv('THIRDWEB_API_KEY', 'JxXegUHylyRpgMFRw3rVP2Fq-ki4Is
 WEB3_PROVIDER_URL = os.getenv('WEB3_PROVIDER_URL', 'https://1.rpc.thirdweb.com/')
 
 
+
+# LunarCrush API configuration
+LUNARCRUSH_API_KEY = "3vnabzbr2d77lhl8412p7wixy9mb0i8wbgcj54uin"  # Replace with your actual key
+
+# LunarCrush signal weights
+LUNARCRUSH_WEIGHTS = {
+    'PREDICTION': 0.4,
+    'SENTIMENT': 0.3,
+    'GALAXY': 0.2,
+    'ALT_RANK': 0.1
+}
+
+
+
+
 NEBULA_PROXY_URL = "http://localhost:3000"
 
 USE_NEBULA_PROXY = True
