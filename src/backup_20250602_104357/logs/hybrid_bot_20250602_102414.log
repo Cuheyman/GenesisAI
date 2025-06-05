@@ -1,0 +1,455 @@
+2025-06-02 10:24:14,912 - INFO - CoinGecko API connected: (V3) To the Moon!
+2025-06-02 10:24:14,912 - INFO - CoinGecko AI client initialized with demo API key
+2025-06-02 10:24:14,912 - INFO - CoinGecko AI client initialized
+2025-06-02 10:24:14,938 - INFO - Database initialization complete
+2025-06-02 10:24:14,943 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN take_profit_pct REAL
+2025-06-02 10:24:14,947 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN stop_loss_pct REAL
+2025-06-02 10:24:14,951 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN is_new_asset INTEGER DEFAULT 0
+2025-06-02 10:24:14,954 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN exit_price REAL
+2025-06-02 10:24:14,957 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN exit_time TEXT
+2025-06-02 10:24:14,961 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN profit_loss REAL
+2025-06-02 10:24:14,965 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN signal_source TEXT
+2025-06-02 10:24:14,968 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN signal_strength REAL
+2025-06-02 10:24:14,972 - INFO - Schema update applied: ALTER TABLE trades ADD COLUMN signal_source TEXT
+2025-06-02 10:24:14,975 - INFO - Schema update applied: ALTER TABLE trades ADD COLUMN signal_strength REAL
+2025-06-02 10:24:14,975 - INFO - Database schema updated successfully with 10 changes
+2025-06-02 10:24:14,980 - INFO - Risk Manager initialized with equity protection: Warning at 3.0%, Risk Reduction at 5.0%, High Alert at 8.0%, Emergency at 12.0%
+2025-06-02 10:24:14,980 - INFO - Hybrid Trading Bot initialized with 1000.00 equity
+2025-06-02 10:24:14,980 - INFO - Mode: TEST trading
+2025-06-02 10:24:14,980 - INFO - AI Provider: CoinGecko
+2025-06-02 10:24:14,981 - INFO - Testing API connections...
+2025-06-02 10:24:15,685 - INFO - Binance server time: 2025-06-02 10:24:13.358000
+2025-06-02 10:24:16,112 - INFO - CoinGecko AI connection successful: 0.059105675274689094
+2025-06-02 10:24:16,112 - INFO - Preloading historical data for analysis...
+2025-06-02 10:24:16,113 - INFO - Preloading historical data for analysis...
+2025-06-02 10:24:16,113 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-06-02 10:24:17,500 - INFO - Found trending pairs: MASKUSDT, COOKIEUSDT, VANAUSDT, WCTUSDT, KMNOUSDT...
+2025-06-02 10:24:17,501 - INFO - Preloading data for pairs: TAOUSDT, BNBUSDT, LPTUSDT, SYRUPUSDT, KMNOUSDT
+2025-06-02 10:24:56,758 - INFO - Preloading data for pairs: NILUSDT, KAITOUSDT, BTCUSDT, VANAUSDT, SIGNUSDT
+2025-06-02 10:25:35,477 - INFO - Preloading data for pairs: BABYUSDT, AIXBTUSDT, ADAUSDT, APEUSDT, MASKUSDT
+2025-06-02 10:26:15,379 - INFO - Preloading data for pairs: SOLUSDT, WCTUSDT, INITUSDT, QNTUSDT, PIXELUSDT
+2025-06-02 10:26:54,268 - INFO - Preloading data for pairs: LAYERUSDT, TSTUSDT, ETHUSDT, LTCUSDT, COOKIEUSDT
+2025-06-02 10:27:32,407 - INFO - Historical data preloading complete
+2025-06-02 10:27:42,611 - INFO - Updating correlation matrix...
+2025-06-02 10:27:42,613 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/15 ($0.00, 0.0% of equity)
+2025-06-02 10:27:42,618 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-02 10:28:24,457 - INFO - Selected optimal assets: LTCUSDT, LAYERUSDT, SUIUSDT, XLMUSDT, HBARUSDT... (15 total)
+2025-06-02 10:28:24,457 - INFO -   LTCUSDT: score 5.30
+2025-06-02 10:28:24,457 - INFO -   LAYERUSDT: score 5.10
+2025-06-02 10:28:24,457 - INFO -   SUIUSDT: score 3.80
+2025-06-02 10:28:24,458 - INFO -   XLMUSDT: score 3.80
+2025-06-02 10:28:24,458 - INFO -   HBARUSDT: score 3.80
+2025-06-02 10:28:24,467 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0,
+    "avg_daily_return_pct": 0,
+    "avg_weekly_return_pct": 0
+  },
+  "trades": {
+    "total": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "profit_factor": 0,
+    "avg_profit": 0,
+    "avg_loss": 0,
+    "expected_value": 0,
+    "recent_win_rate_pct": 0
+  },
+  "pairs": {
+    "best_pair": "None",
+    "best_pair_profit": 0,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-06-02 10:28:24"
+}
+2025-06-02 10:29:08,847 - INFO - Correlation matrix updated for 42 pairs
+2025-06-02 10:29:22,696 - INFO - Market state: Regime=NEUTRAL, Trend=neutral, Volatility=low, Breadth=0.50
+2025-06-02 10:29:22,696 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.10, smart money: neutral
+2025-06-02 10:29:30,032 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:29:32,690 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:29:33,168 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:29:35,322 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:29:35,823 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-02 10:29:43,250 - INFO - CoinGecko insights for SUI: neutral (0.50 confidence), sentiment: 0.05, whale: 0.05, smart money: bullish
+2025-06-02 10:29:49,764 - INFO - CoinGecko insights for XLM: neutral (0.50 confidence), sentiment: 0.02, whale: 0.10, smart money: bullish
+2025-06-02 10:29:56,080 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: 0.01, whale: 0.10, smart money: neutral
+2025-06-02 10:30:02,096 - INFO - CoinGecko insights for BCH: neutral (0.50 confidence), sentiment: 0.07, whale: 0.10, smart money: bullish
+2025-06-02 10:30:09,137 - INFO - CoinGecko insights for POL: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-02 10:30:15,514 - INFO - CoinGecko insights for EGLD: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-02 10:30:21,829 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: 0.03, whale: 0.05, smart money: bullish
+2025-06-02 10:30:28,830 - INFO - CoinGecko insights for ETC: neutral (0.50 confidence), sentiment: -0.02, whale: 0.10, smart money: neutral
+2025-06-02 10:30:36,527 - INFO - CoinGecko insights for ICP: neutral (0.50 confidence), sentiment: 0.02, whale: 0.10, smart money: neutral
+2025-06-02 10:30:43,944 - INFO - CoinGecko insights for VET: neutral (0.50 confidence), sentiment: -0.09, whale: 0.10, smart money: neutral
+2025-06-02 10:30:49,590 - INFO - CoinGecko insights for THETA: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-02 10:30:57,287 - INFO - CoinGecko insights for IOTA: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-02 10:31:04,547 - INFO - CoinGecko insights for NEO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-02 10:31:11,691 - WARNING - AI insights timed out for LTCUSDT
+2025-06-02 10:31:11,691 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:31:11,692 - ERROR - Error analyzing LTCUSDT: name 'priority' is not defined
+2025-06-02 10:31:11,692 - WARNING - AI insights timed out for LAYERUSDT
+2025-06-02 10:31:11,692 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:31:11,693 - ERROR - Error analyzing LAYERUSDT: name 'priority' is not defined
+2025-06-02 10:31:11,693 - WARNING - AI insights timed out for SUIUSDT
+2025-06-02 10:31:11,693 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:31:11,693 - ERROR - Error analyzing SUIUSDT: name 'priority' is not defined
+2025-06-02 10:31:11,694 - WARNING - AI insights timed out for XLMUSDT
+2025-06-02 10:31:11,694 - INFO - XLMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:31:11,694 - ERROR - Error analyzing XLMUSDT: name 'priority' is not defined
+2025-06-02 10:31:11,694 - WARNING - AI insights timed out for HBARUSDT
+2025-06-02 10:31:11,694 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:31:11,695 - ERROR - Error analyzing HBARUSDT: name 'priority' is not defined
+2025-06-02 10:31:11,695 - WARNING - AI insights timed out for BCHUSDT
+2025-06-02 10:31:11,695 - INFO - BCHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:31:11,695 - ERROR - Error analyzing BCHUSDT: name 'priority' is not defined
+2025-06-02 10:31:11,695 - WARNING - AI insights timed out for POLUSDT
+2025-06-02 10:31:11,696 - INFO - POLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:31:11,696 - ERROR - Error analyzing POLUSDT: name 'priority' is not defined
+2025-06-02 10:31:11,696 - WARNING - AI insights timed out for EGLDUSDT
+2025-06-02 10:31:11,696 - INFO - EGLDUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:31:11,696 - ERROR - Error analyzing EGLDUSDT: name 'priority' is not defined
+2025-06-02 10:31:11,696 - WARNING - AI insights timed out for XRPUSDT
+2025-06-02 10:31:11,697 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:31:11,697 - ERROR - Error analyzing XRPUSDT: name 'priority' is not defined
+2025-06-02 10:31:11,697 - WARNING - AI insights timed out for ETCUSDT
+2025-06-02 10:31:11,697 - INFO - ETCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:31:11,697 - ERROR - Error analyzing ETCUSDT: name 'priority' is not defined
+2025-06-02 10:31:11,697 - WARNING - AI insights timed out for ICPUSDT
+2025-06-02 10:31:11,697 - INFO - ICPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:31:11,697 - ERROR - Error analyzing ICPUSDT: name 'priority' is not defined
+2025-06-02 10:31:11,698 - WARNING - AI insights timed out for VETUSDT
+2025-06-02 10:31:11,698 - INFO - VETUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:31:11,698 - ERROR - Error analyzing VETUSDT: name 'priority' is not defined
+2025-06-02 10:31:11,698 - WARNING - AI insights timed out for THETAUSDT
+2025-06-02 10:31:11,698 - INFO - THETAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:31:11,698 - ERROR - Error analyzing THETAUSDT: name 'priority' is not defined
+2025-06-02 10:31:13,227 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:31:13,806 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:31:14,428 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:31:15,015 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:31:15,104 - INFO - CoinGecko insights for IOTA: neutral (0.50 confidence), sentiment: -0.07, whale: 0.10, smart money: neutral
+2025-06-02 10:31:15,104 - INFO - CoinGecko insights for NEO: neutral (0.50 confidence), sentiment: -0.07, whale: 0.10, smart money: neutral
+2025-06-02 10:31:15,105 - INFO - IOTAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:31:15,105 - ERROR - Error analyzing IOTAUSDT: name 'priority' is not defined
+2025-06-02 10:31:15,105 - INFO - NEOUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:31:15,106 - ERROR - Error analyzing NEOUSDT: name 'priority' is not defined
+2025-06-02 10:31:15,106 - INFO - Trading cycle completed in 212.49 seconds
+2025-06-02 10:34:54,662 - INFO - Top opportunities found: ['SOLUSDT', 'BTCUSDT', 'XRPUSDT', 'BERAUSDT', 'COOKIEUSDT']
+2025-06-02 10:35:35,803 - INFO - Selected optimal assets: LTCUSDT, LAYERUSDT, AVAXUSDT, SUIUSDT, XLMUSDT... (10 total)
+2025-06-02 10:35:35,803 - INFO -   LTCUSDT: score 5.30
+2025-06-02 10:35:35,803 - INFO -   LAYERUSDT: score 4.85
+2025-06-02 10:35:35,804 - INFO -   AVAXUSDT: score 3.80
+2025-06-02 10:35:35,804 - INFO -   SUIUSDT: score 3.80
+2025-06-02 10:35:35,804 - INFO -   XLMUSDT: score 3.80
+2025-06-02 10:35:35,804 - INFO - High priority opportunities: SOLUSDT
+2025-06-02 10:35:35,805 - ERROR - Error in trading task: HybridTradingBot.analyze_and_trade() got an unexpected keyword argument 'priority'
+2025-06-02 10:36:35,813 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/15 ($0.00, 0.0% of equity)
+2025-06-02 10:36:35,813 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-02 10:37:17,666 - INFO - Selected optimal assets: LTCUSDT, LAYERUSDT, SUIUSDT, XLMUSDT, HBARUSDT... (15 total)
+2025-06-02 10:37:17,667 - INFO -   LTCUSDT: score 5.30
+2025-06-02 10:37:17,667 - INFO -   LAYERUSDT: score 4.85
+2025-06-02 10:37:17,667 - INFO -   SUIUSDT: score 3.80
+2025-06-02 10:37:17,667 - INFO -   XLMUSDT: score 3.80
+2025-06-02 10:37:17,668 - INFO -   HBARUSDT: score 3.80
+2025-06-02 10:37:17,931 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: 0.07, whale: 0.10, smart money: neutral
+2025-06-02 10:37:26,466 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:37:30,291 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:37:31,715 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:37:32,410 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:37:34,004 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: 0.07, whale: 0.10, smart money: neutral
+2025-06-02 10:37:34,004 - INFO - CoinGecko insights for ETC: neutral (0.50 confidence), sentiment: -0.02, whale: 0.10, smart money: neutral
+2025-06-02 10:37:41,240 - INFO - CoinGecko insights for ICP: neutral (0.50 confidence), sentiment: 0.03, whale: 0.10, smart money: neutral
+2025-06-02 10:37:46,647 - INFO - CoinGecko insights for THETA: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-02 10:37:52,918 - INFO - CoinGecko insights for SUI: neutral (0.50 confidence), sentiment: 0.06, whale: 0.05, smart money: bullish
+2025-06-02 10:37:58,311 - INFO - CoinGecko insights for IOTA: neutral (0.50 confidence), sentiment: -0.07, whale: 0.10, smart money: neutral
+2025-06-02 10:38:05,521 - INFO - CoinGecko insights for VET: neutral (0.50 confidence), sentiment: -0.08, whale: 0.10, smart money: neutral
+2025-06-02 10:38:13,845 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: 0.03, whale: 0.05, smart money: bullish
+2025-06-02 10:38:21,771 - INFO - CoinGecko insights for XLM: neutral (0.50 confidence), sentiment: 0.02, whale: 0.10, smart money: bullish
+2025-06-02 10:38:27,610 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: 0.02, whale: 0.10, smart money: neutral
+2025-06-02 10:38:28,764 - INFO - Bot stopped by user
+2025-06-02 10:38:28,811 - ERROR - Task was destroyed but it is pending!
+task: <Task cancelling name='Task-1' coro=<HybridTradingBot.run() done, defined at C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\src\hybrid_bot.py:194> wait_for=<_GatheringFuture finished exception=CancelledError()> cb=[gather.<locals>._done_callback() at C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\tasks.py:820]>
+2025-06-02 10:38:28,811 - ERROR - _GatheringFuture exception was never retrieved
+future: <_GatheringFuture finished exception=CancelledError()>
+Traceback (most recent call last):
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\src\main.py", line 31, in <module>
+    asyncio.run(bot.run())
+    ~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 193, in run
+    with Runner(debug=debug, loop_factory=loop_factory) as runner:
+         ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 62, in __exit__
+    self.close()
+    ~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 70, in close
+    _cancel_all_tasks(loop)
+    ~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 205, in _cancel_all_tasks
+    loop.run_until_complete(tasks.gather(*to_cancel, return_exceptions=True))
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 708, in run_until_complete
+    self.run_forever()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 679, in run_forever
+    self._run_once()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2027, in _run_once
+    handle._run()
+    ~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\src\hybrid_bot.py", line 427, in trading_task
+    await asyncio.gather(*analysis_tasks)
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 194, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 708, in run_until_complete
+    self.run_forever()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 679, in run_forever
+    self._run_once()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2027, in _run_once
+    handle._run()
+    ~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\src\hybrid_bot.py", line 585, in analyze_and_trade
+    mtf_analysis = await self.market_analysis.get_multi_timeframe_analysis(pair)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\src\market_analysis.py", line 41, in get_multi_timeframe_analysis
+    klines = await self.get_klines(pair, now - lookback_ms, interval)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\src\market_analysis.py", line 214, in get_klines
+    klines = self.binance_client.get_historical_klines(
+        pair, interval, start_time, limit=1000
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 830, in get_historical_klines
+    return self._historical_klines(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        symbol,
+        ^^^^^^^
+    ...<4 lines>...
+        klines_type=klines_type,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 900, in _historical_klines
+    temp_data = self._klines(
+        klines_type=klines_type,
+    ...<4 lines>...
+        endTime=end_ts,
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 759, in _klines
+    return self.get_klines(**params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 742, in get_klines
+    return self._get("klines", data=params, version=self.PRIVATE_API_VERSION)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 180, in _get
+    return self._request_api("get", path, signed, version, **kwargs)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 117, in _request_api
+    return self._request(method, uri, signed, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 88, in _request
+    self.response = getattr(self.session, method)(uri, headers=headers, data=data, **kwargs)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connection.py", line 516, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 1428, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 331, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 292, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\socket.py", line 719, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 157, in _on_sigint
+    raise KeyboardInterrupt()
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\src\hybrid_bot.py", line 347, in market_monitor_task
+    await asyncio.sleep(1800)
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\tasks.py", line 718, in sleep
+    return await future
+           ^^^^^^^^^^^^
+asyncio.exceptions.CancelledError
+2025-06-02 10:38:28,820 - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-205' coro=<HybridTradingBot.trading_task() done, defined at C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\src\hybrid_bot.py:355> exception=KeyboardInterrupt()>
+Traceback (most recent call last):
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\src\main.py", line 31, in <module>
+    asyncio.run(bot.run())
+    ~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 193, in run
+    with Runner(debug=debug, loop_factory=loop_factory) as runner:
+         ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 62, in __exit__
+    self.close()
+    ~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 70, in close
+    _cancel_all_tasks(loop)
+    ~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 205, in _cancel_all_tasks
+    loop.run_until_complete(tasks.gather(*to_cancel, return_exceptions=True))
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 708, in run_until_complete
+    self.run_forever()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 679, in run_forever
+    self._run_once()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2027, in _run_once
+    handle._run()
+    ~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\src\hybrid_bot.py", line 427, in trading_task
+    await asyncio.gather(*analysis_tasks)
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 194, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 708, in run_until_complete
+    self.run_forever()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 679, in run_forever
+    self._run_once()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2027, in _run_once
+    handle._run()
+    ~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\src\hybrid_bot.py", line 585, in analyze_and_trade
+    mtf_analysis = await self.market_analysis.get_multi_timeframe_analysis(pair)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\src\market_analysis.py", line 41, in get_multi_timeframe_analysis
+    klines = await self.get_klines(pair, now - lookback_ms, interval)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\src\market_analysis.py", line 214, in get_klines
+    klines = self.binance_client.get_historical_klines(
+        pair, interval, start_time, limit=1000
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 830, in get_historical_klines
+    return self._historical_klines(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        symbol,
+        ^^^^^^^
+    ...<4 lines>...
+        klines_type=klines_type,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 900, in _historical_klines
+    temp_data = self._klines(
+        klines_type=klines_type,
+    ...<4 lines>...
+        endTime=end_ts,
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 759, in _klines
+    return self.get_klines(**params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 742, in get_klines
+    return self._get("klines", data=params, version=self.PRIVATE_API_VERSION)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 180, in _get
+    return self._request_api("get", path, signed, version, **kwargs)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 117, in _request_api
+    return self._request(method, uri, signed, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 88, in _request
+    self.response = getattr(self.session, method)(uri, headers=headers, data=data, **kwargs)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connection.py", line 516, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 1428, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 331, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 292, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\socket.py", line 719, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 157, in _on_sigint
+    raise KeyboardInterrupt()
+KeyboardInterrupt

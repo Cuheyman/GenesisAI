@@ -84,32 +84,58 @@ class EnhancedStrategy:
             }
     
     def _get_technical_signals(self, mtf_analysis: Dict) -> Dict:
-        """Generate signals from multi-timeframe technical analysis"""
+        
         try:
             # Extract key metrics
             mtf_trend = mtf_analysis.get('mtf_trend', 0)
             mtf_momentum = mtf_analysis.get('mtf_momentum', 0)
             overall_score = mtf_analysis.get('overall_score', 0)
+            mtf_volatility = mtf_analysis.get('mtf_volatility', 0)
+            
+            # Get timeframe data for confluence
+            timeframe_data = mtf_analysis.get('timeframe_data', [])
             
             buy_signal = False
             sell_signal = False
             signal_strength = 0
             
-            # Strong bullish technical signals
-            if overall_score > 0.3 and mtf_trend > 0.2:
+            # Strategy 1: Trend Following with Momentum Confirmation
+            # Buy when trend and momentum align positively
+            if mtf_trend > 0.3 and mtf_momentum > 0.2:
+                # Strong bullish alignment
                 buy_signal = True
-                signal_strength = min(0.9, abs(overall_score) + 0.1)
-            # Strong bearish technical signals
-            elif overall_score < -0.3 and mtf_trend < -0.2:
+                signal_strength = min(0.9, (mtf_trend + mtf_momentum) / 2 + 0.2)
+                
+            # Strategy 2: Mean Reversion in Low Volatility
+            # Buy oversold conditions in stable markets
+            elif mtf_volatility < 0.3 and mtf_momentum < -0.3 and mtf_trend > -0.2:
+                # Oversold in stable market
+                buy_signal = True
+                signal_strength = min(0.7, abs(mtf_momentum) + 0.2)
+                
+            # Strategy 3: Breakout Trading
+            # Buy on strong momentum with increasing volume
+            elif mtf_momentum > 0.4 and overall_score > 0.35:
+                buy_signal = True
+                signal_strength = min(0.8, mtf_momentum + 0.2)
+                
+            # Sell signals - Mirror of buy logic
+            elif mtf_trend < -0.3 and mtf_momentum < -0.2:
+                # Strong bearish alignment
                 sell_signal = True
-                signal_strength = min(0.9, abs(overall_score) + 0.1)
-            # Moderate signals
-            elif abs(overall_score) > 0.15:
-                if overall_score > 0:
-                    buy_signal = True
-                else:
-                    sell_signal = True
-                signal_strength = min(0.7, abs(overall_score) + 0.2)
+                signal_strength = min(0.9, abs(mtf_trend + mtf_momentum) / 2 + 0.2)
+                
+            # Avoid trading in high volatility without clear direction
+            if mtf_volatility > 0.7 and abs(mtf_trend) < 0.3:
+                buy_signal = False
+                sell_signal = False
+                signal_strength = 0
+            
+            # Ensure minimum signal strength for trades
+            if signal_strength < 0.35:
+                buy_signal = False
+                sell_signal = False
+                signal_strength = 0
             
             return {
                 "buy_signal": buy_signal,
@@ -119,7 +145,8 @@ class EnhancedStrategy:
                 "details": {
                     "trend": mtf_trend,
                     "momentum": mtf_momentum,
-                    "overall_score": overall_score
+                    "overall_score": overall_score,
+                    "volatility": mtf_volatility
                 }
             }
             

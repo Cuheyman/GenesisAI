@@ -1,0 +1,398 @@
+2025-06-02 10:04:05,723 - INFO - CoinGecko API connected: (V3) To the Moon!
+2025-06-02 10:04:05,724 - INFO - CoinGecko AI client initialized with demo API key
+2025-06-02 10:04:05,724 - INFO - CoinGecko AI client initialized
+2025-06-02 10:04:05,725 - INFO - Database initialization complete
+2025-06-02 10:04:05,726 - INFO - Risk Manager initialized with equity protection: Warning at 3.0%, Risk Reduction at 5.0%, High Alert at 8.0%, Emergency at 12.0%
+2025-06-02 10:04:05,726 - INFO - Hybrid Trading Bot initialized with 1000.00 equity
+2025-06-02 10:04:05,726 - INFO - Mode: TEST trading
+2025-06-02 10:04:05,727 - INFO - AI Provider: CoinGecko
+2025-06-02 10:04:05,727 - INFO - Testing API connections...
+2025-06-02 10:04:06,427 - INFO - Binance server time: 2025-06-02 10:04:04.118000
+2025-06-02 10:04:06,460 - INFO - CoinGecko AI connection successful: 0.05333681443140058
+2025-06-02 10:04:06,461 - INFO - Preloading historical data for analysis...
+2025-06-02 10:04:06,461 - INFO - Preloading historical data for analysis...
+2025-06-02 10:04:06,461 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-06-02 10:04:07,864 - INFO - Found trending pairs: MASKUSDT, COOKIEUSDT, WCTUSDT, VANAUSDT, KMNOUSDT...
+2025-06-02 10:04:07,865 - INFO - Preloading data for pairs: LPTUSDT, SYRUPUSDT, MASKUSDT, TAOUSDT, PIXELUSDT
+2025-06-02 10:04:43,522 - INFO - Preloading data for pairs: VANAUSDT, KAITOUSDT, ADAUSDT, NILUSDT, BABYUSDT
+2025-06-02 10:05:21,682 - INFO - Preloading data for pairs: KMNOUSDT, SIGNUSDT, APEUSDT, COOKIEUSDT, TSTUSDT
+2025-06-02 10:06:00,481 - INFO - Preloading data for pairs: WCTUSDT, AIXBTUSDT, INITUSDT, BNBUSDT, BTCUSDT
+2025-06-02 10:06:38,938 - INFO - Preloading data for pairs: QNTUSDT, SOLVUSDT, SOLUSDT, LTCUSDT, ETHUSDT
+2025-06-02 10:07:16,995 - INFO - Historical data preloading complete
+2025-06-02 10:07:26,737 - INFO - Updating correlation matrix...
+2025-06-02 10:07:26,738 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/15 ($0.00, 0.0% of equity)
+2025-06-02 10:07:26,742 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-02 10:08:07,940 - INFO - Selected optimal assets: LTCUSDT, SUIUSDT, XLMUSDT, POLUSDT, EGLDUSDT... (15 total)
+2025-06-02 10:08:07,940 - INFO -   LTCUSDT: score 5.30
+2025-06-02 10:08:07,941 - INFO -   SUIUSDT: score 3.80
+2025-06-02 10:08:07,941 - INFO -   XLMUSDT: score 3.80
+2025-06-02 10:08:07,941 - INFO -   POLUSDT: score 3.80
+2025-06-02 10:08:07,942 - INFO -   EGLDUSDT: score 3.80
+2025-06-02 10:08:07,959 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0,
+    "avg_daily_return_pct": 0,
+    "avg_weekly_return_pct": 0
+  },
+  "trades": {
+    "total": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "profit_factor": 0,
+    "avg_profit": 0,
+    "avg_loss": 0,
+    "expected_value": 0,
+    "recent_win_rate_pct": 0
+  },
+  "pairs": {
+    "best_pair": "None",
+    "best_pair_profit": 0,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-06-02 10:08:07"
+}
+2025-06-02 10:08:50,805 - INFO - Correlation matrix updated for 42 pairs
+2025-06-02 10:09:04,891 - INFO - Market state: Regime=NEUTRAL, Trend=neutral, Volatility=low, Breadth=0.50
+2025-06-02 10:09:04,891 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: 0.05, whale: 0.10, smart money: neutral
+2025-06-02 10:09:11,429 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: 0.05, whale: 0.05, smart money: bullish
+2025-06-02 10:09:21,192 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:09:21,822 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:09:22,625 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:09:23,838 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:09:24,886 - INFO - CoinGecko insights for SUI: neutral (0.50 confidence), sentiment: 0.03, whale: 0.05, smart money: bullish
+2025-06-02 10:09:33,266 - INFO - CoinGecko insights for XLM: neutral (0.50 confidence), sentiment: 0.00, whale: 0.10, smart money: bullish
+2025-06-02 10:09:38,891 - INFO - CoinGecko insights for POL: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-02 10:09:44,963 - INFO - CoinGecko insights for EGLD: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-02 10:09:50,597 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: 0.00, whale: 0.10, smart money: neutral
+2025-06-02 10:09:59,899 - INFO - CoinGecko insights for ETC: neutral (0.50 confidence), sentiment: -0.03, whale: 0.10, smart money: neutral
+2025-06-02 10:10:05,064 - INFO - CoinGecko insights for ICP: neutral (0.50 confidence), sentiment: 0.01, whale: 0.10, smart money: neutral
+2025-06-02 10:10:10,248 - INFO - CoinGecko insights for VET: neutral (0.50 confidence), sentiment: -0.10, whale: 0.10, smart money: neutral
+2025-06-02 10:10:14,695 - INFO - CoinGecko insights for THETA: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-02 10:10:20,271 - INFO - CoinGecko insights for IOTA: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-02 10:10:27,504 - INFO - CoinGecko insights for ZEC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-02 10:10:32,439 - INFO - CoinGecko insights for DOGE: neutral (0.50 confidence), sentiment: -0.06, whale: 0.10, smart money: bullish
+2025-06-02 10:10:39,450 - INFO - CoinGecko insights for AVAX: neutral (0.50 confidence), sentiment: -0.02, whale: 0.10, smart money: bullish
+2025-06-02 10:10:46,259 - WARNING - AI insights timed out for LTCUSDT
+2025-06-02 10:10:46,259 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:10:46,260 - ERROR - Error analyzing LTCUSDT: name 'priority' is not defined
+2025-06-02 10:10:46,688 - WARNING - AI insights timed out for ETHUSDT
+2025-06-02 10:10:46,688 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:10:46,689 - ERROR - Error analyzing ETHUSDT: name 'priority' is not defined
+2025-06-02 10:10:46,689 - WARNING - AI insights timed out for SUIUSDT
+2025-06-02 10:10:46,689 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:10:46,690 - ERROR - Error analyzing SUIUSDT: name 'priority' is not defined
+2025-06-02 10:10:46,690 - WARNING - AI insights timed out for XLMUSDT
+2025-06-02 10:10:46,690 - INFO - XLMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:10:46,690 - ERROR - Error analyzing XLMUSDT: name 'priority' is not defined
+2025-06-02 10:10:46,690 - WARNING - AI insights timed out for POLUSDT
+2025-06-02 10:10:46,691 - INFO - POLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:10:46,691 - ERROR - Error analyzing POLUSDT: name 'priority' is not defined
+2025-06-02 10:10:46,691 - WARNING - AI insights timed out for EGLDUSDT
+2025-06-02 10:10:46,691 - INFO - EGLDUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:10:46,691 - ERROR - Error analyzing EGLDUSDT: name 'priority' is not defined
+2025-06-02 10:10:46,692 - WARNING - AI insights timed out for HBARUSDT
+2025-06-02 10:10:46,692 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:10:46,692 - ERROR - Error analyzing HBARUSDT: name 'priority' is not defined
+2025-06-02 10:10:46,692 - WARNING - AI insights timed out for ETCUSDT
+2025-06-02 10:10:46,692 - INFO - ETCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:10:46,692 - ERROR - Error analyzing ETCUSDT: name 'priority' is not defined
+2025-06-02 10:10:46,692 - WARNING - AI insights timed out for ICPUSDT
+2025-06-02 10:10:46,692 - INFO - ICPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:10:46,692 - ERROR - Error analyzing ICPUSDT: name 'priority' is not defined
+2025-06-02 10:10:46,693 - WARNING - AI insights timed out for VETUSDT
+2025-06-02 10:10:46,693 - INFO - VETUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:10:46,693 - ERROR - Error analyzing VETUSDT: name 'priority' is not defined
+2025-06-02 10:10:46,693 - WARNING - AI insights timed out for THETAUSDT
+2025-06-02 10:10:46,693 - INFO - THETAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:10:46,693 - ERROR - Error analyzing THETAUSDT: name 'priority' is not defined
+2025-06-02 10:10:46,694 - WARNING - AI insights timed out for IOTAUSDT
+2025-06-02 10:10:46,694 - INFO - IOTAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:10:46,694 - ERROR - Error analyzing IOTAUSDT: name 'priority' is not defined
+2025-06-02 10:10:46,694 - WARNING - AI insights timed out for ZECUSDT
+2025-06-02 10:10:46,694 - INFO - ZECUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:10:46,694 - ERROR - Error analyzing ZECUSDT: name 'priority' is not defined
+2025-06-02 10:10:46,695 - INFO - CoinGecko insights for DOGE: neutral (0.50 confidence), sentiment: -0.06, whale: 0.10, smart money: bullish
+2025-06-02 10:10:46,695 - INFO - CoinGecko insights for AVAX: neutral (0.50 confidence), sentiment: -0.02, whale: 0.10, smart money: bullish
+2025-06-02 10:10:48,053 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:10:48,524 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:10:48,959 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:10:49,884 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:10:49,981 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:10:49,981 - ERROR - Error analyzing DOGEUSDT: name 'priority' is not defined
+2025-06-02 10:10:49,982 - INFO - AVAXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:10:49,982 - ERROR - Error analyzing AVAXUSDT: name 'priority' is not defined
+2025-06-02 10:10:49,982 - INFO - Trading cycle completed in 203.25 seconds
+2025-06-02 10:11:19,995 - ERROR - Error in trading task: cannot access local variable 'opportunities' where it is not associated with a value
+2025-06-02 10:12:20,009 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/15 ($0.00, 0.0% of equity)
+2025-06-02 10:12:20,010 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-02 10:13:01,306 - INFO - Selected optimal assets: LTCUSDT, SUIUSDT, XLMUSDT, POLUSDT, HBARUSDT... (15 total)
+2025-06-02 10:13:01,307 - INFO -   LTCUSDT: score 5.30
+2025-06-02 10:13:01,307 - INFO -   SUIUSDT: score 3.80
+2025-06-02 10:13:01,307 - INFO -   XLMUSDT: score 3.80
+2025-06-02 10:13:01,307 - INFO -   POLUSDT: score 3.80
+2025-06-02 10:13:01,308 - INFO -   HBARUSDT: score 3.60
+2025-06-02 10:13:01,722 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:13:01,723 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: 0.05, whale: 0.10, smart money: neutral
+2025-06-02 10:13:09,615 - INFO - CoinGecko insights for SUI: neutral (0.50 confidence), sentiment: 0.03, whale: 0.05, smart money: bullish
+2025-06-02 10:13:17,473 - INFO - CoinGecko insights for XLM: neutral (0.50 confidence), sentiment: 0.00, whale: 0.10, smart money: bullish
+2025-06-02 10:13:24,791 - INFO - CoinGecko insights for POL: neutral (0.50 confidence), sentiment: -0.04, whale: 0.10, smart money: neutral
+2025-06-02 10:13:30,899 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: 0.00, whale: 0.10, smart money: neutral
+2025-06-02 10:13:36,088 - INFO - CoinGecko insights for ICP: neutral (0.50 confidence), sentiment: 0.01, whale: 0.10, smart money: neutral
+2025-06-02 10:13:42,819 - INFO - CoinGecko insights for VET: neutral (0.50 confidence), sentiment: -0.10, whale: 0.10, smart money: neutral
+2025-06-02 10:13:49,810 - INFO - CoinGecko insights for IOTA: neutral (0.50 confidence), sentiment: -0.09, whale: 0.10, smart money: neutral
+2025-06-02 10:13:56,145 - INFO - CoinGecko insights for EGLD: neutral (0.50 confidence), sentiment: -0.10, whale: 0.10, smart money: neutral
+2025-06-02 10:14:02,985 - INFO - CoinGecko insights for ZEC: bullish (0.65 confidence), sentiment: 0.30, whale: 0.10, smart money: neutral
+2025-06-02 10:14:10,468 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: 0.06, whale: 0.05, smart money: bullish
+2025-06-02 10:14:18,305 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:14:18,589 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:14:19,267 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:14:19,272 - INFO - CoinGecko insights for THETA: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-02 10:14:26,227 - INFO - CoinGecko insights for NEO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-02 10:14:32,054 - INFO - CoinGecko insights for BCH: neutral (0.50 confidence), sentiment: 0.06, whale: 0.10, smart money: bullish
+2025-06-02 10:14:39,266 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.08, whale: 0.00, smart money: bullish
+2025-06-02 10:14:48,790 - WARNING - AI insights timed out for LTCUSDT
+2025-06-02 10:14:48,791 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:14:48,791 - ERROR - Error analyzing LTCUSDT: name 'priority' is not defined
+2025-06-02 10:14:48,791 - WARNING - AI insights timed out for SUIUSDT
+2025-06-02 10:14:48,792 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:14:48,792 - ERROR - Error analyzing SUIUSDT: name 'priority' is not defined
+2025-06-02 10:14:48,792 - WARNING - AI insights timed out for XLMUSDT
+2025-06-02 10:14:48,793 - INFO - XLMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:14:48,793 - ERROR - Error analyzing XLMUSDT: name 'priority' is not defined
+2025-06-02 10:14:48,793 - WARNING - AI insights timed out for POLUSDT
+2025-06-02 10:14:48,793 - INFO - POLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:14:48,794 - ERROR - Error analyzing POLUSDT: name 'priority' is not defined
+2025-06-02 10:14:48,794 - WARNING - AI insights timed out for HBARUSDT
+2025-06-02 10:14:48,794 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:14:48,794 - ERROR - Error analyzing HBARUSDT: name 'priority' is not defined
+2025-06-02 10:14:48,794 - WARNING - AI insights timed out for ICPUSDT
+2025-06-02 10:14:48,794 - INFO - ICPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:14:48,795 - ERROR - Error analyzing ICPUSDT: name 'priority' is not defined
+2025-06-02 10:14:48,795 - WARNING - AI insights timed out for VETUSDT
+2025-06-02 10:14:48,795 - INFO - VETUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:14:48,795 - ERROR - Error analyzing VETUSDT: name 'priority' is not defined
+2025-06-02 10:14:48,795 - WARNING - AI insights timed out for IOTAUSDT
+2025-06-02 10:14:48,795 - INFO - IOTAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:14:48,795 - ERROR - Error analyzing IOTAUSDT: name 'priority' is not defined
+2025-06-02 10:14:48,795 - WARNING - AI insights timed out for EGLDUSDT
+2025-06-02 10:14:48,796 - INFO - EGLDUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:14:48,796 - ERROR - Error analyzing EGLDUSDT: name 'priority' is not defined
+2025-06-02 10:14:48,989 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:14:48,989 - WARNING - AI insights timed out for ZECUSDT
+2025-06-02 10:14:48,990 - INFO - ZECUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:14:48,990 - ERROR - Error analyzing ZECUSDT: name 'priority' is not defined
+2025-06-02 10:14:48,990 - WARNING - AI insights timed out for ETHUSDT
+2025-06-02 10:14:48,990 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:14:48,991 - ERROR - Error analyzing ETHUSDT: name 'priority' is not defined
+2025-06-02 10:14:48,991 - WARNING - AI insights timed out for THETAUSDT
+2025-06-02 10:14:48,991 - INFO - THETAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:14:48,991 - ERROR - Error analyzing THETAUSDT: name 'priority' is not defined
+2025-06-02 10:14:48,991 - WARNING - AI insights timed out for NEOUSDT
+2025-06-02 10:14:48,992 - INFO - NEOUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:14:48,992 - ERROR - Error analyzing NEOUSDT: name 'priority' is not defined
+2025-06-02 10:14:48,992 - INFO - CoinGecko insights for BCH: neutral (0.50 confidence), sentiment: 0.06, whale: 0.10, smart money: bullish
+2025-06-02 10:14:48,992 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.08, whale: 0.00, smart money: bullish
+2025-06-02 10:14:48,992 - INFO - BCHUSDT analysis: BUY signal with 0.36 strength
+2025-06-02 10:14:48,993 - ERROR - Error analyzing BCHUSDT: name 'priority' is not defined
+2025-06-02 10:14:48,993 - INFO - BTCUSDT analysis: BUY signal with 0.40 strength
+2025-06-02 10:14:48,993 - ERROR - Error analyzing BTCUSDT: name 'priority' is not defined
+2025-06-02 10:14:48,993 - INFO - Trading cycle completed in 148.98 seconds
+2025-06-02 10:14:49,796 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:14:49,980 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:14:50,180 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:15:18,998 - ERROR - Error in trading task: cannot access local variable 'opportunities' where it is not associated with a value
+2025-06-02 10:16:19,004 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/15 ($0.00, 0.0% of equity)
+2025-06-02 10:16:19,005 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-02 10:17:02,636 - INFO - Selected optimal assets: LTCUSDT, SUIUSDT, XLMUSDT, HBARUSDT, BCHUSDT... (15 total)
+2025-06-02 10:17:02,636 - INFO -   LTCUSDT: score 5.30
+2025-06-02 10:17:02,637 - INFO -   SUIUSDT: score 3.80
+2025-06-02 10:17:02,637 - INFO -   XLMUSDT: score 3.80
+2025-06-02 10:17:02,637 - INFO -   HBARUSDT: score 3.80
+2025-06-02 10:17:02,637 - INFO -   BCHUSDT: score 3.80
+2025-06-02 10:17:03,077 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.10, smart money: neutral
+2025-06-02 10:17:10,089 - INFO - CoinGecko insights for SUI: neutral (0.50 confidence), sentiment: 0.03, whale: 0.05, smart money: bullish
+2025-06-02 10:17:16,148 - INFO - CoinGecko insights for BCH: neutral (0.50 confidence), sentiment: 0.06, whale: 0.10, smart money: bullish
+2025-06-02 10:17:23,005 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:17:26,710 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:17:26,908 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:17:27,528 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:17:29,201 - INFO - CoinGecko insights for XLM: neutral (0.50 confidence), sentiment: 0.01, whale: 0.10, smart money: bullish
+2025-06-02 10:17:35,299 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: 0.00, whale: 0.10, smart money: neutral
+2025-06-02 10:17:41,601 - INFO - CoinGecko insights for POL: neutral (0.50 confidence), sentiment: -0.04, whale: 0.10, smart money: neutral
+2025-06-02 10:17:46,757 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: 0.01, whale: 0.05, smart money: bullish
+2025-06-02 10:17:53,977 - INFO - CoinGecko insights for ETC: neutral (0.50 confidence), sentiment: -0.03, whale: 0.10, smart money: neutral
+2025-06-02 10:18:00,829 - INFO - CoinGecko insights for ICP: neutral (0.50 confidence), sentiment: 0.01, whale: 0.10, smart money: neutral
+2025-06-02 10:18:08,346 - INFO - CoinGecko insights for VET: neutral (0.50 confidence), sentiment: -0.09, whale: 0.10, smart money: neutral
+2025-06-02 10:18:14,679 - INFO - CoinGecko insights for THETA: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-02 10:18:21,888 - INFO - CoinGecko insights for IOTA: neutral (0.50 confidence), sentiment: -0.09, whale: 0.10, smart money: neutral
+2025-06-02 10:18:28,675 - INFO - CoinGecko insights for EGLD: neutral (0.50 confidence), sentiment: -0.10, whale: 0.10, smart money: neutral
+2025-06-02 10:18:34,764 - INFO - CoinGecko insights for ZEC: bullish (0.65 confidence), sentiment: 0.30, whale: 0.10, smart money: neutral
+2025-06-02 10:18:42,185 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-02 10:18:48,713 - WARNING - AI insights timed out for LTCUSDT
+2025-06-02 10:18:48,714 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:18:48,714 - ERROR - Error analyzing LTCUSDT: name 'priority' is not defined
+2025-06-02 10:18:48,929 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:18:48,930 - WARNING - AI insights timed out for SUIUSDT
+2025-06-02 10:18:48,930 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:18:48,930 - ERROR - Error analyzing SUIUSDT: name 'priority' is not defined
+2025-06-02 10:18:48,930 - WARNING - AI insights timed out for BCHUSDT
+2025-06-02 10:18:48,930 - INFO - BCHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:18:48,931 - ERROR - Error analyzing BCHUSDT: name 'priority' is not defined
+2025-06-02 10:18:48,931 - WARNING - AI insights timed out for XLMUSDT
+2025-06-02 10:18:48,931 - INFO - XLMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:18:48,931 - ERROR - Error analyzing XLMUSDT: name 'priority' is not defined
+2025-06-02 10:18:48,931 - WARNING - AI insights timed out for HBARUSDT
+2025-06-02 10:18:48,932 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:18:48,932 - ERROR - Error analyzing HBARUSDT: name 'priority' is not defined
+2025-06-02 10:18:48,932 - WARNING - AI insights timed out for POLUSDT
+2025-06-02 10:18:48,932 - INFO - POLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:18:48,932 - ERROR - Error analyzing POLUSDT: name 'priority' is not defined
+2025-06-02 10:18:48,932 - WARNING - AI insights timed out for XRPUSDT
+2025-06-02 10:18:48,933 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:18:48,933 - ERROR - Error analyzing XRPUSDT: name 'priority' is not defined
+2025-06-02 10:18:48,933 - WARNING - AI insights timed out for ETCUSDT
+2025-06-02 10:18:48,933 - INFO - ETCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:18:48,933 - ERROR - Error analyzing ETCUSDT: name 'priority' is not defined
+2025-06-02 10:18:48,933 - WARNING - AI insights timed out for ICPUSDT
+2025-06-02 10:18:48,934 - INFO - ICPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:18:48,934 - ERROR - Error analyzing ICPUSDT: name 'priority' is not defined
+2025-06-02 10:18:48,934 - WARNING - AI insights timed out for VETUSDT
+2025-06-02 10:18:48,934 - INFO - VETUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:18:48,934 - ERROR - Error analyzing VETUSDT: name 'priority' is not defined
+2025-06-02 10:18:48,935 - WARNING - AI insights timed out for THETAUSDT
+2025-06-02 10:18:48,935 - INFO - THETAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:18:48,935 - ERROR - Error analyzing THETAUSDT: name 'priority' is not defined
+2025-06-02 10:18:48,935 - WARNING - AI insights timed out for IOTAUSDT
+2025-06-02 10:18:48,935 - INFO - IOTAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:18:48,936 - ERROR - Error analyzing IOTAUSDT: name 'priority' is not defined
+2025-06-02 10:18:48,936 - WARNING - AI insights timed out for EGLDUSDT
+2025-06-02 10:18:48,936 - INFO - EGLDUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:18:48,936 - ERROR - Error analyzing EGLDUSDT: name 'priority' is not defined
+2025-06-02 10:18:48,936 - INFO - CoinGecko insights for ZEC: bullish (0.65 confidence), sentiment: 0.30, whale: 0.10, smart money: neutral
+2025-06-02 10:18:48,937 - INFO - ZECUSDT analysis: BUY signal with 0.33 strength
+2025-06-02 10:18:48,937 - ERROR - Error analyzing ZECUSDT: name 'priority' is not defined
+2025-06-02 10:18:49,820 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:18:50,233 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:18:50,667 - ERROR - CoinGecko API error: 404 - {"error":"coin not found"}
+2025-06-02 10:18:50,668 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: -0.10, whale: 0.10, smart money: bearish
+2025-06-02 10:18:50,668 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-02 10:18:50,668 - ERROR - Error analyzing LAYERUSDT: name 'priority' is not defined
+2025-06-02 10:18:50,668 - INFO - Trading cycle completed in 151.67 seconds
+2025-06-02 10:19:20,679 - ERROR - Error in trading task: cannot access local variable 'opportunities' where it is not associated with a value
+2025-06-02 10:20:20,690 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/15 ($0.00, 0.0% of equity)
+2025-06-02 10:20:20,690 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-02 10:20:31,358 - INFO - Bot stopped by user
+2025-06-02 10:20:31,415 - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-500' coro=<HybridTradingBot.trading_task() done, defined at C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\src\hybrid_bot.py:355> exception=KeyboardInterrupt()>
+Traceback (most recent call last):
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\src\main.py", line 31, in <module>
+    asyncio.run(bot.run())
+    ~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 194, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 708, in run_until_complete
+    self.run_forever()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 679, in run_forever
+    self._run_once()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2027, in _run_once
+    handle._run()
+    ~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\src\hybrid_bot.py", line 414, in trading_task
+    pairs_to_analyze = await self.asset_selection.select_optimal_assets(limit=15)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\src\asset_selection.py", line 43, in select_optimal_assets
+    klines = await self.market_analysis.get_klines(pair, start_time, '4h')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\src\market_analysis.py", line 214, in get_klines
+    klines = self.binance_client.get_historical_klines(
+        pair, interval, start_time, limit=1000
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 830, in get_historical_klines
+    return self._historical_klines(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        symbol,
+        ^^^^^^^
+    ...<4 lines>...
+        klines_type=klines_type,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 900, in _historical_klines
+    temp_data = self._klines(
+        klines_type=klines_type,
+    ...<4 lines>...
+        endTime=end_ts,
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 759, in _klines
+    return self.get_klines(**params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 742, in get_klines
+    return self._get("klines", data=params, version=self.PRIVATE_API_VERSION)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 180, in _get
+    return self._request_api("get", path, signed, version, **kwargs)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 117, in _request_api
+    return self._request(method, uri, signed, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\binance\client.py", line 88, in _request
+    self.response = getattr(self.session, method)(uri, headers=headers, data=data, **kwargs)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+  File "C:\Users\cuhey\OneDrive\Skrivebord\CUHOAI\GenesisAI\venv\Lib\site-packages\urllib3\connection.py", line 516, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 1428, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 331, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 292, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\socket.py", line 719, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 157, in _on_sigint
+    raise KeyboardInterrupt()
+KeyboardInterrupt

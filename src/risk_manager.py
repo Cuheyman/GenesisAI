@@ -307,15 +307,15 @@ class RiskManager:
     
     def _calculate_position_size(self, signal_strength):
         """Calculate position size based on risk level and signal strength"""
-        # Base size as percentage of equity (3-5% based on signal strength)
+        # Base size as percentage of equity (5-10% for $1000 account)
         if signal_strength > 0.8:  # Very strong signal
-            base_percent = 0.05  # 5% of equity
+            base_percent = 0.10  # 10% of equity ($100)
         elif signal_strength > 0.6:  # Strong signal
-            base_percent = 0.04  # 4% of equity
+            base_percent = 0.08  # 8% of equity ($80)
         elif signal_strength > 0.4:  # Moderate signal
-            base_percent = 0.03  # 3% of equity
+            base_percent = 0.06  # 6% of equity ($60)
         else:  # Weaker signal
-            base_percent = 0.02  # 2% of equity
+            base_percent = 0.05  # 5% of equity ($50)
             
         # Calculate base position size
         base_size = self.total_equity * base_percent
@@ -324,12 +324,12 @@ class RiskManager:
         position_size = base_size * self.position_size_multiplier
         
         # Ensure minimum viable trade size
-        min_trade = 50.0
+        min_trade = 50.0  # $50 minimum
         if position_size < min_trade:
             position_size = min_trade
             
-        # Cap at maximum position size (10% of equity as safety limit)
-        max_position = self.total_equity * 0.1  # Max 10% in a single position
+        # Cap at maximum position size (15% of equity)
+        max_position = self.total_equity * 0.15  # Max $150 per position
         if position_size > max_position:
             position_size = max_position
             

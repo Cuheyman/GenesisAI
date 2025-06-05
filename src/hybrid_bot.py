@@ -20,6 +20,7 @@ from correlation_analysis import CorrelationAnalysis
 from enhanced_strategy import EnhancedStrategy
 from risk_manager import RiskManager
 from performance_tracker import PerformanceTracker
+from opportunity_scanner import OpportunityScanner
 
 import config
 
@@ -48,6 +49,13 @@ class HybridTradingBot:
             # Create a dummy AI client
             self.ai_client = DummyCoinGeckoAI()
             logging.info("CoinGecko AI analysis disabled - using dummy client")
+
+
+        self.opportunity_scanner = OpportunityScanner(self.binance_client, self.ai_client)
+        
+        # Quick trade settings for momentum catching
+        self.quick_trade_mode = True
+        self.momentum_trades = {}  # Track momentum-based trades
 
         # Keep nebula reference for backward compatibility with existing code
         self.nebula = self.ai_client
@@ -153,10 +161,10 @@ class HybridTradingBot:
                 # Set initial equity if not found
                 self.db_manager.execute_query_sync(
                     "INSERT INTO bot_stats (key, value, last_updated) VALUES (?, ?, ?)",
-                    ('total_equity', 10000.0, datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
+                    ('total_equity', 1000.0, datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
                     commit=True
                 )
-                return 10000.0  # Default initial equity
+                return 1000.0  # Default initial equity
         
         # Use real account data for live mode
         account = self.binance_client.get_account()
@@ -216,7 +224,8 @@ class HybridTradingBot:
                 self.market_monitor_task(),
                 self.trading_task(),
                 self.position_monitor_task(),
-                self.performance_track_task()
+                self.performance_track_task(),
+                
             ]
             
             # Run all tasks concurrently
@@ -354,11 +363,31 @@ class HybridTradingBot:
                     current_equity = self.get_total_equity()
                     risk_status = self.risk_manager.update_equity(current_equity)
                     
-                    # Log current status
+                
+                    open_positions = len(self.active_positions)
+                    total_position_value = sum(pos.get('position_size', 0) for pos in self.active_positions.values())
+                    position_percentage = (total_position_value / current_equity * 100) if current_equity > 0 else 0
+
+                    # Format position details
+                    position_details = []
+                    for pair, pos in self.active_positions.items():
+                        current_price = await self.get_current_price(pair)
+                        entry_price = pos['entry_price']
+                        profit_pct = ((current_price / entry_price) - 1) * 100 if entry_price > 0 else 0
+                        position_details.append(f"{pair.replace('USDT', '')}:{profit_pct:+.1f}%")
+
+                    positions_str = ", ".join(position_details) if position_details else "None"
+
+                    # Log current status with position information
                     logging.info(f"Current equity: ${current_equity:.2f}, " +
-                              f"Daily ROI: {risk_status['daily_roi']:.2f}%, " +
-                              f"Drawdown: {risk_status['drawdown']:.2f}%, " +
-                              f"Risk level: {risk_status['risk_level']}")
+                            f"Daily ROI: {risk_status['daily_roi']:.2f}%, " +
+                            f"Drawdown: {risk_status['drawdown']:.2f}%, " +
+                            f"Risk level: {risk_status['risk_level']}, " +
+                            f"Positions: {open_positions}/{config.MAX_POSITIONS} " +
+                            f"(${total_position_value:.2f}, {position_percentage:.1f}% of equity)")
+
+                    if open_positions > 0:
+                        logging.info(f"Active positions: {positions_str}")
                               
                     # Check for drawdown protection events
                     protection_level = self.risk_manager._check_drawdown_protection()
@@ -414,6 +443,52 @@ class HybridTradingBot:
                 except Exception as inner_e:
                     logging.error(f"Error in trading cycle: {str(inner_e)}")
                     await asyncio.sleep(60)
+
+                opportunities = await self.opportunity_scanner.scan_for_opportunities()
+                    
+                    # Process high-score opportunities immediately
+                high_priority_pairs = []
+                for opp in opportunities:
+                        if opp['score'] > 2.0:  # High priority threshold
+                            high_priority_pairs.append(opp['symbol'])
+                            # Mark as momentum trade
+                            self.momentum_trades[opp['symbol']] = {
+                                'type': opp['sources'][0],
+                                'score': opp['score'],
+                                'entry_time': time.time()
+                            }
+                    
+                    # Combine with regular asset selection
+                        regular_pairs = await self.asset_selection.select_optimal_assets(limit=10)
+                    
+                    # Prioritize opportunity pairs
+                        pairs_to_analyze = high_priority_pairs[:10] + [p for p in regular_pairs if p not in high_priority_pairs][:5]
+                        
+                        # Log what we're analyzing
+                        if high_priority_pairs:
+                            logging.info(f"High priority opportunities: {', '.join(high_priority_pairs[:5])}")
+                        
+                        # Analyze pairs in parallel with priority
+                        analysis_tasks = []
+                        
+                        # High priority pairs first
+                        for pair in high_priority_pairs[:10]:
+                            analysis_tasks.append(self.analyze_and_trade(pair, priority='high'))
+                        
+                        # Then regular pairs
+                        for pair in regular_pairs[:5]:
+                            if pair not in high_priority_pairs:
+                                analysis_tasks.append(self.analyze_and_trade(pair, priority='normal'))
+                        
+                        # Wait for all analyses to complete
+                        await asyncio.gather(*analysis_tasks)
+
+                        # Faster cycle for momentum trading
+                        processing_time = time.time() - start_time
+                        sleep_time = max(15, 30 - processing_time)  # Faster 15-30 second cycles
+                        await asyncio.sleep(sleep_time)
+                        
+                    
                     
         except Exception as e:
             logging.error(f"Error in trading task: {str(e)}")
@@ -478,18 +553,24 @@ class HybridTradingBot:
             await asyncio.sleep(60)
             asyncio.create_task(self.performance_track_task())
     
-    async def analyze_and_trade(self, pair):
-        """Analyze a pair and execute trades if signals are found"""
+    async def analyze_and_trade(self, pair, priority='normal'):
+        
         try:
-            # Skip if this pair was recently processed (within 15 seconds)
+            # Skip if this pair was recently processed (within 5 minutes)
             cache_key = f"processed_{pair}"
             current_time = time.time()
-            if hasattr(self, 'cache_expiry') and cache_key in self.cache_expiry and self.cache_expiry.get(cache_key, 0) > current_time:
-                return
+            cache_duration = 300  # 5 minutes
+
+            if hasattr(self, 'cache_expiry') and cache_key in self.cache_expiry:
+                if self.cache_expiry[cache_key] > current_time:
+                    return
                 
             # Initialize cache if needed
             if not hasattr(self, 'cache_expiry'):
                 self.cache_expiry = {}
+
+            is_momentum_trade = pair in self.momentum_trades
+            momentum_data = self.momentum_trades.get(pair, {})
                 
             # Check if we already have a position
             have_position = pair in self.active_positions
@@ -534,23 +615,41 @@ class HybridTradingBot:
                 "ai_signal": ai_signal
             }
 
+            if is_momentum_trade:
+                momentum_score = momentum_data.get('score', 0)
+                if momentum_score > 2.0:
+                    # Boost signal strength for high-score opportunities
+                    analysis['signal_strength'] = min(0.95, analysis['signal_strength'] * 1.3)
+                    analysis['source'] += f",momentum_{momentum_data.get('type', 'unknown')}"
+            
+            # ENHANCED: More aggressive entry for high priority
+            if priority == 'high' and analysis['buy_signal']:
+                # Lower threshold for high priority opportunities
+                if analysis['signal_strength'] > 0.5:  # Lower from 0.6
+                    analysis['signal_strength'] = min(0.9, analysis['signal_strength'] * 1.2)
+            
             # Execute trades based on signals
             if analysis['buy_signal'] and not have_position:
-                # Check risk management
+                # Check risk management with adjusted parameters for momentum
                 can_trade, trade_details = self.risk_manager.should_take_trade(
                     pair, analysis['signal_strength'], correlation_data
                 )
                 
                 if can_trade:
-                    # Execute buy
+                    # Adjust position size for momentum trades
                     position_size = trade_details['position_size']
+                    if is_momentum_trade and momentum_score > 2.5:
+                        position_size *= 1.2  # 20% larger for strong momentum
+                    
                     success = await self.execute_buy(pair, position_size, analysis)
                     
                     if success:
-                        # Update risk manager
                         self.risk_manager.add_position(pair, position_size)
-                else:
-                    logging.info(f"Buy signal for {pair} rejected by risk manager: {trade_details}")
+                        
+                        # Track momentum trade entry
+                        if is_momentum_trade:
+                            self.active_positions[pair]['momentum_trade'] = True
+                            self.active_positions[pair]['momentum_type'] = momentum_data.get('type')
             
             elif analysis['sell_signal'] and have_position:
                 # Check if we should take profit
@@ -578,8 +677,7 @@ class HybridTradingBot:
         except Exception as e:
             logging.error(f"Error analyzing {pair}: {str(e)}")
     
-    # [Include all other methods from the original file - execute_buy, execute_sell, monitor_positions, etc.]
-    # These methods remain exactly the same as in your original file
+ 
     
     async def get_current_price(self, pair: str) -> float:
         """Get current price of a trading pair with caching"""
@@ -652,8 +750,7 @@ class HybridTradingBot:
             logging.error(f"Error tracking API call for {endpoint}: {str(e)}")
             return 0
 
-    # [All other methods remain the same - execute_buy, execute_sell, monitor_positions, etc.]
-    # I'm not including them here for brevity, but they should remain exactly as they were in your original file
+   
     
     async def execute_buy(self, pair, position_size, analysis):
         """Execute a buy order"""
@@ -1035,67 +1132,107 @@ class HybridTradingBot:
             return 0
     
     async def monitor_positions(self):
-        """Monitor open positions for stop loss, take profit, etc."""
+        """Enhanced position monitoring with quicker exits for momentum trades"""
         for pair, position in list(self.active_positions.items()):
             try:
-                # Get current price
                 current_price = await self.get_current_price(pair)
                 if current_price <= 0:
                     continue
-                    
-                # Calculate current profit percentage
+                
                 entry_price = position['entry_price']
                 profit_percent = ((current_price / entry_price) - 1) * 100
+                position_age_minutes = (time.time() - position['entry_time']) / 60
                 
-                # Get position age
-                position_age_hours = (time.time() - position['entry_time']) / 3600
+                # Check if this is a momentum trade
+                is_momentum = position.get('momentum_trade', False)
                 
-                # Check trailing stop loss if active
-                if pair in self.trailing_stops:
-                    stop_triggered = await self.check_trailing_stop(pair, current_price)
-                    if stop_triggered:
-                        logging.info(f"Trailing stop triggered for {pair} at {profit_percent:.2f}%")
+                # ENHANCED: Quicker profit targets for momentum trades
+                if is_momentum:
+                    # Take profits more aggressively on momentum trades
+                    if profit_percent >= 3.0:  # 3% is great for momentum
+                        logging.info(f"Momentum trade profit target hit for {pair} at {profit_percent:.2f}%")
                         await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.9})
                         continue
+                    elif position_age_minutes > 30 and profit_percent >= 1.5:  # 1.5% after 30 min
+                        logging.info(f"Momentum trade time-based exit for {pair} at {profit_percent:.2f}%")
+                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.8})
+                        continue
+                    elif position_age_minutes > 60 and profit_percent >= 0.5:  # 0.5% after 1 hour
+                        logging.info(f"Momentum trade minimum profit exit for {pair} at {profit_percent:.2f}%")
+                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.7})
+                        continue
+                    
+                    # Tighter stop loss for momentum trades
+                    if profit_percent <= -1.5:  # 1.5% stop loss
+                        logging.info(f"Momentum trade stop loss for {pair} at {profit_percent:.2f}%")
+                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.9})
+                        continue
+                
+                # ENHANCED: Dynamic exits based on market conditions
                 else:
-                    # Normal stop loss check
+                    # Regular position management with adjusted targets
+                    if profit_percent >= 5.0:  # Take 5% when available
+                        logging.info(f"Profit target reached for {pair} at {profit_percent:.2f}%")
+                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.9})
+                        continue
+                    elif position_age_minutes > 120 and profit_percent >= 2.0:  # 2% after 2 hours
+                        logging.info(f"Time-based profit taking for {pair} at {profit_percent:.2f}%")
+                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.8})
+                        continue
+                    elif position_age_minutes > 240 and profit_percent >= 1.0:  # 1% after 4 hours
+                        logging.info(f"Extended hold profit taking for {pair} at {profit_percent:.2f}%")
+                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.7})
+                        continue
+                    elif position_age_minutes > 360 and profit_percent >= 0:  # Break even after 6 hours
+                        logging.info(f"Break even exit for {pair} at {profit_percent:.2f}%")
+                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.6})
+                        continue
+                    
+                    # Regular stop loss
                     if profit_percent <= -2.5:
                         logging.info(f"Stop loss triggered for {pair} at {profit_percent:.2f}%")
                         await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.9})
                         continue
                 
-                # Check trailing take profit if enabled
-                if config.ENABLE_TRAILING_TP and pair in self.trailing_tp_data:
-                    tp_triggered = await self.manage_trailing_take_profit(pair, current_price)
-                    if tp_triggered:
-                        logging.info(f"Trailing take profit triggered for {pair} at {profit_percent:.2f}%")
-                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.9})
-                        continue
+                # Clean up momentum trade data if expired
+                if is_momentum and pair in self.momentum_trades:
+                    if time.time() - self.momentum_trades[pair]['entry_time'] > 3600:  # 1 hour
+                        del self.momentum_trades[pair]
                 
-                # Check for position scaling opportunity
-                if config.ENABLE_POSITION_SCALING:
-                    scale_ready, scale_info = await self.should_scale_position(pair, current_price, profit_percent)
-                    if scale_ready:
-                        await self.scale_up_position(pair, scale_info)
-                
-                # Dynamic take profit based on age
-                if (position_age_hours > 24 and profit_percent >= 1.0) or \
-                   (position_age_hours > 12 and profit_percent >= 2.0) or \
-                   (position_age_hours > 4 and profit_percent >= 3.0) or \
-                   (profit_percent >= 5.0):
-                    logging.info(f"Take profit triggered for {pair} at {profit_percent:.2f}%")
-                    await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.9})
-                    continue
-                
-                # Log position status periodically
-                if int(time.time()) % 300 < 60:  # Log every 5 minutes
-                    logging.info(f"Position status: {pair} - Entry: ${entry_price:.4f}, " +
-                                f"Current: ${current_price:.4f}, P/L: {profit_percent:.2f}%, " +
-                                f"Age: {position_age_hours:.1f} hours")
-            
             except Exception as e:
                 logging.error(f"Error monitoring position {pair}: {str(e)}")
-    
+
+
+    async def opportunity_scan_task(self):
+        """Dedicated task for continuous opportunity scanning"""
+        try:
+            while True:
+                try:
+                    # Run opportunity scan
+                    opportunities = await self.opportunity_scanner.scan_for_opportunities()
+                    
+                    if opportunities:
+                        top_opps = opportunities[:5]
+                        logging.info(f"Top opportunities: {[(o['symbol'], f'{o['score']:.2f}') for o in top_opps]}")
+
+                        
+                        # Store opportunities for the trading task to process
+                        self.latest_opportunities = opportunities
+                        self.last_opportunity_scan = time.time()
+                    
+                    # Wait before next scan (more frequent than regular analysis)
+                    await asyncio.sleep(45)  # Scan every 45 seconds
+                    
+                except Exception as inner_e:
+                    logging.error(f"Error in opportunity scan: {str(inner_e)}")
+                    await asyncio.sleep(60)
+                    
+        except Exception as e:
+            logging.error(f"Error in opportunity scan task: {str(e)}")
+            await asyncio.sleep(60)
+            asyncio.create_task(self.opportunity_scan_task())
+
+
     async def secure_profits(self, take_top=2):
         """Take partial profits when daily target is reached"""
         # Only proceed if we have positions

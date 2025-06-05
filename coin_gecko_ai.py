@@ -33,67 +33,33 @@ class CoinGeckoAI:
         self.coin_id_cache = {}
         
         if self.api_available:
-            if self.api_key and self.api_key.startswith('CG-'):
-                logging.info("CoinGecko AI client initialized with demo API key")
-            else:
-                logging.info("CoinGecko AI client initialized successfully")
+            logging.info("CoinGecko AI client initialized successfully")
         else:
-            # This should rarely happen now
-            logging.warning("CoinGecko AI client initialized - connection check failed but will retry")
+            logging.warning("CoinGecko AI client initialized but API unavailable - will use fallback mode")
     
     def _check_api_connection(self):
         """Check if the CoinGecko API is available"""
         try:
-            # Always test with the free tier ping endpoint
-            test_url = "https://api.coingecko.com/api/v3/ping"
-            headers = {"accept": "application/json"}
-            
-            # Add demo API key if available
-            if self.api_key and self.api_key.startswith('CG-'):
-                headers["x-cg-demo-api-key"] = self.api_key
-            
-            response = requests.get(test_url, headers=headers, timeout=10)
-            
-            if response.status_code == 200:
-                try:
-                    data = response.json()
-                    if 'gecko_says' in data:
-                        logging.info(f"CoinGecko API connected: {data['gecko_says']}")
-                        return True
-                except:
-                    # Even without JSON, 200 status means success
-                    return True
-            else:
-                logging.warning(f"CoinGecko API returned status {response.status_code}")
-                # Don't completely fail - allow retry later
-                return True  # Return True to allow retry on actual requests
-                
-        except requests.exceptions.ConnectionError:
-            logging.warning("CoinGecko connection error - will retry later")
-            return True  # Allow retry
-        except requests.exceptions.Timeout:
-            logging.warning("CoinGecko request timed out - will retry later")
-            return True  # Allow retry
+            # Test with a simple endpoint
+            response = requests.get(
+                f"{self._get_base_url()}/ping",
+                headers=self._get_headers(),
+                timeout=5
+            )
+            return response.status_code == 200
         except Exception as e:
-            logging.warning(f"CoinGecko connection check error: {str(e)} - will retry later")
-            return True  # Allow retry
+            logging.debug(f"CoinGecko connection check failed: {str(e)}")
+            return False
+    
     def _get_base_url(self):
         """Get the appropriate base URL (pro or free)"""
-        # Always use free tier URL - pro tier requires special paid API keys
-        # Demo keys should use the free tier endpoint
-        return self.base_url  # Always use api.coingecko.com
+        return self.pro_url if self.api_key else self.base_url
     
     def _get_headers(self):
         """Get headers for API requests"""
         headers = {"accept": "application/json"}
-        # For demo/free keys, use the demo API key header
         if self.api_key:
-            # Demo keys use x-cg-demo-api-key header
-            if self.api_key.startswith('CG-'):
-                headers["x-cg-demo-api-key"] = self.api_key
-            else:
-                # Legacy pro key format
-                headers["x-cg-pro-api-key"] = self.api_key
+            headers["x-cg-pro-api-key"] = self.api_key
         return headers
     
     async def _make_api_request(self, endpoint: str, params: Dict[str, Any] = None) -> Optional[Dict]:
@@ -462,9 +428,9 @@ class CoinGeckoAI:
             market_data = coin_data.get("market_data", {})
             
             # Get volume and market metrics
-            volume_24h = market_data.get("total_volume", {}).get("usd", 0) or 0
-            market_cap = market_data.get("market_cap", {}).get("usd", 0) or 0
-            price_change_24h = market_data.get("price_change_percentage_24h", 0) or 0
+            volume_24h = market_data.get("total_volume", {}).get("usd", 0)
+            market_cap = market_data.get("market_cap", {}).get("usd", 0)
+            price_change_24h = market_data.get("price_change_percentage_24h", 0)
             
             # Calculate volume metrics
             if market_cap > 0:
@@ -681,96 +647,7 @@ class CoinGeckoAI:
         except Exception as e:
             logging.error(f"Error getting trading signal: {str(e)}")
             return {"action": "hold", "strength": 0.5}
-
-    async def get_sentiment_analysis(self, token: str) -> Dict:
-        
-        if not self.api_available:
-            return {"sentiment_score": 0}
-        
-        try:
-            coin_data = await self.get_coin_data(token)
-            if not coin_data:
-                return {"sentiment_score": 0}
-            
-            # Extract sentiment indicators
-            market_data = coin_data.get("market_data", {})
-            community_data = coin_data.get("community_data", {})
-            
-            sentiment_score = 0
-            sentiment_factors = []
-            
-            # Price momentum sentiment - FIX: Check for None values
-            price_change_24h = market_data.get("price_change_percentage_24h")
-            price_change_7d = market_data.get("price_change_percentage_7d")
-            
-            # Handle None values properly
-            if price_change_24h is None:
-                price_change_24h = 0
-            if price_change_7d is None:
-                price_change_7d = 0
-            
-            # Convert price changes to sentiment (-1 to 1)
-            price_sentiment = np.tanh(price_change_24h / 10)  # Normalize large moves
-            weekly_sentiment = np.tanh(price_change_7d / 20)
-            
-            sentiment_score += price_sentiment * 0.4 + weekly_sentiment * 0.3
-            
-            # Community sentiment indicators - FIX: Handle None values
-            twitter_followers = community_data.get("twitter_followers", 0) or 0
-            reddit_subscribers = community_data.get("reddit_subscribers", 0) or 0
-            telegram_users = community_data.get("telegram_channel_user_count", 0) or 0
-            
-            # Social media growth indicates positive sentiment
-            if twitter_followers > 100000:
-                sentiment_score += 0.1
-                sentiment_factors.append("large_twitter_following")
-            if reddit_subscribers > 50000:
-                sentiment_score += 0.1
-                sentiment_factors.append("active_reddit_community")
-            if telegram_users > 10000:
-                sentiment_score += 0.05
-                sentiment_factors.append("active_telegram")
-            
-            # Market cap and volume sentiment
-            market_cap_rank = market_data.get("market_cap_rank")
-            if market_cap_rank is not None and market_cap_rank <= 20:
-                sentiment_score += 0.1
-                sentiment_factors.append("top_tier_coin")
-            elif market_cap_rank is not None and market_cap_rank <= 50:
-                sentiment_score += 0.05
-                sentiment_factors.append("established_coin")
-            
-            # Volume trend sentiment
-            volume_24h = market_data.get("total_volume", {}).get("usd", 0) or 0
-            market_cap = market_data.get("market_cap", {}).get("usd", 0) or 0
-            
-            if market_cap > 0:
-                volume_ratio = volume_24h / market_cap
-                if volume_ratio > 0.2:  # Very high volume
-                    sentiment_score += 0.1
-                    sentiment_factors.append("high_trading_interest")
-                elif volume_ratio > 0.1:
-                    sentiment_score += 0.05
-                    sentiment_factors.append("moderate_trading_interest")
-            
-            # Clamp sentiment score to -1 to 1 range
-            sentiment_score = max(-1, min(1, sentiment_score))
-            
-            analysis = f"Price sentiment: {price_sentiment:.2f}, Community factors: {len(sentiment_factors)}"
-            
-            return {
-                "sentiment_score": sentiment_score,
-                "analysis": analysis,
-                "factors": sentiment_factors
-            }
-            
-        except Exception as e:
-            logging.error(f"Error in CoinGecko sentiment analysis: {str(e)}")
-            return {"sentiment_score": 0}
-
-
-
-
+    
     async def get_consolidated_insights(self, token: str, max_wait_time: int = 15) -> Dict:
         """Get consolidated insights from all CoinGecko data sources"""
         token = token.replace("USDT", "").upper()

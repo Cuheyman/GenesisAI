@@ -1,2 +1,0 @@
-2025-05-23 10:40:57,324 - INFO - AI analysis disabled - using dummy client
-2025-05-23 10:40:57,324 - ERROR - Critical error: 'HybridTradingBot' object has no attribute 'ai_client'
