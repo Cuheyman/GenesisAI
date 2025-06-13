@@ -1,0 +1,309 @@
+2025-06-13 18:02:42,738 - INFO - CoinGecko API connected: (V3) To the Moon!
+2025-06-13 18:02:42,739 - INFO - CoinGecko AI client initialized with demo API key
+2025-06-13 18:02:42,740 - INFO - CoinGecko AI client initialized
+2025-06-13 18:02:42,771 - INFO - Database initialization complete
+2025-06-13 18:02:42,775 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN take_profit_pct REAL
+2025-06-13 18:02:42,779 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN stop_loss_pct REAL
+2025-06-13 18:02:42,782 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN is_new_asset INTEGER DEFAULT 0
+2025-06-13 18:02:42,786 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN exit_price REAL
+2025-06-13 18:02:42,789 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN exit_time TEXT
+2025-06-13 18:02:42,793 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN profit_loss REAL
+2025-06-13 18:02:42,796 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN signal_source TEXT
+2025-06-13 18:02:42,800 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN signal_strength REAL
+2025-06-13 18:02:42,803 - INFO - Schema update applied: ALTER TABLE trades ADD COLUMN signal_source TEXT
+2025-06-13 18:02:42,806 - INFO - Schema update applied: ALTER TABLE trades ADD COLUMN signal_strength REAL
+2025-06-13 18:02:42,806 - INFO - Database schema updated successfully with 10 changes
+2025-06-13 18:02:42,811 - INFO - Risk Manager initialized with equity protection: Warning at 3.0%, Risk Reduction at 5.0%, High Alert at 8.0%, Emergency at 12.0%
+2025-06-13 18:02:42,811 - INFO - Hybrid Trading Bot initialized with 1000.00 equity
+2025-06-13 18:02:42,812 - INFO - Mode: TEST trading
+2025-06-13 18:02:42,812 - INFO - AI Provider: CoinGecko
+2025-06-13 18:02:42,813 - INFO - Testing API connections...
+2025-06-13 18:02:43,505 - INFO - Binance server time: 2025-06-13 18:02:39.211000
+2025-06-13 18:02:43,991 - INFO - CoinGecko AI connection successful: -0.053871297937624865
+2025-06-13 18:02:43,992 - INFO - Preloading historical data for analysis...
+2025-06-13 18:02:43,992 - INFO - Preloading historical data for analysis...
+2025-06-13 18:02:43,992 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-06-13 18:02:45,403 - INFO - Found trending pairs: ANIMEUSDT, LPTUSDT, HUMAUSDT, NEIROUSDT, SUSDT...
+2025-06-13 18:02:45,404 - INFO - Preloading data for pairs: ANIMEUSDT, NEARUSDT, ICPUSDT, RENDERUSDT, ARBUSDT
+2025-06-13 18:03:19,617 - INFO - Preloading data for pairs: SUSDT, ORDIUSDT, SOLUSDT, VANAUSDT, LPTUSDT
+2025-06-13 18:03:58,074 - INFO - Preloading data for pairs: INITUSDT, BNBUSDT, SUIUSDT, BABYUSDT, ADAUSDT
+2025-06-13 18:04:33,797 - INFO - Preloading data for pairs: ETHUSDT, VIRTUALUSDT, ENAUSDT, BTCUSDT, MOVRUSDT
+2025-06-13 18:05:12,451 - INFO - Preloading data for pairs: HUMAUSDT, QNTUSDT, AUSDT, NEIROUSDT, APTUSDT
+2025-06-13 18:05:50,477 - INFO - Historical data preloading complete
+2025-06-13 18:06:01,182 - INFO - Updating correlation matrix...
+2025-06-13 18:06:01,202 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/15 ($0.00, 0.0% of equity)
+2025-06-13 18:06:01,209 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-13 18:06:42,097 - INFO - Selected optimal assets: ARBUSDT, NEARUSDT, APTUSDT, ICPUSDT, RENDERUSDT... (15 total)
+2025-06-13 18:06:42,098 - INFO -   ARBUSDT: score 5.30
+2025-06-13 18:06:42,098 - INFO -   NEARUSDT: score 4.85
+2025-06-13 18:06:42,098 - INFO -   APTUSDT: score 4.85
+2025-06-13 18:06:42,098 - INFO -   ICPUSDT: score 4.85
+2025-06-13 18:06:42,098 - INFO -   RENDERUSDT: score 4.85
+2025-06-13 18:06:42,185 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0,
+    "avg_daily_return_pct": 0,
+    "avg_weekly_return_pct": 0
+  },
+  "trades": {
+    "total": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "profit_factor": 0,
+    "avg_profit": 0,
+    "avg_loss": 0,
+    "expected_value": 0,
+    "recent_win_rate_pct": 0
+  },
+  "pairs": {
+    "best_pair": "None",
+    "best_pair_profit": 0,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-06-13 18:06:42"
+}
+2025-06-13 18:07:25,150 - INFO - Correlation matrix updated for 41 pairs
+2025-06-13 18:07:34,463 - INFO - Market state: Regime=NEUTRAL, Trend=neutral, Volatility=low, Breadth=0.00
+2025-06-13 18:07:34,463 - INFO - CoinGecko insights for ARB: neutral (0.50 confidence), sentiment: -0.13, whale: -0.10, smart money: neutral
+2025-06-13 18:07:45,426 - INFO - CoinGecko insights for ATOM: neutral (0.50 confidence), sentiment: -0.22, whale: 0.10, smart money: neutral
+2025-06-13 18:07:52,011 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: -0.25, whale: 0.10, smart money: neutral
+2025-06-13 18:08:06,197 - INFO - CoinGecko insights for ICP: neutral (0.50 confidence), sentiment: -0.08, whale: 0.10, smart money: neutral
+2025-06-13 18:08:12,741 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: -0.11, whale: 0.05, smart money: bullish
+2025-06-13 18:08:17,493 - INFO - CoinGecko insights for SUI: neutral (0.50 confidence), sentiment: -0.17, whale: 0.05, smart money: bullish
+2025-06-13 18:08:23,580 - INFO - CoinGecko insights for HBAR: bearish (0.60 confidence), sentiment: -0.24, whale: 0.10, smart money: neutral
+2025-06-13 18:08:30,436 - INFO - CoinGecko insights for DOGE: neutral (0.50 confidence), sentiment: -0.10, whale: 0.10, smart money: bullish
+2025-06-13 18:08:34,699 - INFO - CoinGecko insights for ALGO: neutral (0.50 confidence), sentiment: -0.18, whale: 0.10, smart money: neutral
+2025-06-13 18:08:48,502 - INFO - CoinGecko insights for NEAR: neutral (0.50 confidence), sentiment: -0.19, whale: 0.10, smart money: neutral
+2025-06-13 18:09:02,104 - INFO - CoinGecko insights for RENDER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-13 18:09:07,026 - INFO - CoinGecko insights for OM: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-13 18:09:11,470 - INFO - CoinGecko insights for XTZ: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-13 18:09:15,918 - INFO - CoinGecko insights for IOTA: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-13 18:09:21,744 - INFO - CoinGecko insights for ZEC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-13 18:09:26,667 - INFO - CoinGecko insights for ARB: neutral (0.50 confidence), sentiment: -0.13, whale: -0.10, smart money: neutral
+2025-06-13 18:09:26,668 - INFO - ARBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:09:27,100 - INFO - ATOMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:09:27,101 - INFO - APTUSDT analysis: SELL signal with 0.26 strength
+2025-06-13 18:09:27,101 - INFO - ICPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:09:27,101 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:09:27,101 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:09:27,101 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:09:27,102 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:09:27,102 - INFO - ALGOUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:09:27,102 - INFO - NEARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:09:27,102 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:09:27,103 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:09:27,103 - INFO - XTZUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:09:28,260 - ERROR - Error in CoinGecko whale activity analysis: '<=' not supported between instances of 'NoneType' and 'int'
+2025-06-13 18:09:28,563 - ERROR - Error in CoinGecko smart money analysis: '<=' not supported between instances of 'NoneType' and 'int'
+2025-06-13 18:09:29,231 - ERROR - Error in CoinGecko market prediction: '<=' not supported between instances of 'NoneType' and 'int'
+2025-06-13 18:09:29,402 - INFO - CoinGecko insights for IOTA: bearish (0.60 confidence), sentiment: -0.29, whale: 0.10, smart money: neutral
+2025-06-13 18:09:29,402 - INFO - CoinGecko insights for ZEC: bearish (0.65 confidence), sentiment: -0.38, whale: 0.10, smart money: neutral
+2025-06-13 18:09:29,402 - INFO - IOTAUSDT analysis: SELL signal with 0.28 strength
+2025-06-13 18:09:29,403 - INFO - ZECUSDT analysis: SELL signal with 0.53 strength
+2025-06-13 18:09:29,403 - INFO - Trading cycle completed in 208.22 seconds
+2025-06-13 18:13:24,318 - INFO - Top opportunities found: ['BTCUSDT', 'PENDLEUSDT']
+2025-06-13 18:14:06,138 - INFO - Selected optimal assets: ARBUSDT, SUIUSDT, NEARUSDT, APTUSDT, ICPUSDT... (10 total)
+2025-06-13 18:14:06,139 - INFO -   ARBUSDT: score 5.30
+2025-06-13 18:14:06,139 - INFO -   SUIUSDT: score 4.85
+2025-06-13 18:14:06,139 - INFO -   NEARUSDT: score 4.85
+2025-06-13 18:14:06,139 - INFO -   APTUSDT: score 4.85
+2025-06-13 18:14:06,139 - INFO -   ICPUSDT: score 4.85
+2025-06-13 18:14:06,582 - INFO - CoinGecko insights for ARB: neutral (0.50 confidence), sentiment: -0.10, whale: -0.10, smart money: neutral
+2025-06-13 18:14:17,663 - INFO - CoinGecko insights for ARB: neutral (0.50 confidence), sentiment: -0.10, whale: -0.10, smart money: neutral
+2025-06-13 18:14:17,663 - INFO - CoinGecko insights for ICP: neutral (0.50 confidence), sentiment: -0.06, whale: 0.10, smart money: neutral
+2025-06-13 18:14:23,027 - INFO - CoinGecko insights for NEAR: neutral (0.50 confidence), sentiment: -0.16, whale: 0.10, smart money: neutral
+2025-06-13 18:14:28,798 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: -0.24, whale: 0.10, smart money: neutral
+2025-06-13 18:14:34,593 - INFO - CoinGecko insights for SUI: neutral (0.50 confidence), sentiment: -0.16, whale: 0.05, smart money: bullish
+2025-06-13 18:14:39,032 - INFO - ARBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:14:39,033 - INFO - ICPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:14:39,033 - INFO - NEARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:14:39,033 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: -0.24, whale: 0.10, smart money: neutral
+2025-06-13 18:14:39,034 - INFO - CoinGecko insights for SUI: neutral (0.50 confidence), sentiment: -0.16, whale: 0.05, smart money: bullish
+2025-06-13 18:14:39,034 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:14:39,034 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:16:00,465 - INFO - Selected optimal assets: ARBUSDT, SUIUSDT, NEARUSDT, APTUSDT, ICPUSDT... (10 total)
+2025-06-13 18:16:00,466 - INFO -   ARBUSDT: score 5.80
+2025-06-13 18:16:00,466 - INFO -   SUIUSDT: score 4.85
+2025-06-13 18:16:00,466 - INFO -   NEARUSDT: score 4.85
+2025-06-13 18:16:00,466 - INFO -   APTUSDT: score 4.85
+2025-06-13 18:16:00,466 - INFO -   ICPUSDT: score 4.85
+2025-06-13 18:16:00,467 - INFO - CoinGecko insights for ARB: neutral (0.50 confidence), sentiment: -0.10, whale: -0.10, smart money: neutral
+2025-06-13 18:16:05,799 - INFO - CoinGecko insights for SUI: neutral (0.50 confidence), sentiment: -0.16, whale: 0.05, smart money: bullish
+2025-06-13 18:16:10,221 - INFO - CoinGecko insights for NEAR: neutral (0.50 confidence), sentiment: -0.16, whale: 0.10, smart money: neutral
+2025-06-13 18:16:15,572 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: -0.24, whale: 0.10, smart money: neutral
+2025-06-13 18:16:20,022 - INFO - CoinGecko insights for ICP: neutral (0.50 confidence), sentiment: -0.06, whale: 0.10, smart money: neutral
+2025-06-13 18:16:25,400 - INFO - ARBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:16:25,400 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:16:25,401 - INFO - CoinGecko insights for NEAR: neutral (0.50 confidence), sentiment: -0.16, whale: 0.10, smart money: neutral
+2025-06-13 18:16:25,401 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: -0.24, whale: 0.10, smart money: neutral
+2025-06-13 18:16:25,401 - INFO - CoinGecko insights for ICP: neutral (0.50 confidence), sentiment: -0.06, whale: 0.10, smart money: neutral
+2025-06-13 18:16:25,401 - INFO - NEARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:16:25,402 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:16:25,402 - INFO - ICPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:16:40,411 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/15 ($0.00, 0.0% of equity)
+2025-06-13 18:16:40,411 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-13 18:18:01,410 - INFO - Selected optimal assets: ARBUSDT, SUIUSDT, NEARUSDT, APTUSDT, ICPUSDT... (15 total)
+2025-06-13 18:18:01,411 - INFO -   ARBUSDT: score 5.80
+2025-06-13 18:18:01,411 - INFO -   SUIUSDT: score 4.85
+2025-06-13 18:18:01,411 - INFO -   NEARUSDT: score 4.85
+2025-06-13 18:18:01,411 - INFO -   APTUSDT: score 4.85
+2025-06-13 18:18:01,412 - INFO -   ICPUSDT: score 4.85
+2025-06-13 18:18:01,845 - INFO - CoinGecko insights for ARB: neutral (0.50 confidence), sentiment: -0.10, whale: -0.10, smart money: neutral
+2025-06-13 18:18:15,675 - INFO - CoinGecko insights for SUI: neutral (0.50 confidence), sentiment: -0.16, whale: 0.05, smart money: bullish
+2025-06-13 18:18:28,598 - INFO - CoinGecko insights for NEAR: neutral (0.50 confidence), sentiment: -0.16, whale: 0.10, smart money: neutral
+2025-06-13 18:18:41,838 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: -0.24, whale: 0.10, smart money: neutral
+2025-06-13 18:18:51,312 - INFO - CoinGecko insights for ICP: neutral (0.50 confidence), sentiment: -0.06, whale: 0.10, smart money: neutral
+2025-06-13 18:19:11,648 - INFO - CoinGecko insights for RENDER: neutral (0.50 confidence), sentiment: -0.28, whale: 0.10, smart money: neutral
+2025-06-13 18:19:23,645 - INFO - CoinGecko insights for OM: bearish (0.65 confidence), sentiment: -0.27, whale: -0.30, smart money: bearish
+2025-06-13 18:19:29,024 - INFO - CoinGecko insights for UNI: bullish (0.60 confidence), sentiment: 0.26, whale: 0.10, smart money: bullish
+2025-06-13 18:19:42,475 - INFO - CoinGecko insights for FET: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-13 18:19:50,248 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: -0.10, whale: 0.05, smart money: bullish
+2025-06-13 18:20:10,288 - ERROR - Binance API error for SOLUSDT 4h: HTTPSConnectionPool(host='testnet.binance.vision', port=443): Read timed out. (read timeout=10)
+2025-06-13 18:20:11,720 - INFO - Fallback successful for SOLUSDT 4h with reduced limit
+2025-06-13 18:20:12,903 - INFO - CoinGecko insights for DOGE: neutral (0.50 confidence), sentiment: -0.08, whale: 0.10, smart money: bullish
+2025-06-13 18:20:19,170 - INFO - CoinGecko insights for HBAR: bearish (0.60 confidence), sentiment: -0.23, whale: 0.10, smart money: neutral
+2025-06-13 18:20:24,999 - INFO - CoinGecko insights for BCH: neutral (0.50 confidence), sentiment: 0.13, whale: 0.10, smart money: bullish
+2025-06-13 18:20:31,952 - INFO - CoinGecko insights for ALGO: neutral (0.50 confidence), sentiment: -0.16, whale: 0.10, smart money: neutral
+2025-06-13 18:20:47,083 - INFO - CoinGecko insights for ATOM: neutral (0.50 confidence), sentiment: -0.19, whale: 0.10, smart money: neutral
+2025-06-13 18:20:54,020 - INFO - ARBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:20:54,020 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:20:54,020 - INFO - NEARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:20:54,020 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:20:57,903 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:20:57,904 - INFO - ICPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:20:57,904 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:20:57,904 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:20:57,904 - INFO - FETUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:20:57,905 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:20:57,905 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:20:57,905 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:20:57,905 - INFO - BCHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:20:57,906 - INFO - CoinGecko insights for ATOM: neutral (0.50 confidence), sentiment: -0.19, whale: 0.10, smart money: neutral
+2025-06-13 18:20:57,906 - INFO - ALGOUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:20:57,906 - INFO - ATOMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:20:57,906 - INFO - Trading cycle completed in 257.50 seconds
+2025-06-13 18:24:01,008 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/15 ($0.00, 0.0% of equity)
+2025-06-13 18:24:01,009 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-13 18:24:38,217 - INFO - Selected optimal assets: ARBUSDT, SUIUSDT, NEARUSDT, APTUSDT, ICPUSDT... (15 total)
+2025-06-13 18:24:38,217 - INFO -   ARBUSDT: score 5.30
+2025-06-13 18:24:38,217 - INFO -   SUIUSDT: score 4.85
+2025-06-13 18:24:38,217 - INFO -   NEARUSDT: score 4.85
+2025-06-13 18:24:38,218 - INFO -   APTUSDT: score 4.85
+2025-06-13 18:24:38,218 - INFO -   ICPUSDT: score 4.85
+2025-06-13 18:24:38,633 - INFO - CoinGecko insights for ARB: neutral (0.50 confidence), sentiment: -0.10, whale: -0.10, smart money: neutral
+2025-06-13 18:24:43,951 - INFO - CoinGecko insights for SUI: neutral (0.50 confidence), sentiment: -0.15, whale: 0.05, smart money: bullish
+2025-06-13 18:24:48,867 - INFO - CoinGecko insights for NEAR: neutral (0.50 confidence), sentiment: -0.21, whale: 0.10, smart money: neutral
+2025-06-13 18:24:54,186 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: -0.24, whale: 0.10, smart money: neutral
+2025-06-13 18:24:59,507 - INFO - CoinGecko insights for ICP: neutral (0.50 confidence), sentiment: -0.07, whale: 0.10, smart money: neutral
+2025-06-13 18:25:11,511 - ERROR - Error in CoinGecko whale activity analysis: '<=' not supported between instances of 'NoneType' and 'int'
+2025-06-13 18:25:11,546 - ERROR - Error in CoinGecko market prediction: '<=' not supported between instances of 'NoneType' and 'int'
+2025-06-13 18:25:11,662 - ERROR - Error in CoinGecko smart money analysis: '<=' not supported between instances of 'NoneType' and 'int'
+2025-06-13 18:25:11,986 - INFO - CoinGecko insights for RENDER: neutral (0.50 confidence), sentiment: -0.28, whale: 0.10, smart money: neutral
+2025-06-13 18:25:18,046 - INFO - CoinGecko insights for OM: bearish (0.65 confidence), sentiment: -0.28, whale: -0.30, smart money: bearish
+2025-06-13 18:25:22,270 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: -0.11, whale: 0.05, smart money: bullish
+2025-06-13 18:25:42,089 - ERROR - Binance API error for SOLUSDT 4h: HTTPSConnectionPool(host='testnet.binance.vision', port=443): Read timed out. (read timeout=10)
+2025-06-13 18:25:43,507 - INFO - Fallback successful for SOLUSDT 4h with reduced limit
+2025-06-13 18:25:54,894 - ERROR - Error getting order book data for SOLUSDT: HTTPSConnectionPool(host='testnet.binance.vision', port=443): Read timed out. (read timeout=10)
+2025-06-13 18:25:54,895 - INFO - CoinGecko insights for DOGE: neutral (0.50 confidence), sentiment: -0.09, whale: 0.10, smart money: bullish
+2025-06-13 18:26:00,709 - INFO - CoinGecko insights for HBAR: bearish (0.60 confidence), sentiment: -0.24, whale: 0.10, smart money: neutral
+2025-06-13 18:26:07,428 - INFO - CoinGecko insights for BCH: neutral (0.50 confidence), sentiment: 0.12, whale: 0.10, smart money: bullish
+2025-06-13 18:26:14,402 - INFO - CoinGecko insights for ALGO: neutral (0.50 confidence), sentiment: -0.16, whale: 0.10, smart money: neutral
+2025-06-13 18:26:19,761 - INFO - CoinGecko insights for ATOM: neutral (0.50 confidence), sentiment: -0.20, whale: 0.10, smart money: neutral
+2025-06-13 18:26:32,993 - INFO - CoinGecko insights for XTZ: neutral (0.50 confidence), sentiment: -0.18, whale: 0.00, smart money: neutral
+2025-06-13 18:26:47,823 - ERROR - Binance API error for XTZUSDT 15m: HTTPSConnectionPool(host='testnet.binance.vision', port=443): Read timed out. (read timeout=10)
+2025-06-13 18:26:49,257 - INFO - Fallback successful for XTZUSDT 15m with reduced limit
+2025-06-13 18:27:00,538 - INFO - CoinGecko insights for IOTA: bearish (0.60 confidence), sentiment: -0.28, whale: 0.10, smart money: neutral
+2025-06-13 18:27:04,985 - INFO - ARBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:27:04,985 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:27:04,985 - INFO - NEARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:27:04,986 - ERROR - Error in CoinGecko market prediction: '<=' not supported between instances of 'NoneType' and 'int'
+2025-06-13 18:27:04,986 - ERROR - Error in CoinGecko whale activity analysis: '<=' not supported between instances of 'NoneType' and 'int'
+2025-06-13 18:27:04,986 - ERROR - Error in CoinGecko smart money analysis: '<=' not supported between instances of 'NoneType' and 'int'
+2025-06-13 18:27:04,992 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:27:04,992 - INFO - ICPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:27:04,993 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:27:04,993 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:27:04,993 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:27:04,993 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:27:04,993 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:27:04,994 - INFO - BCHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:27:04,994 - INFO - ALGOUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:27:04,994 - INFO - ATOMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:27:04,994 - INFO - CoinGecko insights for XTZ: neutral (0.50 confidence), sentiment: -0.18, whale: 0.00, smart money: neutral
+2025-06-13 18:27:04,994 - INFO - CoinGecko insights for IOTA: bearish (0.60 confidence), sentiment: -0.28, whale: 0.10, smart money: neutral
+2025-06-13 18:27:04,995 - INFO - XTZUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:27:04,995 - INFO - IOTAUSDT analysis: SELL signal with 0.28 strength
+2025-06-13 18:27:04,995 - INFO - Trading cycle completed in 183.99 seconds
+2025-06-13 18:30:28,085 - INFO - Top opportunities found: ['SOLVUSDT']
+2025-06-13 18:31:10,078 - INFO - Selected optimal assets: ARBUSDT, SUIUSDT, NEARUSDT, APTUSDT, ICPUSDT... (10 total)
+2025-06-13 18:31:10,079 - INFO -   ARBUSDT: score 5.30
+2025-06-13 18:31:10,079 - INFO -   SUIUSDT: score 4.85
+2025-06-13 18:31:10,079 - INFO -   NEARUSDT: score 4.85
+2025-06-13 18:31:10,079 - INFO -   APTUSDT: score 4.85
+2025-06-13 18:31:10,087 - INFO -   ICPUSDT: score 4.85
+2025-06-13 18:31:10,520 - INFO - CoinGecko insights for ARB: neutral (0.50 confidence), sentiment: -0.10, whale: -0.10, smart money: neutral
+2025-06-13 18:31:18,906 - INFO - CoinGecko insights for ARB: neutral (0.50 confidence), sentiment: -0.10, whale: -0.10, smart money: neutral
+2025-06-13 18:31:18,906 - INFO - CoinGecko insights for NEAR: neutral (0.50 confidence), sentiment: -0.17, whale: 0.10, smart money: neutral
+2025-06-13 18:31:24,696 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: -0.24, whale: 0.10, smart money: neutral
+2025-06-13 18:31:29,599 - INFO - CoinGecko insights for ICP: neutral (0.50 confidence), sentiment: -0.08, whale: 0.10, smart money: neutral
+2025-06-13 18:31:34,989 - INFO - CoinGecko insights for SUI: neutral (0.50 confidence), sentiment: -0.16, whale: 0.05, smart money: bullish
+2025-06-13 18:31:39,881 - INFO - ARBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:31:39,881 - INFO - NEARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:31:39,882 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:31:39,882 - INFO - CoinGecko insights for ICP: neutral (0.50 confidence), sentiment: -0.08, whale: 0.10, smart money: neutral
+2025-06-13 18:31:39,882 - INFO - CoinGecko insights for SUI: neutral (0.50 confidence), sentiment: -0.16, whale: 0.05, smart money: bullish
+2025-06-13 18:31:39,882 - INFO - ICPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:31:39,883 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:31:54,891 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/15 ($0.00, 0.0% of equity)
+2025-06-13 18:31:54,892 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-13 18:32:35,193 - INFO - Selected optimal assets: ARBUSDT, SUIUSDT, NEARUSDT, APTUSDT, ICPUSDT... (15 total)
+2025-06-13 18:32:35,193 - INFO -   ARBUSDT: score 5.30
+2025-06-13 18:32:35,193 - INFO -   SUIUSDT: score 4.85
+2025-06-13 18:32:35,193 - INFO -   NEARUSDT: score 4.85
+2025-06-13 18:32:35,193 - INFO -   APTUSDT: score 4.85
+2025-06-13 18:32:35,194 - INFO -   ICPUSDT: score 4.85
+2025-06-13 18:32:35,657 - INFO - CoinGecko insights for ARB: neutral (0.50 confidence), sentiment: -0.10, whale: -0.10, smart money: neutral
+2025-06-13 18:32:40,532 - INFO - CoinGecko insights for SUI: neutral (0.50 confidence), sentiment: -0.16, whale: 0.05, smart money: bullish
+2025-06-13 18:32:47,266 - INFO - CoinGecko insights for NEAR: neutral (0.50 confidence), sentiment: -0.17, whale: 0.10, smart money: neutral
+2025-06-13 18:32:53,535 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: -0.24, whale: 0.10, smart money: neutral
+2025-06-13 18:32:59,352 - INFO - CoinGecko insights for ICP: neutral (0.50 confidence), sentiment: -0.08, whale: 0.10, smart money: neutral
+2025-06-13 18:33:06,028 - INFO - CoinGecko insights for RENDER: neutral (0.50 confidence), sentiment: -0.30, whale: 0.10, smart money: neutral
+2025-06-13 18:33:14,922 - ERROR - Error in CoinGecko whale activity analysis: '<=' not supported between instances of 'NoneType' and 'int'
+2025-06-13 18:33:15,030 - ERROR - Error in CoinGecko smart money analysis: '<=' not supported between instances of 'NoneType' and 'int'
+2025-06-13 18:33:15,437 - ERROR - Error in CoinGecko market prediction: '<=' not supported between instances of 'NoneType' and 'int'
+2025-06-13 18:33:15,569 - INFO - CoinGecko insights for OM: bearish (0.65 confidence), sentiment: -0.29, whale: -0.30, smart money: bearish
+2025-06-13 18:33:21,437 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: -0.12, whale: 0.05, smart money: bullish
+2025-06-13 18:33:26,327 - INFO - CoinGecko insights for DOGE: neutral (0.50 confidence), sentiment: -0.10, whale: 0.10, smart money: bullish
+2025-06-13 18:33:31,682 - INFO - CoinGecko insights for HBAR: bearish (0.60 confidence), sentiment: -0.24, whale: 0.10, smart money: neutral
+2025-06-13 18:33:36,113 - INFO - CoinGecko insights for BCH: neutral (0.50 confidence), sentiment: 0.12, whale: 0.10, smart money: bullish
+2025-06-13 18:33:42,345 - INFO - CoinGecko insights for ALGO: neutral (0.50 confidence), sentiment: -0.16, whale: 0.10, smart money: neutral
+2025-06-13 18:33:48,180 - INFO - CoinGecko insights for ATOM: neutral (0.50 confidence), sentiment: -0.20, whale: 0.10, smart money: neutral
+2025-06-13 18:33:53,523 - INFO - CoinGecko insights for XTZ: neutral (0.50 confidence), sentiment: -0.18, whale: 0.00, smart money: neutral
+2025-06-13 18:33:58,866 - INFO - CoinGecko insights for IOTA: bearish (0.60 confidence), sentiment: -0.28, whale: 0.10, smart money: neutral
+2025-06-13 18:34:04,685 - INFO - ARBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:34:04,685 - INFO - SUIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:34:04,685 - INFO - NEARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:34:04,685 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:34:04,686 - ERROR - Error in CoinGecko market prediction: '<=' not supported between instances of 'NoneType' and 'int'
+2025-06-13 18:34:04,686 - ERROR - Error in CoinGecko whale activity analysis: '<=' not supported between instances of 'NoneType' and 'int'
+2025-06-13 18:34:04,686 - ERROR - Error in CoinGecko smart money analysis: '<=' not supported between instances of 'NoneType' and 'int'
+2025-06-13 18:34:04,687 - INFO - ICPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:34:04,687 - INFO - RENDERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:34:04,687 - INFO - OMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:34:04,687 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:34:04,687 - INFO - DOGEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:34:04,688 - INFO - HBARUSDT analysis: SELL signal with 0.26 strength
+2025-06-13 18:34:04,688 - INFO - BCHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:34:04,688 - INFO - ALGOUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:34:04,688 - INFO - ATOMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:34:04,689 - INFO - CoinGecko insights for XTZ: neutral (0.50 confidence), sentiment: -0.18, whale: 0.00, smart money: neutral
+2025-06-13 18:34:04,689 - INFO - CoinGecko insights for IOTA: bearish (0.60 confidence), sentiment: -0.28, whale: 0.10, smart money: neutral
+2025-06-13 18:34:04,689 - INFO - XTZUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-13 18:34:04,689 - INFO - IOTAUSDT analysis: SELL signal with 0.28 strength
+2025-06-13 18:34:04,689 - INFO - Trading cycle completed in 129.80 seconds
+2025-06-13 18:36:14,661 - INFO - Bot stopped by user

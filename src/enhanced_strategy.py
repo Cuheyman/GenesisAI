@@ -21,6 +21,11 @@ class EnhancedStrategy:
             if not mtf_analysis:
                 mtf_analysis = await self.market_analysis.get_multi_timeframe_analysis(pair)
                 
+            # Validate MTF analysis
+            if not mtf_analysis or mtf_analysis.get('timeframes_analyzed', 0) == 0:
+                logging.warning(f"No timeframe data available for {pair}, using minimal analysis")
+                mtf_analysis = self._get_minimal_analysis(pair)
+                
             # Get order book analysis
             if not order_book_data:
                 order_book_data = await self.order_book.get_order_book_data(pair)
@@ -36,33 +41,33 @@ class EnhancedStrategy:
                 try:
                     # Create a timeout for the AI call
                     ai_task = asyncio.create_task(self.ai_client.get_consolidated_insights(token))
-                    ai_insights = await asyncio.wait_for(ai_task, timeout=12)  # 12 second timeout
+                    ai_insights = await asyncio.wait_for(ai_task, timeout=10)  # Reduced timeout
                     
                     # Verify we got valid data
                     if not ai_insights or not isinstance(ai_insights, dict) or 'metrics' not in ai_insights:
-                        logging.warning(f"Invalid AI insights for {pair}")
+                        logging.debug(f"Invalid AI insights for {pair}, using defaults")
                         ai_insights = self._get_default_ai_insights()
                         
                 except asyncio.TimeoutError:
-                    logging.warning(f"AI insights timed out for {pair}")
+                    logging.debug(f"AI insights timed out for {pair}")
                     ai_insights = self._get_default_ai_insights()
                 except Exception as e:
-                    logging.warning(f"AI insights unavailable for {pair}: {str(e)}")
+                    logging.debug(f"AI insights error for {pair}: {str(e)}")
                     ai_insights = self._get_default_ai_insights()
             else:
-                logging.debug(f"Skipping AI insights for {pair} - API unavailable")
+                logging.debug(f"AI client not available for {pair}")
                 ai_insights = self._get_default_ai_insights()
                 
-            # 5. Generate initial signals from technical analysis
+            # Generate initial signals from technical analysis
             technical_signals = self._get_technical_signals(mtf_analysis)
             
-            # 6. Generate order book signals
+            # Generate order book signals
             orderbook_signals = self._get_orderbook_signals(order_book_data)
             
-            # 7. Generate signals from AI insights
+            # Generate signals from AI insights
             ai_signals = self._get_ai_signals(ai_insights)
             
-            # 8. Combine all signals with appropriate weights
+            # Combine all signals with appropriate weights
             combined_signals = self._combine_all_signals(
                 technical_signals,
                 orderbook_signals,
@@ -80,62 +85,124 @@ class EnhancedStrategy:
                 "buy_signal": False,
                 "sell_signal": False,
                 "signal_strength": 0,
+                "source": "error",
                 "error": str(e)
             }
     
-    def _get_technical_signals(self, mtf_analysis: Dict) -> Dict:
-        
+    async def _get_minimal_analysis(self, pair: str):
+        """Get minimal analysis when MTF fails"""
         try:
-            # Extract key metrics
+            # Try to get at least some recent price data
+            current_time = int(time.time() * 1000)
+            klines = await self.market_analysis.get_klines(pair, current_time - (60 * 60 * 1000), '5m')  # 1 hour of 5m data
+            
+            if klines and len(klines) >= 3:
+                closes = [float(k[4]) for k in klines]
+                
+                # Simple momentum calculation
+                recent_change = (closes[-1] / closes[0] - 1) if closes[0] > 0 else 0
+                momentum = np.clip(recent_change * 10, -1, 1)  # Scale and clip
+                
+                # Simple trend based on recent price direction
+                if len(closes) >= 3:
+                    trend = 1 if closes[-1] > closes[-3] else -1
+                    trend_strength = abs(recent_change) * 5  # Scale
+                    trend = trend * min(trend_strength, 1)
+                else:
+                    trend = 0
+                
+                return {
+                    "mtf_trend": trend,
+                    "mtf_momentum": momentum,
+                    "mtf_volatility": 0.5,  # Neutral
+                    "mtf_volume": 0.5,  # Neutral
+                    "overall_score": (trend + momentum) / 2,
+                    "timeframes_analyzed": 1,  # Minimal analysis
+                    "data_source": "minimal"
+                }
+            else:
+                logging.warning(f"No price data available for {pair}")
+                return self._get_neutral_analysis()
+                
+        except Exception as e:
+            logging.error(f"Error getting minimal analysis for {pair}: {str(e)}")
+            return self._get_neutral_analysis()
+    
+    def _get_neutral_analysis(self):
+        """Return completely neutral analysis"""
+        return {
+            "mtf_trend": 0,
+            "mtf_momentum": 0,
+            "mtf_volatility": 0.5,
+            "mtf_volume": 0.5,
+            "overall_score": 0,
+            "timeframes_analyzed": 0,
+            "data_source": "neutral"
+        }
+    
+    def _get_technical_signals(self, mtf_analysis: Dict) -> Dict:
+        """Generate trading signals from technical analysis with enhanced logic"""
+        try:
+            # Extract key metrics with defaults
             mtf_trend = mtf_analysis.get('mtf_trend', 0)
             mtf_momentum = mtf_analysis.get('mtf_momentum', 0)
             overall_score = mtf_analysis.get('overall_score', 0)
-            mtf_volatility = mtf_analysis.get('mtf_volatility', 0)
+            mtf_volatility = mtf_analysis.get('mtf_volatility', 0.5)
+            timeframes_analyzed = mtf_analysis.get('timeframes_analyzed', 0)
             
-            # Get timeframe data for confluence
-            timeframe_data = mtf_analysis.get('timeframe_data', [])
+            # Adjust signal strength based on data quality
+            data_quality_multiplier = min(1.0, timeframes_analyzed / 3)  # Scale based on timeframes
+            if data_quality_multiplier < 0.3:
+                data_quality_multiplier = 0.3  # Minimum multiplier
             
             buy_signal = False
             sell_signal = False
             signal_strength = 0
             
-            # Strategy 1: Trend Following with Momentum Confirmation
-            # Buy when trend and momentum align positively
-            if mtf_trend > 0.3 and mtf_momentum > 0.2:
-                # Strong bullish alignment
+            # Strategy 1: Strong Trend Following (more lenient thresholds)
+            if mtf_trend > 0.2 and mtf_momentum > 0.1:  # Reduced from 0.3 and 0.2
                 buy_signal = True
-                signal_strength = min(0.9, (mtf_trend + mtf_momentum) / 2 + 0.2)
+                signal_strength = min(0.8, (mtf_trend + mtf_momentum) / 2 + 0.1) * data_quality_multiplier
                 
-            # Strategy 2: Mean Reversion in Low Volatility
-            # Buy oversold conditions in stable markets
-            elif mtf_volatility < 0.3 and mtf_momentum < -0.3 and mtf_trend > -0.2:
-                # Oversold in stable market
+            # Strategy 2: Momentum Breakout (reduced requirements)
+            elif mtf_momentum > 0.3 and overall_score > 0.2:  # Reduced from 0.4 and 0.35
                 buy_signal = True
-                signal_strength = min(0.7, abs(mtf_momentum) + 0.2)
+                signal_strength = min(0.7, mtf_momentum + 0.1) * data_quality_multiplier
                 
-            # Strategy 3: Breakout Trading
-            # Buy on strong momentum with increasing volume
-            elif mtf_momentum > 0.4 and overall_score > 0.35:
+            # Strategy 3: Mean Reversion in Stable Markets
+            elif mtf_volatility < 0.4 and mtf_momentum < -0.2 and mtf_trend > -0.15:  # More lenient
                 buy_signal = True
-                signal_strength = min(0.8, mtf_momentum + 0.2)
+                signal_strength = min(0.6, abs(mtf_momentum) + 0.1) * data_quality_multiplier
                 
-            # Sell signals - Mirror of buy logic
-            elif mtf_trend < -0.3 and mtf_momentum < -0.2:
-                # Strong bearish alignment
+            # Strategy 4: Any positive momentum with decent trend (very lenient)
+            elif mtf_trend > 0.1 and mtf_momentum > 0.05:
+                buy_signal = True
+                signal_strength = min(0.5, (mtf_trend + mtf_momentum) / 2) * data_quality_multiplier
+                
+            # Sell signals (mirror logic with negative values)
+            elif mtf_trend < -0.2 and mtf_momentum < -0.1:
                 sell_signal = True
-                signal_strength = min(0.9, abs(mtf_trend + mtf_momentum) / 2 + 0.2)
+                signal_strength = min(0.8, abs(mtf_trend + mtf_momentum) / 2 + 0.1) * data_quality_multiplier
                 
-            # Avoid trading in high volatility without clear direction
-            if mtf_volatility > 0.7 and abs(mtf_trend) < 0.3:
+            # Don't trade in extreme volatility without clear direction
+            if mtf_volatility > 0.8 and abs(mtf_trend) < 0.2:
                 buy_signal = False
                 sell_signal = False
                 signal_strength = 0
             
-            # Ensure minimum signal strength for trades
-            if signal_strength < 0.35:
+            # Lower minimum signal strength requirement
+            if signal_strength < 0.25:  # Reduced from 0.35
                 buy_signal = False
                 sell_signal = False
                 signal_strength = 0
+                
+            # Add bonus for multiple timeframe confirmation
+            if timeframes_analyzed >= 3:
+                signal_strength *= 1.1  # 10% bonus for good data
+            elif timeframes_analyzed >= 2:
+                signal_strength *= 1.05  # 5% bonus for decent data
+            
+            signal_strength = min(signal_strength, 1.0)  # Cap at 1.0
             
             return {
                 "buy_signal": buy_signal,
@@ -146,7 +213,9 @@ class EnhancedStrategy:
                     "trend": mtf_trend,
                     "momentum": mtf_momentum,
                     "overall_score": overall_score,
-                    "volatility": mtf_volatility
+                    "volatility": mtf_volatility,
+                    "timeframes": timeframes_analyzed,
+                    "data_quality": data_quality_multiplier
                 }
             }
             
@@ -170,19 +239,26 @@ class EnhancedStrategy:
             sell_signal = False
             signal_strength = 0
             
-            # Generate signals based on pressure
+            # More lenient orderbook signal generation
             if pressure == 'strong_buy':
                 buy_signal = True
-                signal_strength = 0.8
+                signal_strength = 0.7  # Reduced from 0.8
             elif pressure == 'buy':
                 buy_signal = True
-                signal_strength = 0.6
+                signal_strength = 0.5  # Reduced from 0.6
             elif pressure == 'strong_sell':
                 sell_signal = True
-                signal_strength = 0.8
+                signal_strength = 0.7  # Reduced from 0.8
             elif pressure == 'sell':
                 sell_signal = True
-                signal_strength = 0.6
+                signal_strength = 0.5  # Reduced from 0.6
+            elif abs(obi) > 0.1:  # Additional check for imbalance
+                if obi > 0.1:
+                    buy_signal = True
+                    signal_strength = min(0.6, obi * 3)  # Scale OBI to signal strength
+                elif obi < -0.1:
+                    sell_signal = True
+                    signal_strength = min(0.6, abs(obi) * 3)
             
             return {
                 "buy_signal": buy_signal,
@@ -220,7 +296,7 @@ class EnhancedStrategy:
     def _get_ai_signals(self, ai_insights: Dict) -> Dict:
         """Generate signals from CoinGecko AI insights with improved reliability"""
         try:
-            # Extract metrics
+            # Extract metrics with defaults
             metrics = ai_insights.get('metrics', {})
             sentiment = metrics.get('overall_sentiment', 0)
             prediction = metrics.get('prediction_direction', 'neutral')
@@ -228,57 +304,62 @@ class EnhancedStrategy:
             whale_activity = metrics.get('whale_accumulation', 0)
             smart_money = metrics.get('smart_money_direction', 'neutral')
             
-            # Get signal strength from AI client
-            signal_strength = self.ai_client.get_signal_strength(ai_insights)
+            # Get signal strength from AI client if available
+            signal_strength = 0.5  # Default
+            if hasattr(self.ai_client, 'get_signal_strength'):
+                try:
+                    signal_strength = self.ai_client.get_signal_strength(ai_insights)
+                except:
+                    signal_strength = 0.5
             
-            # Determine buy/sell signals more reliably with consolidated logic
+            # Determine buy/sell signals with more lenient thresholds
             buy_signal = False
             sell_signal = False
             
-            # Prediction-based signals
-            if prediction == 'bullish' and confidence > 0.5:
+            # Prediction-based signals (reduced confidence requirement)
+            if prediction == 'bullish' and confidence > 0.4:  # Reduced from 0.5
                 buy_signal = True
-                pred_strength = min(0.9, confidence * 1.2)  # Scale up confidence as strength
-            elif prediction == 'bearish' and confidence > 0.5:
+                pred_strength = min(0.8, confidence * 1.5)  # Scale up confidence
+            elif prediction == 'bearish' and confidence > 0.4:
                 sell_signal = True
-                pred_strength = min(0.9, confidence * 1.2)
+                pred_strength = min(0.8, confidence * 1.5)
             else:
                 pred_strength = 0
             
-            # Sentiment-based signals (if no strong prediction)
+            # Sentiment-based signals (reduced threshold)
             if not buy_signal and not sell_signal:
-                if sentiment > 0.3:  # Positive sentiment
+                if sentiment > 0.2:  # Reduced from 0.3
                     buy_signal = True
-                    sentiment_strength = min(0.7, sentiment + 0.2)  # Scale up sentiment as strength
-                elif sentiment < -0.3:  # Negative sentiment
-                    sell_signal = True 
-                    sentiment_strength = min(0.7, abs(sentiment) + 0.2)
+                    sentiment_strength = min(0.6, sentiment + 0.3)
+                elif sentiment < -0.2:  # Reduced from -0.3
+                    sell_signal = True
+                    sentiment_strength = min(0.6, abs(sentiment) + 0.3)
                 else:
                     sentiment_strength = 0
             else:
                 sentiment_strength = 0
             
-            # Whale activity signals (if no strong prediction or sentiment)
+            # Whale activity signals (reduced threshold)
             if not buy_signal and not sell_signal:
-                if whale_activity > 0.3:  # Accumulation
+                if whale_activity > 0.2:  # Reduced from 0.3
                     buy_signal = True
-                    whale_strength = min(0.8, whale_activity + 0.2)
-                elif whale_activity < -0.3:  # Distribution
+                    whale_strength = min(0.7, whale_activity + 0.3)
+                elif whale_activity < -0.2:
                     sell_signal = True
-                    whale_strength = min(0.8, abs(whale_activity) + 0.2)
+                    whale_strength = min(0.7, abs(whale_activity) + 0.3)
                 else:
                     whale_strength = 0
             else:
                 whale_strength = 0
                 
-            # Smart money signals (only if we have nothing else)
+            # Smart money signals (more responsive)
             if not buy_signal and not sell_signal:
                 if smart_money == 'bullish':
                     buy_signal = True
-                    sm_strength = 0.6  # Fixed moderate strength
+                    sm_strength = 0.5  # Default moderate strength
                 elif smart_money == 'bearish':
                     sell_signal = True
-                    sm_strength = 0.6
+                    sm_strength = 0.5
                 else:
                     sm_strength = 0
             else:
@@ -286,6 +367,12 @@ class EnhancedStrategy:
                 
             # Determine final signal strength (use the strongest one)
             final_strength = max(pred_strength, sentiment_strength, whale_strength, sm_strength)
+            
+            # Apply minimum threshold but more lenient
+            if final_strength < config.MIN_SIGNAL_STRENGTH:  # Reduced from higher threshold
+                buy_signal = False
+                sell_signal = False
+                final_strength = 0
             
             # Safety check for both buy and sell signals (shouldn't happen)
             if buy_signal and sell_signal:
@@ -317,7 +404,7 @@ class EnhancedStrategy:
             return {
                 "buy_signal": buy_signal,
                 "sell_signal": sell_signal,
-                "signal_strength": final_strength if (buy_signal or sell_signal) else 0,
+                "signal_strength": final_strength,
                 "source": f"coingecko:{source_text}",
                 "details": {
                     "sentiment": sentiment,
@@ -341,7 +428,7 @@ class EnhancedStrategy:
     
     def _combine_all_signals(self, technical_signals, orderbook_signals, 
                            ai_signals, correlation_data, market_state, nebula_signal=None):
-        """Combine all signals from different sources"""
+        """Combine all signals from different sources with improved logic"""
         try:
             # Extract signals
             ta_buy = technical_signals.get('buy_signal', False)
@@ -365,81 +452,73 @@ class EnhancedStrategy:
                 direct_signal_strength = nebula_signal.get('strength', 0.5)
             
             # Convert action to buy/sell signal
-            if direct_signal_action == 'buy' and direct_signal_strength > 0.6:
+            if direct_signal_action == 'buy' and direct_signal_strength > 0.5:  # Reduced threshold
                 ai_buy = True
                 ai_strength = max(ai_strength, direct_signal_strength)
-            elif direct_signal_action == 'sell' and direct_signal_strength > 0.6:
+            elif direct_signal_action == 'sell' and direct_signal_strength > 0.5:
                 ai_sell = True
                 ai_strength = max(ai_strength, direct_signal_strength)
 
-            # Initial values (will be modified based on signals)
+            # Initial values
             final_buy = False
             final_sell = False
             final_strength = 0
             signal_source = "none"
             
-            # Weight factors based on market state
-            ta_weight = config.TECHNICAL_WEIGHT  # Default technical weight
+            # Enhanced weight factors based on market state
+            ta_weight = getattr(config, 'TECHNICAL_WEIGHT', 0.5)  # Default technical weight
             ob_weight = 0.15  # Default orderbook weight
-            ai_weight = config.ONCHAIN_WEIGHT  # Default AI weight
+            ai_weight = getattr(config, 'ONCHAIN_WEIGHT', 0.35)  # Default AI weight
             
             # Adjust weights based on market regime
             regime = market_state.get('regime', 'NEUTRAL') if market_state else 'NEUTRAL'
             
             if regime == "BULL_TRENDING":
-                # In bullish trend, emphasize technical and AI
-                ta_weight = 0.55
-                ob_weight = 0.10
-                ai_weight = 0.35  # Increase AI weight
-            elif regime == "BEAR_TRENDING":
-                # In bearish trend, emphasize technical and orderbook
-                ta_weight = 0.55
-                ob_weight = 0.25  # Increase orderbook weight
-                ai_weight = 0.20
-            elif regime == "BULL_VOLATILE" or regime == "BEAR_VOLATILE":
-                # In volatile markets, orderbook becomes more important
                 ta_weight = 0.50
-                ob_weight = 0.30  # Increase orderbook weight
+                ob_weight = 0.15
+                ai_weight = 0.35
+            elif regime == "BEAR_TRENDING":
+                ta_weight = 0.55
+                ob_weight = 0.25
                 ai_weight = 0.20
+            elif regime in ["BULL_VOLATILE", "BEAR_VOLATILE"]:
+                ta_weight = 0.45
+                ob_weight = 0.30
+                ai_weight = 0.25
             
-            # SIGNAL COMBINATION LOGIC
-            
-            # Calculate weighted signal strengths
-            ta_weighted = ta_strength * ta_weight
-            ob_weighted = ob_strength * ob_weight
-            ai_weighted = ai_strength * ai_weight
+            # More lenient signal combination logic
             
             # BUY SIGNAL LOGIC
             buy_sources = []
             buy_strength = 0
             
-            if ta_buy:
-                buy_sources.append(f"TA:{ta_weighted:.2f}")
-                buy_strength += ta_weighted
+            if ta_buy and ta_strength > 0.2:  # Reduced threshold
+                buy_sources.append(f"TA:{ta_strength:.2f}")
+                buy_strength += ta_strength * ta_weight
             
-            if ob_buy:
-                buy_sources.append(f"OB:{ob_weighted:.2f}")
-                buy_strength += ob_weighted
+            if ob_buy and ob_strength > 0.2:  # Reduced threshold
+                buy_sources.append(f"OB:{ob_strength:.2f}")
+                buy_strength += ob_strength * ob_weight
             
-            if ai_buy:
-                buy_sources.append(f"AI:{ai_weighted:.2f}")
-                buy_strength += ai_weighted
+            if ai_buy and ai_strength > 0.2:  # Reduced threshold
+                buy_sources.append(f"AI:{ai_strength:.2f}")
+                buy_strength += ai_strength * ai_weight
             
             # SELL SIGNAL LOGIC
             sell_sources = []
             sell_strength = 0
             
-            if ta_sell:
-                sell_sources.append(f"TA:{ta_weighted:.2f}")
-                sell_strength += ta_weighted
+            if ta_sell and ta_strength > 0.2:
+                sell_sources.append(f"TA:{ta_strength:.2f}")
+                sell_strength += ta_strength * ta_weight
             
-            if ob_sell:
-                sell_sources.append(f"OB:{ob_weighted:.2f}")
-                sell_strength += ob_weighted
+            if ob_sell and ob_strength > 0.2:
+                sell_sources.append(f"OB:{ob_strength:.2f}")
+                sell_strength += ob_strength * ob_weight
             
-            if ai_sell:
-                sell_sources.append(f"AI:{ai_weighted:.2f}")
-                sell_strength += ai_weighted
+            if ai_sell and ai_strength > 0.2:
+                sell_sources.append(f"AI:{ai_strength:.2f}")
+                sell_strength += ai_strength * ai_weight
             
             # DETERMINE FINAL SIGNAL
             
@@ -468,25 +547,27 @@ class EnhancedStrategy:
                 final_strength = sell_strength
                 signal_source = "combined_sell:" + ",".join(sell_sources)
             
-            # Adjust for correlation
+            # Adjust for correlation (if provided)
             if final_buy and correlation_data:
                 portfolio_correlation = correlation_data.get('portfolio_correlation', 0)
                 is_diversified = correlation_data.get('is_diversified', True)
                 
                 if not is_diversified:
                     # Reduce strength for highly correlated assets
-                    final_strength *= 0.7
+                    final_strength *= 0.8  # Less penalty than before
                     signal_source += ",correlation_penalty"
                 elif portfolio_correlation < 0.2:
                     # Boost strength for diversifying assets
-                    final_strength = min(0.95, final_strength * 1.2)
+                    final_strength = min(0.95, final_strength * 1.1)  # Smaller boost
                     signal_source += ",diversity_bonus"
             
-            # Final check: ensure minimum signal threshold
-            if final_strength < 0.3:
+            # Final check: ensure minimum signal threshold (more lenient)
+            min_threshold = 0.25  # Reduced from 0.3
+            if final_strength < min_threshold:
                 final_buy = False
                 final_sell = False
                 final_strength = 0
+                signal_source = f"weak_signal_{final_strength:.2f}<{min_threshold}"
             
             return {
                 "buy_signal": final_buy,

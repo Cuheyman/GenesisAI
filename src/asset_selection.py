@@ -156,7 +156,7 @@ class AssetSelection:
                 'LTC', 'BCH', 'OM', 'UNI', 'PEPE', 'NEAR', 'APT', 'ETC',
                 'ICP', 'VET', 'POL', 'ALGO',
                 'RENDER', 'FIL', 'ARB', 'FET', 'ATOM', 'THETA', 'BONK',
-                'EOS', 'XTZ', 'IOTA', 'NEO', 'EGLD', 'ZEC', 'LAYER'
+                'XTZ', 'IOTA', 'NEO', 'EGLD', 'ZEC', 'LAYER'
             ]
 
             

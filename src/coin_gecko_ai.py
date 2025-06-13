@@ -284,14 +284,14 @@ class CoinGeckoAI:
             
             market_data = coin_data.get("market_data", {})
             
-            # Extract key metrics
-            price_change_24h = market_data.get("price_change_percentage_24h", 0)
-            price_change_7d = market_data.get("price_change_percentage_7d", 0)
-            price_change_30d = market_data.get("price_change_percentage_30d", 0)
+            # Extract key metrics with safe None handling
+            price_change_24h = market_data.get("price_change_percentage_24h") or 0
+            price_change_7d = market_data.get("price_change_percentage_7d") or 0
+            price_change_30d = market_data.get("price_change_percentage_30d") or 0
             
-            volume_24h = market_data.get("total_volume", {}).get("usd", 0)
-            market_cap = market_data.get("market_cap", {}).get("usd", 0)
-            market_cap_rank = market_data.get("market_cap_rank", 999)
+            volume_24h = market_data.get("total_volume", {}).get("usd") or 0
+            market_cap = market_data.get("market_cap", {}).get("usd") or 0
+            market_cap_rank = market_data.get("market_cap_rank") or 999
             
             # Calculate momentum score
             momentum_score = 0
@@ -325,11 +325,11 @@ class CoinGeckoAI:
                 momentum_score -= 0.5
                 confidence_factors.append("negative_weekly_trend")
             
-            # Market cap rank consideration
-            if market_cap_rank <= 50:
+            # Market cap rank consideration - FIXED: Added None check
+            if market_cap_rank is not None and market_cap_rank <= 50:
                 momentum_score += 0.5  # Top 50 coins get slight boost
                 confidence_factors.append("top_50_coin")
-            elif market_cap_rank <= 100:
+            elif market_cap_rank is not None and market_cap_rank <= 100:
                 momentum_score += 0.2  # Top 100 coins get small boost
                 confidence_factors.append("top_100_coin")
             
@@ -369,86 +369,6 @@ class CoinGeckoAI:
             logging.error(f"Error in CoinGecko market prediction: {str(e)}")
             return {"prediction": {"direction": "neutral", "confidence": 0.5}}
     
-    async def get_sentiment_analysis(self, token: str) -> Dict:
-        """Get sentiment analysis from CoinGecko community and market data"""
-        if not self.api_available:
-            return {"sentiment_score": 0}
-        
-        try:
-            coin_data = await self.get_coin_data(token)
-            if not coin_data:
-                return {"sentiment_score": 0}
-            
-            # Extract sentiment indicators
-            market_data = coin_data.get("market_data", {})
-            community_data = coin_data.get("community_data", {})
-            
-            sentiment_score = 0
-            sentiment_factors = []
-            
-            # Price momentum sentiment
-            price_change_24h = market_data.get("price_change_percentage_24h", 0)
-            price_change_7d = market_data.get("price_change_percentage_7d", 0)
-            
-            # Convert price changes to sentiment (-1 to 1)
-            price_sentiment = np.tanh(price_change_24h / 10)  # Normalize large moves
-            weekly_sentiment = np.tanh(price_change_7d / 20)
-            
-            sentiment_score += price_sentiment * 0.4 + weekly_sentiment * 0.3
-            
-            # Community sentiment indicators
-            twitter_followers = community_data.get("twitter_followers", 0)
-            reddit_subscribers = community_data.get("reddit_subscribers", 0)
-            telegram_users = community_data.get("telegram_channel_user_count", 0)
-            
-            # Social media growth indicates positive sentiment
-            if twitter_followers > 100000:
-                sentiment_score += 0.1
-                sentiment_factors.append("large_twitter_following")
-            if reddit_subscribers > 50000:
-                sentiment_score += 0.1
-                sentiment_factors.append("active_reddit_community")
-            if telegram_users > 10000:
-                sentiment_score += 0.05
-                sentiment_factors.append("active_telegram")
-            
-            # Market cap and volume sentiment
-            market_cap_rank = market_data.get("market_cap_rank", 999)
-            if market_cap_rank <= 20:
-                sentiment_score += 0.1  # Top 20 coins generally have positive sentiment
-                sentiment_factors.append("top_tier_coin")
-            elif market_cap_rank <= 50:
-                sentiment_score += 0.05
-                sentiment_factors.append("established_coin")
-            
-            # Volume trend sentiment
-            volume_24h = market_data.get("total_volume", {}).get("usd", 0)
-            market_cap = market_data.get("market_cap", {}).get("usd", 0)
-            
-            if market_cap > 0:
-                volume_ratio = volume_24h / market_cap
-                if volume_ratio > 0.2:  # Very high volume
-                    sentiment_score += 0.1
-                    sentiment_factors.append("high_trading_interest")
-                elif volume_ratio > 0.1:
-                    sentiment_score += 0.05
-                    sentiment_factors.append("moderate_trading_interest")
-            
-            # Clamp sentiment score to -1 to 1 range
-            sentiment_score = max(-1, min(1, sentiment_score))
-            
-            analysis = f"Price sentiment: {price_sentiment:.2f}, Community factors: {len(sentiment_factors)}"
-            
-            return {
-                "sentiment_score": sentiment_score,
-                "analysis": analysis,
-                "factors": sentiment_factors
-            }
-            
-        except Exception as e:
-            logging.error(f"Error in CoinGecko sentiment analysis: {str(e)}")
-            return {"sentiment_score": 0}
-    
     async def get_whale_activity(self, token: str) -> Dict:
         """Analyze whale activity using CoinGecko volume and market data"""
         if not self.api_available:
@@ -461,10 +381,10 @@ class CoinGeckoAI:
             
             market_data = coin_data.get("market_data", {})
             
-            # Get volume and market metrics
-            volume_24h = market_data.get("total_volume", {}).get("usd", 0) or 0
-            market_cap = market_data.get("market_cap", {}).get("usd", 0) or 0
-            price_change_24h = market_data.get("price_change_percentage_24h", 0) or 0
+            # Get volume and market metrics with safe None handling
+            volume_24h = market_data.get("total_volume", {}).get("usd") or 0
+            market_cap = market_data.get("market_cap", {}).get("usd") or 0
+            price_change_24h = market_data.get("price_change_percentage_24h") or 0
             
             # Calculate volume metrics
             if market_cap > 0:
@@ -494,18 +414,18 @@ class CoinGeckoAI:
                 accumulation_score -= 0.2
                 activity_factors.append("moderate_distribution")
             
-            # Market cap rank influence (whales more active in top coins)
-            market_cap_rank = market_data.get("market_cap_rank", 999)
-            if market_cap_rank <= 10 and volume_to_mcap > 0.1:
+            # Market cap rank influence (whales more active in top coins) - FIXED: Added None check
+            market_cap_rank = market_data.get("market_cap_rank") or 999
+            if market_cap_rank is not None and market_cap_rank <= 10 and volume_to_mcap > 0.1:
                 accumulation_score += 0.1  # Top 10 coins with decent volume
                 activity_factors.append("top_10_whale_interest")
-            elif market_cap_rank <= 50 and volume_to_mcap > 0.2:
+            elif market_cap_rank is not None and market_cap_rank <= 50 and volume_to_mcap > 0.2:
                 accumulation_score += 0.05
                 activity_factors.append("established_coin_activity")
             
-            # Price volatility analysis
-            ath = market_data.get("ath", {}).get("usd", 0)
-            current_price = market_data.get("current_price", {}).get("usd", 0)
+            # Price volatility analysis with safe None handling
+            ath = market_data.get("ath", {}).get("usd") or 0
+            current_price = market_data.get("current_price", {}).get("usd") or 0
             
             if ath > 0 and current_price > 0:
                 price_from_ath = (current_price / ath - 1) * 100
@@ -545,21 +465,21 @@ class CoinGeckoAI:
             
             market_data = coin_data.get("market_data", {})
             
-            # Get relevant metrics
-            market_cap_rank = market_data.get("market_cap_rank", 999)
-            price_change_7d = market_data.get("price_change_percentage_7d", 0)
-            price_change_30d = market_data.get("price_change_percentage_30d", 0)
-            volume_24h = market_data.get("total_volume", {}).get("usd", 0)
-            market_cap = market_data.get("market_cap", {}).get("usd", 0)
+            # Get relevant metrics with safe None handling
+            market_cap_rank = market_data.get("market_cap_rank") or 999
+            price_change_7d = market_data.get("price_change_percentage_7d") or 0
+            price_change_30d = market_data.get("price_change_percentage_30d") or 0
+            volume_24h = market_data.get("total_volume", {}).get("usd") or 0
+            market_cap = market_data.get("market_cap", {}).get("usd") or 0
             
             position_score = 0
             smart_money_factors = []
             
-            # Smart money typically focuses on fundamentally strong projects
-            if market_cap_rank <= 20:
+            # Smart money typically focuses on fundamentally strong projects - FIXED: Added None check
+            if market_cap_rank is not None and market_cap_rank <= 20:
                 position_score += 0.3
                 smart_money_factors.append("top_20_project")
-            elif market_cap_rank <= 50:
+            elif market_cap_rank is not None and market_cap_rank <= 50:
                 position_score += 0.1
                 smart_money_factors.append("established_project")
             
@@ -589,9 +509,9 @@ class CoinGeckoAI:
                     position_score -= 0.2
                     smart_money_factors.append("high_volume_selling")
             
-            # ATH analysis - smart money often accumulates during corrections
-            ath = market_data.get("ath", {}).get("usd", 0)
-            current_price = market_data.get("current_price", {}).get("usd", 0)
+            # ATH analysis - smart money often accumulates during corrections with safe None handling
+            ath = market_data.get("ath", {}).get("usd") or 0
+            current_price = market_data.get("current_price", {}).get("usd") or 0
             
             if ath > 0 and current_price > 0:
                 price_from_ath = (current_price / ath - 1) * 100
@@ -683,7 +603,7 @@ class CoinGeckoAI:
             return {"action": "hold", "strength": 0.5}
 
     async def get_sentiment_analysis(self, token: str) -> Dict:
-        
+        """Get sentiment analysis from CoinGecko community and market data"""
         if not self.api_available:
             return {"sentiment_score": 0}
         
@@ -699,15 +619,9 @@ class CoinGeckoAI:
             sentiment_score = 0
             sentiment_factors = []
             
-            # Price momentum sentiment - FIX: Check for None values
-            price_change_24h = market_data.get("price_change_percentage_24h")
-            price_change_7d = market_data.get("price_change_percentage_7d")
-            
-            # Handle None values properly
-            if price_change_24h is None:
-                price_change_24h = 0
-            if price_change_7d is None:
-                price_change_7d = 0
+            # Price momentum sentiment - FIXED: Better None handling
+            price_change_24h = market_data.get("price_change_percentage_24h") or 0
+            price_change_7d = market_data.get("price_change_percentage_7d") or 0
             
             # Convert price changes to sentiment (-1 to 1)
             price_sentiment = np.tanh(price_change_24h / 10)  # Normalize large moves
@@ -715,10 +629,10 @@ class CoinGeckoAI:
             
             sentiment_score += price_sentiment * 0.4 + weekly_sentiment * 0.3
             
-            # Community sentiment indicators - FIX: Handle None values
-            twitter_followers = community_data.get("twitter_followers", 0) or 0
-            reddit_subscribers = community_data.get("reddit_subscribers", 0) or 0
-            telegram_users = community_data.get("telegram_channel_user_count", 0) or 0
+            # Community sentiment indicators - FIXED: Better None handling
+            twitter_followers = community_data.get("twitter_followers") or 0
+            reddit_subscribers = community_data.get("reddit_subscribers") or 0
+            telegram_users = community_data.get("telegram_channel_user_count") or 0
             
             # Social media growth indicates positive sentiment
             if twitter_followers > 100000:
@@ -731,7 +645,7 @@ class CoinGeckoAI:
                 sentiment_score += 0.05
                 sentiment_factors.append("active_telegram")
             
-            # Market cap and volume sentiment
+            # Market cap and volume sentiment - FIXED: Added proper None check
             market_cap_rank = market_data.get("market_cap_rank")
             if market_cap_rank is not None and market_cap_rank <= 20:
                 sentiment_score += 0.1
@@ -740,9 +654,9 @@ class CoinGeckoAI:
                 sentiment_score += 0.05
                 sentiment_factors.append("established_coin")
             
-            # Volume trend sentiment
-            volume_24h = market_data.get("total_volume", {}).get("usd", 0) or 0
-            market_cap = market_data.get("market_cap", {}).get("usd", 0) or 0
+            # Volume trend sentiment - FIXED: Better None handling
+            volume_24h = market_data.get("total_volume", {}).get("usd") or 0
+            market_cap = market_data.get("market_cap", {}).get("usd") or 0
             
             if market_cap > 0:
                 volume_ratio = volume_24h / market_cap
@@ -767,9 +681,6 @@ class CoinGeckoAI:
         except Exception as e:
             logging.error(f"Error in CoinGecko sentiment analysis: {str(e)}")
             return {"sentiment_score": 0}
-
-
-
 
     async def get_consolidated_insights(self, token: str, max_wait_time: int = 15) -> Dict:
         """Get consolidated insights from all CoinGecko data sources"""
