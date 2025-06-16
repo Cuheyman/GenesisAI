@@ -1,0 +1,214 @@
+2025-06-16 18:24:29,758 - INFO - CoinGecko API connected: (V3) To the Moon!
+2025-06-16 18:24:29,759 - INFO - CoinGecko AI client initialized with demo API key
+2025-06-16 18:24:29,759 - INFO - CoinGecko AI client initialized
+2025-06-16 18:24:29,791 - INFO - Database initialization complete
+2025-06-16 18:24:29,796 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN take_profit_pct REAL
+2025-06-16 18:24:29,799 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN stop_loss_pct REAL
+2025-06-16 18:24:29,802 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN is_new_asset INTEGER DEFAULT 0
+2025-06-16 18:24:29,809 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN exit_price REAL
+2025-06-16 18:24:29,813 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN exit_time TEXT
+2025-06-16 18:24:29,816 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN profit_loss REAL
+2025-06-16 18:24:29,819 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN signal_source TEXT
+2025-06-16 18:24:29,823 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN signal_strength REAL
+2025-06-16 18:24:29,826 - INFO - Schema update applied: ALTER TABLE trades ADD COLUMN signal_source TEXT
+2025-06-16 18:24:29,829 - INFO - Schema update applied: ALTER TABLE trades ADD COLUMN signal_strength REAL
+2025-06-16 18:24:29,829 - INFO - Database schema updated successfully with 10 changes
+2025-06-16 18:24:29,834 - INFO - Risk Manager initialized with equity protection: Warning at 3.0%, Risk Reduction at 5.0%, High Alert at 8.0%, Emergency at 12.0%
+2025-06-16 18:24:29,834 - INFO - Hybrid Trading Bot initialized with 1000.00 equity
+2025-06-16 18:24:29,834 - INFO - Mode: TEST trading
+2025-06-16 18:24:29,834 - INFO - AI Provider: CoinGecko
+2025-06-16 18:24:29,835 - INFO - Testing API connections...
+2025-06-16 18:24:30,075 - INFO - Binance server time: 2025-06-16 18:24:23.267000
+2025-06-16 18:24:30,548 - INFO - CoinGecko AI connection successful: 0.31402324912824464
+2025-06-16 18:24:30,549 - INFO - Preloading historical data for analysis...
+2025-06-16 18:24:30,549 - INFO - Preloading historical data for analysis...
+2025-06-16 18:24:30,549 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-06-16 18:24:31,947 - INFO - Found trending pairs: ALTUSDT, SYRUPUSDT, COOKIEUSDT, SUPERUSDT, UNIUSDT...
+2025-06-16 18:24:31,948 - INFO - Preloading data for pairs: ADAUSDT, AIXBTUSDT, UNIUSDT, ONDOUSDT, SUPERUSDT
+2025-06-16 18:25:05,231 - INFO - Preloading data for pairs: TRBUSDT, COOKIEUSDT, NEIROUSDT, KAITOUSDT, BNBUSDT
+2025-06-16 18:25:39,053 - INFO - Preloading data for pairs: ETHUSDT, CRVUSDT, RSRUSDT, BIGTIMEUSDT, BTCUSDT
+2025-06-16 18:26:13,781 - INFO - Preloading data for pairs: SOLUSDT, XRPUSDT, SYRUPUSDT, SUSDT, HBARUSDT
+2025-06-16 18:26:45,753 - INFO - Preloading data for pairs: KMNOUSDT, AAVEUSDT, ALTUSDT, VIRTUALUSDT, COMPUSDT
+2025-06-16 18:27:19,589 - INFO - Historical data preloading complete
+2025-06-16 18:27:28,534 - INFO - Updating correlation matrix...
+2025-06-16 18:27:28,538 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/15 ($0.00, 0.0% of equity)
+2025-06-16 18:27:28,544 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-16 18:27:29,486 - INFO - Fetching top 30 trending cryptocurrency pairs
+2025-06-16 18:27:29,978 - INFO - Found trending pairs: ALTUSDT, SYRUPUSDT, COOKIEUSDT, SUPERUSDT, UNIUSDT...
+2025-06-16 18:27:29,979 - ERROR - Error selecting optimal assets: name 'datetime' is not defined
+2025-06-16 18:27:29,979 - INFO - Fetching top 15 trending cryptocurrency pairs
+2025-06-16 18:27:30,927 - INFO - Found trending pairs: ALTUSDT, SYRUPUSDT, COOKIEUSDT, SUPERUSDT, UNIUSDT...
+2025-06-16 18:27:30,991 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0,
+    "avg_daily_return_pct": 0,
+    "avg_weekly_return_pct": 0
+  },
+  "trades": {
+    "total": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "profit_factor": 0,
+    "avg_profit": 0,
+    "avg_loss": 0,
+    "expected_value": 0,
+    "recent_win_rate_pct": 0
+  },
+  "pairs": {
+    "best_pair": "None",
+    "best_pair_profit": 0,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-06-16 18:27:30"
+}
+2025-06-16 18:28:06,624 - INFO - Correlation matrix updated for 41 pairs
+2025-06-16 18:28:14,274 - INFO - Market regime changed: NEUTRAL -> BULL_TRENDING
+2025-06-16 18:28:14,274 - INFO - Market state: Regime=BULL_TRENDING, Trend=bullish, Volatility=low, Breadth=0.50
+2025-06-16 18:28:19,016 - INFO - CoinGecko insights for XRP: bullish (0.65 confidence), sentiment: 0.37, whale: 0.05, smart money: bullish
+2025-06-16 18:28:23,496 - INFO - CoinGecko insights for UNI: bullish (0.85 confidence), sentiment: 0.64, whale: 0.10, smart money: bullish
+2025-06-16 18:28:27,951 - INFO - CoinGecko insights for ALT: bearish (0.75 confidence), sentiment: -0.61, whale: 0.10, smart money: bearish
+2025-06-16 18:28:37,654 - INFO - CoinGecko insights for VIRTUAL: bullish (0.72 confidence), sentiment: 0.38, whale: 0.20, smart money: bullish
+2025-06-16 18:28:42,587 - INFO - CoinGecko insights for KAITO: neutral (0.50 confidence), sentiment: 0.17, whale: 0.15, smart money: bearish
+2025-06-16 18:28:47,030 - INFO - CoinGecko insights for TRB: bullish (0.65 confidence), sentiment: 0.19, whale: 0.50, smart money: neutral
+2025-06-16 18:28:51,537 - INFO - CoinGecko insights for KMNO: bullish (0.85 confidence), sentiment: 0.57, whale: 0.30, smart money: bullish
+2025-06-16 18:28:56,258 - INFO - CoinGecko insights for RSR: bullish (0.65 confidence), sentiment: 0.33, whale: 0.10, smart money: neutral
+2025-06-16 18:29:02,122 - INFO - CoinGecko insights for SYRUP: bullish (0.85 confidence), sentiment: 0.70, whale: 0.10, smart money: bullish
+2025-06-16 18:29:07,074 - INFO - CoinGecko insights for BIGTIME: bullish (0.70 confidence), sentiment: 0.31, whale: 0.50, smart money: neutral
+2025-06-16 18:29:11,537 - INFO - CoinGecko insights for SUPER: neutral (0.50 confidence), sentiment: 0.02, whale: 0.10, smart money: bearish
+2025-06-16 18:29:18,318 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-16 18:29:24,005 - INFO - CoinGecko insights for COOKIE: neutral (0.50 confidence), sentiment: 0.28, whale: 0.50, smart money: neutral
+2025-06-16 18:29:28,961 - INFO - CoinGecko insights for S: neutral (0.50 confidence), sentiment: -0.22, whale: 0.10, smart money: bearish
+2025-06-16 18:29:32,959 - INFO - CoinGecko insights for COMP: bullish (0.80 confidence), sentiment: 0.50, whale: 0.10, smart money: bullish
+2025-06-16 18:29:37,434 - INFO - XRPUSDT analysis: BUY signal with 0.42 strength
+2025-06-16 18:29:37,434 - INFO -   -> Signal too weak to trade: 0.42 < 0.7
+2025-06-16 18:29:38,433 - INFO - BUY ORDER: XRPUSDT - 25.0 at approx. $2.3092 ($60.00)
+2025-06-16 18:29:38,445 - INFO - Stop loss for XRPUSDT initialized at 2.251470 (2.5% below entry)
+2025-06-16 18:29:38,445 - INFO - Trailing take profit for XRPUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-16 18:29:38,445 - INFO - TEST MODE: Simulated buy for XRPUSDT executed successfully
+2025-06-16 18:29:38,446 - INFO - UNIUSDT analysis: BUY signal with 0.53 strength
+2025-06-16 18:29:38,446 - INFO -   -> Signal too weak to trade: 0.53 < 0.7
+2025-06-16 18:29:39,874 - INFO - BUY ORDER: UNIUSDT - 7.0 at approx. $7.855 ($60.00)
+2025-06-16 18:29:39,886 - INFO - Stop loss for UNIUSDT initialized at 7.658625 (2.5% below entry)
+2025-06-16 18:29:39,887 - INFO - Trailing take profit for UNIUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-16 18:29:39,887 - INFO - TEST MODE: Simulated buy for UNIUSDT executed successfully
+2025-06-16 18:29:39,887 - INFO - ALTUSDT analysis: BUY signal with 0.30 strength
+2025-06-16 18:29:39,887 - INFO -   -> Signal too weak to trade: 0.30 < 0.7
+2025-06-16 18:29:40,393 - INFO - BUY ORDER: ALTUSDT - 1398.0 at approx. $0.03575 ($50.00)
+2025-06-16 18:29:40,405 - INFO - Stop loss for ALTUSDT initialized at 0.034856 (2.5% below entry)
+2025-06-16 18:29:40,405 - INFO - Trailing take profit for ALTUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-16 18:29:40,405 - INFO - TEST MODE: Simulated buy for ALTUSDT executed successfully
+2025-06-16 18:29:40,406 - INFO - VIRTUALUSDT analysis: BUY signal with 0.47 strength
+2025-06-16 18:29:40,406 - INFO -   -> Signal too weak to trade: 0.47 < 0.7
+2025-06-16 18:29:41,369 - INFO - BUY ORDER: VIRTUALUSDT - 30.0 at approx. $1.9663 ($60.00)
+2025-06-16 18:29:41,381 - INFO - Stop loss for VIRTUALUSDT initialized at 1.917142 (2.5% below entry)
+2025-06-16 18:29:41,381 - INFO - Trailing take profit for VIRTUALUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-16 18:29:41,381 - INFO - TEST MODE: Simulated buy for VIRTUALUSDT executed successfully
+2025-06-16 18:29:41,381 - INFO - KAITOUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-16 18:29:41,382 - INFO - TRBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-16 18:29:41,382 - INFO - KMNOUSDT analysis: BUY signal with 0.69 strength
+2025-06-16 18:29:41,382 - INFO -   -> Signal too weak to trade: 0.69 < 0.7
+2025-06-16 18:29:42,788 - INFO - BUY ORDER: KMNOUSDT - 1144.0 at approx. $0.06987 ($80.00)
+2025-06-16 18:29:42,799 - INFO - Stop loss for KMNOUSDT initialized at 0.068123 (2.5% below entry)
+2025-06-16 18:29:42,799 - INFO - Trailing take profit for KMNOUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-16 18:29:42,800 - INFO - TEST MODE: Simulated buy for KMNOUSDT executed successfully
+2025-06-16 18:29:42,800 - INFO - RSRUSDT analysis: BUY signal with 0.30 strength
+2025-06-16 18:29:42,800 - INFO -   -> Signal too weak to trade: 0.30 < 0.7
+2025-06-16 18:29:43,781 - INFO - BUY ORDER: RSRUSDT - 7210.0 at approx. $0.006934 ($50.00)
+2025-06-16 18:29:43,791 - INFO - Stop loss for RSRUSDT initialized at 0.006761 (2.5% below entry)
+2025-06-16 18:29:43,791 - INFO - Trailing take profit for RSRUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-16 18:29:43,791 - INFO - TEST MODE: Simulated buy for RSRUSDT executed successfully
+2025-06-16 18:29:43,791 - INFO - SYRUPUSDT analysis: BUY signal with 0.70 strength
+2025-06-16 18:29:45,680 - INFO - BUY ORDER: SYRUPUSDT - 147.0 at approx. $0.5434 ($80.00)
+2025-06-16 18:29:45,692 - INFO - Stop loss for SYRUPUSDT initialized at 0.529815 (2.5% below entry)
+2025-06-16 18:29:45,692 - INFO - Trailing take profit for SYRUPUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-16 18:29:45,692 - INFO - TEST MODE: Simulated buy for SYRUPUSDT executed successfully
+2025-06-16 18:29:45,693 - INFO - BIGTIMEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-16 18:29:45,693 - INFO - SUPERUSDT analysis: BUY signal with 0.27 strength
+2025-06-16 18:29:45,693 - INFO -   -> Signal too weak to trade: 0.27 < 0.7
+2025-06-16 18:29:46,217 - INFO - BUY ORDER: SUPERUSDT - 73.0 at approx. $0.6783 ($50.00)
+2025-06-16 18:29:46,228 - INFO - Stop loss for SUPERUSDT initialized at 0.661342 (2.5% below entry)
+2025-06-16 18:29:46,228 - INFO - Trailing take profit for SUPERUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-16 18:29:46,229 - INFO - TEST MODE: Simulated buy for SUPERUSDT executed successfully
+2025-06-16 18:29:46,229 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-16 18:29:46,229 - INFO - CoinGecko insights for COOKIE: neutral (0.50 confidence), sentiment: 0.28, whale: 0.50, smart money: neutral
+2025-06-16 18:29:46,230 - INFO - CoinGecko insights for S: neutral (0.50 confidence), sentiment: -0.22, whale: 0.10, smart money: bearish
+2025-06-16 18:29:46,230 - INFO - CoinGecko insights for COMP: bullish (0.80 confidence), sentiment: 0.50, whale: 0.10, smart money: bullish
+2025-06-16 18:29:46,230 - INFO - COOKIEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-16 18:29:46,230 - INFO - SUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-16 18:29:46,231 - INFO - COMPUSDT analysis: BUY signal with 0.31 strength
+2025-06-16 18:29:46,231 - INFO -   -> Signal too weak to trade: 0.31 < 0.7
+2025-06-16 18:29:46,972 - WARNING - Calculated quantity is too small to execute: 0.0
+2025-06-16 18:29:46,973 - INFO - Trading cycle completed in 138.44 seconds
+2025-06-16 18:30:27,918 - ERROR - Error detecting volume surges: HTTPSConnectionPool(host='testnet.binance.vision', port=443): Read timed out.
+2025-06-16 18:33:23,149 - INFO - Top opportunities found: ['NOTUSDT', 'UNIUSDT', 'CRVUSDT', 'ACHUSDT', 'NEOUSDT']
+2025-06-16 18:33:24,531 - ERROR - Error selecting optimal assets: name 'datetime' is not defined
+2025-06-16 18:33:24,532 - INFO - Fetching top 10 trending cryptocurrency pairs
+2025-06-16 18:33:25,474 - INFO - Found trending pairs: ALTUSDT, SYRUPUSDT, COOKIEUSDT, SUPERUSDT, UNIUSDT...
+2025-06-16 18:33:27,108 - INFO - Ultra-quick profit exit for ALTUSDT at 0.73% (5 min)
+2025-06-16 18:33:27,108 - INFO - SELL ORDER: ALTUSDT - 1398.0 at approx. $0.03601, P/L: $0.36 (0.73%)
+2025-06-16 18:33:27,119 - INFO - TEST MODE: Simulated sell for ALTUSDT executed successfully
+2025-06-16 18:33:27,119 - INFO - Session stats: 1 trades, 100.0% win rate, $0.36 profit
+2025-06-16 18:33:29,954 - INFO - CoinGecko insights for ALT: bearish (0.75 confidence), sentiment: -0.62, whale: 0.10, smart money: bearish
+2025-06-16 18:33:35,810 - INFO - CoinGecko insights for SYRUP: bullish (0.85 confidence), sentiment: 0.70, whale: 0.10, smart money: bullish
+2025-06-16 18:33:39,818 - INFO - CoinGecko insights for COOKIE: neutral (0.50 confidence), sentiment: 0.28, whale: 0.50, smart money: neutral
+2025-06-16 18:33:45,225 - INFO - CoinGecko insights for SUPER: neutral (0.50 confidence), sentiment: 0.02, whale: 0.10, smart money: bearish
+2025-06-16 18:33:50,728 - INFO - CoinGecko insights for UNI: bullish (0.85 confidence), sentiment: 0.64, whale: 0.10, smart money: bullish
+2025-06-16 18:33:56,607 - INFO - ALTUSDT analysis: BUY signal with 0.30 strength
+2025-06-16 18:33:56,607 - INFO -   -> Signal too weak to trade: 0.30 < 0.7
+2025-06-16 18:33:58,038 - INFO - BUY ORDER: ALTUSDT - 1388.0 at approx. $0.03601 ($50.00)
+2025-06-16 18:33:58,050 - INFO - Stop loss for ALTUSDT initialized at 0.035110 (2.5% below entry)
+2025-06-16 18:33:58,050 - INFO - Trailing take profit for ALTUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-16 18:33:58,050 - INFO - TEST MODE: Simulated buy for ALTUSDT executed successfully
+2025-06-16 18:33:58,382 - INFO - SYRUPUSDT analysis: BUY signal with 0.70 strength
+2025-06-16 18:33:58,383 - INFO -   -> Signal too weak to trade: 0.70 < 0.7
+2025-06-16 18:33:58,383 - INFO - COOKIEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-16 18:33:58,383 - INFO - CoinGecko insights for UNI: bullish (0.85 confidence), sentiment: 0.64, whale: 0.10, smart money: bullish
+2025-06-16 18:33:58,383 - INFO - CoinGecko insights for SUPER: neutral (0.50 confidence), sentiment: 0.01, whale: 0.10, smart money: bearish
+2025-06-16 18:33:58,383 - INFO - UNIUSDT analysis: BUY signal with 0.54 strength
+2025-06-16 18:33:58,384 - INFO -   -> Signal too weak to trade: 0.54 < 0.7
+2025-06-16 18:33:58,384 - INFO - SUPERUSDT analysis: BUY signal with 0.27 strength
+2025-06-16 18:33:58,384 - INFO -   -> Signal too weak to trade: 0.27 < 0.7
+2025-06-16 18:34:14,775 - ERROR - Error selecting optimal assets: name 'datetime' is not defined
+2025-06-16 18:34:14,777 - INFO - CoinGecko insights for ALT: bearish (0.75 confidence), sentiment: -0.62, whale: 0.10, smart money: bearish
+2025-06-16 18:34:19,251 - INFO - CoinGecko insights for SYRUP: bullish (0.80 confidence), sentiment: 0.69, whale: 0.00, smart money: bullish
+2025-06-16 18:34:23,294 - INFO - CoinGecko insights for COOKIE: neutral (0.50 confidence), sentiment: 0.28, whale: 0.50, smart money: neutral
+2025-06-16 18:34:28,332 - INFO - CoinGecko insights for SUPER: neutral (0.50 confidence), sentiment: 0.01, whale: 0.10, smart money: bearish
+2025-06-16 18:34:32,359 - INFO - CoinGecko insights for UNI: bullish (0.85 confidence), sentiment: 0.64, whale: 0.10, smart money: bullish
+2025-06-16 18:34:40,568 - INFO - ALTUSDT analysis: BUY signal with 0.30 strength
+2025-06-16 18:34:40,568 - INFO -   -> Signal too weak to trade: 0.30 < 0.7
+2025-06-16 18:34:40,569 - INFO - SYRUPUSDT analysis: BUY signal with 0.68 strength
+2025-06-16 18:34:40,569 - INFO -   -> Signal too weak to trade: 0.68 < 0.7
+2025-06-16 18:34:40,569 - INFO - CoinGecko insights for SUPER: neutral (0.50 confidence), sentiment: 0.01, whale: 0.10, smart money: bearish
+2025-06-16 18:34:40,569 - INFO - CoinGecko insights for UNI: bullish (0.85 confidence), sentiment: 0.64, whale: 0.10, smart money: bullish
+2025-06-16 18:34:40,569 - INFO - COOKIEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-16 18:34:40,570 - INFO - SUPERUSDT analysis: BUY signal with 0.27 strength
+2025-06-16 18:34:40,570 - INFO -   -> Signal too weak to trade: 0.27 < 0.7
+2025-06-16 18:34:40,570 - INFO - UNIUSDT analysis: BUY signal with 0.54 strength
+2025-06-16 18:34:40,570 - INFO -   -> Signal too weak to trade: 0.54 < 0.7
+2025-06-16 18:35:06,550 - ERROR - Error selecting optimal assets: HTTPSConnectionPool(host='testnet.binance.vision', port=443): Read timed out.
+2025-06-16 18:35:06,551 - INFO - CoinGecko insights for ALT: bearish (0.75 confidence), sentiment: -0.62, whale: 0.10, smart money: bearish
+2025-06-16 18:35:11,525 - INFO - CoinGecko insights for SYRUP: bullish (0.80 confidence), sentiment: 0.69, whale: 0.00, smart money: bullish
+2025-06-16 18:35:16,910 - INFO - CoinGecko insights for COOKIE: neutral (0.50 confidence), sentiment: 0.28, whale: 0.50, smart money: neutral
+2025-06-16 18:35:22,723 - INFO - CoinGecko insights for SUPER: neutral (0.50 confidence), sentiment: 0.01, whale: 0.10, smart money: bearish
+2025-06-16 18:35:29,494 - INFO - CoinGecko insights for UNI: bullish (0.85 confidence), sentiment: 0.64, whale: 0.10, smart money: bullish
+2025-06-16 18:35:37,223 - INFO - ALTUSDT analysis: BUY signal with 0.31 strength
+2025-06-16 18:35:37,223 - INFO -   -> Signal too weak to trade: 0.31 < 0.7
+2025-06-16 18:35:37,223 - INFO - SYRUPUSDT analysis: BUY signal with 0.69 strength
+2025-06-16 18:35:37,223 - INFO -   -> Signal too weak to trade: 0.69 < 0.7
+2025-06-16 18:35:37,224 - INFO - COOKIEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-16 18:35:37,224 - INFO - CoinGecko insights for SUPER: neutral (0.50 confidence), sentiment: 0.01, whale: 0.10, smart money: bearish
+2025-06-16 18:35:37,224 - INFO - CoinGecko insights for UNI: bullish (0.85 confidence), sentiment: 0.64, whale: 0.10, smart money: bullish
+2025-06-16 18:35:37,224 - INFO - SUPERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-16 18:35:37,224 - INFO - UNIUSDT analysis: BUY signal with 0.53 strength
+2025-06-16 18:35:37,224 - INFO -   -> Signal too weak to trade: 0.53 < 0.7
+2025-06-16 18:35:53,658 - ERROR - Error selecting optimal assets: name 'datetime' is not defined
+2025-06-16 18:35:53,660 - INFO - CoinGecko insights for ALT: bearish (0.75 confidence), sentiment: -0.62, whale: 0.10, smart money: bearish
+2025-06-16 18:35:58,150 - INFO - CoinGecko insights for SYRUP: bullish (0.80 confidence), sentiment: 0.69, whale: 0.00, smart money: bullish
+2025-06-16 18:36:03,095 - INFO - CoinGecko insights for COOKIE: neutral (0.50 confidence), sentiment: 0.28, whale: 0.50, smart money: neutral
+2025-06-16 18:36:08,522 - INFO - CoinGecko insights for SUPER: neutral (0.50 confidence), sentiment: 0.01, whale: 0.10, smart money: bearish
+2025-06-16 18:36:14,370 - INFO - Bot stopped by user

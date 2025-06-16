@@ -369,7 +369,7 @@ class EnhancedStrategy:
             final_strength = max(pred_strength, sentiment_strength, whale_strength, sm_strength)
             
             # Apply minimum threshold but more lenient
-            if final_strength < config.MIN_SIGNAL_STRENGTH:  # Reduced from higher threshold
+            if final_strength >= config.MIN_SIGNAL_STRENGTH:  # Reduced from higher threshold
                 buy_signal = False
                 sell_signal = False
                 final_strength = 0
@@ -562,7 +562,7 @@ class EnhancedStrategy:
                     signal_source += ",diversity_bonus"
             
             # Final check: ensure minimum signal threshold (more lenient)
-            min_threshold = 0.25  # Reduced from 0.3
+            min_threshold = config.MIN_SIGNAL_STRENGTH  # Reduced from 0.3
             if final_strength < min_threshold:
                 final_buy = False
                 final_sell = False

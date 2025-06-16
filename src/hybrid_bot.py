@@ -112,7 +112,7 @@ class HybridTradingBot:
             'sentiment': 'neutral',  # bullish, neutral, bearish
             'regime': 'NEUTRAL'  # BULL_TRENDING, BULL_VOLATILE, BEAR_TRENDING, BEAR_VOLATILE, NEUTRAL
         }
-        
+        self.recently_traded = {}
         # Initialize session for API calls
         self.session = None
         
@@ -604,10 +604,15 @@ class HybridTradingBot:
                 nebula_signal=ai_signal  # Pass the AI signal to the strategy (keep parameter name for compatibility)
             )
             
+    
             # Log the analysis
             signal_type = "BUY" if analysis['buy_signal'] else ("SELL" if analysis['sell_signal'] else "NEUTRAL")
             logging.info(f"{pair} analysis: {signal_type} signal with {analysis['signal_strength']:.2f} strength")
-            
+
+            # Add detailed logging for weak signals
+            if analysis['signal_strength'] > 0 and analysis['signal_strength'] < config.MIN_SIGNAL_STRENGTH:
+                logging.info(f"  -> Signal too weak to trade: {analysis['signal_strength']:.2f} < {config.MIN_SIGNAL_STRENGTH}")
+
             # Store analysis
             self.analyzed_pairs[pair] = {
                 "timestamp": time.time(),
@@ -927,7 +932,7 @@ class HybridTradingBot:
  
     
     async def execute_sell(self, pair, analysis):
-        """Execute a sell order"""
+        """Execute a sell order with enhanced tracking"""
         try:
             if pair not in self.active_positions:
                 logging.warning(f"Cannot sell {pair}: no active position")
@@ -955,6 +960,9 @@ class HybridTradingBot:
             
             # Generate a trade ID
             trade_id = f"{int(time.time())}-{random.randint(1000, 9999)}"
+            
+            # Track successful sells
+            success = False
             
             if config.TEST_MODE:
                 # Simulate order in test mode
@@ -1022,7 +1030,8 @@ class HybridTradingBot:
                 del self.active_positions[pair]
                 
                 logging.info(f"TEST MODE: Simulated sell for {pair} executed successfully")
-                return True
+                success = True
+                
             else:
                 # Execute real order
                 try:
@@ -1101,18 +1110,59 @@ class HybridTradingBot:
                         del self.active_positions[pair]
                         
                         logging.info(f"Sell order for {pair} executed successfully")
-                        return True
+                        success = True
                     else:
                         logging.error(f"Sell order failed: {order}")
-                        return False
+                        success = False
                 except Exception as e:
                     logging.error(f"Error executing sell order: {str(e)}")
-                    return False
+                    success = False
+            
+            # TRACK RECENTLY TRADED - This is the key addition
+            if success:
+                # Initialize recently_traded if it doesn't exist
+                if not hasattr(self, 'recently_traded'):
+                    self.recently_traded = {}
+                    
+                # Mark this pair as recently traded
+                self.recently_traded[pair] = time.time()
+                
+                # Clean old entries (keep only last hour)
+                current_time = time.time()
+                self.recently_traded = {
+                    p: t for p, t in self.recently_traded.items() 
+                    if current_time - t < 3600  # Keep for 1 hour
+                }
+                
+                # Log recently traded pairs for debugging
+                logging.debug(f"Recently traded pairs: {list(self.recently_traded.keys())}")
+                
+                # Also track profit/loss for this session
+                if not hasattr(self, 'session_stats'):
+                    self.session_stats = {
+                        'total_trades': 0,
+                        'winning_trades': 0,
+                        'total_profit': 0
+                    }
+                
+                self.session_stats['total_trades'] += 1
+                if profit_loss > 0:
+                    self.session_stats['winning_trades'] += 1
+                self.session_stats['total_profit'] += profit_loss
+                
+                # Log session stats
+                win_rate = (self.session_stats['winning_trades'] / self.session_stats['total_trades'] * 100) if self.session_stats['total_trades'] > 0 else 0
+                logging.info(f"Session stats: {self.session_stats['total_trades']} trades, "
+                            f"{win_rate:.1f}% win rate, ${self.session_stats['total_profit']:.2f} profit")
+            
+            return success
         
         except Exception as e:
             logging.error(f"Error executing sell for {pair}: {str(e)}")
             return False
-    
+        
+
+        
     def calculate_profit_percent(self, pair):
         """Calculate current profit percentage for a position"""
         if pair not in self.active_positions:
@@ -1132,7 +1182,7 @@ class HybridTradingBot:
             return 0
     
     async def monitor_positions(self):
-        """Enhanced position monitoring with quicker exits for momentum trades"""
+        """Enhanced position monitoring with ultra-quick profit taking"""
         for pair, position in list(self.active_positions.items()):
             try:
                 current_price = await self.get_current_price(pair)
@@ -1146,52 +1196,80 @@ class HybridTradingBot:
                 # Check if this is a momentum trade
                 is_momentum = position.get('momentum_trade', False)
                 
-                # ENHANCED: Quicker profit targets for momentum trades
+                # ULTRA-QUICK PROFIT TAKING - Take ANY profit fast
+                if profit_percent >= 0.3 and position_age_minutes < 5:
+                    logging.info(f"Ultra-quick profit exit for {pair} at {profit_percent:.2f}% (5 min)")
+                    await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.95})
+                    continue
+                
+                if profit_percent >= 0.5 and position_age_minutes < 10:
+                    logging.info(f"Quick profit exit for {pair} at {profit_percent:.2f}% (10 min)")
+                    await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.9})
+                    continue
+                
+                # MOMENTUM TRADES - Even quicker exits
                 if is_momentum:
-                    # Take profits more aggressively on momentum trades
-                    if profit_percent >= 3.0:  # 3% is great for momentum
+                    if profit_percent >= 1.0:  # 1% for momentum trades
                         logging.info(f"Momentum trade profit target hit for {pair} at {profit_percent:.2f}%")
                         await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.9})
                         continue
-                    elif position_age_minutes > 30 and profit_percent >= 1.5:  # 1.5% after 30 min
+                    elif position_age_minutes > 20 and profit_percent >= 0.5:  # 0.5% after 20 min
                         logging.info(f"Momentum trade time-based exit for {pair} at {profit_percent:.2f}%")
                         await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.8})
                         continue
-                    elif position_age_minutes > 60 and profit_percent >= 0.5:  # 0.5% after 1 hour
-                        logging.info(f"Momentum trade minimum profit exit for {pair} at {profit_percent:.2f}%")
+                    elif position_age_minutes > 45 and profit_percent >= 0:  # Break even after 45 min
+                        logging.info(f"Momentum trade break-even exit for {pair} at {profit_percent:.2f}%")
                         await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.7})
                         continue
                     
                     # Tighter stop loss for momentum trades
-                    if profit_percent <= -1.5:  # 1.5% stop loss
+                    if profit_percent <= -1.0:  # 1% stop loss
                         logging.info(f"Momentum trade stop loss for {pair} at {profit_percent:.2f}%")
                         await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.9})
                         continue
                 
-                # ENHANCED: Dynamic exits based on market conditions
+                # REGULAR TRADES - Still quick but slightly more patient
                 else:
-                    # Regular position management with adjusted targets
-                    if profit_percent >= 5.0:  # Take 5% when available
+                    # Scaled profit targets based on time
+                    if profit_percent >= 2.0:  # Take 2% anytime
                         logging.info(f"Profit target reached for {pair} at {profit_percent:.2f}%")
                         await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.9})
                         continue
-                    elif position_age_minutes > 120 and profit_percent >= 2.0:  # 2% after 2 hours
+                    elif position_age_minutes > 30 and profit_percent >= 1.0:  # 1% after 30 min
                         logging.info(f"Time-based profit taking for {pair} at {profit_percent:.2f}%")
                         await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.8})
                         continue
-                    elif position_age_minutes > 240 and profit_percent >= 1.0:  # 1% after 4 hours
-                        logging.info(f"Extended hold profit taking for {pair} at {profit_percent:.2f}%")
+                    elif position_age_minutes > 60 and profit_percent >= 0.5:  # 0.5% after 1 hour
+                        logging.info(f"Minimum profit exit for {pair} at {profit_percent:.2f}%")
                         await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.7})
                         continue
-                    elif position_age_minutes > 360 and profit_percent >= 0:  # Break even after 6 hours
+                    elif position_age_minutes > 120 and profit_percent >= 0:  # Break even after 2 hours
                         logging.info(f"Break even exit for {pair} at {profit_percent:.2f}%")
                         await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.6})
                         continue
+                    elif position_age_minutes > 180 and profit_percent >= -0.5:  # Small loss after 3 hours
+                        logging.info(f"Time stop for {pair} at {profit_percent:.2f}%")
+                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.6})
+                        continue
                     
-                    # Regular stop loss
-                    if profit_percent <= -2.5:
+                    # Tighter stop loss
+                    if profit_percent <= -1.5:  # 1.5% stop loss
                         logging.info(f"Stop loss triggered for {pair} at {profit_percent:.2f}%")
                         await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.9})
+                        continue
+                
+                # TRAILING STOP for positions in profit
+                if profit_percent > 0.5:
+                    # Check if price is dropping from recent high
+                    if not hasattr(position, 'highest_profit'):
+                        position['highest_profit'] = profit_percent
+                    elif profit_percent > position['highest_profit']:
+                        position['highest_profit'] = profit_percent
+                    
+                    # If profit dropped 0.3% from high, exit
+                    if position.get('highest_profit', 0) - profit_percent > 0.3:
+                        logging.info(f"Trailing stop triggered for {pair} at {profit_percent:.2f}% (high was {position['highest_profit']:.2f}%)")
+                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.8})
                         continue
                 
                 # Clean up momentum trade data if expired
@@ -1199,10 +1277,12 @@ class HybridTradingBot:
                     if time.time() - self.momentum_trades[pair]['entry_time'] > 3600:  # 1 hour
                         del self.momentum_trades[pair]
                 
+                # Mark pair as recently traded after selling to prevent immediate rebuy
+                if not hasattr(self, 'recently_traded'):
+                    self.recently_traded = {}
+                
             except Exception as e:
                 logging.error(f"Error monitoring position {pair}: {str(e)}")
-
-
     async def opportunity_scan_task(self):
         """Dedicated task for continuous opportunity scanning"""
         try:

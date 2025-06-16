@@ -1,0 +1,20 @@
+2025-06-14 16:48:26,379 - INFO - CoinGecko API connected: (V3) To the Moon!
+2025-06-14 16:48:26,380 - INFO - CoinGecko AI client initialized with demo API key
+2025-06-14 16:48:26,380 - INFO - CoinGecko AI client initialized
+2025-06-14 16:48:26,388 - INFO - Database initialization complete
+2025-06-14 16:48:26,389 - INFO - Risk Manager initialized with equity protection: Warning at 3.0%, Risk Reduction at 5.0%, High Alert at 8.0%, Emergency at 12.0%
+2025-06-14 16:48:26,389 - INFO - Hybrid Trading Bot initialized with 1000.00 equity
+2025-06-14 16:48:26,389 - INFO - Mode: TEST trading
+2025-06-14 16:48:26,390 - INFO - AI Provider: CoinGecko
+2025-06-14 16:48:26,391 - INFO - Testing API connections...
+2025-06-14 16:48:27,091 - INFO - Binance server time: 2025-06-14 16:48:24.645000
+2025-06-14 16:48:27,557 - INFO - CoinGecko AI connection successful: 0.11517013557837019
+2025-06-14 16:48:27,558 - INFO - Preloading historical data for analysis...
+2025-06-14 16:48:27,558 - INFO - Preloading historical data for analysis...
+2025-06-14 16:48:27,558 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-06-14 16:48:28,496 - INFO - Found trending pairs: INITUSDT, LUNCUSDT, HUMAUSDT, SUSDT, KMNOUSDT...
+2025-06-14 16:48:28,497 - INFO - Preloading data for pairs: BNBUSDT, ICPUSDT, LTCUSDT, LAYERUSDT, SPELLUSDT
+2025-06-14 16:49:04,677 - INFO - Preloading data for pairs: BABYUSDT, HUMAUSDT, ETHUSDT, NEIROUSDT, AXLUSDT
+2025-06-14 16:49:39,654 - INFO - Preloading data for pairs: ADAUSDT, INITUSDT, BTCUSDT, TRBUSDT, SYRUPUSDT
+2025-06-14 16:50:15,919 - INFO - Preloading data for pairs: KMNOUSDT, ANIMEUSDT, SOLUSDT, LUNCUSDT, ORDIUSDT
+2025-06-14 16:50:42,121 - INFO - Bot stopped by user
