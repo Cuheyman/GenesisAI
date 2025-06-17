@@ -81,7 +81,7 @@ RECOVERY_PROFIT_TARGET = float(os.getenv('RECOVERY_PROFIT_TARGET', '0.03'))  # 3
 RECOVERY_TIMEOUT_DAYS = int(os.getenv('RECOVERY_TIMEOUT_DAYS', '14'))
 
 # Position sizing
-MIN_POSITION_SIZE = float(os.getenv('MIN_POSITION_SIZE', '50'))  # Minimum $50 per position
+MIN_POSITION_SIZE = float(os.getenv('MIN_POSITION_SIZE', '100'))  # Minimum $50 per position
 MAX_POSITION_SIZE_PCT = float(os.getenv('MAX_POSITION_SIZE_PCT', '0.15'))  # Max 15% of account per position
 
 # =============================================================================
@@ -195,7 +195,7 @@ MAX_CONCURRENT_SCANS = int(os.getenv('MAX_CONCURRENT_SCANS', '100'))  # Scan top
 # =============================================================================
 
 # Minimum signal strength to consider for trades
-MIN_SIGNAL_STRENGTH = float(os.getenv('MIN_SIGNAL_STRENGTH', '0.7'))
+MIN_SIGNAL_STRENGTH = float(os.getenv('MIN_SIGNAL_STRENGTH', '0.3'))
 
 # Correlation threshold for diversification
 MAX_CORRELATION_THRESHOLD = float(os.getenv('MAX_CORRELATION_THRESHOLD', '0.7'))

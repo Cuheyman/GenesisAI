@@ -559,11 +559,11 @@ class HybridTradingBot:
             # Skip if this pair was recently processed (within 5 minutes)
             cache_key = f"processed_{pair}"
             current_time = time.time()
-            cache_duration = 300  # 5 minutes
+            cache_duration = 60  # 5 minutes
 
-            if hasattr(self, 'cache_expiry') and cache_key in self.cache_expiry:
-                if self.cache_expiry[cache_key] > current_time:
-                    return
+            #if hasattr(self, 'cache_expiry') and cache_key in self.cache_expiry:
+             #   if self.cache_expiry[cache_key] > current_time:
+              #      return
                 
             # Initialize cache if needed
             if not hasattr(self, 'cache_expiry'):
