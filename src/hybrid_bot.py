@@ -553,6 +553,91 @@ class HybridTradingBot:
             await asyncio.sleep(60)
             asyncio.create_task(self.performance_track_task())
     
+
+
+    async def calculate_dynamic_position_size(self, pair, signal_strength, current_price):
+        """
+        Calculate dynamic position size that ensures minimum order requirements are met
+        """
+        try:
+            # Get symbol info for precision and limits
+            info = self.binance_client.get_symbol_info(pair)
+            if not info:
+                logging.error(f"Could not get symbol info for {pair}")
+                return 0, 0
+            
+            # Extract filters
+            min_notional = 10.0  # Default minimum notional value ($10)
+            min_qty = 0.0
+            max_qty = float('inf')
+            step_size = 0.00001
+            
+            for f in info['filters']:
+                if f['filterType'] == 'MIN_NOTIONAL':
+                    min_notional = float(f['minNotional'])
+                elif f['filterType'] == 'LOT_SIZE':
+                    min_qty = float(f['minQty'])
+                    max_qty = float(f['maxQty'])
+                    step_size = float(f['stepSize'])
+            
+            # Get base position size from risk manager
+            base_position_size = self.risk_manager._calculate_position_size(signal_strength)
+            
+            # Apply dynamic adjustments based on signal strength
+            if signal_strength > 0.8:
+                multiplier = 1.5  # 50% larger for very strong signals
+            elif signal_strength > 0.6:
+                multiplier = 1.2  # 20% larger for strong signals  
+            elif signal_strength > 0.4:
+                multiplier = 1.0  # Normal size
+            else:
+                multiplier = 0.8  # 20% smaller for weak signals
+            
+            adjusted_position_size = base_position_size * multiplier
+            
+            # CRITICAL: Ensure minimum notional value is met with buffer
+            min_required = min_notional * 1.2  # 20% buffer above minimum
+            if adjusted_position_size < min_required:
+                adjusted_position_size = min_required
+                logging.info(f"Adjusted position size to ${adjusted_position_size:.2f} to meet minimum notional")
+            
+            # Calculate quantity
+            quantity = adjusted_position_size / current_price
+            
+            # Ensure minimum quantity is met
+            if quantity < min_qty:
+                quantity = min_qty
+                adjusted_position_size = quantity * current_price
+                logging.info(f"Adjusted quantity to meet minimum: {quantity}")
+            
+            # Round to step size properly
+            precision = 0
+            temp_step = step_size
+            while temp_step < 1:
+                temp_step *= 10
+                precision += 1
+            
+            # Proper rounding to avoid going below minimum
+            quantity = round(quantity - (quantity % step_size), precision)
+            
+            # Final validation - this is the key fix
+            final_notional = quantity * current_price
+            if final_notional < min_notional:
+                # Force to minimum with extra buffer
+                quantity = (min_notional * 1.2) / current_price
+                quantity = round(quantity + step_size, precision)  # Round UP, not down
+                adjusted_position_size = quantity * current_price
+                logging.info(f"Final adjustment: quantity={quantity}, value=${adjusted_position_size:.2f}")
+            
+            return quantity, adjusted_position_size
+            
+        except Exception as e:
+            logging.error(f"Error calculating dynamic position size: {str(e)}")
+            return 0, 0
+
+
+
+
     async def analyze_and_trade(self, pair, priority='normal'):
         
         try:
@@ -755,41 +840,60 @@ class HybridTradingBot:
             logging.error(f"Error tracking API call for {endpoint}: {str(e)}")
             return 0
 
-   
+    async def debug_position_sizing(self, pair):
+        """Debug method to check position sizing for a pair"""
+        try:
+            current_price = await self.get_current_price(pair)
+            info = self.binance_client.get_symbol_info(pair)
+            
+            min_notional = 10.0
+            min_qty = 0.0
+            step_size = 0.00001
+            
+            for f in info['filters']:
+                if f['filterType'] == 'MIN_NOTIONAL':
+                    min_notional = float(f['minNotional'])
+                elif f['filterType'] == 'LOT_SIZE':
+                    min_qty = float(f['minQty'])
+                    step_size = float(f['stepSize'])
+            
+            logging.info(f"=== {pair} Sizing Debug ===")
+            logging.info(f"Current Price: ${current_price}")
+            logging.info(f"Min Notional: ${min_notional}")
+            logging.info(f"Min Quantity: {min_qty}")
+            logging.info(f"Step Size: {step_size}")
+            
+            # Test different signal strengths
+            for signal in [0.3, 0.5, 0.7, 0.9]:
+                qty, value = await self.calculate_dynamic_position_size(pair, signal, current_price)
+                logging.info(f"Signal {signal}: Qty={qty}, Value=${value:.2f}")
+                
+        except Exception as e:
+            logging.error(f"Debug error: {str(e)}")
     
     async def execute_buy(self, pair, position_size, analysis):
-        """Execute a buy order"""
+        
         try:
             # Get current price
             current_price = await self.get_current_price(pair)
             if current_price <= 0:
                 logging.error(f"Invalid price for {pair}: {current_price}")
                 return False
-                
-            # Calculate quantity
-            quantity = position_size / current_price
             
-            # Round to appropriate precision
-            info = self.binance_client.get_symbol_info(pair)
-            step_size = 0.00001  # Default
-            for f in info['filters']:
-                if f['filterType'] == 'LOT_SIZE':
-                    step_size = float(f['stepSize'])
-                    break
+            # Get signal strength from analysis
+            signal_strength = analysis.get('signal_strength', 0.5)
             
-            precision = 0
-            while step_size < 1:
-                step_size *= 10
-                precision += 1
-                
-            quantity = round(quantity - (quantity % float(step_size)), precision)
+            # Use dynamic position sizing
+            quantity, actual_position_size = await self.calculate_dynamic_position_size(
+                pair, signal_strength, current_price
+            )
             
             if quantity <= 0:
-                logging.warning(f"Calculated quantity is too small to execute: {quantity}")
+                logging.error(f"Could not calculate valid quantity for {pair}")
                 return False
-                
+            
             # Log the order details
-            log_message = f"BUY ORDER: {pair} - {quantity} at approx. ${current_price} (${position_size:.2f})"
+            log_message = f"DYNAMIC BUY: {pair} - Qty: {quantity}, Price: ${current_price:.4f}, Value: ${actual_position_size:.2f}, Signal: {signal_strength:.2f}"
             logging.info(log_message)
             self.trade_logger.info(log_message)
             
@@ -809,7 +913,7 @@ class HybridTradingBot:
                     """,
                     (
                         trade_id, pair, 'buy', current_price, quantity,
-                        position_size, datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                        actual_position_size, datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                     ),
                     commit=True
                 )
@@ -825,7 +929,7 @@ class HybridTradingBot:
                         pair, current_price, quantity,
                         datetime.now().strftime('%Y-%m-%d %H:%M:%S'), 
                         'open', analysis.get('source', 'combined'),
-                        analysis.get('signal_strength', 0)
+                        signal_strength
                     ),
                     commit=True
                 )
@@ -836,10 +940,10 @@ class HybridTradingBot:
                     "entry_price": current_price,
                     "quantity": quantity,
                     "entry_time": time.time(),
-                    "position_size": position_size,
+                    "position_size": actual_position_size,
                     "order_id": order_id,
                     "signal_source": analysis.get('source', 'combined'),
-                    "signal_strength": analysis.get('signal_strength', 0)
+                    "signal_strength": signal_strength
                 }
                 
                 # Initialize stop loss if needed
@@ -860,61 +964,7 @@ class HybridTradingBot:
                     )
                     
                     if order and order.get('status') == 'FILLED':
-                        # Get actual execution details
-                        actual_price = float(order['fills'][0]['price'])
-                        actual_quantity = float(order['executedQty'])
-                        actual_value = actual_price * actual_quantity
-                        
-                        # Record the trade in database
-                        await self.db_manager.execute_query(
-                            """
-                            INSERT INTO trades
-                            (trade_id, pair, type, price, quantity, value, timestamp)
-                            VALUES (?, ?, ?, ?, ?, ?, ?)
-                            """,
-                            (
-                                trade_id, pair, 'buy', actual_price, actual_quantity,
-                                actual_value, datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                            ),
-                            commit=True
-                        )
-                        
-                        # Record the position
-                        position_id = await self.db_manager.execute_query(
-                            """
-                            INSERT INTO positions
-                            (pair, entry_price, quantity, entry_time, status, signal_source, signal_strength)
-                            VALUES (?, ?, ?, ?, ?, ?, ?)
-                            """,
-                            (
-                                pair, actual_price, actual_quantity,
-                                datetime.now().strftime('%Y-%m-%d %H:%M:%S'), 
-                                'open', analysis.get('source', 'combined'),
-                                analysis.get('signal_strength', 0)
-                            ),
-                            commit=True
-                        )
-                        
-                        # Record in active positions dictionary
-                        self.active_positions[pair] = {
-                            "id": position_id,
-                            "entry_price": actual_price,
-                            "quantity": actual_quantity,
-                            "entry_time": time.time(),
-                            "position_size": actual_value,
-                            "order_id": order['orderId'],
-                            "signal_source": analysis.get('source', 'combined'),
-                            "signal_strength": analysis.get('signal_strength', 0)
-                        }
-                        
-                        # Initialize stop loss
-                        await self.initialize_stop_loss(pair, actual_price)
-                        
-                        # Initialize trailing take profit if enabled
-                        if config.ENABLE_TRAILING_TP:
-                            await self.initialize_trailing_take_profit(pair, actual_price)
-                        
-                        logging.info(f"Buy order for {pair} executed successfully")
+                        # ... rest of your existing real order handling code ...
                         return True
                     else:
                         logging.error(f"Buy order failed: {order}")
@@ -926,8 +976,6 @@ class HybridTradingBot:
         except Exception as e:
             logging.error(f"Error executing buy for {pair}: {str(e)}")
             return False
-    
- 
     
  
     

@@ -2310,3 +2310,832 @@
 2025-06-17 13:57:22,327 - INFO - ENAUSDT analysis: SELL signal with 0.42 strength
 2025-06-17 13:57:22,327 - INFO - SYRUPUSDT analysis: NEUTRAL signal with 0.00 strength
 2025-06-17 13:57:22,327 - INFO - Trading cycle completed in 82.47 seconds
+2025-06-17 14:00:43,919 - INFO - Top opportunities found: ['BTCUSDT']
+2025-06-17 14:00:44,871 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, QNTUSDT, WBTCUSDT, ETHUSDT... (10 total)
+2025-06-17 14:00:45,108 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 14:00:51,384 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-17 14:00:57,181 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.46, whale: 0.10, smart money: neutral
+2025-06-17 14:01:02,038 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.05, whale: 0.00, smart money: neutral
+2025-06-17 14:01:05,083 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.08, whale: 0.05, smart money: bullish
+2025-06-17 14:01:10,419 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:01:10,419 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:01:10,420 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.46, whale: 0.10, smart money: neutral
+2025-06-17 14:01:10,420 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.05, whale: 0.00, smart money: neutral
+2025-06-17 14:01:10,420 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.08, whale: 0.05, smart money: bullish
+2025-06-17 14:01:10,421 - INFO - QNTUSDT analysis: SELL signal with 0.45 strength
+2025-06-17 14:01:10,421 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:01:10,421 - INFO - ETHUSDT analysis: SELL signal with 0.47 strength
+2025-06-17 14:01:25,437 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/15 ($50.00, 5.0% of equity)
+2025-06-17 14:01:25,438 - INFO - Active positions: XRP:-0.8%
+2025-06-17 14:01:25,438 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-17 14:01:26,360 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, QNTUSDT, WBTCUSDT, ETHUSDT... (15 total)
+2025-06-17 14:01:26,670 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 14:01:31,120 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-17 14:01:36,443 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.46, whale: 0.10, smart money: neutral
+2025-06-17 14:01:40,871 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.05, whale: 0.00, smart money: neutral
+2025-06-17 14:01:47,573 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.08, whale: 0.05, smart money: bullish
+2025-06-17 14:01:51,993 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: -0.23, whale: 0.10, smart money: bearish
+2025-06-17 14:01:57,337 - INFO - CoinGecko insights for RENDER: bearish (0.68 confidence), sentiment: -0.42, whale: 0.10, smart money: bearish
+2025-06-17 14:02:02,667 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.22, whale: -0.10, smart money: neutral
+2025-06-17 14:02:08,027 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: -0.05, whale: 0.05, smart money: bullish
+2025-06-17 14:02:12,465 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: bullish
+2025-06-17 14:02:19,221 - INFO - CoinGecko insights for SYRUP: neutral (0.50 confidence), sentiment: 0.25, whale: 0.00, smart money: bullish
+2025-06-17 14:02:26,600 - INFO - CoinGecko insights for ARB: bearish (0.63 confidence), sentiment: -0.35, whale: 0.10, smart money: bearish
+2025-06-17 14:02:32,890 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: -0.12, whale: 0.10, smart money: neutral
+2025-06-17 14:02:37,821 - INFO - CoinGecko insights for TAO: bearish (0.65 confidence), sentiment: -0.42, whale: 0.10, smart money: neutral
+2025-06-17 14:02:42,262 - INFO - CoinGecko insights for KAITO: neutral (0.50 confidence), sentiment: -0.21, whale: 0.10, smart money: bearish
+2025-06-17 14:02:47,396 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0.0,
+    "avg_daily_return_pct": NaN,
+    "avg_weekly_return_pct": NaN
+  },
+  "trades": {
+    "total": 2,
+    "win_count": 1,
+    "loss_count": 1,
+    "win_rate_pct": 50.0,
+    "profit_factor": 0.27,
+    "avg_profit": 0.26,
+    "avg_loss": -0.93,
+    "expected_value": -0.34,
+    "recent_win_rate_pct": 50.0
+  },
+  "pairs": {
+    "best_pair": "MAGICUSDT",
+    "best_pair_profit": 0.26,
+    "worst_pair": "SYRUPUSDT",
+    "worst_pair_profit": -0.93
+  },
+  "timestamp": "2025-06-17 14:02:47"
+}
+2025-06-17 14:02:47,396 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:02:47,397 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:02:47,397 - INFO - QNTUSDT analysis: SELL signal with 0.45 strength
+2025-06-17 14:02:47,397 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:02:47,397 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:02:47,397 - INFO - NXPCUSDT analysis: SELL signal with 0.38 strength
+2025-06-17 14:02:47,397 - INFO - RENDERUSDT analysis: SELL signal with 0.41 strength
+2025-06-17 14:02:47,397 - INFO - VIRTUALUSDT analysis: SELL signal with 0.39 strength
+2025-06-17 14:02:47,398 - INFO - XRPUSDT analysis: SELL signal with 0.39 strength
+2025-06-17 14:02:48,096 - INFO - Holding XRPUSDT position with -0.88% profit
+2025-06-17 14:02:52,442 - INFO - BTCUSDT analysis: SELL signal with 0.44 strength
+2025-06-17 14:02:52,442 - INFO - SYRUPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:02:52,442 - INFO - ARBUSDT analysis: SELL signal with 0.42 strength
+2025-06-17 14:02:52,443 - INFO - CoinGecko insights for KAITO: neutral (0.50 confidence), sentiment: -0.21, whale: 0.10, smart money: bearish
+2025-06-17 14:02:52,443 - INFO - LTCUSDT analysis: SELL signal with 0.44 strength
+2025-06-17 14:02:52,443 - INFO - TAOUSDT analysis: SELL signal with 0.42 strength
+2025-06-17 14:02:52,443 - INFO - KAITOUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:02:52,444 - INFO - Trading cycle completed in 87.01 seconds
+2025-06-17 14:06:19,352 - INFO - Top opportunities found: ['SOLUSDT', 'BTCUSDT']
+2025-06-17 14:06:20,769 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, QNTUSDT, WBTCUSDT, ETHUSDT... (10 total)
+2025-06-17 14:06:31,176 - INFO - Updating correlation matrix...
+2025-06-17 14:07:06,884 - INFO - Correlation matrix updated for 41 pairs
+2025-06-17 14:07:16,616 - INFO - Market state: Regime=BEAR_TRENDING, Trend=bearish, Volatility=low, Breadth=0.00
+2025-06-17 14:07:16,617 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 14:07:22,863 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-17 14:07:28,246 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.47, whale: 0.10, smart money: neutral
+2025-06-17 14:07:32,679 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.05, whale: 0.00, smart money: neutral
+2025-06-17 14:07:37,967 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.07, whale: 0.05, smart money: bullish
+2025-06-17 14:07:44,012 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:07:44,012 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:07:44,012 - INFO - QNTUSDT analysis: SELL signal with 0.45 strength
+2025-06-17 14:07:44,013 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.05, whale: 0.00, smart money: neutral
+2025-06-17 14:07:44,013 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.07, whale: 0.05, smart money: bullish
+2025-06-17 14:07:44,013 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:07:44,013 - INFO - ETHUSDT analysis: SELL signal with 0.37 strength
+2025-06-17 14:08:00,405 - INFO - Selected optimal assets: FORMUSDT, BNBUSDT, PAXGUSDT, QNTUSDT, WBTCUSDT... (10 total)
+2025-06-17 14:08:00,861 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 14:08:05,350 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.07, whale: 0.00, smart money: bullish
+2025-06-17 14:08:10,254 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 14:08:10,254 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.07, whale: 0.00, smart money: bullish
+2025-06-17 14:08:10,254 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.05, whale: 0.00, smart money: neutral
+2025-06-17 14:08:15,596 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.47, whale: 0.10, smart money: neutral
+2025-06-17 14:08:21,415 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:08:26,365 - INFO - FORMUSDT analysis: SELL signal with 0.40 strength
+2025-06-17 14:08:26,365 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:08:26,607 - INFO - WBTCUSDT analysis: SELL signal with 0.38 strength
+2025-06-17 14:08:26,607 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.47, whale: 0.10, smart money: neutral
+2025-06-17 14:08:26,607 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:08:26,608 - INFO - QNTUSDT analysis: SELL signal with 0.45 strength
+2025-06-17 14:08:26,608 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:08:41,612 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/15 ($50.00, 5.0% of equity)
+2025-06-17 14:08:41,612 - INFO - Active positions: XRP:-0.4%
+2025-06-17 14:08:41,613 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-17 14:08:42,583 - INFO - Selected optimal assets: FORMUSDT, BNBUSDT, PAXGUSDT, QNTUSDT, WBTCUSDT... (15 total)
+2025-06-17 14:08:43,038 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 14:08:48,444 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.07, whale: 0.00, smart money: bullish
+2025-06-17 14:08:53,788 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:08:58,675 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.47, whale: 0.10, smart money: neutral
+2025-06-17 14:09:03,556 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.05, whale: 0.00, smart money: neutral
+2025-06-17 14:09:07,513 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.10, whale: 0.05, smart money: bullish
+2025-06-17 14:09:17,404 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: -0.24, whale: 0.10, smart money: bearish
+2025-06-17 14:09:22,743 - INFO - CoinGecko insights for RENDER: bearish (0.68 confidence), sentiment: -0.42, whale: 0.10, smart money: bearish
+2025-06-17 14:09:28,102 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.25, whale: -0.10, smart money: neutral
+2025-06-17 14:09:32,548 - INFO - CoinGecko insights for ARB: bearish (0.63 confidence), sentiment: -0.37, whale: 0.10, smart money: bearish
+2025-06-17 14:09:37,423 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: -0.08, whale: 0.05, smart money: bullish
+2025-06-17 14:09:41,845 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: -0.14, whale: 0.10, smart money: neutral
+2025-06-17 14:09:47,170 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-17 14:09:52,933 - INFO - CoinGecko insights for TAO: bearish (0.65 confidence), sentiment: -0.42, whale: 0.10, smart money: neutral
+2025-06-17 14:09:58,254 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: bullish
+2025-06-17 14:10:02,207 - INFO - FORMUSDT analysis: SELL signal with 0.39 strength
+2025-06-17 14:10:02,207 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:10:02,208 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:10:02,441 - INFO - QNTUSDT analysis: SELL signal with 0.56 strength
+2025-06-17 14:10:02,441 - INFO - WBTCUSDT analysis: SELL signal with 0.36 strength
+2025-06-17 14:10:02,442 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:10:02,442 - INFO - NXPCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:10:02,443 - INFO - RENDERUSDT analysis: SELL signal with 0.39 strength
+2025-06-17 14:10:02,443 - INFO - VIRTUALUSDT analysis: SELL signal with 0.36 strength
+2025-06-17 14:10:02,443 - INFO - ARBUSDT analysis: SELL signal with 0.39 strength
+2025-06-17 14:10:02,443 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:10:02,444 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:10:02,444 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-17 14:10:02,444 - INFO - CoinGecko insights for TAO: bearish (0.65 confidence), sentiment: -0.42, whale: 0.10, smart money: neutral
+2025-06-17 14:10:02,444 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: bullish
+2025-06-17 14:10:02,444 - INFO - INITUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:10:02,445 - INFO - TAOUSDT analysis: SELL signal with 0.40 strength
+2025-06-17 14:10:02,445 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:10:02,445 - INFO - Trading cycle completed in 80.83 seconds
+2025-06-17 14:13:25,868 - INFO - Top opportunities found: ['BTCUSDT', 'SOLUSDT']
+2025-06-17 14:13:27,286 - INFO - Selected optimal assets: FORMUSDT, DOTUSDT, PAXGUSDT, QNTUSDT, WBTCUSDT... (10 total)
+2025-06-17 14:13:27,287 - INFO - High priority opportunities: BTCUSDT
+2025-06-17 14:13:28,227 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: bullish
+2025-06-17 14:13:34,007 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 14:13:42,322 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: bullish
+2025-06-17 14:13:42,322 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 14:13:42,323 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.04, whale: 0.00, smart money: neutral
+2025-06-17 14:13:47,179 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.47, whale: 0.10, smart money: neutral
+2025-06-17 14:13:51,571 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:13:57,856 - INFO - CoinGecko insights for DOT: bearish (0.60 confidence), sentiment: -0.17, whale: 0.10, smart money: neutral
+2025-06-17 14:14:02,749 - INFO - BTCUSDT analysis: SELL signal with 0.36 strength
+2025-06-17 14:14:02,749 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:14:03,432 - INFO - WBTCUSDT analysis: SELL signal with 0.35 strength
+2025-06-17 14:14:03,432 - INFO - QNTUSDT analysis: SELL signal with 0.42 strength
+2025-06-17 14:14:03,433 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:14:03,433 - INFO - CoinGecko insights for DOT: bearish (0.60 confidence), sentiment: -0.17, whale: 0.10, smart money: neutral
+2025-06-17 14:14:03,433 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:14:03,433 - INFO - DOTUSDT analysis: SELL signal with 0.31 strength
+2025-06-17 14:14:19,400 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, QNTUSDT, WBTCUSDT, ETHUSDT... (10 total)
+2025-06-17 14:14:19,401 - INFO - High priority opportunities: BTCUSDT
+2025-06-17 14:14:19,670 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.00, smart money: bullish
+2025-06-17 14:14:24,631 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 14:14:29,554 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:14:34,492 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.47, whale: 0.10, smart money: neutral
+2025-06-17 14:14:39,395 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.04, whale: 0.00, smart money: neutral
+2025-06-17 14:14:45,397 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.10, whale: 0.05, smart money: bullish
+2025-06-17 14:14:51,684 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:14:51,684 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:14:51,685 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:14:51,685 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.04, whale: 0.00, smart money: neutral
+2025-06-17 14:14:51,685 - INFO - QNTUSDT analysis: SELL signal with 0.42 strength
+2025-06-17 14:14:51,685 - INFO - WBTCUSDT analysis: SELL signal with 0.36 strength
+2025-06-17 14:14:51,685 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.10, whale: 0.05, smart money: bullish
+2025-06-17 14:14:51,686 - INFO - ETHUSDT analysis: SELL signal with 0.36 strength
+2025-06-17 14:15:06,697 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/15 ($50.00, 5.0% of equity)
+2025-06-17 14:15:06,698 - INFO - Active positions: XRP:-0.2%
+2025-06-17 14:15:06,698 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-17 14:15:08,102 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, QNTUSDT, WBTCUSDT, ETHUSDT... (15 total)
+2025-06-17 14:15:08,345 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 14:15:13,271 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:15:18,131 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.47, whale: 0.10, smart money: neutral
+2025-06-17 14:15:23,013 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.04, whale: 0.00, smart money: neutral
+2025-06-17 14:15:28,811 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.10, whale: 0.05, smart money: bullish
+2025-06-17 14:15:32,765 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: -0.23, whale: 0.10, smart money: bearish
+2025-06-17 14:15:38,106 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.00, smart money: bullish
+2025-06-17 14:15:47,757 - INFO - CoinGecko insights for RENDER: bearish (0.68 confidence), sentiment: -0.41, whale: 0.10, smart money: bearish
+2025-06-17 14:15:53,563 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.24, whale: -0.10, smart money: neutral
+2025-06-17 14:15:59,314 - INFO - CoinGecko insights for ARB: bearish (0.63 confidence), sentiment: -0.37, whale: 0.10, smart money: bearish
+2025-06-17 14:16:03,737 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: -0.07, whale: 0.05, smart money: bullish
+2025-06-17 14:16:09,116 - INFO - CoinGecko insights for HUMA: neutral (0.50 confidence), sentiment: -0.27, whale: -0.10, smart money: neutral
+2025-06-17 14:16:14,898 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: -0.13, whale: 0.10, smart money: neutral
+2025-06-17 14:16:19,798 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-17 14:16:24,228 - INFO - CoinGecko insights for TAO: bearish (0.65 confidence), sentiment: -0.41, whale: 0.10, smart money: neutral
+2025-06-17 14:16:30,048 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:16:30,049 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:16:30,049 - INFO - QNTUSDT analysis: SELL signal with 0.42 strength
+2025-06-17 14:16:30,049 - INFO - WBTCUSDT analysis: SELL signal with 0.35 strength
+2025-06-17 14:16:30,049 - INFO - ETHUSDT analysis: SELL signal with 0.36 strength
+2025-06-17 14:16:30,283 - INFO - NXPCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:16:30,283 - INFO - BTCUSDT analysis: SELL signal with 0.35 strength
+2025-06-17 14:16:30,283 - INFO - RENDERUSDT analysis: SELL signal with 0.35 strength
+2025-06-17 14:16:30,284 - INFO - VIRTUALUSDT analysis: SELL signal with 0.32 strength
+2025-06-17 14:16:30,284 - INFO - ARBUSDT analysis: SELL signal with 0.38 strength
+2025-06-17 14:16:30,284 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:16:30,284 - INFO - HUMAUSDT analysis: SELL signal with 0.30 strength
+2025-06-17 14:16:30,285 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:16:30,285 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-17 14:16:30,285 - INFO - CoinGecko insights for TAO: bearish (0.65 confidence), sentiment: -0.41, whale: 0.10, smart money: neutral
+2025-06-17 14:16:30,285 - INFO - INITUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:16:30,286 - INFO - TAOUSDT analysis: SELL signal with 0.36 strength
+2025-06-17 14:16:30,286 - INFO - Trading cycle completed in 83.59 seconds
+2025-06-17 14:19:57,766 - INFO - Top opportunities found: ['BTCUSDT', 'SOLUSDT', 'XRPUSDT', 'MAGICUSDT', 'RVNUSDT']
+2025-06-17 14:19:58,715 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, QNTUSDT, WBTCUSDT, ETHUSDT... (10 total)
+2025-06-17 14:19:58,716 - INFO - High priority opportunities: BTCUSDT
+2025-06-17 14:19:59,665 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.00, smart money: bullish
+2025-06-17 14:20:07,014 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.00, smart money: bullish
+2025-06-17 14:20:07,014 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.47, whale: 0.10, smart money: neutral
+2025-06-17 14:20:13,305 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:20:18,223 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.03, whale: 0.00, smart money: neutral
+2025-06-17 14:20:23,550 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.10, whale: 0.05, smart money: bullish
+2025-06-17 14:20:29,812 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 14:20:34,725 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:20:35,421 - INFO - QNTUSDT analysis: SELL signal with 0.42 strength
+2025-06-17 14:20:35,421 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:20:35,422 - INFO - WBTCUSDT analysis: SELL signal with 0.36 strength
+2025-06-17 14:20:35,422 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.10, whale: 0.05, smart money: bullish
+2025-06-17 14:20:35,422 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 14:20:35,422 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:20:35,423 - INFO - FORMUSDT analysis: SELL signal with 0.30 strength
+2025-06-17 14:20:51,794 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, QNTUSDT, WBTCUSDT, ETHUSDT... (10 total)
+2025-06-17 14:20:51,795 - INFO - High priority opportunities: BTCUSDT
+2025-06-17 14:20:51,797 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.00, smart money: bullish
+2025-06-17 14:20:56,258 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 14:21:01,378 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:21:05,805 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.47, whale: 0.10, smart money: neutral
+2025-06-17 14:21:10,252 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.03, whale: 0.00, smart money: neutral
+2025-06-17 14:21:14,718 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.10, whale: 0.05, smart money: bullish
+2025-06-17 14:21:22,237 - INFO - BTCUSDT analysis: SELL signal with 0.42 strength
+2025-06-17 14:21:22,237 - INFO - FORMUSDT analysis: SELL signal with 0.30 strength
+2025-06-17 14:21:22,237 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:21:22,238 - INFO - QNTUSDT analysis: SELL signal with 0.45 strength
+2025-06-17 14:21:22,238 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.03, whale: 0.00, smart money: neutral
+2025-06-17 14:21:22,238 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.10, whale: 0.05, smart money: bullish
+2025-06-17 14:21:22,238 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:21:22,239 - INFO - ETHUSDT analysis: SELL signal with 0.43 strength
+2025-06-17 14:21:38,185 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, QNTUSDT, WBTCUSDT, ETHUSDT... (10 total)
+2025-06-17 14:21:38,186 - INFO - High priority opportunities: BTCUSDT
+2025-06-17 14:21:38,187 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.00, smart money: bullish
+2025-06-17 14:21:44,011 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 14:21:48,930 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:21:52,922 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.47, whale: 0.10, smart money: neutral
+2025-06-17 14:21:56,928 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.03, whale: 0.00, smart money: neutral
+2025-06-17 14:22:01,386 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.10, whale: 0.05, smart money: bullish
+2025-06-17 14:22:07,433 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:22:07,433 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:22:07,433 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:22:07,434 - INFO - QNTUSDT analysis: SELL signal with 0.45 strength
+2025-06-17 14:22:07,434 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.03, whale: 0.00, smart money: neutral
+2025-06-17 14:22:07,434 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.10, whale: 0.05, smart money: bullish
+2025-06-17 14:22:07,434 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:22:07,435 - INFO - ETHUSDT analysis: SELL signal with 0.30 strength
+2025-06-17 14:22:33,417 - ERROR - Error selecting optimal assets: HTTPSConnectionPool(host='testnet.binance.vision', port=443): Read timed out.
+2025-06-17 14:22:33,417 - INFO - High priority opportunities: BTCUSDT
+2025-06-17 14:22:33,842 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.00, smart money: bullish
+2025-06-17 14:22:39,675 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.10, whale: 0.05, smart money: bullish
+2025-06-17 14:22:45,004 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: -0.06, whale: 0.05, smart money: neutral
+2025-06-17 14:22:51,425 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.07, whale: 0.00, smart money: bullish
+2025-06-17 14:22:56,165 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: -0.06, whale: 0.05, smart money: bullish
+2025-06-17 14:23:01,060 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:23:01,061 - INFO - ETHUSDT analysis: SELL signal with 0.30 strength
+2025-06-17 14:23:01,061 - INFO - SOLUSDT analysis: SELL signal with 0.34 strength
+2025-06-17 14:23:01,062 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.07, whale: 0.00, smart money: bullish
+2025-06-17 14:23:01,062 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: -0.06, whale: 0.05, smart money: bullish
+2025-06-17 14:23:01,063 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:23:01,063 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:23:17,479 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, QNTUSDT, WBTCUSDT, ETHUSDT... (10 total)
+2025-06-17 14:23:17,481 - INFO - High priority opportunities: BTCUSDT
+2025-06-17 14:23:17,482 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.00, smart money: bullish
+2025-06-17 14:23:22,401 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 14:23:25,468 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:23:30,813 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.47, whale: 0.10, smart money: neutral
+2025-06-17 14:23:36,567 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.03, whale: 0.00, smart money: neutral
+2025-06-17 14:23:42,368 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.10, whale: 0.05, smart money: bullish
+2025-06-17 14:23:47,975 - INFO - BTCUSDT analysis: SELL signal with 0.42 strength
+2025-06-17 14:23:47,975 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:23:47,975 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:23:47,976 - INFO - QNTUSDT analysis: SELL signal with 0.45 strength
+2025-06-17 14:23:47,976 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.03, whale: 0.00, smart money: neutral
+2025-06-17 14:23:47,976 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.10, whale: 0.05, smart money: bullish
+2025-06-17 14:23:47,976 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:23:47,976 - INFO - ETHUSDT analysis: SELL signal with 0.48 strength
+2025-06-17 14:24:02,993 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/15 ($50.00, 5.0% of equity)
+2025-06-17 14:24:02,993 - INFO - Active positions: XRP:-0.3%
+2025-06-17 14:24:02,994 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-17 14:24:04,400 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, QNTUSDT, WBTCUSDT, ETHUSDT... (15 total)
+2025-06-17 14:24:04,835 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 14:24:08,850 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:24:14,230 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.47, whale: 0.10, smart money: neutral
+2025-06-17 14:24:20,027 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.03, whale: 0.00, smart money: neutral
+2025-06-17 14:24:24,968 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.10, whale: 0.05, smart money: bullish
+2025-06-17 14:24:30,339 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: -0.22, whale: 0.10, smart money: bearish
+2025-06-17 14:24:34,797 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: -0.06, whale: 0.05, smart money: bullish
+2025-06-17 14:24:40,141 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.00, smart money: bullish
+2025-06-17 14:24:49,985 - INFO - CoinGecko insights for RENDER: bearish (0.68 confidence), sentiment: -0.41, whale: 0.10, smart money: bearish
+2025-06-17 14:24:54,843 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.25, whale: -0.10, smart money: neutral
+2025-06-17 14:24:59,723 - INFO - CoinGecko insights for ARB: bearish (0.63 confidence), sentiment: -0.38, whale: 0.10, smart money: bearish
+2025-06-17 14:25:03,732 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: -0.14, whale: 0.10, smart money: neutral
+2025-06-17 14:25:09,968 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-17 14:25:16,267 - INFO - CoinGecko insights for TAO: bearish (0.65 confidence), sentiment: -0.42, whale: 0.10, smart money: neutral
+2025-06-17 14:25:21,618 - INFO - CoinGecko insights for SYRUP: neutral (0.50 confidence), sentiment: 0.20, whale: 0.00, smart money: bullish
+2025-06-17 14:25:27,405 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:25:27,406 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:25:27,406 - INFO - QNTUSDT analysis: SELL signal with 0.45 strength
+2025-06-17 14:25:27,406 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:25:27,407 - INFO - ETHUSDT analysis: SELL signal with 0.46 strength
+2025-06-17 14:25:27,407 - INFO - NXPCUSDT analysis: SELL signal with 0.30 strength
+2025-06-17 14:25:27,646 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:25:27,646 - INFO - BTCUSDT analysis: SELL signal with 0.36 strength
+2025-06-17 14:25:27,647 - INFO - RENDERUSDT analysis: SELL signal with 0.38 strength
+2025-06-17 14:25:27,647 - INFO - VIRTUALUSDT analysis: SELL signal with 0.49 strength
+2025-06-17 14:25:27,647 - INFO - ARBUSDT analysis: SELL signal with 0.55 strength
+2025-06-17 14:25:27,647 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:25:27,648 - INFO - INITUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:25:27,648 - INFO - CoinGecko insights for TAO: bearish (0.65 confidence), sentiment: -0.42, whale: 0.10, smart money: neutral
+2025-06-17 14:25:27,649 - INFO - CoinGecko insights for SYRUP: neutral (0.50 confidence), sentiment: 0.20, whale: 0.00, smart money: bullish
+2025-06-17 14:25:27,649 - INFO - TAOUSDT analysis: SELL signal with 0.51 strength
+2025-06-17 14:25:27,649 - INFO - SYRUPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:25:27,649 - INFO - Trading cycle completed in 84.66 seconds
+2025-06-17 14:28:58,453 - INFO - Top opportunities found: ['SOLUSDT', 'BTCUSDT']
+2025-06-17 14:28:59,869 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, QNTUSDT, WBTCUSDT, ETHUSDT... (10 total)
+2025-06-17 14:29:00,376 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.48, whale: 0.10, smart money: neutral
+2025-06-17 14:29:07,595 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.48, whale: 0.10, smart money: neutral
+2025-06-17 14:29:07,596 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.03, whale: 0.00, smart money: neutral
+2025-06-17 14:29:13,436 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.10, whale: 0.05, smart money: bullish
+2025-06-17 14:29:18,360 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.48, whale: 0.10, smart money: neutral
+2025-06-17 14:29:24,180 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:29:29,515 - INFO - FORMUSDT analysis: SELL signal with 0.43 strength
+2025-06-17 14:29:29,515 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:29:29,516 - INFO - ETHUSDT analysis: SELL signal with 0.48 strength
+2025-06-17 14:29:29,516 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.48, whale: 0.10, smart money: neutral
+2025-06-17 14:29:29,516 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:29:29,516 - INFO - QNTUSDT analysis: SELL signal with 0.45 strength
+2025-06-17 14:29:29,517 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:29:44,520 - INFO - Fetching top 30 trending cryptocurrency pairs
+2025-06-17 14:29:45,932 - INFO - Found trending pairs: PIXELUSDT, ALTUSDT, QNTUSDT, SUPERUSDT, LPTUSDT...
+2025-06-17 14:29:46,196 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, LPTUSDT, QNTUSDT, WBTCUSDT... (10 total)
+2025-06-17 14:29:46,601 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.48, whale: 0.10, smart money: neutral
+2025-06-17 14:29:51,058 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:29:55,290 - INFO - CoinGecko insights for LPT: bearish (0.65 confidence), sentiment: -0.44, whale: 0.10, smart money: neutral
+2025-06-17 14:29:59,729 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.48, whale: 0.10, smart money: neutral
+2025-06-17 14:30:05,544 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.03, whale: 0.00, smart money: neutral
+2025-06-17 14:30:09,770 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:30:09,770 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:30:09,770 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.48, whale: 0.10, smart money: neutral
+2025-06-17 14:30:09,770 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.03, whale: 0.00, smart money: neutral
+2025-06-17 14:30:09,771 - INFO - LPTUSDT analysis: SELL signal with 0.45 strength
+2025-06-17 14:30:09,772 - INFO - QNTUSDT analysis: SELL signal with 0.45 strength
+2025-06-17 14:30:09,772 - INFO - WBTCUSDT analysis: SELL signal with 0.37 strength
+2025-06-17 14:30:24,780 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/15 ($50.00, 5.0% of equity)
+2025-06-17 14:30:24,780 - INFO - Active positions: XRP:-0.3%
+2025-06-17 14:30:24,781 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-17 14:30:26,180 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, LPTUSDT, QNTUSDT, WBTCUSDT... (15 total)
+2025-06-17 14:30:26,609 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.48, whale: 0.10, smart money: neutral
+2025-06-17 14:30:31,973 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:30:36,867 - INFO - CoinGecko insights for LPT: bearish (0.65 confidence), sentiment: -0.44, whale: 0.10, smart money: neutral
+2025-06-17 14:30:42,223 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.48, whale: 0.10, smart money: neutral
+2025-06-17 14:30:47,105 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.03, whale: 0.00, smart money: neutral
+2025-06-17 14:30:51,534 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.10, whale: 0.05, smart money: bullish
+2025-06-17 14:30:56,430 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: -0.24, whale: 0.10, smart money: bearish
+2025-06-17 14:31:06,554 - INFO - CoinGecko insights for RENDER: bearish (0.68 confidence), sentiment: -0.41, whale: 0.10, smart money: bearish
+2025-06-17 14:31:11,925 - INFO - CoinGecko insights for ARB: bearish (0.63 confidence), sentiment: -0.37, whale: 0.10, smart money: bearish
+2025-06-17 14:31:16,360 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: -0.06, whale: 0.05, smart money: bullish
+2025-06-17 14:31:20,784 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: -0.14, whale: 0.10, smart money: neutral
+2025-06-17 14:31:24,813 - INFO - CoinGecko insights for TAO: bearish (0.65 confidence), sentiment: -0.41, whale: 0.10, smart money: neutral
+2025-06-17 14:31:30,149 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.00, smart money: bullish
+2025-06-17 14:31:35,022 - INFO - CoinGecko insights for SYRUP: neutral (0.50 confidence), sentiment: 0.20, whale: 0.00, smart money: bullish
+2025-06-17 14:31:40,393 - INFO - CoinGecko insights for KAITO: neutral (0.50 confidence), sentiment: -0.20, whale: 0.10, smart money: bearish
+2025-06-17 14:31:45,297 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:31:45,298 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:31:45,298 - INFO - LPTUSDT analysis: SELL signal with 0.46 strength
+2025-06-17 14:31:45,298 - INFO - QNTUSDT analysis: SELL signal with 0.44 strength
+2025-06-17 14:31:45,298 - INFO - WBTCUSDT analysis: SELL signal with 0.43 strength
+2025-06-17 14:31:45,536 - INFO - ETHUSDT analysis: SELL signal with 0.43 strength
+2025-06-17 14:31:45,536 - INFO - NXPCUSDT analysis: SELL signal with 0.32 strength
+2025-06-17 14:31:45,536 - INFO - RENDERUSDT analysis: SELL signal with 0.38 strength
+2025-06-17 14:31:45,536 - INFO - ARBUSDT analysis: SELL signal with 0.41 strength
+2025-06-17 14:31:45,537 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:31:45,537 - INFO - LTCUSDT analysis: SELL signal with 0.46 strength
+2025-06-17 14:31:45,537 - INFO - TAOUSDT analysis: SELL signal with 0.54 strength
+2025-06-17 14:31:45,538 - INFO - BTCUSDT analysis: SELL signal with 0.43 strength
+2025-06-17 14:31:45,538 - INFO - CoinGecko insights for SYRUP: neutral (0.50 confidence), sentiment: 0.20, whale: 0.00, smart money: bullish
+2025-06-17 14:31:45,538 - INFO - CoinGecko insights for KAITO: neutral (0.50 confidence), sentiment: -0.20, whale: 0.10, smart money: bearish
+2025-06-17 14:31:45,538 - INFO - SYRUPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:31:45,538 - INFO - KAITOUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:31:45,539 - INFO - Trading cycle completed in 80.76 seconds
+2025-06-17 14:35:20,941 - INFO - Top opportunities found: ['BTCUSDT']
+2025-06-17 14:35:21,889 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, LPTUSDT, QNTUSDT, WBTCUSDT... (10 total)
+2025-06-17 14:35:23,042 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 14:35:29,542 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 14:35:29,542 - INFO - CoinGecko insights for LPT: bearish (0.65 confidence), sentiment: -0.43, whale: 0.10, smart money: neutral
+2025-06-17 14:35:34,904 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.04, whale: 0.00, smart money: neutral
+2025-06-17 14:35:40,259 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.48, whale: 0.10, smart money: neutral
+2025-06-17 14:35:45,147 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:35:51,404 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:35:51,405 - INFO - LPTUSDT analysis: SELL signal with 0.46 strength
+2025-06-17 14:35:51,405 - INFO - WBTCUSDT analysis: SELL signal with 0.38 strength
+2025-06-17 14:35:51,406 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.48, whale: 0.10, smart money: neutral
+2025-06-17 14:35:51,406 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:35:51,406 - INFO - QNTUSDT analysis: SELL signal with 0.57 strength
+2025-06-17 14:35:51,407 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:36:06,410 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/15 ($50.00, 5.0% of equity)
+2025-06-17 14:36:06,410 - INFO - Active positions: XRP:-0.3%
+2025-06-17 14:36:06,412 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-17 14:36:16,415 - ERROR - Error selecting optimal assets: HTTPSConnectionPool(host='testnet.binance.vision', port=443): Read timed out. (read timeout=10)
+2025-06-17 14:36:16,563 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.00, smart money: bullish
+2025-06-17 14:36:24,370 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.00, smart money: bullish
+2025-06-17 14:36:24,370 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: -0.07, whale: 0.05, smart money: neutral
+2025-06-17 14:36:29,482 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: -0.06, whale: 0.05, smart money: bullish
+2025-06-17 14:36:34,589 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.07, whale: 0.00, smart money: bullish
+2025-06-17 14:36:40,902 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.11, whale: 0.05, smart money: bullish
+2025-06-17 14:36:48,575 - INFO - BTCUSDT analysis: SELL signal with 0.36 strength
+2025-06-17 14:36:48,576 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:36:48,576 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:36:48,577 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.07, whale: 0.00, smart money: bullish
+2025-06-17 14:36:48,577 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.11, whale: 0.05, smart money: bullish
+2025-06-17 14:36:48,577 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:36:48,577 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:36:48,578 - INFO - Trading cycle completed in 42.17 seconds
+2025-06-17 14:37:25,905 - INFO - Updating correlation matrix...
+2025-06-17 14:38:05,514 - INFO - Correlation matrix updated for 41 pairs
+2025-06-17 14:38:16,269 - INFO - Market state: Regime=BEAR_TRENDING, Trend=bearish, Volatility=low, Breadth=0.00
+2025-06-17 14:41:10,661 - INFO - Top opportunities found: ['BTCUSDT', 'RVNUSDT']
+2025-06-17 14:41:12,064 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, LPTUSDT, QNTUSDT, WBTCUSDT... (10 total)
+2025-06-17 14:41:12,531 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.50, whale: 0.10, smart money: neutral
+2025-06-17 14:41:19,417 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.50, whale: 0.10, smart money: neutral
+2025-06-17 14:41:19,418 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.48, whale: 0.10, smart money: neutral
+2025-06-17 14:41:24,333 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.04, whale: 0.00, smart money: neutral
+2025-06-17 14:41:30,595 - INFO - CoinGecko insights for LPT: bearish (0.65 confidence), sentiment: -0.43, whale: 0.10, smart money: neutral
+2025-06-17 14:41:35,934 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:41:42,213 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:41:42,214 - INFO - QNTUSDT analysis: SELL signal with 0.42 strength
+2025-06-17 14:41:42,214 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:41:42,214 - INFO - CoinGecko insights for LPT: bearish (0.65 confidence), sentiment: -0.43, whale: 0.10, smart money: neutral
+2025-06-17 14:41:42,214 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:41:42,215 - INFO - LPTUSDT analysis: SELL signal with 0.43 strength
+2025-06-17 14:41:42,215 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:41:42,554 - INFO - Break even exit for XRPUSDT at 0.01%
+2025-06-17 14:41:42,555 - INFO - SELL ORDER: XRPUSDT - 22.0 at approx. $2.2115, P/L: $0.00 (0.01%)
+2025-06-17 14:41:42,568 - INFO - TEST MODE: Simulated sell for XRPUSDT executed successfully
+2025-06-17 14:41:42,569 - INFO - Session stats: 3 trades, 66.7% win rate, $-0.67 profit
+2025-06-17 14:41:58,160 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, LPTUSDT, QNTUSDT, WBTCUSDT... (10 total)
+2025-06-17 14:41:58,162 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.50, whale: 0.10, smart money: neutral
+2025-06-17 14:42:04,010 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:42:08,206 - INFO - CoinGecko insights for LPT: bearish (0.65 confidence), sentiment: -0.43, whale: 0.10, smart money: neutral
+2025-06-17 14:42:13,998 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.48, whale: 0.10, smart money: neutral
+2025-06-17 14:42:19,826 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.04, whale: 0.00, smart money: neutral
+2025-06-17 14:42:26,088 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:42:26,089 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:42:26,089 - INFO - LPTUSDT analysis: SELL signal with 0.43 strength
+2025-06-17 14:42:26,089 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.48, whale: 0.10, smart money: neutral
+2025-06-17 14:42:26,089 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.04, whale: 0.00, smart money: neutral
+2025-06-17 14:42:26,089 - INFO - QNTUSDT analysis: SELL signal with 0.43 strength
+2025-06-17 14:42:26,090 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:42:41,097 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/15 ($0.00, 0.0% of equity)
+2025-06-17 14:42:41,098 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-17 14:42:42,480 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, LPTUSDT, QNTUSDT, WBTCUSDT... (15 total)
+2025-06-17 14:42:42,733 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.50, whale: 0.10, smart money: neutral
+2025-06-17 14:42:47,192 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:42:51,182 - INFO - CoinGecko insights for LPT: bearish (0.65 confidence), sentiment: -0.43, whale: 0.10, smart money: neutral
+2025-06-17 14:42:57,902 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.48, whale: 0.10, smart money: neutral
+2025-06-17 14:43:02,813 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.04, whale: 0.00, smart money: neutral
+2025-06-17 14:43:08,182 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.10, whale: 0.05, smart money: bullish
+2025-06-17 14:43:15,847 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: -0.21, whale: 0.10, smart money: bearish
+2025-06-17 14:43:22,568 - INFO - CoinGecko insights for RENDER: bearish (0.68 confidence), sentiment: -0.40, whale: 0.10, smart money: bearish
+2025-06-17 14:43:26,104 - INFO - CoinGecko insights for ARB: bearish (0.63 confidence), sentiment: -0.38, whale: 0.10, smart money: bearish
+2025-06-17 14:43:31,874 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: -0.04, whale: 0.05, smart money: bullish
+2025-06-17 14:43:36,766 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: -0.14, whale: 0.10, smart money: neutral
+2025-06-17 14:43:41,228 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-17 14:43:46,567 - INFO - CoinGecko insights for TAO: bearish (0.65 confidence), sentiment: -0.42, whale: 0.10, smart money: neutral
+2025-06-17 14:43:52,412 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.00, smart money: bullish
+2025-06-17 14:43:58,224 - INFO - CoinGecko insights for SYRUP: neutral (0.50 confidence), sentiment: 0.22, whale: 0.00, smart money: bullish
+2025-06-17 14:44:04,475 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:44:04,476 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:44:04,476 - INFO - LPTUSDT analysis: SELL signal with 0.43 strength
+2025-06-17 14:44:04,477 - INFO - QNTUSDT analysis: SELL signal with 0.42 strength
+2025-06-17 14:44:04,477 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:44:04,477 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:44:04,477 - INFO - NXPCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:44:04,477 - INFO - RENDERUSDT analysis: SELL signal with 0.35 strength
+2025-06-17 14:44:04,478 - INFO - ARBUSDT analysis: SELL signal with 0.40 strength
+2025-06-17 14:44:04,478 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:44:04,478 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:44:04,478 - INFO - INITUSDT analysis: SELL signal with 0.31 strength
+2025-06-17 14:44:04,479 - INFO - TAOUSDT analysis: SELL signal with 0.40 strength
+2025-06-17 14:44:04,479 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.00, smart money: bullish
+2025-06-17 14:44:04,479 - INFO - CoinGecko insights for SYRUP: neutral (0.50 confidence), sentiment: 0.22, whale: 0.00, smart money: bullish
+2025-06-17 14:44:04,479 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:44:04,480 - INFO - SYRUPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:44:04,480 - INFO - Trading cycle completed in 83.38 seconds
+2025-06-17 14:47:38,528 - INFO - Top opportunities found: ['SOLUSDT', 'BTCUSDT']
+2025-06-17 14:47:39,465 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, LPTUSDT, QNTUSDT, WBTCUSDT... (10 total)
+2025-06-17 14:47:39,698 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.50, whale: 0.10, smart money: neutral
+2025-06-17 14:47:46,361 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.50, whale: 0.10, smart money: neutral
+2025-06-17 14:47:46,361 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.47, whale: 0.10, smart money: neutral
+2025-06-17 14:47:52,634 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.04, whale: 0.00, smart money: neutral
+2025-06-17 14:47:57,494 - INFO - CoinGecko insights for LPT: bearish (0.65 confidence), sentiment: -0.42, whale: 0.10, smart money: neutral
+2025-06-17 14:48:01,482 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:48:07,326 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:48:07,327 - INFO - QNTUSDT analysis: SELL signal with 0.41 strength
+2025-06-17 14:48:07,327 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.04, whale: 0.00, smart money: neutral
+2025-06-17 14:48:07,327 - INFO - CoinGecko insights for LPT: bearish (0.65 confidence), sentiment: -0.42, whale: 0.10, smart money: neutral
+2025-06-17 14:48:07,327 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:48:07,328 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:48:07,328 - INFO - LPTUSDT analysis: SELL signal with 0.44 strength
+2025-06-17 14:48:07,328 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:48:23,297 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, LPTUSDT, QNTUSDT, WBTCUSDT... (10 total)
+2025-06-17 14:48:23,298 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.50, whale: 0.10, smart money: neutral
+2025-06-17 14:48:28,208 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:48:32,633 - INFO - CoinGecko insights for LPT: bearish (0.65 confidence), sentiment: -0.42, whale: 0.10, smart money: neutral
+2025-06-17 14:48:37,065 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.47, whale: 0.10, smart money: neutral
+2025-06-17 14:48:41,929 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.04, whale: 0.00, smart money: neutral
+2025-06-17 14:48:46,360 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:48:46,360 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:48:46,360 - INFO - CoinGecko insights for LPT: bearish (0.65 confidence), sentiment: -0.42, whale: 0.10, smart money: neutral
+2025-06-17 14:48:46,360 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.47, whale: 0.10, smart money: neutral
+2025-06-17 14:48:46,361 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.04, whale: 0.00, smart money: neutral
+2025-06-17 14:48:46,361 - INFO - LPTUSDT analysis: SELL signal with 0.57 strength
+2025-06-17 14:48:46,361 - INFO - QNTUSDT analysis: SELL signal with 0.41 strength
+2025-06-17 14:48:46,361 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:49:01,367 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/15 ($0.00, 0.0% of equity)
+2025-06-17 14:49:01,368 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-17 14:49:02,766 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, LPTUSDT, QNTUSDT, WBTCUSDT... (15 total)
+2025-06-17 14:49:03,042 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.50, whale: 0.10, smart money: neutral
+2025-06-17 14:49:07,981 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:49:12,434 - INFO - CoinGecko insights for LPT: bearish (0.65 confidence), sentiment: -0.42, whale: 0.10, smart money: neutral
+2025-06-17 14:49:16,859 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.47, whale: 0.10, smart money: neutral
+2025-06-17 14:49:21,263 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.04, whale: 0.00, smart money: neutral
+2025-06-17 14:49:26,151 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.10, whale: 0.05, smart money: bullish
+2025-06-17 14:49:35,215 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: -0.22, whale: 0.10, smart money: bearish
+2025-06-17 14:49:41,019 - INFO - CoinGecko insights for RENDER: bearish (0.68 confidence), sentiment: -0.41, whale: 0.10, smart money: bearish
+2025-06-17 14:49:46,360 - INFO - CoinGecko insights for ARB: bearish (0.63 confidence), sentiment: -0.38, whale: 0.10, smart money: bearish
+2025-06-17 14:49:50,770 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: -0.03, whale: 0.05, smart money: bullish
+2025-06-17 14:49:54,751 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: -0.14, whale: 0.10, smart money: neutral
+2025-06-17 14:50:01,024 - INFO - CoinGecko insights for TAO: bearish (0.65 confidence), sentiment: -0.43, whale: 0.10, smart money: neutral
+2025-06-17 14:50:05,479 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.00, smart money: bullish
+2025-06-17 14:50:10,847 - INFO - CoinGecko insights for SYRUP: neutral (0.50 confidence), sentiment: 0.22, whale: 0.00, smart money: bullish
+2025-06-17 14:50:17,101 - INFO - CoinGecko insights for KAITO: neutral (0.50 confidence), sentiment: -0.20, whale: 0.10, smart money: bearish
+2025-06-17 14:50:23,341 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:50:23,341 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:50:23,341 - INFO - LPTUSDT analysis: SELL signal with 0.55 strength
+2025-06-17 14:50:23,342 - INFO - QNTUSDT analysis: SELL signal with 0.43 strength
+2025-06-17 14:50:23,342 - INFO - WBTCUSDT analysis: SELL signal with 0.38 strength
+2025-06-17 14:50:23,343 - INFO - ETHUSDT analysis: SELL signal with 0.40 strength
+2025-06-17 14:50:23,343 - INFO - NXPCUSDT analysis: SELL signal with 0.31 strength
+2025-06-17 14:50:23,343 - INFO - RENDERUSDT analysis: SELL signal with 0.36 strength
+2025-06-17 14:50:23,344 - INFO - ARBUSDT analysis: SELL signal with 0.42 strength
+2025-06-17 14:50:23,344 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:50:23,345 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:50:23,345 - INFO - TAOUSDT analysis: SELL signal with 0.43 strength
+2025-06-17 14:50:23,345 - INFO - BTCUSDT analysis: SELL signal with 0.43 strength
+2025-06-17 14:50:23,346 - INFO - CoinGecko insights for SYRUP: neutral (0.50 confidence), sentiment: 0.22, whale: 0.00, smart money: bullish
+2025-06-17 14:50:23,346 - INFO - CoinGecko insights for KAITO: neutral (0.50 confidence), sentiment: -0.20, whale: 0.10, smart money: bearish
+2025-06-17 14:50:23,346 - INFO - SYRUPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:50:23,346 - INFO - KAITOUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:50:23,347 - INFO - Trading cycle completed in 81.98 seconds
+2025-06-17 14:53:54,144 - INFO - Top opportunities found: ['BTCUSDT']
+2025-06-17 14:53:55,071 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, APEUSDT, LPTUSDT, QNTUSDT... (10 total)
+2025-06-17 14:53:55,302 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.52, whale: 0.10, smart money: neutral
+2025-06-17 14:54:01,026 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.52, whale: 0.10, smart money: neutral
+2025-06-17 14:54:01,026 - INFO - CoinGecko insights for LPT: bearish (0.65 confidence), sentiment: -0.43, whale: 0.10, smart money: neutral
+2025-06-17 14:54:06,343 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.47, whale: 0.10, smart money: neutral
+2025-06-17 14:54:11,251 - INFO - CoinGecko insights for APE: neutral (0.50 confidence), sentiment: -0.02, whale: 0.10, smart money: neutral
+2025-06-17 14:54:16,596 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:54:21,063 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:54:21,064 - INFO - LPTUSDT analysis: SELL signal with 0.43 strength
+2025-06-17 14:54:21,064 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.47, whale: 0.10, smart money: neutral
+2025-06-17 14:54:21,064 - INFO - CoinGecko insights for APE: neutral (0.50 confidence), sentiment: -0.02, whale: 0.10, smart money: neutral
+2025-06-17 14:54:21,064 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:54:21,064 - INFO - QNTUSDT analysis: SELL signal with 0.42 strength
+2025-06-17 14:54:21,065 - INFO - APEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:54:21,066 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:54:36,069 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/15 ($0.00, 0.0% of equity)
+2025-06-17 14:54:36,070 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-17 14:54:37,589 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, APEUSDT, LPTUSDT, QNTUSDT... (15 total)
+2025-06-17 14:54:39,543 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.52, whale: 0.10, smart money: neutral
+2025-06-17 14:54:43,993 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:54:47,275 - INFO - CoinGecko insights for APE: neutral (0.50 confidence), sentiment: -0.02, whale: 0.10, smart money: neutral
+2025-06-17 14:54:51,708 - INFO - CoinGecko insights for LPT: bearish (0.65 confidence), sentiment: -0.43, whale: 0.10, smart money: neutral
+2025-06-17 14:54:56,640 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.47, whale: 0.10, smart money: neutral
+2025-06-17 14:55:02,075 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.05, whale: 0.00, smart money: neutral
+2025-06-17 14:55:11,647 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.11, whale: 0.05, smart money: bullish
+2025-06-17 14:55:16,992 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: -0.23, whale: 0.10, smart money: bearish
+2025-06-17 14:55:21,409 - INFO - CoinGecko insights for RENDER: bearish (0.68 confidence), sentiment: -0.41, whale: 0.10, smart money: bearish
+2025-06-17 14:55:25,881 - INFO - CoinGecko insights for ARB: bearish (0.63 confidence), sentiment: -0.39, whale: 0.10, smart money: bearish
+2025-06-17 14:55:32,370 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: -0.03, whale: 0.05, smart money: bullish
+2025-06-17 14:55:36,798 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: -0.15, whale: 0.10, smart money: neutral
+2025-06-17 14:55:42,137 - INFO - CoinGecko insights for TAO: bearish (0.65 confidence), sentiment: -0.44, whale: 0.10, smart money: neutral
+2025-06-17 14:55:47,940 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: bullish
+2025-06-17 14:55:52,863 - INFO - CoinGecko insights for SYRUP: neutral (0.50 confidence), sentiment: 0.21, whale: 0.00, smart money: bullish
+2025-06-17 14:55:57,742 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:55:57,742 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:55:57,743 - INFO - APEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:55:57,743 - INFO - LPTUSDT analysis: SELL signal with 0.43 strength
+2025-06-17 14:55:57,743 - INFO - QNTUSDT analysis: SELL signal with 0.44 strength
+2025-06-17 14:55:57,744 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:55:57,744 - INFO - ETHUSDT analysis: SELL signal with 0.43 strength
+2025-06-17 14:55:57,744 - INFO - NXPCUSDT analysis: SELL signal with 0.30 strength
+2025-06-17 14:55:57,744 - INFO - RENDERUSDT analysis: SELL signal with 0.40 strength
+2025-06-17 14:55:57,744 - INFO - ARBUSDT analysis: SELL signal with 0.43 strength
+2025-06-17 14:55:57,744 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:55:57,745 - INFO - LTCUSDT analysis: SELL signal with 0.32 strength
+2025-06-17 14:55:57,745 - INFO - CoinGecko insights for TAO: bearish (0.65 confidence), sentiment: -0.44, whale: 0.10, smart money: neutral
+2025-06-17 14:55:57,745 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: bullish
+2025-06-17 14:55:57,745 - INFO - CoinGecko insights for SYRUP: neutral (0.50 confidence), sentiment: 0.21, whale: 0.00, smart money: bullish
+2025-06-17 14:55:57,745 - INFO - TAOUSDT analysis: SELL signal with 0.44 strength
+2025-06-17 14:55:57,746 - INFO - BTCUSDT analysis: SELL signal with 0.39 strength
+2025-06-17 14:55:57,746 - INFO - SYRUPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:55:57,746 - INFO - Trading cycle completed in 81.68 seconds
+2025-06-17 14:59:27,544 - INFO - Top opportunities found: ['XRPUSDT', 'BTCUSDT']
+2025-06-17 14:59:28,471 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, APEUSDT, LPTUSDT, QNTUSDT... (10 total)
+2025-06-17 14:59:28,728 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 14:59:36,117 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 14:59:36,117 - INFO - CoinGecko insights for APE: neutral (0.50 confidence), sentiment: -0.03, whale: 0.10, smart money: neutral
+2025-06-17 14:59:41,468 - INFO - CoinGecko insights for LPT: bearish (0.70 confidence), sentiment: -0.42, whale: 0.10, smart money: neutral
+2025-06-17 14:59:46,352 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.47, whale: 0.10, smart money: neutral
+2025-06-17 14:59:50,781 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:59:57,051 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 14:59:57,052 - INFO - APEUSDT analysis: SELL signal with 0.30 strength
+2025-06-17 14:59:57,053 - INFO - LPTUSDT analysis: SELL signal with 0.55 strength
+2025-06-17 14:59:57,053 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.47, whale: 0.10, smart money: neutral
+2025-06-17 14:59:57,053 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 14:59:57,053 - INFO - QNTUSDT analysis: SELL signal with 0.45 strength
+2025-06-17 14:59:57,054 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:00:13,475 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, APEUSDT, LPTUSDT, QNTUSDT... (10 total)
+2025-06-17 15:00:13,476 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 15:00:18,350 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 15:00:21,637 - INFO - CoinGecko insights for APE: neutral (0.50 confidence), sentiment: -0.03, whale: 0.10, smart money: neutral
+2025-06-17 15:00:26,998 - INFO - CoinGecko insights for LPT: bearish (0.70 confidence), sentiment: -0.42, whale: 0.10, smart money: neutral
+2025-06-17 15:00:32,392 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.47, whale: 0.10, smart money: neutral
+2025-06-17 15:00:36,389 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:00:36,389 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:00:36,390 - INFO - CoinGecko insights for APE: neutral (0.50 confidence), sentiment: -0.03, whale: 0.10, smart money: neutral
+2025-06-17 15:00:36,390 - INFO - CoinGecko insights for LPT: bearish (0.70 confidence), sentiment: -0.42, whale: 0.10, smart money: neutral
+2025-06-17 15:00:36,390 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.47, whale: 0.10, smart money: neutral
+2025-06-17 15:00:36,390 - INFO - APEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:00:36,390 - INFO - LPTUSDT analysis: SELL signal with 0.41 strength
+2025-06-17 15:00:36,391 - INFO - QNTUSDT analysis: SELL signal with 0.45 strength
+2025-06-17 15:00:51,397 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/15 ($0.00, 0.0% of equity)
+2025-06-17 15:00:51,397 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-17 15:00:52,802 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, APEUSDT, LPTUSDT, QNTUSDT... (15 total)
+2025-06-17 15:00:53,014 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 15:00:58,383 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 15:01:02,820 - INFO - CoinGecko insights for APE: neutral (0.50 confidence), sentiment: -0.03, whale: 0.10, smart money: neutral
+2025-06-17 15:01:08,662 - INFO - CoinGecko insights for LPT: bearish (0.70 confidence), sentiment: -0.42, whale: 0.10, smart money: neutral
+2025-06-17 15:01:14,474 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.47, whale: 0.10, smart money: neutral
+2025-06-17 15:01:19,401 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.05, whale: 0.00, smart money: neutral
+2025-06-17 15:01:29,486 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.11, whale: 0.05, smart money: bullish
+2025-06-17 15:01:35,779 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: -0.21, whale: 0.10, smart money: bearish
+2025-06-17 15:01:40,644 - INFO - CoinGecko insights for RENDER: bearish (0.68 confidence), sentiment: -0.41, whale: 0.10, smart money: bearish
+2025-06-17 15:01:45,520 - INFO - CoinGecko insights for ARB: bearish (0.63 confidence), sentiment: -0.39, whale: 0.10, smart money: bearish
+2025-06-17 15:01:50,441 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: -0.04, whale: 0.05, smart money: bullish
+2025-06-17 15:01:56,242 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: -0.16, whale: 0.10, smart money: neutral
+2025-06-17 15:02:02,057 - INFO - CoinGecko insights for TAO: bearish (0.65 confidence), sentiment: -0.44, whale: 0.10, smart money: neutral
+2025-06-17 15:02:07,415 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: bullish
+2025-06-17 15:02:12,306 - INFO - CoinGecko insights for SYRUP: neutral (0.50 confidence), sentiment: 0.20, whale: 0.00, smart money: bullish
+2025-06-17 15:02:17,659 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:02:17,659 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:02:17,659 - INFO - APEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:02:17,660 - INFO - LPTUSDT analysis: SELL signal with 0.41 strength
+2025-06-17 15:02:17,660 - INFO - QNTUSDT analysis: SELL signal with 0.45 strength
+2025-06-17 15:02:17,660 - INFO - WBTCUSDT analysis: SELL signal with 0.38 strength
+2025-06-17 15:02:17,661 - INFO - ETHUSDT analysis: SELL signal with 0.42 strength
+2025-06-17 15:02:17,661 - INFO - NXPCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:02:17,661 - INFO - RENDERUSDT analysis: SELL signal with 0.50 strength
+2025-06-17 15:02:17,661 - INFO - ARBUSDT analysis: SELL signal with 0.42 strength
+2025-06-17 15:02:17,661 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:02:17,662 - INFO - LTCUSDT analysis: SELL signal with 0.31 strength
+2025-06-17 15:02:17,662 - INFO - TAOUSDT analysis: SELL signal with 0.43 strength
+2025-06-17 15:02:17,662 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: bullish
+2025-06-17 15:02:17,662 - INFO - CoinGecko insights for SYRUP: neutral (0.50 confidence), sentiment: 0.20, whale: 0.00, smart money: bullish
+2025-06-17 15:02:17,662 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:02:17,663 - INFO - SYRUPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:02:17,663 - INFO - Trading cycle completed in 86.27 seconds
+2025-06-17 15:05:49,647 - INFO - Top opportunities found: ['BTCUSDT']
+2025-06-17 15:05:51,060 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, APEUSDT, LPTUSDT, QNTUSDT... (10 total)
+2025-06-17 15:05:51,141 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0.0,
+    "avg_daily_return_pct": NaN,
+    "avg_weekly_return_pct": NaN
+  },
+  "trades": {
+    "total": 3,
+    "win_count": 2,
+    "loss_count": 1,
+    "win_rate_pct": 66.67,
+    "profit_factor": 0.28,
+    "avg_profit": 0.13,
+    "avg_loss": -0.93,
+    "expected_value": -0.22,
+    "recent_win_rate_pct": 66.67
+  },
+  "pairs": {
+    "best_pair": "MAGICUSDT",
+    "best_pair_profit": 0.26,
+    "worst_pair": "SYRUPUSDT",
+    "worst_pair_profit": -0.93
+  },
+  "timestamp": "2025-06-17 15:05:51"
+}
+2025-06-17 15:05:51,404 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 15:05:58,119 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 15:05:58,119 - INFO - CoinGecko insights for APE: neutral (0.50 confidence), sentiment: -0.03, whale: 0.10, smart money: neutral
+2025-06-17 15:06:02,583 - INFO - CoinGecko insights for LPT: bearish (0.65 confidence), sentiment: -0.42, whale: 0.10, smart money: neutral
+2025-06-17 15:06:06,562 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.48, whale: 0.10, smart money: neutral
+2025-06-17 15:06:11,890 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 15:06:17,228 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:06:17,228 - INFO - APEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:06:17,229 - INFO - LPTUSDT analysis: SELL signal with 0.42 strength
+2025-06-17 15:06:17,229 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.48, whale: 0.10, smart money: neutral
+2025-06-17 15:06:17,229 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 15:06:17,229 - INFO - QNTUSDT analysis: SELL signal with 0.45 strength
+2025-06-17 15:06:17,230 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:06:32,241 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/15 ($0.00, 0.0% of equity)
+2025-06-17 15:06:32,242 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-17 15:06:33,190 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, APEUSDT, LPTUSDT, QNTUSDT... (15 total)
+2025-06-17 15:06:33,412 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.49, whale: 0.10, smart money: neutral
+2025-06-17 15:06:38,771 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 15:06:42,981 - INFO - CoinGecko insights for APE: neutral (0.50 confidence), sentiment: -0.03, whale: 0.10, smart money: neutral
+2025-06-17 15:06:46,944 - INFO - CoinGecko insights for LPT: bearish (0.65 confidence), sentiment: -0.42, whale: 0.10, smart money: neutral
+2025-06-17 15:06:50,910 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.48, whale: 0.10, smart money: neutral
+2025-06-17 15:06:56,240 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.05, whale: 0.00, smart money: neutral
+2025-06-17 15:07:05,817 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.10, whale: 0.05, smart money: bullish
+2025-06-17 15:07:10,680 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: -0.18, whale: 0.10, smart money: bearish
+2025-06-17 15:07:15,996 - INFO - CoinGecko insights for RENDER: bearish (0.68 confidence), sentiment: -0.41, whale: 0.10, smart money: bearish
+2025-06-17 15:07:20,405 - INFO - CoinGecko insights for ARB: bearish (0.63 confidence), sentiment: -0.40, whale: 0.10, smart money: bearish
+2025-06-17 15:07:24,805 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: -0.06, whale: 0.05, smart money: bullish
+2025-06-17 15:07:30,593 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: -0.17, whale: 0.10, smart money: neutral
+2025-06-17 15:07:35,019 - INFO - CoinGecko insights for TAO: bearish (0.65 confidence), sentiment: -0.43, whale: 0.10, smart money: neutral
+2025-06-17 15:07:40,383 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: bullish
+2025-06-17 15:07:46,654 - INFO - CoinGecko insights for KAITO: neutral (0.50 confidence), sentiment: -0.20, whale: 0.10, smart money: bearish
+2025-06-17 15:07:51,164 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:07:51,165 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:07:51,165 - INFO - APEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:07:51,165 - INFO - LPTUSDT analysis: SELL signal with 0.54 strength
+2025-06-17 15:07:51,166 - INFO - QNTUSDT analysis: SELL signal with 0.57 strength
+2025-06-17 15:07:51,166 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:07:51,167 - INFO - ETHUSDT analysis: SELL signal with 0.40 strength
+2025-06-17 15:07:51,167 - INFO - NXPCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:07:51,167 - INFO - RENDERUSDT analysis: SELL signal with 0.34 strength
+2025-06-17 15:07:51,167 - INFO - ARBUSDT analysis: SELL signal with 0.42 strength
+2025-06-17 15:07:51,168 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:07:51,168 - INFO - LTCUSDT analysis: SELL signal with 0.30 strength
+2025-06-17 15:07:51,168 - INFO - TAOUSDT analysis: SELL signal with 0.40 strength
+2025-06-17 15:07:51,168 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: bullish
+2025-06-17 15:07:51,169 - INFO - CoinGecko insights for KAITO: neutral (0.50 confidence), sentiment: -0.20, whale: 0.10, smart money: bearish
+2025-06-17 15:07:51,169 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:07:51,169 - INFO - KAITOUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:07:51,170 - INFO - Trading cycle completed in 78.93 seconds
+2025-06-17 15:08:26,552 - INFO - Updating correlation matrix...
+2025-06-17 15:09:06,158 - INFO - Correlation matrix updated for 41 pairs
+2025-06-17 15:09:14,097 - INFO - Market state: Regime=BEAR_TRENDING, Trend=bearish, Volatility=low, Breadth=0.10
+2025-06-17 15:12:06,748 - INFO - Top opportunities found: ['RVNUSDT']
+2025-06-17 15:12:07,703 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, APEUSDT, LPTUSDT, QNTUSDT... (10 total)
+2025-06-17 15:12:08,119 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.50, whale: 0.10, smart money: neutral
+2025-06-17 15:12:15,125 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.50, whale: 0.10, smart money: neutral
+2025-06-17 15:12:15,125 - INFO - CoinGecko insights for APE: neutral (0.50 confidence), sentiment: -0.02, whale: 0.10, smart money: neutral
+2025-06-17 15:12:19,541 - INFO - CoinGecko insights for LPT: bearish (0.65 confidence), sentiment: -0.42, whale: 0.10, smart money: neutral
+2025-06-17 15:12:23,988 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.48, whale: 0.10, smart money: neutral
+2025-06-17 15:12:28,896 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 15:12:34,223 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:12:34,224 - INFO - APEUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:12:34,224 - INFO - LPTUSDT analysis: SELL signal with 0.53 strength
+2025-06-17 15:12:34,224 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.48, whale: 0.10, smart money: neutral
+2025-06-17 15:12:34,225 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 15:12:34,225 - INFO - QNTUSDT analysis: SELL signal with 0.45 strength
+2025-06-17 15:12:34,225 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:12:49,228 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/15 ($0.00, 0.0% of equity)
+2025-06-17 15:12:49,228 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-17 15:12:50,637 - INFO - Selected optimal assets: FORMUSDT, PAXGUSDT, APEUSDT, LPTUSDT, QNTUSDT... (15 total)
+2025-06-17 15:12:50,873 - INFO - CoinGecko insights for FORM: bullish (0.70 confidence), sentiment: 0.50, whale: 0.10, smart money: neutral
+2025-06-17 15:12:54,420 - INFO - CoinGecko insights for PAXG: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-17 15:12:57,246 - INFO - CoinGecko insights for APE: neutral (0.50 confidence), sentiment: -0.02, whale: 0.10, smart money: neutral
+2025-06-17 15:13:01,665 - INFO - CoinGecko insights for LPT: bearish (0.65 confidence), sentiment: -0.42, whale: 0.10, smart money: neutral
+2025-06-17 15:13:06,074 - INFO - CoinGecko insights for QNT: bearish (0.73 confidence), sentiment: -0.48, whale: 0.10, smart money: neutral
+2025-06-17 15:13:11,897 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.05, whale: 0.00, smart money: neutral
+2025-06-17 15:13:19,966 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.10, whale: 0.05, smart money: bullish
+2025-06-17 15:13:25,757 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: -0.19, whale: 0.10, smart money: bearish
+2025-06-17 15:13:31,100 - INFO - CoinGecko insights for RENDER: bearish (0.68 confidence), sentiment: -0.41, whale: 0.10, smart money: bearish
+2025-06-17 15:13:35,048 - INFO - CoinGecko insights for ARB: bearish (0.63 confidence), sentiment: -0.39, whale: 0.10, smart money: bearish
+2025-06-17 15:13:39,910 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: -0.05, whale: 0.05, smart money: bullish
+2025-06-17 15:13:43,865 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: -0.17, whale: 0.10, smart money: neutral
+2025-06-17 15:13:50,581 - INFO - CoinGecko insights for TAO: bearish (0.65 confidence), sentiment: -0.43, whale: 0.10, smart money: neutral
+2025-06-17 15:13:56,393 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: bullish
+2025-06-17 15:14:01,280 - INFO - CoinGecko insights for KAITO: neutral (0.50 confidence), sentiment: -0.20, whale: 0.10, smart money: bearish
+2025-06-17 15:14:04,801 - INFO - FORMUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:14:04,801 - INFO - PAXGUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:14:04,801 - INFO - APEUSDT analysis: SELL signal with 0.37 strength
+2025-06-17 15:14:04,802 - INFO - LPTUSDT analysis: SELL signal with 0.38 strength
+2025-06-17 15:14:04,802 - INFO - QNTUSDT analysis: SELL signal with 0.45 strength
+2025-06-17 15:14:04,802 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:14:04,803 - INFO - ETHUSDT analysis: SELL signal with 0.39 strength
+2025-06-17 15:14:04,803 - INFO - NXPCUSDT analysis: SELL signal with 0.40 strength
+2025-06-17 15:14:04,803 - INFO - RENDERUSDT analysis: SELL signal with 0.34 strength
+2025-06-17 15:14:04,803 - INFO - ARBUSDT analysis: SELL signal with 0.42 strength
+2025-06-17 15:14:04,804 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:14:04,804 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:14:04,804 - INFO - CoinGecko insights for TAO: bearish (0.65 confidence), sentiment: -0.43, whale: 0.10, smart money: neutral
+2025-06-17 15:14:04,804 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: bullish
+2025-06-17 15:14:04,804 - INFO - CoinGecko insights for KAITO: neutral (0.50 confidence), sentiment: -0.20, whale: 0.10, smart money: bearish
+2025-06-17 15:14:04,805 - INFO - TAOUSDT analysis: SELL signal with 0.40 strength
+2025-06-17 15:14:04,805 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-17 15:14:04,805 - INFO - KAITOUSDT analysis: SELL signal with 0.38 strength
+2025-06-17 15:14:04,805 - INFO - Trading cycle completed in 75.58 seconds
+2025-06-17 15:14:26,745 - INFO - Bot stopped by user

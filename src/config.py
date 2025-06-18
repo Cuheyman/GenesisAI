@@ -4,6 +4,54 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
+# Add these to your src/config.py file
+
+# =============================================================================
+# DYNAMIC POSITION SIZING CONFIGURATION
+# =============================================================================
+
+# Enable dynamic position sizing
+ENABLE_DYNAMIC_SIZING = True
+
+# Minimum position size (must be above exchange minimums)
+DYNAMIC_MIN_POSITION = float(os.getenv('DYNAMIC_MIN_POSITION', '15'))  # $15 minimum (50% above Binance's $10)
+
+# Buffer above exchange minimum notional
+MIN_NOTIONAL_BUFFER = float(os.getenv('MIN_NOTIONAL_BUFFER', '1.2'))  # 20% buffer
+
+# Signal strength thresholds for dynamic sizing
+SIGNAL_STRENGTH_THRESHOLDS = {
+    'very_strong': 0.8,   # > 80% confidence
+    'strong': 0.6,        # > 60% confidence  
+    'moderate': 0.4,      # > 40% confidence
+    'weak': 0.3          # > 30% confidence (lower this from 0.3 if needed)
+}
+
+# Position size multipliers based on signal strength
+POSITION_SIZE_MULTIPLIERS = {
+    'very_strong': 1.5,   # 150% of base size
+    'strong': 1.2,        # 120% of base size
+    'moderate': 1.0,      # 100% of base size
+    'weak': 0.8          # 80% of base size
+}
+
+# Override the old MIN_POSITION_SIZE if it exists
+MIN_POSITION_SIZE = float(os.getenv('MIN_POSITION_SIZE', '15'))  # Changed from 100 to 15
+
+# For BCH specifically (since it's showing in your logs)
+PAIR_SPECIFIC_MINIMUMS = {
+    'BCHUSDT': 20,    # BCH might need slightly higher minimum
+    'SYRUPUSDT': 15,  # Standard minimum
+    'XRPUSDT': 15,    # Standard minimum
+    # Add more pairs as needed
+}
+
+# Debug mode for position sizing
+DEBUG_POSITION_SIZING = True  # Set to False in production
+
+
+
+
 # =============================================================================
 # API KEYS AND CREDENTIALS
 # =============================================================================
