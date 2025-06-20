@@ -1,0 +1,17 @@
+2025-06-20 19:07:52,272 - INFO - CoinGecko API connected: (V3) To the Moon!
+2025-06-20 19:07:52,273 - INFO - CoinGecko AI client initialized with demo API key
+2025-06-20 19:07:52,273 - INFO - CoinGecko AI client initialized
+2025-06-20 19:07:52,278 - INFO - Database initialization complete
+2025-06-20 19:07:52,280 - INFO - Risk Manager initialized with equity protection: Warning at 3.0%, Risk Reduction at 5.0%, High Alert at 8.0%, Emergency at 12.0%
+2025-06-20 19:07:52,280 - INFO - Hybrid Trading Bot initialized with 1000.00 equity
+2025-06-20 19:07:52,280 - INFO - Mode: TEST trading
+2025-06-20 19:07:52,281 - INFO - AI Provider: CoinGecko
+2025-06-20 19:07:52,282 - INFO - Testing API connections...
+2025-06-20 19:07:52,979 - INFO - Binance server time: 2025-06-20 19:07:52.808000
+2025-06-20 19:07:53,203 - INFO - CoinGecko AI connection successful: 0.042383558895539665
+2025-06-20 19:07:53,203 - INFO - Preloading historical data for analysis...
+2025-06-20 19:07:53,203 - INFO - Preloading historical data for analysis...
+2025-06-20 19:07:53,203 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-06-20 19:07:54,157 - INFO - Found trending pairs: TUSDT, KAIAUSDT, SUSDT, QUICKUSDT, ALTUSDT...
+2025-06-20 19:07:54,158 - INFO - Preloading data for pairs: CRVUSDT, BTCUSDT, NEARUSDT, SYRUPUSDT, SUIUSDT
+2025-06-20 19:08:07,868 - INFO - Bot stopped by user

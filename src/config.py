@@ -51,6 +51,103 @@ DEBUG_POSITION_SIZING = True  # Set to False in production
 
 
 
+# Tilføj dette til din eksisterende config.py fil
+
+# =============================================================================
+# TAAPI.IO CONFIGURATION (NEW)
+# =============================================================================
+
+# Taapi.io API configuration
+TAAPI_API_SECRET = os.getenv('TAAPI_API_SECRET', '')
+
+# Enable/Disable Taapi.io advanced indicators
+ENABLE_TAAPI = os.getenv('ENABLE_TAAPI', 'true').lower() == 'true'
+
+# Taapi.io rate limiting (Free tier: 1 request per 15 seconds)
+TAAPI_REQUESTS_PER_WINDOW = int(os.getenv('TAAPI_REQUESTS_PER_WINDOW', '1'))
+TAAPI_TIME_WINDOW = int(os.getenv('TAAPI_TIME_WINDOW', '15'))
+
+# Advanced indicators configuration
+TAAPI_PREFERRED_EXCHANGE = os.getenv('TAAPI_PREFERRED_EXCHANGE', 'binance')
+
+# Taapi.io indicator weights in signal combination
+TAAPI_ICHIMOKU_WEIGHT = float(os.getenv('TAAPI_ICHIMOKU_WEIGHT', '0.15'))
+TAAPI_SUPERTREND_WEIGHT = float(os.getenv('TAAPI_SUPERTREND_WEIGHT', '0.20'))
+TAAPI_TDSEQUENTIAL_WEIGHT = float(os.getenv('TAAPI_TDSEQUENTIAL_WEIGHT', '0.10'))
+TAAPI_FISHER_WEIGHT = float(os.getenv('TAAPI_FISHER_WEIGHT', '0.10'))
+TAAPI_CHOPPINESS_WEIGHT = float(os.getenv('TAAPI_CHOPPINESS_WEIGHT', '0.05'))
+TAAPI_CANDLESTICK_WEIGHT = float(os.getenv('TAAPI_CANDLESTICK_WEIGHT', '0.15'))
+
+# Overall Taapi.io indicators weight in final signal
+TAAPI_OVERALL_WEIGHT = float(os.getenv('TAAPI_OVERALL_WEIGHT', '0.25'))
+
+# Timeframes for different Taapi.io indicators
+TAAPI_ICHIMOKU_TIMEFRAME = os.getenv('TAAPI_ICHIMOKU_TIMEFRAME', '4h')
+TAAPI_TDSEQUENTIAL_TIMEFRAME = os.getenv('TAAPI_TDSEQUENTIAL_TIMEFRAME', '1d')
+TAAPI_SUPERTREND_TIMEFRAME = os.getenv('TAAPI_SUPERTREND_TIMEFRAME', '1h')
+TAAPI_FISHER_TIMEFRAME = os.getenv('TAAPI_FISHER_TIMEFRAME', '1h')
+TAAPI_CHOPPINESS_TIMEFRAME = os.getenv('TAAPI_CHOPPINESS_TIMEFRAME', '4h')
+TAAPI_CANDLESTICK_TIMEFRAME = os.getenv('TAAPI_CANDLESTICK_TIMEFRAME', '1h')
+
+# Cache settings for Taapi.io
+TAAPI_CACHE_ENABLED = os.getenv('TAAPI_CACHE_ENABLED', 'true').lower() == 'true'
+
+# Error handling
+TAAPI_ERROR_BACKOFF_SECONDS = int(os.getenv('TAAPI_ERROR_BACKOFF_SECONDS', '300'))  # 5 minutes
+TAAPI_MAX_RETRIES = int(os.getenv('TAAPI_MAX_RETRIES', '2'))
+
+# =============================================================================
+# VALIDATION UPDATE (tilføj til eksisterende validate_config function)
+# =============================================================================
+
+def validate_taapi_config():
+    """Validate Taapi.io configuration settings"""
+    errors = []
+    
+    if ENABLE_TAAPI and not TAAPI_API_SECRET:
+        errors.append("TAAPI_API_SECRET is required when ENABLE_TAAPI is True")
+    
+    if TAAPI_REQUESTS_PER_WINDOW < 1:
+        errors.append("TAAPI_REQUESTS_PER_WINDOW must be at least 1")
+    
+    if TAAPI_TIME_WINDOW < 1:
+        errors.append("TAAPI_TIME_WINDOW must be at least 1 second")
+    
+    # Validate timeframes
+    valid_timeframes = ['1m', '5m', '15m', '30m', '1h', '2h', '4h', '6h', '12h', '1d', '1w']
+    timeframe_configs = [
+        ('TAAPI_ICHIMOKU_TIMEFRAME', TAAPI_ICHIMOKU_TIMEFRAME),
+        ('TAAPI_TDSEQUENTIAL_TIMEFRAME', TAAPI_TDSEQUENTIAL_TIMEFRAME),
+        ('TAAPI_SUPERTREND_TIMEFRAME', TAAPI_SUPERTREND_TIMEFRAME),
+        ('TAAPI_FISHER_TIMEFRAME', TAAPI_FISHER_TIMEFRAME),
+        ('TAAPI_CHOPPINESS_TIMEFRAME', TAAPI_CHOPPINESS_TIMEFRAME),
+        ('TAAPI_CANDLESTICK_TIMEFRAME', TAAPI_CANDLESTICK_TIMEFRAME)
+    ]
+    
+    for config_name, timeframe in timeframe_configs:
+        if timeframe not in valid_timeframes:
+            errors.append(f"{config_name} must be one of {valid_timeframes}")
+    
+    # Validate weights (should be between 0 and 1)
+    weight_configs = [
+        ('TAAPI_ICHIMOKU_WEIGHT', TAAPI_ICHIMOKU_WEIGHT),
+        ('TAAPI_SUPERTREND_WEIGHT', TAAPI_SUPERTREND_WEIGHT),
+        ('TAAPI_TDSEQUENTIAL_WEIGHT', TAAPI_TDSEQUENTIAL_WEIGHT),
+        ('TAAPI_FISHER_WEIGHT', TAAPI_FISHER_WEIGHT),
+        ('TAAPI_CHOPPINESS_WEIGHT', TAAPI_CHOPPINESS_WEIGHT),
+        ('TAAPI_CANDLESTICK_WEIGHT', TAAPI_CANDLESTICK_WEIGHT),
+        ('TAAPI_OVERALL_WEIGHT', TAAPI_OVERALL_WEIGHT)
+    ]
+    
+    for config_name, weight in weight_configs:
+        if not 0 <= weight <= 1:
+            errors.append(f"{config_name} must be between 0 and 1")
+    
+    return errors
+
+# Opdater din eksisterende validate_config() function til at inkludere:
+# taapi_errors = validate_taapi_config()
+# errors.extend(taapi_errors)
 
 # =============================================================================
 # API KEYS AND CREDENTIALS

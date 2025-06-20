@@ -1,0 +1,12 @@
+2025-06-20 19:09:42,484 - INFO - CoinGecko API connected: (V3) To the Moon!
+2025-06-20 19:09:42,485 - INFO - CoinGecko AI client initialized with demo API key
+2025-06-20 19:09:42,485 - INFO - CoinGecko AI client initialized
+2025-06-20 19:09:42,487 - INFO - Database initialization complete
+2025-06-20 19:09:42,488 - INFO - Taapi.io client disabled - using dummy client
+2025-06-20 19:09:42,488 - INFO - Advanced indicators disabled - using dummy client
+2025-06-20 19:09:42,489 - INFO - Advanced indicators initialized successfully
+2025-06-20 19:09:42,489 - INFO - Risk Manager initialized with equity protection: Warning at 3.0%, Risk Reduction at 5.0%, High Alert at 8.0%, Emergency at 12.0%
+2025-06-20 19:09:42,489 - INFO - Hybrid Trading Bot initialized with 1000.00 equity
+2025-06-20 19:09:42,489 - INFO - Mode: TEST trading
+2025-06-20 19:09:42,489 - INFO - AI Provider: CoinGecko
+2025-06-20 19:09:42,490 - ERROR - Critical error: module 'config' has no attribute 'ENABLE_TAAPI'

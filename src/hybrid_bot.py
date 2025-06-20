@@ -10,7 +10,7 @@ from binance.client import Client
 import numpy as np
 import pandas as pd
 
-# Import components - Updated to use CoinGecko instead of LunarCrush
+from advanced_indicators import AdvancedIndicators
 from coin_gecko_ai import CoinGeckoAI, DummyCoinGeckoAI 
 from market_analysis import MarketAnalysis
 from order_book import OrderBookAnalysis
@@ -89,6 +89,15 @@ class HybridTradingBot:
             self.order_book
         )
         
+         # Initialize advanced indicators (NEW)
+        try:
+            self.advanced_indicators = AdvancedIndicators()
+            logging.info("Advanced indicators initialized successfully")
+        except Exception as e:
+            logging.warning(f"Failed to initialize advanced indicators: {str(e)}")
+            self.advanced_indicators = None
+
+
         # Initialize risk manager
         self.risk_manager = RiskManager(self.initial_equity)
         
@@ -123,6 +132,7 @@ class HybridTradingBot:
         logging.info(f"Hybrid Trading Bot initialized with {self.initial_equity:.2f} equity")
         logging.info(f"Mode: {'TEST' if config.TEST_MODE else 'LIVE'} trading")
         logging.info(f"AI Provider: {'CoinGecko' if config.ENABLE_COINGECKO else 'Disabled'}")
+        logging.info(f"Advanced Indicators: {'Taapi.io' if config.ENABLE_TAAPI and self.advanced_indicators else 'Disabled'}")
     
     def _setup_logging(self):
         """Set up logging configuration"""
@@ -280,6 +290,21 @@ class HybridTradingBot:
             # Pause between batches to avoid rate limits
             await asyncio.sleep(2)
     
+    def log_advanced_indicators_stats(self):
+        """Log statistics about advanced indicators usage"""
+        if self.advanced_indicators:
+            try:
+                stats = self.advanced_indicators.get_stats()
+                logging.info(f"Advanced Indicators Stats - API calls: {stats['api_calls_made']}, "
+                           f"Cache hits: {stats['cache_hits']}, "
+                           f"Cache items: {stats['cache_stats']['cached_items']}, "
+                           f"Client: {stats['client_type']}")
+            except Exception as e:
+                logging.error(f"Error getting advanced indicators stats: {str(e)}")
+
+
+
+
     async def market_monitor_task(self):
         """Task to monitor market conditions"""
         try:
