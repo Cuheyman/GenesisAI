@@ -10,6 +10,7 @@ from binance.client import Client
 import numpy as np
 import pandas as pd
 
+
 from advanced_indicators import AdvancedIndicators
 from coin_gecko_ai import CoinGeckoAI, DummyCoinGeckoAI 
 from market_analysis import MarketAnalysis
@@ -413,7 +414,7 @@ class HybridTradingBot:
 
                     if open_positions > 0:
                         logging.info(f"Active positions: {positions_str}")
-                              
+                            
                     # Check for drawdown protection events
                     protection_level = self.risk_manager._check_drawdown_protection()
                     if protection_level:
@@ -435,13 +436,24 @@ class HybridTradingBot:
                         await asyncio.sleep(60)
                         continue
                         
-                    # Get pairs to analyze - use optimal asset selection
-                    pairs_to_analyze = await self.asset_selection.select_optimal_assets(limit=15)
+                    # ========================================
+                    # 📊 ENHANCED ASSET SELECTION WITH QUALITY FILTERS
+                    # ========================================
+                    
+                    # Get initial pairs from asset selection
+                    initial_pairs = await self.asset_selection.select_optimal_assets(limit=25)  # Get more initially
+                    
+                    # Apply volume filter to get high-quality pairs only
+                    pairs_to_analyze = await self.filter_high_quality_assets(initial_pairs)
+                    
+                    logging.info(f"Filtered from {len(initial_pairs)} to {len(pairs_to_analyze)} high-quality pairs")
                     
                     # Process fewer pairs in high volatility to avoid overtrading
                     if self.market_state['volatility'] == 'high':
-                        pairs_to_analyze = pairs_to_analyze[:10]
-                        logging.info("High volatility - limiting analysis to 10 pairs")
+                        pairs_to_analyze = pairs_to_analyze[:8]  # Even more conservative
+                        logging.info("High volatility - limiting analysis to 8 high-quality pairs")
+                    else:
+                        pairs_to_analyze = pairs_to_analyze[:12]  # Normal limit for quality pairs
                     
                     # Analyze pairs in parallel
                     analysis_tasks = []
@@ -469,57 +481,72 @@ class HybridTradingBot:
                     logging.error(f"Error in trading cycle: {str(inner_e)}")
                     await asyncio.sleep(60)
 
+                # ========================================
+                # 🎯 ENHANCED OPPORTUNITY SCANNING
+                # ========================================
+                
                 opportunities = await self.opportunity_scanner.scan_for_opportunities()
                     
-                    # Process high-score opportunities immediately
+                # Process high-score opportunities immediately
                 high_priority_pairs = []
                 for opp in opportunities:
-                        if opp['score'] > 2.0:  # High priority threshold
-                            high_priority_pairs.append(opp['symbol'])
-                            # Mark as momentum trade
-                            self.momentum_trades[opp['symbol']] = {
-                                'type': opp['sources'][0],
-                                'score': opp['score'],
-                                'entry_time': time.time()
-                            }
-                    
-                    # Combine with regular asset selection
-                        regular_pairs = await self.asset_selection.select_optimal_assets(limit=10)
-                    
-                    # Prioritize opportunity pairs
-                        pairs_to_analyze = high_priority_pairs[:10] + [p for p in regular_pairs if p not in high_priority_pairs][:5]
-                        
-                        # Log what we're analyzing
-                        if high_priority_pairs:
-                            logging.info(f"High priority opportunities: {', '.join(high_priority_pairs[:5])}")
-                        
-                        # Analyze pairs in parallel with priority
-                        analysis_tasks = []
-                        
-                        # High priority pairs first
-                        for pair in high_priority_pairs[:10]:
-                            analysis_tasks.append(self.analyze_and_trade(pair, priority='high'))
-                        
-                        # Then regular pairs
-                        for pair in regular_pairs[:5]:
-                            if pair not in high_priority_pairs:
-                                analysis_tasks.append(self.analyze_and_trade(pair, priority='normal'))
-                        
-                        # Wait for all analyses to complete
-                        await asyncio.gather(*analysis_tasks)
+                    if opp['score'] > 2.0:  # High priority threshold
+                        high_priority_pairs.append(opp['symbol'])
+                        # Mark as momentum trade
+                        self.momentum_trades[opp['symbol']] = {
+                            'type': opp['sources'][0],
+                            'score': opp['score'],
+                            'entry_time': time.time()
+                        }
+                
+                # ========================================
+                # 📊 APPLY QUALITY FILTER TO ALL PAIRS
+                # ========================================
+                
+                # Filter high priority pairs through quality check
+                if high_priority_pairs:
+                    high_priority_pairs = await self.filter_high_quality_assets(high_priority_pairs)
+                    logging.info(f"Filtered high priority opportunities to: {', '.join(high_priority_pairs[:5])}")
+                
+                # Get regular pairs and filter them too
+                initial_regular_pairs = await self.asset_selection.select_optimal_assets(limit=20)
+                regular_pairs = await self.filter_high_quality_assets(initial_regular_pairs)
+                
+                # Prioritize opportunity pairs
+                pairs_to_analyze = high_priority_pairs[:8] + [p for p in regular_pairs if p not in high_priority_pairs][:4]
+                
+                # Log what we're analyzing
+                if high_priority_pairs:
+                    logging.info(f"High priority quality opportunities: {', '.join(high_priority_pairs[:5])}")
+                
+                # Analyze pairs in parallel with priority
+                analysis_tasks = []
+                
+                # High priority pairs first
+                for pair in high_priority_pairs[:8]:  # Reduced from 10 to 8 for quality
+                    analysis_tasks.append(self.analyze_and_trade(pair, priority='high'))
+                
+                # Then regular pairs
+                for pair in regular_pairs[:4]:  # Reduced from 5 to 4 for quality
+                    if pair not in high_priority_pairs:
+                        analysis_tasks.append(self.analyze_and_trade(pair, priority='normal'))
+                
+                # Wait for all analyses to complete
+                await asyncio.gather(*analysis_tasks)
 
-                        # Faster cycle for momentum trading
-                        processing_time = time.time() - start_time
-                        sleep_time = max(15, 30 - processing_time)  # Faster 15-30 second cycles
-                        await asyncio.sleep(sleep_time)
-                        
-                    
-                    
+                # Faster cycle for momentum trading
+                processing_time = time.time() - start_time
+                sleep_time = max(15, 30 - processing_time)  # Faster 15-30 second cycles
+                await asyncio.sleep(sleep_time)
+                
+            
+            
         except Exception as e:
             logging.error(f"Error in trading task: {str(e)}")
             # Restart the task after a delay
             await asyncio.sleep(60)
             asyncio.create_task(self.trading_task())
+
     
     async def position_monitor_task(self):
         """Task to monitor open positions"""
@@ -664,26 +691,38 @@ class HybridTradingBot:
 
 
     async def analyze_and_trade(self, pair, priority='normal'):
-        
         try:
-            # Skip if this pair was recently processed (within 5 minutes)
+            # ========================================
+            # 🕐 CHECK ASSET COOLDOWN FIRST
+            # ========================================
+            if hasattr(self, 'asset_cooldown') and pair in self.asset_cooldown:
+                if time.time() < self.asset_cooldown[pair]:
+                    logging.info(f"Skipping {pair} - in cooldown period")
+                    return
+                else:
+                    del self.asset_cooldown[pair]  # Remove expired cooldown
+            
+            # Skip if this pair was recently processed (within 15 seconds)
             cache_key = f"processed_{pair}"
             current_time = time.time()
-            cache_duration = 60  # 5 minutes
-
-            #if hasattr(self, 'cache_expiry') and cache_key in self.cache_expiry:
-             #   if self.cache_expiry[cache_key] > current_time:
-              #      return
-                
+            
             # Initialize cache if needed
             if not hasattr(self, 'cache_expiry'):
                 self.cache_expiry = {}
+                
+            # Check cache
+            if cache_key in self.cache_expiry:
+                if self.cache_expiry[cache_key] > current_time:
+                    return
+
+            # Check if we already have a position
+            have_position = pair in self.active_positions
+            
+            if have_position:
+                return  # Don't analyze if we already have position
 
             is_momentum_trade = pair in self.momentum_trades
             momentum_data = self.momentum_trades.get(pair, {})
-                
-            # Check if we already have a position
-            have_position = pair in self.active_positions
             
             # Extract token from pair
             token = pair.replace("USDT", "")
@@ -714,7 +753,6 @@ class HybridTradingBot:
                 nebula_signal=ai_signal  # Pass the AI signal to the strategy (keep parameter name for compatibility)
             )
             
-    
             # Log the analysis
             signal_type = "BUY" if analysis['buy_signal'] else ("SELL" if analysis['sell_signal'] else "NEUTRAL")
             logging.info(f"{pair} analysis: {signal_type} signal with {analysis['signal_strength']:.2f} strength")
@@ -730,6 +768,10 @@ class HybridTradingBot:
                 "ai_signal": ai_signal
             }
 
+            
+            # ========================================
+            # 🚀 MOMENTUM TRADE ENHANCEMENTS
+            # ========================================
             if is_momentum_trade:
                 momentum_score = momentum_data.get('score', 0)
                 if momentum_score > 2.0:
@@ -742,30 +784,66 @@ class HybridTradingBot:
                 # Lower threshold for high priority opportunities
                 if analysis['signal_strength'] > 0.5:  # Lower from 0.6
                     analysis['signal_strength'] = min(0.9, analysis['signal_strength'] * 1.2)
+
+           
+
             
-            # Execute trades based on signals
+            # ========================================
+            # 📊 BUY SIGNAL PROCESSING WITH QUALITY FILTERS
+            # ========================================
             if analysis['buy_signal'] and not have_position:
-                # Check risk management with adjusted parameters for momentum
+                
+                # 1. Higher signal strength requirement
+                if analysis['signal_strength'] < 0.65:  # Raised from lower threshold
+                    logging.info(f"Signal too weak for {pair}: {analysis['signal_strength']:.2f}")
+                    return
+                
+                # Before trend filter check:
+                if analysis['signal_strength'] >= 0.75:
+                    logging.info(f"BYPASSING trend filter for {pair} due to strong signal")
+                    trend_ok = True
+                else:
+                    trend_ok = await self.check_trend_filter(pair)
+                    
+                # 2. Trend filter - only buy in uptrend
+                trend_ok = await self.check_trend_filter(pair)
+                if not trend_ok:
+                    logging.info(f"Skipping {pair} - failed trend filter")
+                    return
+                
+                # 3. Risk management check
                 can_trade, trade_details = self.risk_manager.should_take_trade(
                     pair, analysis['signal_strength'], correlation_data
                 )
                 
                 if can_trade:
-                    # Adjust position size for momentum trades
                     position_size = trade_details['position_size']
-                    if is_momentum_trade and momentum_score > 2.5:
+                    
+                    # Adjust position size for momentum trades
+                    if is_momentum_trade and momentum_data.get('score', 0) > 2.5:
                         position_size *= 1.2  # 20% larger for strong momentum
                     
-                    success = await self.execute_buy(pair, position_size, analysis)
-                    
-                    if success:
-                        self.risk_manager.add_position(pair, position_size)
+                    # 4. Final signal strength check (very strict for quick mode)
+                    if analysis['signal_strength'] >= 0.7:  # Only very strong signals
+                        success = await self.execute_buy(pair, position_size, analysis)
                         
-                        # Track momentum trade entry
-                        if is_momentum_trade:
-                            self.active_positions[pair]['momentum_trade'] = True
-                            self.active_positions[pair]['momentum_type'] = momentum_data.get('type')
+                        if success:
+                            self.risk_manager.add_position(pair, position_size)
+                            
+                            # Track momentum trade entry
+                            if is_momentum_trade:
+                                self.active_positions[pair]['momentum_trade'] = True
+                                self.active_positions[pair]['momentum_type'] = momentum_data.get('type')
+                            
+                            logging.info(f"HIGH-QUALITY BUY: {pair} with signal {analysis['signal_strength']:.2f}")
+                    else:
+                        logging.info(f"Signal not strong enough for {pair}: {analysis['signal_strength']:.2f} < 0.70")
+                else:
+                    logging.info(f"Risk management blocked trade for {pair}")
             
+            # ========================================
+            # 📊 SELL SIGNAL PROCESSING
+            # ========================================
             elif analysis['sell_signal'] and have_position:
                 # Check if we should take profit
                 position = self.active_positions[pair]
@@ -781,8 +859,8 @@ class HybridTradingBot:
                     success = await self.execute_sell(pair, analysis)
                     
                     if success:
-                        # Update risk manager
-                        self.risk_manager.remove_position(pair)
+                        # Risk manager position removal is handled in execute_sell
+                        logging.info(f"SELL executed for {pair} at {profit_percent:.2f}% profit")
                 else:
                     logging.info(f"Holding {pair} position with {profit_percent:.2f}% profit")
                     
@@ -791,8 +869,8 @@ class HybridTradingBot:
             
         except Exception as e:
             logging.error(f"Error analyzing {pair}: {str(e)}")
-    
- 
+            import traceback
+            logging.error(traceback.format_exc())
     
     async def get_current_price(self, pair: str) -> float:
         """Get current price of a trading pair with caching"""
@@ -1099,8 +1177,13 @@ class HybridTradingBot:
                 if pair in self.position_scales:
                     del self.position_scales[pair]
                 
+
+                
                 # Remove the position
                 del self.active_positions[pair]
+                
+                # Lige efter 'del self.active_positions[pair]' tilføj:
+                self.risk_manager.remove_position(pair)
                 
                 logging.info(f"TEST MODE: Simulated sell for {pair} executed successfully")
                 success = True
@@ -1181,6 +1264,9 @@ class HybridTradingBot:
                         
                         # Remove the position
                         del self.active_positions[pair]
+
+                        # Lige efter 'del self.active_positions[pair]' tilføj:
+                        self.risk_manager.remove_position(pair)
                         
                         logging.info(f"Sell order for {pair} executed successfully")
                         success = True
@@ -1228,6 +1314,28 @@ class HybridTradingBot:
                 logging.info(f"Session stats: {self.session_stats['total_trades']} trades, "
                             f"{win_rate:.1f}% win rate, ${self.session_stats['total_profit']:.2f} profit")
             
+            # ========================================
+            # 🔄 ADD COOLDOWN LOGIC AFTER LOSS
+            # ========================================
+            if success and profit_loss < 0:  # If it was a loss
+                if not hasattr(self, 'asset_cooldown'):
+                    self.asset_cooldown = {}
+                
+                # Cooldown based on loss size
+                if profit_percent <= -1.5:
+                    cooldown_time = 7200  # 2 hours for big losses
+                else:
+                    cooldown_time = 1800   # 30 minutes for small losses
+                    
+                self.asset_cooldown[pair] = time.time() + cooldown_time
+                logging.info(f"Added {pair} to cooldown for {cooldown_time/60:.0f} minutes after {profit_percent:.2f}% loss")
+            
+            # ========================================
+            # 🗑️ REMOVE POSITION FROM RISK MANAGER
+            # ========================================
+            if success:
+                self.risk_manager.remove_position(pair)
+                
             return success
         
         except Exception as e:
@@ -1254,8 +1362,131 @@ class HybridTradingBot:
         except:
             return 0
     
+    async def filter_high_quality_assets(self, pairs):
+        """Filter for high-volume, high-quality assets only"""
+        quality_pairs = []
+        
+        # Whitelist de bedste assets (always include these)
+        PREFERRED_ASSETS = [
+            'BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'ADAUSDT',
+            'XRPUSDT', 'DOTUSDT', 'LINKUSDT', 'MATICUSDT', 'AVAXUSDT',
+            'ATOMUSDT', 'LTCUSDT', 'UNIUSDT', 'FILUSDT', 'VETUSDT'
+        ]
+        
+        try:
+            # Get ALL tickers at once (more efficient)
+            all_tickers = self.binance_client.get_ticker()
+            
+            # Create a lookup dict for faster access
+            ticker_dict = {ticker['symbol']: ticker for ticker in all_tickers}
+            
+            for pair in pairs:
+                try:
+                    # Check if in whitelist first (always include)
+                    if pair in PREFERRED_ASSETS:
+                        quality_pairs.append(pair)
+                        logging.info(f"Added {pair} to trading list (PREFERRED)")
+                        continue
+                    
+                    # Get ticker data for this pair
+                    ticker_data = ticker_dict.get(pair)
+                    if not ticker_data:
+                        logging.warning(f"No ticker data found for {pair}")
+                        continue
+                    
+                    # Get volume in USDT (quoteVolume)
+                    volume_24h = float(ticker_data['quoteVolume'])
+                    
+                    # Get price change for additional quality check
+                    price_change_24h = float(ticker_data['priceChangePercent'])
+                    
+                    # Quality filters
+                    volume_threshold = 10000000  # $10M minimum
+                    max_price_change = 50  # Don't trade assets that moved >50% in 24h (too volatile)
+                    
+                    if volume_24h >= volume_threshold and abs(price_change_24h) <= max_price_change:
+                        quality_pairs.append(pair)
+                        logging.info(f"Added {pair} to trading list (Volume: ${volume_24h/1000000:.1f}M, Change: {price_change_24h:+.1f}%)")
+                    else:
+                        if volume_24h < volume_threshold:
+                            logging.info(f"Filtered out {pair} - low volume: ${volume_24h/1000000:.1f}M")
+                        if abs(price_change_24h) > max_price_change:
+                            logging.info(f"Filtered out {pair} - too volatile: {price_change_24h:+.1f}%")
+                            
+                except Exception as e:
+                    logging.warning(f"Error checking {pair}: {str(e)}")
+                    continue
+            
+            logging.info(f"Volume filter result: {len(quality_pairs)} quality pairs from {len(pairs)} candidates")
+            return quality_pairs[:15]  # Max 15 pairs
+            
+        except Exception as e:
+            logging.error(f"❌ Critical error in volume filter: {str(e)}")
+            # Fallback to preferred assets if API fails
+            fallback_pairs = [pair for pair in pairs if pair in PREFERRED_ASSETS][:10]
+            logging.info(f"🔄 Using fallback assets: {fallback_pairs}")
+            return fallback_pairs
+
+    async def check_trend_filter(self, pair):
+     
+        try:
+      
+            try:
+                klines_15m = self.binance_client.get_historical_klines(
+                    pair, Client.KLINE_INTERVAL_15MINUTE, "4 hours ago UTC", limit=12
+                )
+                klines_1h = self.binance_client.get_historical_klines(
+                    pair, Client.KLINE_INTERVAL_1HOUR, "12 hours ago UTC", limit=8
+                )
+            except Exception as api_error:
+                logging.warning(f"API error getting klines for {pair}: {str(api_error)}")
+                return False  # Conservative: reject if can't get data
+            
+            if len(klines_15m) < 8 or len(klines_1h) < 6:
+                logging.info(f"Insufficient data for trend analysis: {pair}")
+                return False
+            
+            # Calculate simple trend (price movement)
+            recent_15m = [float(k[4]) for k in klines_15m[-8:]]  # Last 8 closes (2 hours)
+            recent_1h = [float(k[4]) for k in klines_1h[-6:]]    # Last 6 closes (6 hours)
+            
+            # Check if trending up on both timeframes
+            trend_15m = (recent_15m[-1] - recent_15m[0]) / recent_15m[0] * 100
+            trend_1h = (recent_1h[-1] - recent_1h[0]) / recent_1h[0] * 100
+            
+            # Additional check: recent momentum (last vs 2nd last)
+            momentum_15m = (recent_15m[-1] - recent_15m[-2]) / recent_15m[-2] * 100
+            momentum_1h = (recent_1h[-1] - recent_1h[-2]) / recent_1h[-2] * 100
+            
+            # 🔧 MORE LENIENT REQUIREMENTS for quick mode
+            trend_ok = (trend_15m > 0.5 and trend_1h > 0.2)  # Require actual uptrend
+            momentum_ok = (momentum_15m > -2.0 and momentum_1h > -2.0)  # Much more lenient momentum (was -0.5)
+            
+            # 🔍 DETAILED LOGGING (this is the key fix!)
+            logging.info(f"{pair} trend analysis:")
+            logging.info(f"Trends: 15m: {trend_15m:.2f}% (need > 0.5), 1h: {trend_1h:.2f}% (need > 0.2)")
+            logging.info(f"Momentum: 15m: {momentum_15m:.2f}% (need > -2.0), 1h: {momentum_1h:.2f}% (need > -2.0)")
+            logging.info(f"Checks: trend_ok={trend_ok}, momentum_ok={momentum_ok}")
+            
+            if trend_ok and momentum_ok:
+                logging.info(f"Trend filter PASSED for {pair}")
+                return True
+            else:
+                # 🔍 SPECIFIC FAILURE REASONS
+                failure_reasons = []
+                if not trend_ok:
+                    failure_reasons.append("weak_trend")
+                if not momentum_ok:
+                    failure_reasons.append("bad_momentum")
+                
+                logging.info(f"Trend filter FAILED for {pair}: {', '.join(failure_reasons)}")
+                return False
+                
+        except Exception as e:
+            logging.error(f"Error in trend filter for {pair}: {str(e)}")
+            return False  # Conservative: reject on error
     async def monitor_positions(self):
-        """Enhanced position monitoring with ultra-quick profit taking"""
+        """Enhanced position monitoring with SMART profit taking"""
         for pair, position in list(self.active_positions.items()):
             try:
                 current_price = await self.get_current_price(pair)
@@ -1265,97 +1496,75 @@ class HybridTradingBot:
                 entry_price = position['entry_price']
                 profit_percent = ((current_price / entry_price) - 1) * 100
                 position_age_minutes = (time.time() - position['entry_time']) / 60
+                position_age_hours = position_age_minutes / 60
                 
-                # Check if this is a momentum trade
                 is_momentum = position.get('momentum_trade', False)
                 
-                # ULTRA-QUICK PROFIT TAKING - Take ANY profit fast
-                if profit_percent >= 0.3 and position_age_minutes < 5:
-                    logging.info(f"Ultra-quick profit exit for {pair} at {profit_percent:.2f}% (5 min)")
+                # ========================================
+                # 💰 MINIMUM PROFIT REQUIREMENT (1.5%)
+                # ========================================
+                
+                # HIGH-CONFIDENCE EXITS (kun hvis profit > 1.5%)
+                if profit_percent >= 2.5:  # Take 2.5% profit anytime
+                    logging.info(f"Strong profit target hit for {pair} at {profit_percent:.2f}%")
                     await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.95})
                     continue
                 
-                if profit_percent >= 0.5 and position_age_minutes < 10:
-                    logging.info(f"Quick profit exit for {pair} at {profit_percent:.2f}% (10 min)")
-                    await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.9})
+                elif profit_percent >= 1.5:  # Minimum 1.5% profit
+                    if position_age_minutes > 15:  # After 15 min minimum
+                        logging.info(f"Minimum profit target hit for {pair} at {profit_percent:.2f}%")
+                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.9})
+                        continue
+                
+                # ========================================
+                # ⛔ STRICT STOP LOSS (2.0% max)
+                # ========================================
+                
+                if profit_percent <= -2.0:  # HARD stop loss at -2%
+                    logging.info(f"HARD STOP LOSS triggered for {pair} at {profit_percent:.2f}%")
+                    await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.95})
+                    # Add to cooldown list
+                    if not hasattr(self, 'asset_cooldown'):
+                        self.asset_cooldown = {}
+                    self.asset_cooldown[pair] = time.time() + 3600  # 1 hour cooldown
                     continue
                 
-                # MOMENTUM TRADES - Even quicker exits
-                if is_momentum:
-                    if profit_percent >= 1.0:  # 1% for momentum trades
-                        logging.info(f"Momentum trade profit target hit for {pair} at {profit_percent:.2f}%")
-                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.9})
-                        continue
-                    elif position_age_minutes > 20 and profit_percent >= 0.5:  # 0.5% after 20 min
-                        logging.info(f"Momentum trade time-based exit for {pair} at {profit_percent:.2f}%")
-                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.8})
-                        continue
-                    elif position_age_minutes > 45 and profit_percent >= 0:  # Break even after 45 min
-                        logging.info(f"Momentum trade break-even exit for {pair} at {profit_percent:.2f}%")
+                # ========================================
+                # ⏱️ TIMER STRATEGY (2-3 hour exits)
+                # ========================================
+                
+                # Exit after 2 hours if profit < 1%
+                if position_age_hours >= 2.0 and profit_percent < 1.0:
+                    if profit_percent >= -0.5:  # Only if loss is small
+                        logging.info(f"2-hour timeout exit for {pair} at {profit_percent:.2f}%")
                         await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.7})
                         continue
-                    
-                    # Tighter stop loss for momentum trades
-                    if profit_percent <= -1.0:  # 1% stop loss
-                        logging.info(f"Momentum trade stop loss for {pair} at {profit_percent:.2f}%")
-                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.9})
-                        continue
                 
-                # REGULAR TRADES - Still quick but slightly more patient
-                else:
-                    # Scaled profit targets based on time
-                    if profit_percent >= 2.0:  # Take 2% anytime
-                        logging.info(f"Profit target reached for {pair} at {profit_percent:.2f}%")
-                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.9})
-                        continue
-                    elif position_age_minutes > 30 and profit_percent >= 1.0:  # 1% after 30 min
-                        logging.info(f"Time-based profit taking for {pair} at {profit_percent:.2f}%")
-                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.8})
-                        continue
-                    elif position_age_minutes > 60 and profit_percent >= 0.5:  # 0.5% after 1 hour
-                        logging.info(f"Minimum profit exit for {pair} at {profit_percent:.2f}%")
-                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.7})
-                        continue
-                    elif position_age_minutes > 120 and profit_percent >= 0:  # Break even after 2 hours
-                        logging.info(f"Break even exit for {pair} at {profit_percent:.2f}%")
-                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.6})
-                        continue
-                    elif position_age_minutes > 180 and profit_percent >= -0.5:  # Small loss after 3 hours
-                        logging.info(f"Time stop for {pair} at {profit_percent:.2f}%")
-                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.6})
-                        continue
-                    
-                    # Tighter stop loss
-                    if profit_percent <= -1.5:  # 1.5% stop loss
-                        logging.info(f"Stop loss triggered for {pair} at {profit_percent:.2f}%")
-                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.9})
-                        continue
+                # Force exit after 3 hours regardless
+                if position_age_hours >= 3.0:
+                    logging.info(f"3-hour force exit for {pair} at {profit_percent:.2f}%")
+                    await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.8})
+                    continue
                 
-                # TRAILING STOP for positions in profit
-                if profit_percent > 0.5:
-                    # Check if price is dropping from recent high
+                # ========================================
+                # 📈 TRAILING STOP (kun for profit > 1.5%)
+                # ========================================
+                
+                if profit_percent > 1.5:
                     if not hasattr(position, 'highest_profit'):
                         position['highest_profit'] = profit_percent
                     elif profit_percent > position['highest_profit']:
                         position['highest_profit'] = profit_percent
                     
-                    # If profit dropped 0.3% from high, exit
-                    if position.get('highest_profit', 0) - profit_percent > 0.3:
-                        logging.info(f"Trailing stop triggered for {pair} at {profit_percent:.2f}% (high was {position['highest_profit']:.2f}%)")
-                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.8})
+                    # Trail 0.5% from highest profit
+                    if position.get('highest_profit', 0) - profit_percent > 0.5:
+                        logging.info(f"Trailing stop triggered for {pair} at {profit_percent:.2f}% (high: {position['highest_profit']:.2f}%)")
+                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.85})
                         continue
-                
-                # Clean up momentum trade data if expired
-                if is_momentum and pair in self.momentum_trades:
-                    if time.time() - self.momentum_trades[pair]['entry_time'] > 3600:  # 1 hour
-                        del self.momentum_trades[pair]
-                
-                # Mark pair as recently traded after selling to prevent immediate rebuy
-                if not hasattr(self, 'recently_traded'):
-                    self.recently_traded = {}
-                
+                        
             except Exception as e:
                 logging.error(f"Error monitoring position {pair}: {str(e)}")
+
     async def opportunity_scan_task(self):
         """Dedicated task for continuous opportunity scanning"""
         try:

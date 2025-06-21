@@ -1,0 +1,561 @@
+2025-06-21 14:35:00,683 - INFO - CoinGecko API connected: (V3) To the Moon!
+2025-06-21 14:35:00,684 - INFO - CoinGecko AI client initialized with demo API key
+2025-06-21 14:35:00,685 - INFO - CoinGecko AI client initialized
+2025-06-21 14:35:00,785 - INFO - Database initialization complete
+2025-06-21 14:35:00,795 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN take_profit_pct REAL
+2025-06-21 14:35:00,807 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN stop_loss_pct REAL
+2025-06-21 14:35:00,816 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN is_new_asset INTEGER DEFAULT 0
+2025-06-21 14:35:00,825 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN exit_price REAL
+2025-06-21 14:35:00,834 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN exit_time TEXT
+2025-06-21 14:35:00,843 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN profit_loss REAL
+2025-06-21 14:35:00,852 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN signal_source TEXT
+2025-06-21 14:35:00,861 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN signal_strength REAL
+2025-06-21 14:35:00,869 - INFO - Schema update applied: ALTER TABLE trades ADD COLUMN signal_source TEXT
+2025-06-21 14:35:00,878 - INFO - Schema update applied: ALTER TABLE trades ADD COLUMN signal_strength REAL
+2025-06-21 14:35:00,878 - INFO - Database schema updated successfully with 10 changes
+2025-06-21 14:35:00,888 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-06-21 14:35:00,889 - INFO - Advanced indicators initialized with Taapi.io
+2025-06-21 14:35:00,896 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-06-21 14:35:00,896 - INFO - Advanced indicators initialized with Taapi.io
+2025-06-21 14:35:00,896 - INFO - Advanced indicators initialized successfully
+2025-06-21 14:35:00,896 - INFO - Risk Manager initialized with equity protection: Warning at 3.0%, Risk Reduction at 5.0%, High Alert at 8.0%, Emergency at 12.0%
+2025-06-21 14:35:00,896 - INFO - Hybrid Trading Bot initialized with 1000.00 equity
+2025-06-21 14:35:00,897 - INFO - Mode: TEST trading
+2025-06-21 14:35:00,897 - INFO - AI Provider: CoinGecko
+2025-06-21 14:35:00,897 - INFO - Advanced Indicators: Taapi.io
+2025-06-21 14:35:00,898 - INFO - Testing API connections...
+2025-06-21 14:35:01,138 - INFO - Binance server time: 2025-06-21 14:35:03.446000
+2025-06-21 14:35:01,814 - INFO - CoinGecko AI connection successful: -0.11620319415758948
+2025-06-21 14:35:01,815 - INFO - Preloading historical data for analysis...
+2025-06-21 14:35:01,816 - INFO - Preloading historical data for analysis...
+2025-06-21 14:35:01,816 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-06-21 14:35:02,770 - INFO - Found trending pairs: FUNUSDT, SUSDT, UNIUSDT, VIRTUALUSDT, LAYERUSDT...
+2025-06-21 14:35:02,771 - INFO - Preloading data for pairs: VANAUSDT, VIRTUALUSDT, ALTUSDT, ADAUSDT, UNIUSDT
+2025-06-21 14:35:31,348 - INFO - Preloading data for pairs: ENAUSDT, SEIUSDT, ARBUSDT, SOLUSDT, SYRUPUSDT
+2025-06-21 14:35:59,979 - INFO - Preloading data for pairs: BABYUSDT, HUMAUSDT, FUNUSDT, INITUSDT, BIGTIMEUSDT
+2025-06-21 14:36:30,911 - INFO - Preloading data for pairs: LAYERUSDT, KAITOUSDT, AAVEUSDT, BNBUSDT, ORDIUSDT
+2025-06-21 14:36:59,010 - INFO - Preloading data for pairs: SUSDT, ETHUSDT, RSRUSDT, NEIROUSDT, BTCUSDT
+2025-06-21 14:37:31,180 - INFO - Historical data preloading complete
+2025-06-21 14:37:37,813 - INFO - Updating correlation matrix...
+2025-06-21 14:37:37,816 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/2 ($0.00, 0.0% of equity)
+2025-06-21 14:37:37,867 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-21 14:37:37,867 - INFO - Fetching top 30 trending cryptocurrency pairs
+2025-06-21 14:37:38,823 - INFO - Found trending pairs: FUNUSDT, SUSDT, UNIUSDT, VIRTUALUSDT, LAYERUSDT...
+2025-06-21 14:37:39,778 - INFO - Selected optimal assets: LAYERUSDT, APTUSDT, NXPCUSDT, VIRTUALUSDT, UNIUSDT... (15 total)
+2025-06-21 14:37:39,834 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0,
+    "avg_daily_return_pct": 0,
+    "avg_weekly_return_pct": 0
+  },
+  "trades": {
+    "total": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "profit_factor": 0,
+    "avg_profit": 0,
+    "avg_loss": 0,
+    "expected_value": 0,
+    "recent_win_rate_pct": 0
+  },
+  "pairs": {
+    "best_pair": "None",
+    "best_pair_profit": 0,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-06-21 14:37:39"
+}
+2025-06-21 14:38:11,275 - INFO - Correlation matrix updated for 41 pairs
+2025-06-21 14:38:18,781 - INFO - Market state: Regime=NEUTRAL, Trend=neutral, Volatility=low, Breadth=0.00
+2025-06-21 14:38:36,319 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:38:40,324 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-21 14:38:43,867 - INFO - CoinGecko insights for APT: bullish (0.60 confidence), sentiment: 0.23, whale: 0.10, smart money: neutral
+2025-06-21 14:38:46,958 - INFO - CoinGecko insights for LAYER: bullish (0.70 confidence), sentiment: 0.39, whale: 0.50, smart money: neutral
+2025-06-21 14:38:59,336 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: -0.20, whale: 0.00, smart money: neutral
+2025-06-21 14:39:03,373 - INFO - CoinGecko insights for VIRTUAL: neutral (0.50 confidence), sentiment: 0.00, whale: 0.10, smart money: bearish
+2025-06-21 14:39:07,013 - INFO - CoinGecko insights for ENA: neutral (0.50 confidence), sentiment: 0.00, whale: 0.10, smart money: neutral
+2025-06-21 14:39:11,104 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.42, whale: 0.00, smart money: neutral
+2025-06-21 14:39:15,917 - INFO - CoinGecko insights for SYRUP: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-21 14:39:20,934 - INFO - CoinGecko insights for BABY: neutral (0.50 confidence), sentiment: -0.07, whale: 0.00, smart money: neutral
+2025-06-21 14:39:25,032 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-21 14:39:29,024 - INFO - CoinGecko insights for KAITO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.10, smart money: neutral
+2025-06-21 14:39:34,861 - INFO - CoinGecko insights for S: neutral (0.50 confidence), sentiment: -0.20, whale: 0.00, smart money: neutral
+2025-06-21 14:39:38,958 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.05, whale: 0.00, smart money: neutral
+2025-06-21 14:39:43,257 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.10, whale: -0.10, smart money: neutral
+2025-06-21 14:39:48,795 - INFO - CoinGecko insights for S: neutral (0.50 confidence), sentiment: -0.20, whale: 0.10, smart money: neutral
+2025-06-21 14:39:48,796 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.05, whale: 0.00, smart money: neutral
+2025-06-21 14:39:48,797 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.10, whale: -0.10, smart money: neutral
+2025-06-21 14:39:49,654 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 14:39:49,655 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 14:39:53,467 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:40:04,017 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 14:40:04,018 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 14:40:05,556 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:40:08,797 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:40:08,876 - INFO - LAYERUSDT analysis: BUY signal with 0.35 strength
+2025-06-21 14:40:08,889 - INFO - NXPCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:40:08,901 - INFO - VIRTUALUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:40:08,914 - INFO - ENAUSDT analysis: SELL signal with 0.37 strength
+2025-06-21 14:40:08,927 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:40:08,940 - INFO - SYRUPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:40:08,953 - INFO - BABYUSDT analysis: SELL signal with 0.30 strength
+2025-06-21 14:40:08,969 - INFO - FUNUSDT analysis: BUY signal with 0.39 strength
+2025-06-21 14:40:08,981 - INFO - KAITOUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:40:08,991 - INFO - SUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:40:08,992 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:40:09,002 - INFO - NEIROUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:40:09,003 - INFO - Trading cycle completed in 151.19 seconds
+2025-06-21 14:40:19,111 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 14:40:19,112 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 14:40:34,214 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 14:40:34,215 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 14:40:49,311 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 14:40:49,311 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 14:41:04,433 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 14:41:04,434 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 14:41:19,488 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 14:41:19,489 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 14:41:34,646 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 14:41:34,646 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 14:41:49,714 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 14:41:49,715 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 14:42:04,840 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 14:42:04,841 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 14:42:19,949 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 14:42:19,949 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 14:42:35,029 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 14:42:35,030 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 14:42:50,133 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 14:42:50,134 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 14:43:05,234 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 14:43:05,235 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 14:43:20,335 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 14:43:20,336 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 14:43:36,849 - INFO - Top opportunities found: ['TONUSDT', 'SEIUSDT', 'RSRUSDT', 'SOPHUSDT']
+2025-06-21 14:43:38,142 - INFO - Selected optimal assets: LAYERUSDT, APTUSDT, NXPCUSDT, VIRTUALUSDT, UNIUSDT... (10 total)
+2025-06-21 14:43:39,319 - INFO - CoinGecko insights for LAYER: bullish (0.70 confidence), sentiment: 0.37, whale: 0.50, smart money: neutral
+2025-06-21 14:43:43,836 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: -0.20, whale: 0.10, smart money: bearish
+2025-06-21 14:43:47,585 - INFO - CoinGecko insights for VIRTUAL: bearish (0.68 confidence), sentiment: -0.41, whale: 0.10, smart money: bearish
+2025-06-21 14:43:57,767 - INFO - CoinGecko insights for VIRTUAL: bearish (0.68 confidence), sentiment: -0.41, whale: 0.10, smart money: bearish
+2025-06-21 14:43:57,767 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:44:01,921 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.22, whale: 0.10, smart money: neutral
+2025-06-21 14:44:07,246 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:44:07,247 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.22, whale: 0.10, smart money: neutral
+2025-06-21 14:44:08,813 - INFO - VIRTUALUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:44:08,835 - INFO - LAYERUSDT analysis: BUY signal with 0.32 strength
+2025-06-21 14:44:08,847 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:44:08,857 - INFO - NXPCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:44:08,867 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:44:24,832 - INFO - Selected optimal assets: LAYERUSDT, APTUSDT, VIRTUALUSDT, UNIUSDT, ENAUSDT... (10 total)
+2025-06-21 14:44:25,888 - INFO - CoinGecko insights for LAYER: bullish (0.70 confidence), sentiment: 0.37, whale: 0.50, smart money: neutral
+2025-06-21 14:44:29,347 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.22, whale: 0.10, smart money: neutral
+2025-06-21 14:44:33,666 - INFO - CoinGecko insights for VIRTUAL: bearish (0.68 confidence), sentiment: -0.41, whale: 0.10, smart money: bearish
+2025-06-21 14:44:38,256 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:44:46,199 - INFO - CoinGecko insights for ENA: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:44:51,482 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:44:51,484 - INFO - CoinGecko insights for ENA: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:44:53,035 - INFO - LAYERUSDT analysis: BUY signal with 0.33 strength
+2025-06-21 14:44:53,056 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:44:53,074 - INFO - UNIUSDT analysis: SELL signal with 0.40 strength
+2025-06-21 14:44:53,092 - INFO - VIRTUALUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:44:53,105 - INFO - ENAUSDT analysis: SELL signal with 0.37 strength
+2025-06-21 14:45:09,232 - INFO - Selected optimal assets: LAYERUSDT, APTUSDT, VIRTUALUSDT, UNIUSDT, ENAUSDT... (10 total)
+2025-06-21 14:45:09,236 - INFO - CoinGecko insights for LAYER: bullish (0.70 confidence), sentiment: 0.37, whale: 0.50, smart money: neutral
+2025-06-21 14:45:13,498 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.22, whale: 0.10, smart money: neutral
+2025-06-21 14:45:17,185 - INFO - CoinGecko insights for VIRTUAL: bearish (0.68 confidence), sentiment: -0.41, whale: 0.10, smart money: bearish
+2025-06-21 14:45:21,077 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:45:24,762 - INFO - CoinGecko insights for ENA: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:45:29,884 - INFO - CoinGecko insights for VIRTUAL: bearish (0.68 confidence), sentiment: -0.41, whale: 0.10, smart money: bearish
+2025-06-21 14:45:29,885 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:45:29,885 - INFO - CoinGecko insights for ENA: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:45:31,452 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:45:31,482 - INFO - VIRTUALUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:45:31,501 - INFO - LAYERUSDT analysis: BUY signal with 0.32 strength
+2025-06-21 14:45:31,512 - INFO - ENAUSDT analysis: SELL signal with 0.37 strength
+2025-06-21 14:45:31,521 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:45:47,560 - INFO - Selected optimal assets: LAYERUSDT, APTUSDT, VIRTUALUSDT, UNIUSDT, ENAUSDT... (10 total)
+2025-06-21 14:45:47,563 - INFO - CoinGecko insights for LAYER: bullish (0.70 confidence), sentiment: 0.37, whale: 0.50, smart money: neutral
+2025-06-21 14:45:52,103 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.22, whale: 0.10, smart money: neutral
+2025-06-21 14:45:56,610 - INFO - CoinGecko insights for VIRTUAL: bearish (0.68 confidence), sentiment: -0.41, whale: 0.10, smart money: bearish
+2025-06-21 14:46:01,013 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:46:04,699 - INFO - CoinGecko insights for ENA: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:46:08,590 - INFO - CoinGecko insights for VIRTUAL: bearish (0.68 confidence), sentiment: -0.41, whale: 0.10, smart money: bearish
+2025-06-21 14:46:08,591 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:46:08,592 - INFO - CoinGecko insights for ENA: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:46:10,154 - INFO - ENAUSDT analysis: SELL signal with 0.37 strength
+2025-06-21 14:46:10,179 - INFO - LAYERUSDT analysis: BUY signal with 0.32 strength
+2025-06-21 14:46:10,191 - INFO - UNIUSDT analysis: SELL signal with 0.40 strength
+2025-06-21 14:46:10,191 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:46:10,204 - INFO - VIRTUALUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:46:25,218 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/2 ($0.00, 0.0% of equity)
+2025-06-21 14:46:25,220 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-21 14:46:26,329 - INFO - Selected optimal assets: LAYERUSDT, APTUSDT, VIRTUALUSDT, UNIUSDT, ENAUSDT... (15 total)
+2025-06-21 14:46:27,335 - INFO - CoinGecko insights for LAYER: bullish (0.70 confidence), sentiment: 0.37, whale: 0.50, smart money: neutral
+2025-06-21 14:46:31,459 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.22, whale: 0.10, smart money: neutral
+2025-06-21 14:46:34,907 - INFO - CoinGecko insights for VIRTUAL: bearish (0.68 confidence), sentiment: -0.41, whale: 0.10, smart money: bearish
+2025-06-21 14:46:38,593 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:46:43,303 - INFO - CoinGecko insights for ENA: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:46:47,809 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.40, whale: 0.00, smart money: neutral
+2025-06-21 14:47:18,454 - INFO - CoinGecko insights for SYRUP: bearish (0.60 confidence), sentiment: -0.32, whale: 0.00, smart money: neutral
+2025-06-21 14:47:22,524 - INFO - CoinGecko insights for BABY: neutral (0.50 confidence), sentiment: -0.07, whale: 0.10, smart money: neutral
+2025-06-21 14:47:26,450 - INFO - CoinGecko insights for FUN: bullish (0.85 confidence), sentiment: 0.80, whale: 0.50, smart money: bullish
+2025-06-21 14:47:31,023 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: -0.21, whale: 0.10, smart money: bearish
+2025-06-21 14:47:36,450 - INFO - CoinGecko insights for KAITO: neutral (0.50 confidence), sentiment: -0.24, whale: 0.10, smart money: neutral
+2025-06-21 14:47:41,453 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: bullish
+2025-06-21 14:47:45,563 - INFO - CoinGecko insights for S: neutral (0.50 confidence), sentiment: -0.21, whale: 0.10, smart money: neutral
+2025-06-21 14:47:49,966 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.05, whale: 0.00, smart money: neutral
+2025-06-21 14:47:54,114 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.10, whale: -0.10, smart money: neutral
+2025-06-21 14:47:58,059 - INFO - CoinGecko insights for S: neutral (0.50 confidence), sentiment: -0.21, whale: 0.10, smart money: neutral
+2025-06-21 14:47:58,060 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.05, whale: 0.00, smart money: neutral
+2025-06-21 14:47:58,061 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.10, whale: -0.10, smart money: neutral
+2025-06-21 14:47:59,625 - INFO - VIRTUALUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:47:59,625 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:47:59,639 - INFO - ENAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:47:59,651 - INFO - SYRUPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:47:59,660 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:47:59,669 - INFO - LAYERUSDT analysis: BUY signal with 0.33 strength
+2025-06-21 14:47:59,678 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:47:59,688 - INFO - KAITOUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:47:59,697 - INFO - BABYUSDT analysis: SELL signal with 0.43 strength
+2025-06-21 14:47:59,707 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:47:59,717 - INFO - SUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:47:59,726 - INFO - NEIROUSDT analysis: SELL signal with 0.39 strength
+2025-06-21 14:47:59,736 - INFO - FUNUSDT analysis: BUY signal with 0.74 strength
+2025-06-21 14:47:59,736 - INFO -  QUICK MODE: Position 1/2 approved
+2025-06-21 14:47:59,736 - INFO -  QUICK MODE: Using aggressive position sizing
+2025-06-21 14:47:59,737 - INFO -  High signal (0.74) - Using 40.0% of equity
+2025-06-21 14:47:59,737 - INFO -  QUICK MODE POSITION: $400.00 (40.0% of $1000.00 equity)
+2025-06-21 14:48:01,298 - INFO -  QUICK MODE: Using aggressive position sizing
+2025-06-21 14:48:01,299 - INFO -  High signal (0.74) - Using 40.0% of equity
+2025-06-21 14:48:01,299 - INFO -  QUICK MODE POSITION: $400.00 (40.0% of $1000.00 equity)
+2025-06-21 14:48:01,300 - INFO - DYNAMIC BUY: FUNUSDT - Qty: 63778.0, Price: $0.0075, Value: $480.00, Signal: 0.74
+2025-06-21 14:48:01,364 - INFO - Stop loss for FUNUSDT initialized at 0.007338 (2.5% below entry)
+2025-06-21 14:48:01,365 - INFO - Trailing take profit for FUNUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-21 14:48:01,365 - INFO - TEST MODE: Simulated buy for FUNUSDT executed successfully
+2025-06-21 14:48:01,375 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:48:01,386 - INFO - NXPCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:48:01,387 - INFO - Trading cycle completed in 96.17 seconds
+2025-06-21 14:51:24,088 - INFO - Top opportunities found: ['SOLUSDT', 'TONUSDT', 'FUNUSDT', 'SEIUSDT', 'SOPHUSDT']
+2025-06-21 14:51:25,142 - INFO - Selected optimal assets: APTUSDT, VIRTUALUSDT, UNIUSDT, ENAUSDT, SEIUSDT... (10 total)
+2025-06-21 14:51:25,928 - INFO - Ultra-quick profit exit for FUNUSDT at 4.31% (5 min)
+2025-06-21 14:51:25,929 - INFO - SELL ORDER: FUNUSDT - 63778.0 at approx. $0.00785, P/L: $20.66 (4.31%)
+2025-06-21 14:51:26,008 - INFO - TEST MODE: Simulated sell for FUNUSDT executed successfully
+2025-06-21 14:51:26,008 - INFO - Session stats: 1 trades, 100.0% win rate, $20.66 profit
+2025-06-21 14:51:27,061 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.21, whale: 0.10, smart money: neutral
+2025-06-21 14:51:31,970 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.40, whale: 0.00, smart money: neutral
+2025-06-21 14:51:44,467 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.40, whale: 0.00, smart money: neutral
+2025-06-21 14:51:44,468 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:51:48,252 - INFO - CoinGecko insights for ENA: bearish (0.68 confidence), sentiment: -0.32, whale: 0.10, smart money: bearish
+2025-06-21 14:51:51,836 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.42, whale: 0.10, smart money: bearish
+2025-06-21 14:51:56,284 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:51:56,284 - INFO - Taapi.io API available again after backoff period
+2025-06-21 14:51:56,286 - INFO - CoinGecko insights for ENA: bearish (0.68 confidence), sentiment: -0.32, whale: 0.10, smart money: bearish
+2025-06-21 14:51:56,289 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.42, whale: 0.10, smart money: bearish
+2025-06-21 14:51:57,012 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 14:51:57,013 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 14:51:58,555 - INFO - SEIUSDT analysis: BUY signal with 0.33 strength
+2025-06-21 14:52:11,484 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 14:52:11,485 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 14:52:13,058 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:52:16,310 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:52:16,330 - INFO - ENAUSDT analysis: SELL signal with 0.39 strength
+2025-06-21 14:52:16,345 - INFO - VIRTUALUSDT analysis: SELL signal with 0.43 strength
+2025-06-21 14:52:26,539 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 14:52:26,540 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 14:52:32,822 - INFO - Selected optimal assets: LAYERUSDT, APTUSDT, VIRTUALUSDT, UNIUSDT, ENAUSDT... (10 total)
+2025-06-21 14:52:33,826 - INFO - CoinGecko insights for LAYER: bullish (0.70 confidence), sentiment: 0.40, whale: 0.50, smart money: neutral
+2025-06-21 14:52:37,711 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.21, whale: 0.10, smart money: neutral
+2025-06-21 14:52:41,264 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.42, whale: 0.10, smart money: bearish
+2025-06-21 14:52:41,658 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 14:52:41,659 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 14:52:45,903 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:52:50,296 - INFO - CoinGecko insights for ENA: bearish (0.68 confidence), sentiment: -0.32, whale: 0.10, smart money: bearish
+2025-06-21 14:52:55,633 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.42, whale: 0.10, smart money: bearish
+2025-06-21 14:52:55,634 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:52:55,635 - INFO - CoinGecko insights for ENA: bearish (0.68 confidence), sentiment: -0.32, whale: 0.10, smart money: bearish
+2025-06-21 14:52:56,771 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 14:52:56,772 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 14:52:57,174 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:52:57,184 - INFO - LAYERUSDT analysis: BUY signal with 0.36 strength
+2025-06-21 14:52:57,199 - INFO - VIRTUALUSDT analysis: SELL signal with 0.31 strength
+2025-06-21 14:52:57,217 - INFO - ENAUSDT analysis: SELL signal with 0.39 strength
+2025-06-21 14:52:57,229 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:53:13,480 - INFO - Selected optimal assets: APTUSDT, VIRTUALUSDT, UNIUSDT, ENAUSDT, SEIUSDT... (10 total)
+2025-06-21 14:53:13,484 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.21, whale: 0.10, smart money: neutral
+2025-06-21 14:53:17,135 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.42, whale: 0.10, smart money: bearish
+2025-06-21 14:53:21,948 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:53:27,273 - INFO - CoinGecko insights for ENA: bearish (0.68 confidence), sentiment: -0.32, whale: 0.10, smart money: bearish
+2025-06-21 14:53:31,369 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.40, whale: 0.00, smart money: neutral
+2025-06-21 14:53:36,285 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:53:36,286 - INFO - CoinGecko insights for ENA: bearish (0.68 confidence), sentiment: -0.32, whale: 0.10, smart money: bearish
+2025-06-21 14:53:36,286 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.40, whale: 0.00, smart money: neutral
+2025-06-21 14:53:37,840 - INFO - VIRTUALUSDT analysis: SELL signal with 0.31 strength
+2025-06-21 14:53:37,850 - INFO - ENAUSDT analysis: SELL signal with 0.39 strength
+2025-06-21 14:53:37,851 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:53:37,862 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:53:37,871 - INFO - SEIUSDT analysis: BUY signal with 0.34 strength
+2025-06-21 14:53:53,850 - INFO - Selected optimal assets: APTUSDT, VIRTUALUSDT, UNIUSDT, ENAUSDT, SEIUSDT... (10 total)
+2025-06-21 14:53:53,854 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.21, whale: 0.10, smart money: neutral
+2025-06-21 14:53:58,607 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.42, whale: 0.10, smart money: bearish
+2025-06-21 14:54:01,722 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:54:05,981 - INFO - CoinGecko insights for ENA: bearish (0.68 confidence), sentiment: -0.32, whale: 0.10, smart money: bearish
+2025-06-21 14:54:09,974 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.40, whale: 0.00, smart money: neutral
+2025-06-21 14:54:14,993 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:54:14,994 - INFO - CoinGecko insights for ENA: bearish (0.68 confidence), sentiment: -0.32, whale: 0.10, smart money: bearish
+2025-06-21 14:54:14,995 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.40, whale: 0.00, smart money: neutral
+2025-06-21 14:54:16,548 - INFO - VIRTUALUSDT analysis: SELL signal with 0.31 strength
+2025-06-21 14:54:16,550 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:54:16,568 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:54:16,582 - INFO - SEIUSDT analysis: BUY signal with 0.34 strength
+2025-06-21 14:54:16,595 - INFO - ENAUSDT analysis: SELL signal with 0.39 strength
+2025-06-21 14:54:32,734 - INFO - Selected optimal assets: APTUSDT, VIRTUALUSDT, UNIUSDT, ENAUSDT, SEIUSDT... (10 total)
+2025-06-21 14:54:32,736 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.21, whale: 0.10, smart money: neutral
+2025-06-21 14:54:36,495 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.42, whale: 0.10, smart money: bearish
+2025-06-21 14:54:41,451 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:54:45,507 - INFO - CoinGecko insights for ENA: bearish (0.68 confidence), sentiment: -0.32, whale: 0.10, smart money: bearish
+2025-06-21 14:54:49,603 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.40, whale: 0.00, smart money: neutral
+2025-06-21 14:54:54,110 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:54:54,111 - INFO - CoinGecko insights for ENA: bearish (0.68 confidence), sentiment: -0.32, whale: 0.10, smart money: bearish
+2025-06-21 14:54:54,112 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.40, whale: 0.00, smart money: neutral
+2025-06-21 14:54:55,671 - INFO - ENAUSDT analysis: SELL signal with 0.39 strength
+2025-06-21 14:54:55,684 - INFO - VIRTUALUSDT analysis: SELL signal with 0.31 strength
+2025-06-21 14:54:55,697 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:54:55,697 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:54:55,713 - INFO - SEIUSDT analysis: BUY signal with 0.34 strength
+2025-06-21 14:55:10,717 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/2 ($0.00, 0.0% of equity)
+2025-06-21 14:55:10,719 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-21 14:55:11,701 - INFO - Selected optimal assets: APTUSDT, VIRTUALUSDT, UNIUSDT, ENAUSDT, SEIUSDT... (15 total)
+2025-06-21 14:55:12,547 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.21, whale: 0.10, smart money: neutral
+2025-06-21 14:55:16,227 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.42, whale: 0.10, smart money: bearish
+2025-06-21 14:55:19,914 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: neutral
+2025-06-21 14:55:24,931 - INFO - CoinGecko insights for ENA: bearish (0.68 confidence), sentiment: -0.32, whale: 0.10, smart money: bearish
+2025-06-21 14:55:28,822 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.40, whale: 0.00, smart money: neutral
+2025-06-21 14:55:33,728 - INFO - CoinGecko insights for SYRUP: bearish (0.60 confidence), sentiment: -0.32, whale: 0.00, smart money: neutral
+2025-06-21 14:55:37,629 - INFO - CoinGecko insights for LAYER: bullish (0.70 confidence), sentiment: 0.40, whale: 0.50, smart money: neutral
+2025-06-21 14:56:04,728 - INFO - CoinGecko insights for BABY: neutral (0.50 confidence), sentiment: -0.10, whale: 0.10, smart money: neutral
+2025-06-21 14:56:09,205 - INFO - CoinGecko insights for FUN: bullish (0.85 confidence), sentiment: 0.80, whale: 0.50, smart money: bullish
+2025-06-21 14:56:13,494 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: -0.23, whale: 0.10, smart money: bearish
+2025-06-21 14:56:17,077 - INFO - CoinGecko insights for KAITO: neutral (0.50 confidence), sentiment: -0.28, whale: 0.10, smart money: bearish
+2025-06-21 14:56:21,584 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.04, whale: 0.00, smart money: bullish
+2025-06-21 14:56:26,073 - INFO - CoinGecko insights for S: neutral (0.50 confidence), sentiment: -0.22, whale: 0.10, smart money: neutral
+2025-06-21 14:56:30,990 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.05, whale: 0.00, smart money: neutral
+2025-06-21 14:56:34,530 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.13, whale: -0.30, smart money: neutral
+2025-06-21 14:56:38,136 - INFO - CoinGecko insights for S: neutral (0.50 confidence), sentiment: -0.22, whale: 0.10, smart money: neutral
+2025-06-21 14:56:38,137 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.05, whale: 0.00, smart money: neutral
+2025-06-21 14:56:38,137 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.13, whale: -0.30, smart money: neutral
+2025-06-21 14:56:39,689 - INFO - NEIROUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:56:39,692 - INFO - FUNUSDT analysis: BUY signal with 0.74 strength
+2025-06-21 14:56:39,693 - INFO -  QUICK MODE: Position 2/2 approved
+2025-06-21 14:56:39,693 - INFO -  QUICK MODE: Using aggressive position sizing
+2025-06-21 14:56:39,693 - INFO -  High signal (0.74) - Using 40.0% of equity
+2025-06-21 14:56:39,693 - INFO -  QUICK MODE POSITION: $400.00 (40.0% of $1000.00 equity)
+2025-06-21 14:56:40,653 - INFO -  QUICK MODE: Using aggressive position sizing
+2025-06-21 14:56:40,654 - INFO -  High signal (0.74) - Using 40.0% of equity
+2025-06-21 14:56:40,654 - INFO -  QUICK MODE POSITION: $400.00 (40.0% of $1000.00 equity)
+2025-06-21 14:56:40,654 - INFO - DYNAMIC BUY: FUNUSDT - Qty: 61216.0, Price: $0.0078, Value: $480.00, Signal: 0.74
+2025-06-21 14:56:40,746 - INFO - Stop loss for FUNUSDT initialized at 0.007645 (2.5% below entry)
+2025-06-21 14:56:40,746 - INFO - Trailing take profit for FUNUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-21 14:56:40,746 - INFO - TEST MODE: Simulated buy for FUNUSDT executed successfully
+2025-06-21 14:56:40,750 - INFO - SEIUSDT analysis: BUY signal with 0.34 strength
+2025-06-21 14:56:40,754 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:56:40,757 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:56:40,761 - INFO - SUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:56:40,764 - INFO - LAYERUSDT analysis: BUY signal with 0.36 strength
+2025-06-21 14:56:40,767 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:56:40,770 - INFO - SYRUPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:56:40,774 - INFO - VIRTUALUSDT analysis: SELL signal with 0.43 strength
+2025-06-21 14:56:40,777 - INFO - ENAUSDT analysis: SELL signal with 0.39 strength
+2025-06-21 14:56:40,777 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:56:40,780 - INFO - NXPCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:56:40,784 - INFO - BABYUSDT analysis: SELL signal with 0.31 strength
+2025-06-21 14:56:40,787 - INFO - KAITOUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 14:56:40,787 - INFO - Trading cycle completed in 90.07 seconds
+2025-06-21 14:59:45,733 - INFO - Top opportunities found: ['SEIUSDT', 'SOLUSDT', 'TONUSDT', 'FUNUSDT', 'SOPHUSDT']
+2025-06-21 14:59:47,133 - INFO - Selected optimal assets: LAYERUSDT, APTUSDT, VIRTUALUSDT, UNIUSDT, ENAUSDT... (10 total)
+2025-06-21 14:59:47,134 - INFO - High priority opportunities: SEIUSDT
+2025-06-21 14:59:47,366 - INFO - Ultra-quick profit exit for FUNUSDT at 0.40% (5 min)
+2025-06-21 14:59:47,367 - INFO - SELL ORDER: FUNUSDT - 61216.0 at approx. $0.007872, P/L: $1.90 (0.40%)
+2025-06-21 14:59:47,388 - INFO - TEST MODE: Simulated sell for FUNUSDT executed successfully
+2025-06-21 14:59:47,388 - INFO - Session stats: 2 trades, 100.0% win rate, $22.56 profit
+2025-06-21 14:59:47,876 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.47, whale: 0.00, smart money: neutral
+2025-06-21 14:59:58,533 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.47, whale: 0.00, smart money: neutral
+2025-06-21 14:59:58,533 - INFO - CoinGecko insights for ENA: bearish (0.68 confidence), sentiment: -0.32, whale: 0.10, smart money: bearish
+2025-06-21 15:00:02,812 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.43, whale: 0.10, smart money: bearish
+2025-06-21 15:00:07,357 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.20, whale: 0.10, smart money: neutral
+2025-06-21 15:00:10,908 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.32, whale: 0.10, smart money: neutral
+2025-06-21 15:00:15,806 - INFO - CoinGecko insights for LAYER: bullish (0.70 confidence), sentiment: 0.40, whale: 0.50, smart money: neutral
+2025-06-21 15:00:19,368 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.20, whale: 0.10, smart money: neutral
+2025-06-21 15:00:19,368 - INFO - Taapi.io API available again after backoff period
+2025-06-21 15:00:19,368 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.32, whale: 0.10, smart money: neutral
+2025-06-21 15:00:19,369 - INFO - CoinGecko insights for LAYER: bullish (0.70 confidence), sentiment: 0.40, whale: 0.50, smart money: neutral
+2025-06-21 15:00:19,742 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 15:00:19,742 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 15:00:21,281 - INFO - SEIUSDT analysis: BUY signal with 0.35 strength
+2025-06-21 15:00:34,538 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 15:00:34,538 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 15:00:36,066 - INFO - VIRTUALUSDT analysis: SELL signal with 0.32 strength
+2025-06-21 15:00:39,383 - INFO - ENAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 15:00:39,386 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 15:00:39,391 - INFO - UNIUSDT analysis: SELL signal with 0.30 strength
+2025-06-21 15:00:39,394 - INFO - LAYERUSDT analysis: BUY signal with 0.49 strength
+2025-06-21 15:00:49,613 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 15:00:49,614 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 15:00:55,812 - INFO - Selected optimal assets: APTUSDT, VIRTUALUSDT, UNIUSDT, ENAUSDT, SEIUSDT... (10 total)
+2025-06-21 15:00:55,814 - INFO - High priority opportunities: SEIUSDT
+2025-06-21 15:00:55,815 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.47, whale: 0.00, smart money: neutral
+2025-06-21 15:00:59,827 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.20, whale: 0.10, smart money: neutral
+2025-06-21 15:01:02,920 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.43, whale: 0.10, smart money: bearish
+2025-06-21 15:01:04,764 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 15:01:04,764 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 15:01:06,474 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.32, whale: 0.10, smart money: neutral
+2025-06-21 15:01:10,278 - INFO - CoinGecko insights for ENA: bearish (0.68 confidence), sentiment: -0.32, whale: 0.10, smart money: bearish
+2025-06-21 15:01:14,753 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.43, whale: 0.10, smart money: bearish
+2025-06-21 15:01:14,753 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.32, whale: 0.10, smart money: neutral
+2025-06-21 15:01:14,754 - INFO - CoinGecko insights for ENA: bearish (0.68 confidence), sentiment: -0.32, whale: 0.10, smart money: bearish
+2025-06-21 15:01:16,283 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 15:01:16,287 - INFO - UNIUSDT analysis: SELL signal with 0.31 strength
+2025-06-21 15:01:16,292 - INFO - ENAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 15:01:16,295 - INFO - VIRTUALUSDT analysis: SELL signal with 0.32 strength
+2025-06-21 15:01:16,299 - INFO - SEIUSDT analysis: BUY signal with 0.35 strength
+2025-06-21 15:01:19,834 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 15:01:19,835 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 15:01:32,264 - INFO - Selected optimal assets: LAYERUSDT, APTUSDT, VIRTUALUSDT, UNIUSDT, ENAUSDT... (10 total)
+2025-06-21 15:01:32,265 - INFO - High priority opportunities: SEIUSDT
+2025-06-21 15:01:32,266 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.47, whale: 0.00, smart money: neutral
+2025-06-21 15:01:34,992 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 15:01:34,992 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 15:01:35,807 - INFO - CoinGecko insights for LAYER: bullish (0.70 confidence), sentiment: 0.40, whale: 0.50, smart money: neutral
+2025-06-21 15:01:39,822 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.20, whale: 0.10, smart money: neutral
+2025-06-21 15:01:43,376 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.43, whale: 0.10, smart money: bearish
+2025-06-21 15:01:46,961 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.32, whale: 0.10, smart money: neutral
+2025-06-21 15:01:50,943 - INFO - CoinGecko insights for ENA: bearish (0.68 confidence), sentiment: -0.32, whale: 0.10, smart money: bearish
+2025-06-21 15:01:55,442 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0.0,
+    "avg_daily_return_pct": NaN,
+    "avg_weekly_return_pct": NaN
+  },
+  "trades": {
+    "total": 2,
+    "win_count": 2,
+    "loss_count": 0,
+    "win_rate_pct": 100.0,
+    "profit_factor": Infinity,
+    "avg_profit": 11.28,
+    "avg_loss": 0,
+    "expected_value": 11.28,
+    "recent_win_rate_pct": 100.0
+  },
+  "pairs": {
+    "best_pair": "FUNUSDT",
+    "best_pair_profit": 22.56,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-06-21 15:01:55"
+}
+2025-06-21 15:01:55,443 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.43, whale: 0.10, smart money: bearish
+2025-06-21 15:01:55,444 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.32, whale: 0.10, smart money: neutral
+2025-06-21 15:01:55,444 - INFO - CoinGecko insights for ENA: bearish (0.68 confidence), sentiment: -0.32, whale: 0.10, smart money: bearish
+2025-06-21 15:01:56,984 - INFO - VIRTUALUSDT analysis: SELL signal with 0.32 strength
+2025-06-21 15:01:56,987 - INFO - LAYERUSDT analysis: BUY signal with 0.34 strength
+2025-06-21 15:01:56,990 - INFO - ENAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 15:01:56,994 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 15:01:56,997 - INFO - SEIUSDT analysis: BUY signal with 0.34 strength
+2025-06-21 15:01:57,001 - INFO - UNIUSDT analysis: SELL signal with 0.30 strength
+2025-06-21 15:02:12,969 - INFO - Selected optimal assets: LAYERUSDT, APTUSDT, VIRTUALUSDT, UNIUSDT, ENAUSDT... (10 total)
+2025-06-21 15:02:12,970 - INFO - High priority opportunities: SEIUSDT
+2025-06-21 15:02:12,970 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.47, whale: 0.00, smart money: neutral
+2025-06-21 15:02:16,049 - INFO - CoinGecko insights for LAYER: bullish (0.70 confidence), sentiment: 0.40, whale: 0.50, smart money: neutral
+2025-06-21 15:02:19,593 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.20, whale: 0.10, smart money: neutral
+2025-06-21 15:02:23,132 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.43, whale: 0.10, smart money: bearish
+2025-06-21 15:02:27,598 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.32, whale: 0.10, smart money: neutral
+2025-06-21 15:02:32,071 - INFO - CoinGecko insights for ENA: bearish (0.68 confidence), sentiment: -0.32, whale: 0.10, smart money: bearish
+2025-06-21 15:02:35,158 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.43, whale: 0.10, smart money: bearish
+2025-06-21 15:02:35,159 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.32, whale: 0.10, smart money: neutral
+2025-06-21 15:02:35,159 - INFO - CoinGecko insights for ENA: bearish (0.68 confidence), sentiment: -0.32, whale: 0.10, smart money: bearish
+2025-06-21 15:02:36,697 - INFO - VIRTUALUSDT analysis: SELL signal with 0.32 strength
+2025-06-21 15:02:36,701 - INFO - ENAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 15:02:36,704 - INFO - LAYERUSDT analysis: BUY signal with 0.33 strength
+2025-06-21 15:02:36,707 - INFO - SEIUSDT analysis: BUY signal with 0.35 strength
+2025-06-21 15:02:36,711 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 15:02:36,713 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 15:02:52,656 - INFO - Selected optimal assets: LAYERUSDT, APTUSDT, VIRTUALUSDT, UNIUSDT, ENAUSDT... (10 total)
+2025-06-21 15:02:52,658 - INFO - High priority opportunities: SEIUSDT
+2025-06-21 15:02:52,659 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.47, whale: 0.00, smart money: neutral
+2025-06-21 15:02:56,187 - INFO - CoinGecko insights for LAYER: bullish (0.70 confidence), sentiment: 0.40, whale: 0.50, smart money: neutral
+2025-06-21 15:02:59,721 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.20, whale: 0.10, smart money: neutral
+2025-06-21 15:03:04,168 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.43, whale: 0.10, smart money: bearish
+2025-06-21 15:03:08,630 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.32, whale: 0.10, smart money: neutral
+2025-06-21 15:03:13,546 - INFO - CoinGecko insights for ENA: bearish (0.68 confidence), sentiment: -0.32, whale: 0.10, smart money: bearish
+2025-06-21 15:03:17,524 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.43, whale: 0.10, smart money: bearish
+2025-06-21 15:03:17,525 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.32, whale: 0.10, smart money: neutral
+2025-06-21 15:03:17,525 - INFO - CoinGecko insights for ENA: bearish (0.68 confidence), sentiment: -0.32, whale: 0.10, smart money: bearish
+2025-06-21 15:03:19,062 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 15:03:19,065 - INFO - LAYERUSDT analysis: BUY signal with 0.33 strength
+2025-06-21 15:03:19,068 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 15:03:19,071 - INFO - ENAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 15:03:19,075 - INFO - VIRTUALUSDT analysis: SELL signal with 0.32 strength
+2025-06-21 15:03:19,077 - INFO - SEIUSDT analysis: BUY signal with 0.35 strength
+2025-06-21 15:03:35,035 - INFO - Selected optimal assets: LAYERUSDT, APTUSDT, VIRTUALUSDT, UNIUSDT, ENAUSDT... (10 total)
+2025-06-21 15:03:35,037 - INFO - High priority opportunities: SEIUSDT
+2025-06-21 15:03:35,038 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.47, whale: 0.00, smart money: neutral
+2025-06-21 15:03:38,591 - INFO - CoinGecko insights for LAYER: bullish (0.70 confidence), sentiment: 0.40, whale: 0.50, smart money: neutral
+2025-06-21 15:03:42,148 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.20, whale: 0.10, smart money: neutral
+2025-06-21 15:03:46,131 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.43, whale: 0.10, smart money: bearish
+2025-06-21 15:03:51,024 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.32, whale: 0.10, smart money: neutral
+2025-06-21 15:03:55,515 - INFO - CoinGecko insights for ENA: bearish (0.68 confidence), sentiment: -0.32, whale: 0.10, smart money: bearish
+2025-06-21 15:03:59,521 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.43, whale: 0.10, smart money: bearish
+2025-06-21 15:03:59,522 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.32, whale: 0.10, smart money: neutral
+2025-06-21 15:03:59,522 - INFO - CoinGecko insights for ENA: bearish (0.68 confidence), sentiment: -0.32, whale: 0.10, smart money: bearish
+2025-06-21 15:04:01,078 - INFO - LAYERUSDT analysis: BUY signal with 0.48 strength
+2025-06-21 15:04:01,082 - INFO - SEIUSDT analysis: BUY signal with 0.35 strength
+2025-06-21 15:04:01,085 - INFO - VIRTUALUSDT analysis: SELL signal with 0.32 strength
+2025-06-21 15:04:01,088 - INFO - ENAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 15:04:01,092 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 15:04:01,095 - INFO - UNIUSDT analysis: SELL signal with 0.30 strength
+2025-06-21 15:04:16,111 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/2 ($0.00, 0.0% of equity)
+2025-06-21 15:04:16,112 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-21 15:04:16,597 - INFO - Selected optimal assets: APTUSDT, VIRTUALUSDT, UNIUSDT, ENAUSDT, SEIUSDT... (15 total)
+2025-06-21 15:04:17,264 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.20, whale: 0.10, smart money: neutral
+2025-06-21 15:04:20,361 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.43, whale: 0.10, smart money: bearish
+2025-06-21 15:04:24,378 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.32, whale: 0.10, smart money: neutral
+2025-06-21 15:04:28,371 - INFO - CoinGecko insights for ENA: bearish (0.68 confidence), sentiment: -0.32, whale: 0.10, smart money: bearish
+2025-06-21 15:04:31,457 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.47, whale: 0.00, smart money: neutral
+2025-06-21 15:04:35,887 - INFO - CoinGecko insights for SYRUP: neutral (0.50 confidence), sentiment: -0.30, whale: 0.00, smart money: neutral
+2025-06-21 15:04:39,409 - INFO - CoinGecko insights for LAYER: bullish (0.70 confidence), sentiment: 0.40, whale: 0.50, smart money: neutral
+2025-06-21 15:04:54,933 - INFO - CoinGecko insights for BABY: neutral (0.50 confidence), sentiment: -0.10, whale: 0.10, smart money: neutral
+2025-06-21 15:04:58,030 - INFO - CoinGecko insights for FUN: bullish (0.85 confidence), sentiment: 0.80, whale: 0.50, smart money: bullish
+2025-06-21 15:05:02,070 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: -0.24, whale: 0.10, smart money: bearish
+2025-06-21 15:05:06,105 - INFO - CoinGecko insights for KAITO: neutral (0.50 confidence), sentiment: -0.31, whale: 0.10, smart money: bearish
+2025-06-21 15:05:10,120 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.03, whale: 0.00, smart money: bullish
+2025-06-21 15:05:13,680 - INFO - CoinGecko insights for S: neutral (0.50 confidence), sentiment: -0.17, whale: 0.10, smart money: neutral
+2025-06-21 15:05:18,145 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.05, whale: 0.00, smart money: neutral
+2025-06-21 15:05:21,697 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.15, whale: -0.30, smart money: neutral
+2025-06-21 15:05:25,283 - INFO - CoinGecko insights for S: neutral (0.50 confidence), sentiment: -0.17, whale: 0.10, smart money: neutral
+2025-06-21 15:05:25,283 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.05, whale: 0.00, smart money: neutral
+2025-06-21 15:05:25,283 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.15, whale: -0.30, smart money: neutral
+2025-06-21 15:05:26,828 - INFO - KAITOUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 15:05:26,831 - INFO - FUNUSDT analysis: BUY signal with 0.74 strength
+2025-06-21 15:05:26,834 - INFO - SUSDT analysis: SELL signal with 0.39 strength
+2025-06-21 15:05:26,837 - INFO - NXPCUSDT analysis: SELL signal with 0.35 strength
+2025-06-21 15:05:26,840 - INFO - ENAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 15:05:26,842 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 15:05:26,845 - INFO - LAYERUSDT analysis: BUY signal with 0.36 strength
+2025-06-21 15:05:26,848 - INFO - SYRUPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 15:05:26,851 - INFO - UNIUSDT analysis: SELL signal with 0.30 strength
+2025-06-21 15:05:26,854 - INFO - SEIUSDT analysis: BUY signal with 0.36 strength
+2025-06-21 15:05:26,857 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 15:05:26,860 - INFO - NEIROUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 15:05:26,863 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 15:05:26,866 - INFO - BABYUSDT analysis: SELL signal with 0.43 strength
+2025-06-21 15:05:26,869 - INFO - VIRTUALUSDT analysis: SELL signal with 0.31 strength
+2025-06-21 15:05:26,870 - INFO - Trading cycle completed in 70.76 seconds

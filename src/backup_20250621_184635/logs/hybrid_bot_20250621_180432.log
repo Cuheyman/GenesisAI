@@ -1,0 +1,601 @@
+2025-06-21 18:04:34,488 - INFO - CoinGecko API connected: (V3) To the Moon!
+2025-06-21 18:04:34,490 - INFO - CoinGecko AI client initialized with demo API key
+2025-06-21 18:04:34,490 - INFO - CoinGecko AI client initialized
+2025-06-21 18:04:34,571 - INFO - Database initialization complete
+2025-06-21 18:04:34,583 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN take_profit_pct REAL
+2025-06-21 18:04:34,592 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN stop_loss_pct REAL
+2025-06-21 18:04:34,601 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN is_new_asset INTEGER DEFAULT 0
+2025-06-21 18:04:34,610 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN exit_price REAL
+2025-06-21 18:04:34,619 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN exit_time TEXT
+2025-06-21 18:04:34,630 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN profit_loss REAL
+2025-06-21 18:04:34,639 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN signal_source TEXT
+2025-06-21 18:04:34,649 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN signal_strength REAL
+2025-06-21 18:04:34,657 - INFO - Schema update applied: ALTER TABLE trades ADD COLUMN signal_source TEXT
+2025-06-21 18:04:34,667 - INFO - Schema update applied: ALTER TABLE trades ADD COLUMN signal_strength REAL
+2025-06-21 18:04:34,667 - INFO - Database schema updated successfully with 10 changes
+2025-06-21 18:04:34,679 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-06-21 18:04:34,679 - INFO - Advanced indicators initialized with Taapi.io
+2025-06-21 18:04:34,720 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-06-21 18:04:34,720 - INFO - Advanced indicators initialized with Taapi.io
+2025-06-21 18:04:34,721 - INFO - Advanced indicators initialized successfully
+2025-06-21 18:04:34,721 - INFO - Risk Manager initialized with equity protection: Warning at 3.0%, Risk Reduction at 5.0%, High Alert at 8.0%, Emergency at 12.0%
+2025-06-21 18:04:34,721 - INFO - Hybrid Trading Bot initialized with 1000.00 equity
+2025-06-21 18:04:34,721 - INFO - Mode: TEST trading
+2025-06-21 18:04:34,721 - INFO - AI Provider: CoinGecko
+2025-06-21 18:04:34,721 - INFO - Advanced Indicators: Taapi.io
+2025-06-21 18:04:34,722 - INFO - Testing API connections...
+2025-06-21 18:04:34,956 - INFO - Binance server time: 2025-06-21 18:04:37.342000
+2025-06-21 18:04:35,400 - INFO - CoinGecko AI connection successful: -0.06521021896337298
+2025-06-21 18:04:35,400 - INFO - Preloading historical data for analysis...
+2025-06-21 18:04:35,401 - INFO - Preloading historical data for analysis...
+2025-06-21 18:04:35,401 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-06-21 18:04:36,354 - INFO - Found trending pairs: FUNUSDT, LAYERUSDT, SEIUSDT, VIRTUALUSDT, UNIUSDT...
+2025-06-21 18:04:36,355 - INFO - Preloading data for pairs: UNIUSDT, ENAUSDT, VANAUSDT, BTCUSDT, LAYERUSDT
+2025-06-21 18:05:07,101 - INFO - Preloading data for pairs: ALTUSDT, INITUSDT, SYRUPUSDT, WCTUSDT, BNBUSDT
+2025-06-21 18:05:39,497 - INFO - Preloading data for pairs: KAITOUSDT, KMNOUSDT, ORDIUSDT, NEIROUSDT, BABYUSDT
+2025-06-21 18:06:10,841 - INFO - Preloading data for pairs: ADAUSDT, VIRTUALUSDT, FUNUSDT, RSRUSDT, HUMAUSDT
+2025-06-21 18:06:44,623 - INFO - Preloading data for pairs: SOLUSDT, ETHUSDT, SEIUSDT, TUSDT, SUSDT
+2025-06-21 18:07:16,377 - INFO - Historical data preloading complete
+2025-06-21 18:07:24,306 - INFO - Updating correlation matrix...
+2025-06-21 18:07:24,309 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/2 ($0.00, 0.0% of equity)
+2025-06-21 18:07:24,343 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-21 18:07:24,343 - INFO - Fetching top 30 trending cryptocurrency pairs
+2025-06-21 18:07:25,278 - INFO - Found trending pairs: FUNUSDT, LAYERUSDT, SEIUSDT, VIRTUALUSDT, UNIUSDT...
+2025-06-21 18:07:26,677 - INFO - Selected optimal assets: APTUSDT, CRVUSDT, UNIUSDT, BTCUSDT, WBTCUSDT... (15 total)
+2025-06-21 18:07:26,747 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0,
+    "avg_daily_return_pct": 0,
+    "avg_weekly_return_pct": 0
+  },
+  "trades": {
+    "total": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "profit_factor": 0,
+    "avg_profit": 0,
+    "avg_loss": 0,
+    "expected_value": 0,
+    "recent_win_rate_pct": 0
+  },
+  "pairs": {
+    "best_pair": "None",
+    "best_pair_profit": 0,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-06-21 18:07:26"
+}
+2025-06-21 18:07:59,501 - INFO - Correlation matrix updated for 41 pairs
+2025-06-21 18:08:07,920 - INFO - Market regime changed: NEUTRAL -> BEAR_TRENDING
+2025-06-21 18:08:07,921 - INFO - Market state: Regime=BEAR_TRENDING, Trend=bearish, Volatility=low, Breadth=0.00
+2025-06-21 18:08:07,921 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.14, whale: 0.10, smart money: neutral
+2025-06-21 18:08:28,547 - INFO - CoinGecko insights for ADA: neutral (0.50 confidence), sentiment: -0.02, whale: 0.10, smart money: neutral
+2025-06-21 18:08:32,066 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: -0.04, whale: 0.10, smart money: neutral
+2025-06-21 18:08:36,508 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.28, whale: 0.10, smart money: neutral
+2025-06-21 18:08:40,514 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:08:44,053 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: 0.05, whale: 0.05, smart money: bullish
+2025-06-21 18:08:48,484 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.12, whale: 0.10, smart money: neutral
+2025-06-21 18:08:52,474 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.03, whale: 0.00, smart money: bullish
+2025-06-21 18:08:59,258 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-21 18:09:02,377 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-21 18:09:06,413 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-21 18:09:11,127 - INFO - CoinGecko insights for ALT: neutral (0.50 confidence), sentiment: -0.34, whale: 0.00, smart money: neutral
+2025-06-21 18:09:15,137 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-21 18:09:19,259 - INFO - CoinGecko insights for KAITO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-21 18:09:23,719 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-21 18:09:28,199 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.18, whale: -0.30, smart money: bearish
+2025-06-21 18:09:28,606 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:09:28,607 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:09:32,920 - INFO - CoinGecko insights for KAITO: bearish (0.60 confidence), sentiment: -0.24, whale: 0.10, smart money: neutral
+2025-06-21 18:09:34,515 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:09:34,519 - INFO - KAITOUSDT analysis: SELL signal with 0.33 strength
+2025-06-21 18:09:34,519 - INFO - WCTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:09:43,395 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:09:43,396 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:09:44,942 - INFO - ADAUSDT analysis: SELL signal with 0.45 strength
+2025-06-21 18:09:48,217 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:09:48,228 - INFO - UNIUSDT analysis: SELL signal with 0.31 strength
+2025-06-21 18:09:48,237 - INFO - BTCUSDT analysis: SELL signal with 0.33 strength
+2025-06-21 18:09:48,242 - INFO - XRPUSDT analysis: SELL signal with 0.38 strength
+2025-06-21 18:09:48,247 - INFO - HBARUSDT analysis: SELL signal with 0.30 strength
+2025-06-21 18:09:48,252 - INFO - BNBUSDT analysis: SELL signal with 0.38 strength
+2025-06-21 18:09:48,257 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:09:48,262 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:09:48,267 - INFO - LAYERUSDT analysis: BUY signal with 0.30 strength
+2025-06-21 18:09:48,273 - INFO - ALTUSDT analysis: SELL signal with 0.34 strength
+2025-06-21 18:09:48,277 - INFO - NEIROUSDT analysis: SELL signal with 0.34 strength
+2025-06-21 18:09:48,278 - INFO - Trading cycle completed in 143.97 seconds
+2025-06-21 18:09:58,481 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:09:58,481 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:10:13,568 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:10:13,569 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:10:28,645 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:10:28,645 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:10:43,790 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:10:43,791 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:10:58,870 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:10:58,871 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:11:13,991 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:11:13,992 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:11:29,052 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:11:29,053 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:11:44,188 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:11:44,188 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:11:59,286 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:11:59,286 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:12:14,377 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:12:14,378 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:12:29,488 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:12:29,488 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:13:09,619 - INFO - Top opportunities found: ['SOLUSDT', 'SEIUSDT']
+2025-06-21 18:13:10,550 - INFO - Selected optimal assets: APTUSDT, WCTUSDT, CRVUSDT, UNIUSDT, BTCUSDT... (10 total)
+2025-06-21 18:13:11,166 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.13, whale: 0.10, smart money: neutral
+2025-06-21 18:13:15,627 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.19, whale: 0.50, smart money: bearish
+2025-06-21 18:13:19,652 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:13:23,203 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.28, whale: 0.10, smart money: neutral
+2025-06-21 18:13:26,259 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:13:31,569 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:13:31,569 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.28, whale: 0.10, smart money: neutral
+2025-06-21 18:13:33,752 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:13:34,789 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:13:34,809 - INFO - UNIUSDT analysis: SELL signal with 0.31 strength
+2025-06-21 18:13:34,825 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:13:34,826 - INFO - WCTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:13:35,336 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:13:51,304 - INFO - Selected optimal assets: APTUSDT, WCTUSDT, CRVUSDT, UNIUSDT, BTCUSDT... (10 total)
+2025-06-21 18:13:51,307 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.13, whale: 0.10, smart money: neutral
+2025-06-21 18:13:54,421 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.19, whale: 0.50, smart money: bearish
+2025-06-21 18:13:57,980 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:14:02,058 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.28, whale: 0.10, smart money: neutral
+2025-06-21 18:14:05,612 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:14:09,186 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:14:09,187 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.28, whale: 0.10, smart money: neutral
+2025-06-21 18:14:09,187 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:14:10,723 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:14:10,723 - INFO - WCTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:14:10,731 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:14:10,736 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:14:10,775 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:14:25,784 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/2 ($0.00, 0.0% of equity)
+2025-06-21 18:14:25,785 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-21 18:14:27,210 - INFO - Selected optimal assets: APTUSDT, WCTUSDT, CRVUSDT, UNIUSDT, BTCUSDT... (15 total)
+2025-06-21 18:14:27,822 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.13, whale: 0.10, smart money: neutral
+2025-06-21 18:14:31,374 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.19, whale: 0.50, smart money: bearish
+2025-06-21 18:14:34,435 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:14:37,976 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.28, whale: 0.10, smart money: neutral
+2025-06-21 18:14:43,370 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:14:47,389 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-21 18:14:51,881 - INFO - CoinGecko insights for LAYER: bullish (0.70 confidence), sentiment: 0.45, whale: 0.50, smart money: neutral
+2025-06-21 18:14:56,333 - INFO - CoinGecko insights for KAITO: bearish (0.60 confidence), sentiment: -0.24, whale: 0.10, smart money: neutral
+2025-06-21 18:15:13,563 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.11, whale: 0.10, smart money: neutral
+2025-06-21 18:15:17,539 - INFO - CoinGecko insights for ALT: neutral (0.50 confidence), sentiment: -0.34, whale: 0.10, smart money: bearish
+2025-06-21 18:15:21,543 - INFO - CoinGecko insights for TAO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-21 18:15:25,084 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.03, whale: 0.00, smart money: bullish
+2025-06-21 18:15:29,770 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: 0.05, whale: 0.05, smart money: bullish
+2025-06-21 18:15:33,777 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: -0.03, whale: 0.10, smart money: neutral
+2025-06-21 18:15:38,437 - INFO - CoinGecko insights for DYDX: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-21 18:15:47,587 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: -0.03, whale: 0.10, smart money: neutral
+2025-06-21 18:15:49,320 - INFO - CoinGecko insights for DYDX: neutral (0.50 confidence), sentiment: -0.23, whale: 0.10, smart money: neutral
+2025-06-21 18:15:50,866 - INFO - WCTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:15:50,871 - INFO - APTUSDT analysis: SELL signal with 0.33 strength
+2025-06-21 18:15:50,876 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:15:50,883 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:15:50,888 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:15:50,896 - INFO - KAITOUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:15:50,938 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:15:50,944 - INFO - TAOUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:15:50,951 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:15:50,957 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:15:50,964 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:15:50,971 - INFO - LAYERUSDT analysis: BUY signal with 0.31 strength
+2025-06-21 18:15:50,977 - INFO - ALTUSDT analysis: SELL signal with 0.33 strength
+2025-06-21 18:15:50,984 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:15:50,991 - INFO - DYDXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:15:50,991 - INFO - Trading cycle completed in 85.21 seconds
+2025-06-21 18:19:03,588 - INFO - Top opportunities found: ['SOLUSDT', 'FUNUSDT', 'SEIUSDT', 'GNSUSDT']
+2025-06-21 18:19:04,554 - INFO - Selected optimal assets: APTUSDT, CRVUSDT, UNIUSDT, BTCUSDT, WBTCUSDT... (10 total)
+2025-06-21 18:19:05,378 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.15, whale: 0.10, smart money: neutral
+2025-06-21 18:19:09,818 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:19:14,237 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-21 18:19:22,093 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:19:22,093 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-21 18:19:22,094 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:19:26,576 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.26, whale: 0.10, smart money: neutral
+2025-06-21 18:19:29,644 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:19:29,645 - INFO - Taapi.io API available again after backoff period
+2025-06-21 18:19:29,646 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.26, whale: 0.10, smart money: neutral
+2025-06-21 18:19:30,109 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:19:30,109 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:19:31,648 - INFO - APTUSDT analysis: SELL signal with 0.36 strength
+2025-06-21 18:19:44,843 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:19:44,843 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:19:46,387 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:19:49,657 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:19:49,663 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:19:49,669 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:19:59,937 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:19:59,938 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:20:06,097 - INFO - Selected optimal assets: APTUSDT, CRVUSDT, UNIUSDT, BTCUSDT, WBTCUSDT... (10 total)
+2025-06-21 18:20:06,885 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.15, whale: 0.10, smart money: neutral
+2025-06-21 18:20:09,981 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:20:13,989 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.26, whale: 0.10, smart money: neutral
+2025-06-21 18:20:15,027 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:20:15,027 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:20:18,478 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:20:21,579 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: 0.02, whale: 0.00, smart money: neutral
+2025-06-21 18:20:25,137 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.26, whale: 0.10, smart money: neutral
+2025-06-21 18:20:25,137 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:20:25,137 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: 0.02, whale: 0.00, smart money: neutral
+2025-06-21 18:20:26,684 - INFO - APTUSDT analysis: SELL signal with 0.32 strength
+2025-06-21 18:20:26,712 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:20:26,717 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:20:26,722 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:20:26,728 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:20:30,085 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:20:30,085 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:20:42,706 - INFO - Selected optimal assets: APTUSDT, CRVUSDT, UNIUSDT, BTCUSDT, WBTCUSDT... (10 total)
+2025-06-21 18:20:42,708 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.15, whale: 0.10, smart money: neutral
+2025-06-21 18:20:46,737 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:20:50,279 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.26, whale: 0.10, smart money: neutral
+2025-06-21 18:20:54,276 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:20:58,289 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: 0.02, whale: 0.00, smart money: neutral
+2025-06-21 18:21:03,572 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.26, whale: 0.10, smart money: neutral
+2025-06-21 18:21:03,573 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:21:03,573 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: 0.02, whale: 0.00, smart money: neutral
+2025-06-21 18:21:05,120 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:21:05,125 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:21:05,130 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:21:05,135 - INFO - APTUSDT analysis: SELL signal with 0.32 strength
+2025-06-21 18:21:05,140 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:21:24,037 - INFO - Selected optimal assets: APTUSDT, CRVUSDT, UNIUSDT, BTCUSDT, WBTCUSDT... (10 total)
+2025-06-21 18:21:24,039 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.15, whale: 0.10, smart money: neutral
+2025-06-21 18:21:28,525 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:21:32,962 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.26, whale: 0.10, smart money: neutral
+2025-06-21 18:21:36,965 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:21:40,070 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: 0.02, whale: 0.00, smart money: neutral
+2025-06-21 18:21:44,989 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.26, whale: 0.10, smart money: neutral
+2025-06-21 18:21:44,989 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:21:44,990 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: 0.02, whale: 0.00, smart money: neutral
+2025-06-21 18:21:46,527 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:21:46,532 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:21:46,539 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:21:46,545 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:21:46,551 - INFO - APTUSDT analysis: SELL signal with 0.31 strength
+2025-06-21 18:22:01,563 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/2 ($0.00, 0.0% of equity)
+2025-06-21 18:22:01,565 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-21 18:22:02,517 - INFO - Selected optimal assets: APTUSDT, CRVUSDT, UNIUSDT, BTCUSDT, WBTCUSDT... (15 total)
+2025-06-21 18:22:03,119 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.15, whale: 0.10, smart money: neutral
+2025-06-21 18:22:07,120 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:22:11,146 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.26, whale: 0.10, smart money: neutral
+2025-06-21 18:22:15,157 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:22:18,261 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: 0.02, whale: 0.00, smart money: neutral
+2025-06-21 18:22:22,745 - INFO - CoinGecko insights for LAYER: bullish (0.70 confidence), sentiment: 0.44, whale: 0.50, smart money: neutral
+2025-06-21 18:22:42,908 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.08, whale: 0.10, smart money: neutral
+2025-06-21 18:22:47,843 - INFO - CoinGecko insights for ALT: neutral (0.50 confidence), sentiment: -0.34, whale: 0.10, smart money: bearish
+2025-06-21 18:22:51,858 - INFO - CoinGecko insights for TAO: neutral (0.50 confidence), sentiment: -0.16, whale: 0.10, smart money: neutral
+2025-06-21 18:22:54,913 - INFO - CoinGecko insights for WCT: bullish (0.65 confidence), sentiment: 0.23, whale: 0.50, smart money: bearish
+2025-06-21 18:22:59,382 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.03, whale: 0.00, smart money: bullish
+2025-06-21 18:23:04,282 - INFO - CoinGecko insights for KAITO: bearish (0.60 confidence), sentiment: -0.19, whale: 0.10, smart money: neutral
+2025-06-21 18:23:08,271 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: 0.06, whale: 0.05, smart money: bullish
+2025-06-21 18:23:12,249 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: -0.00, whale: 0.10, smart money: neutral
+2025-06-21 18:23:17,001 - INFO - CoinGecko insights for DYDX: neutral (0.50 confidence), sentiment: -0.21, whale: 0.10, smart money: neutral
+2025-06-21 18:23:21,725 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: 0.06, whale: 0.05, smart money: bullish
+2025-06-21 18:23:21,726 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: -0.00, whale: 0.10, smart money: neutral
+2025-06-21 18:23:21,726 - INFO - CoinGecko insights for DYDX: neutral (0.50 confidence), sentiment: -0.21, whale: 0.10, smart money: neutral
+2025-06-21 18:23:23,281 - INFO - CRVUSDT analysis: SELL signal with 0.32 strength
+2025-06-21 18:23:23,288 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:23:23,294 - INFO - BNBUSDT analysis: SELL signal with 0.34 strength
+2025-06-21 18:23:23,301 - INFO - ALTUSDT analysis: SELL signal with 0.32 strength
+2025-06-21 18:23:23,308 - INFO - KAITOUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:23:23,315 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:23:23,321 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:23:23,328 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:23:23,338 - INFO - XRPUSDT analysis: SELL signal with 0.36 strength
+2025-06-21 18:23:23,350 - INFO - DYDXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:23:23,360 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:23:23,371 - INFO - APTUSDT analysis: SELL signal with 0.31 strength
+2025-06-21 18:23:23,380 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:23:23,381 - INFO - WCTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:23:23,389 - INFO - TAOUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:23:23,390 - INFO - Trading cycle completed in 81.83 seconds
+2025-06-21 18:26:45,064 - INFO - Top opportunities found: ['SOLUSDT', 'BNBUSDT', 'TONUSDT', 'FUNUSDT', 'SEIUSDT']
+2025-06-21 18:26:46,489 - INFO - Selected optimal assets: APTUSDT, CRVUSDT, UNIUSDT, BTCUSDT, WBTCUSDT... (10 total)
+2025-06-21 18:26:46,491 - INFO - High priority opportunities: SOLUSDT
+2025-06-21 18:26:47,086 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: 0.07, whale: 0.10, smart money: bullish
+2025-06-21 18:26:59,926 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: 0.07, whale: 0.10, smart money: bullish
+2025-06-21 18:26:59,927 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.00, smart money: neutral
+2025-06-21 18:27:04,393 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:27:08,146 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:27:12,580 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.26, whale: 0.10, smart money: neutral
+2025-06-21 18:27:17,031 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.17, whale: 0.10, smart money: neutral
+2025-06-21 18:27:21,038 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:27:21,038 - INFO - Taapi.io API available again after backoff period
+2025-06-21 18:27:21,038 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.26, whale: 0.10, smart money: neutral
+2025-06-21 18:27:21,040 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.17, whale: 0.10, smart money: neutral
+2025-06-21 18:27:21,545 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:27:21,546 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:27:23,081 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:27:36,225 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:27:36,225 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:27:37,779 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:27:41,042 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:27:41,043 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:27:41,049 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:27:41,055 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:27:51,330 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:27:51,330 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:27:57,481 - INFO - Selected optimal assets: APTUSDT, CRVUSDT, UNIUSDT, BTCUSDT, WBTCUSDT... (10 total)
+2025-06-21 18:27:57,483 - INFO - High priority opportunities: SOLUSDT
+2025-06-21 18:27:57,485 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: 0.07, whale: 0.10, smart money: bullish
+2025-06-21 18:28:02,406 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.17, whale: 0.10, smart money: neutral
+2025-06-21 18:28:05,940 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:28:06,439 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:28:06,440 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:28:10,400 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.26, whale: 0.10, smart money: neutral
+2025-06-21 18:28:14,857 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:28:19,798 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.00, smart money: neutral
+2025-06-21 18:28:21,477 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:28:21,477 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:28:23,363 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.26, whale: 0.10, smart money: neutral
+2025-06-21 18:28:23,364 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:28:23,364 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.00, smart money: neutral
+2025-06-21 18:28:24,924 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:28:24,933 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:28:24,942 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:28:24,950 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:28:24,958 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:28:24,966 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:28:36,648 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:28:36,649 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:28:40,934 - INFO - Selected optimal assets: APTUSDT, CRVUSDT, UNIUSDT, BTCUSDT, WBTCUSDT... (10 total)
+2025-06-21 18:28:40,936 - INFO - High priority opportunities: SOLUSDT
+2025-06-21 18:28:40,937 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: 0.07, whale: 0.10, smart money: bullish
+2025-06-21 18:28:44,491 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.17, whale: 0.10, smart money: neutral
+2025-06-21 18:28:48,982 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:28:53,457 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.26, whale: 0.10, smart money: neutral
+2025-06-21 18:28:57,452 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:29:00,565 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.00, smart money: neutral
+2025-06-21 18:29:05,520 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.26, whale: 0.10, smart money: neutral
+2025-06-21 18:29:05,521 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:29:05,521 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.00, smart money: neutral
+2025-06-21 18:29:07,090 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:29:07,100 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:29:07,112 - INFO - APTUSDT analysis: SELL signal with 0.32 strength
+2025-06-21 18:29:07,121 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:29:07,136 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:29:07,152 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:29:23,104 - INFO - Selected optimal assets: APTUSDT, LTCUSDT, CRVUSDT, UNIUSDT, BTCUSDT... (10 total)
+2025-06-21 18:29:23,106 - INFO - High priority opportunities: SOLUSDT
+2025-06-21 18:29:23,723 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: 0.07, whale: 0.10, smart money: bullish
+2025-06-21 18:29:27,748 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.17, whale: 0.10, smart money: neutral
+2025-06-21 18:29:31,289 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.10, smart money: neutral
+2025-06-21 18:29:35,282 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:29:40,222 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.26, whale: 0.10, smart money: neutral
+2025-06-21 18:29:43,768 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:29:49,166 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:29:49,167 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.26, whale: 0.10, smart money: neutral
+2025-06-21 18:29:49,167 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:29:50,752 - INFO - APTUSDT analysis: SELL signal with 0.32 strength
+2025-06-21 18:29:50,758 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:29:50,764 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:29:50,769 - INFO - CRVUSDT analysis: SELL signal with 0.30 strength
+2025-06-21 18:29:50,770 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:29:50,775 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:30:07,220 - INFO - Selected optimal assets: APTUSDT, LTCUSDT, CRVUSDT, UNIUSDT, BTCUSDT... (10 total)
+2025-06-21 18:30:07,223 - INFO - High priority opportunities: SOLUSDT
+2025-06-21 18:30:07,224 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: 0.07, whale: 0.10, smart money: bullish
+2025-06-21 18:30:10,780 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.17, whale: 0.10, smart money: neutral
+2025-06-21 18:30:15,290 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.10, smart money: neutral
+2025-06-21 18:30:19,317 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:30:24,233 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.26, whale: 0.10, smart money: neutral
+2025-06-21 18:30:27,791 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:30:31,792 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:30:31,792 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.26, whale: 0.10, smart money: neutral
+2025-06-21 18:30:31,793 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:30:33,335 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:30:33,341 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:30:33,347 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:30:33,353 - INFO - APTUSDT analysis: SELL signal with 0.31 strength
+2025-06-21 18:30:33,359 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:30:33,364 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:30:58,392 - ERROR - Error selecting optimal assets: HTTPSConnectionPool(host='testnet.binance.vision', port=443): Read timed out. (read timeout=10)
+2025-06-21 18:30:58,392 - INFO - High priority opportunities: SOLUSDT
+2025-06-21 18:30:58,987 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: 0.07, whale: 0.10, smart money: bullish
+2025-06-21 18:31:03,785 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:31:07,150 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.05, whale: 0.10, smart money: bullish
+2025-06-21 18:31:15,354 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:31:15,355 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.05, whale: 0.10, smart money: bullish
+2025-06-21 18:31:15,355 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: 0.07, whale: 0.05, smart money: bullish
+2025-06-21 18:31:19,361 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.03, whale: 0.00, smart money: bullish
+2025-06-21 18:31:22,482 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: 0.07, whale: 0.05, smart money: bullish
+2025-06-21 18:31:22,483 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.03, whale: 0.00, smart money: bullish
+2025-06-21 18:31:24,029 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:31:24,034 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:31:24,039 - INFO - BNBUSDT analysis: SELL signal with 0.34 strength
+2025-06-21 18:31:24,043 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:31:24,047 - INFO - ETHUSDT analysis: SELL signal with 0.32 strength
+2025-06-21 18:31:39,050 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/2 ($0.00, 0.0% of equity)
+2025-06-21 18:31:39,051 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-21 18:31:40,431 - INFO - Selected optimal assets: LAYERUSDT, APTUSDT, LTCUSDT, CRVUSDT, UNIUSDT... (15 total)
+2025-06-21 18:31:41,030 - INFO - CoinGecko insights for LAYER: bullish (0.70 confidence), sentiment: 0.39, whale: 0.50, smart money: neutral
+2025-06-21 18:31:44,567 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.17, whale: 0.10, smart money: neutral
+2025-06-21 18:31:48,574 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.10, smart money: neutral
+2025-06-21 18:31:52,564 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:31:55,657 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.26, whale: 0.10, smart money: neutral
+2025-06-21 18:32:00,552 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:32:03,622 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.00, smart money: neutral
+2025-06-21 18:32:08,099 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.03, whale: 0.00, smart money: bullish
+2025-06-21 18:32:11,638 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: 0.07, whale: 0.05, smart money: bullish
+2025-06-21 18:32:25,136 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.07, whale: 0.10, smart money: neutral
+2025-06-21 18:32:30,975 - INFO - CoinGecko insights for ALT: neutral (0.50 confidence), sentiment: -0.33, whale: 0.10, smart money: bearish
+2025-06-21 18:32:34,071 - INFO - CoinGecko insights for TAO: neutral (0.50 confidence), sentiment: -0.17, whale: 0.10, smart money: neutral
+2025-06-21 18:32:38,578 - INFO - CoinGecko insights for WCT: bullish (0.65 confidence), sentiment: 0.24, whale: 0.50, smart money: bearish
+2025-06-21 18:32:42,120 - INFO - CoinGecko insights for KAITO: neutral (0.50 confidence), sentiment: -0.16, whale: 0.10, smart money: neutral
+2025-06-21 18:32:48,399 - INFO - CoinGecko insights for DYDX: neutral (0.50 confidence), sentiment: -0.19, whale: 0.10, smart money: neutral
+2025-06-21 18:32:58,490 - INFO - CoinGecko insights for DYDX: neutral (0.50 confidence), sentiment: -0.19, whale: 0.10, smart money: neutral
+2025-06-21 18:33:00,041 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:33:00,049 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:33:00,056 - INFO - CRVUSDT analysis: SELL signal with 0.32 strength
+2025-06-21 18:33:00,064 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:33:00,073 - INFO - BNBUSDT analysis: SELL signal with 0.34 strength
+2025-06-21 18:33:00,082 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:33:00,089 - INFO - ALTUSDT analysis: SELL signal with 0.33 strength
+2025-06-21 18:33:00,089 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:33:00,096 - INFO - TAOUSDT analysis: SELL signal with 0.32 strength
+2025-06-21 18:33:00,097 - INFO - WCTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:33:00,105 - INFO - KAITOUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:33:00,114 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:33:00,121 - INFO - DYDXUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:33:00,128 - INFO - XRPUSDT analysis: SELL signal with 0.31 strength
+2025-06-21 18:33:00,137 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:33:00,137 - INFO - Trading cycle completed in 81.09 seconds
+2025-06-21 18:36:14,237 - INFO - Top opportunities found: ['SOLUSDT', 'FUNUSDT', 'BCHUSDT']
+2025-06-21 18:36:15,639 - INFO - Selected optimal assets: LAYERUSDT, APTUSDT, CRVUSDT, UNIUSDT, BTCUSDT... (10 total)
+2025-06-21 18:36:15,641 - INFO - High priority opportunities: SOLUSDT
+2025-06-21 18:36:16,323 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: 0.06, whale: 0.10, smart money: bullish
+2025-06-21 18:36:19,892 - INFO - CoinGecko insights for LAYER: bullish (0.70 confidence), sentiment: 0.39, whale: 0.50, smart money: neutral
+2025-06-21 18:36:25,293 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.17, whale: 0.10, smart money: neutral
+2025-06-21 18:36:29,784 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:36:34,217 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.25, whale: 0.10, smart money: neutral
+2025-06-21 18:36:38,219 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:36:43,855 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:36:43,856 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.25, whale: 0.10, smart money: neutral
+2025-06-21 18:36:43,857 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:36:43,858 - INFO - Taapi.io API available again after backoff period
+2025-06-21 18:36:44,316 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:36:44,317 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:36:45,859 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:36:59,045 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:36:59,045 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:37:00,579 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:37:03,875 - INFO - SOLUSDT analysis: SELL signal with 0.36 strength
+2025-06-21 18:37:03,880 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:37:03,885 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:37:03,891 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:37:14,156 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:37:14,156 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:37:20,298 - INFO - Selected optimal assets: LAYERUSDT, APTUSDT, CRVUSDT, UNIUSDT, BTCUSDT... (10 total)
+2025-06-21 18:37:20,300 - INFO - High priority opportunities: SOLUSDT
+2025-06-21 18:37:21,054 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: 0.06, whale: 0.10, smart money: bullish
+2025-06-21 18:37:25,544 - INFO - CoinGecko insights for LAYER: bullish (0.70 confidence), sentiment: 0.36, whale: 0.50, smart money: neutral
+2025-06-21 18:37:29,258 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:37:29,259 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:37:29,531 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.14, whale: 0.10, smart money: neutral
+2025-06-21 18:37:33,079 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:37:38,431 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.25, whale: 0.10, smart money: neutral
+2025-06-21 18:37:42,843 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:37:44,330 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:37:44,331 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:37:46,858 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:37:46,858 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.25, whale: 0.10, smart money: neutral
+2025-06-21 18:37:46,859 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:37:48,410 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:37:48,416 - INFO - UNIUSDT analysis: SELL signal with 0.36 strength
+2025-06-21 18:37:48,422 - INFO - BTCUSDT analysis: SELL signal with 0.32 strength
+2025-06-21 18:37:48,429 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:37:48,469 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:37:48,469 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:37:59,454 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:37:59,454 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:38:04,425 - INFO - Selected optimal assets: LAYERUSDT, APTUSDT, CRVUSDT, UNIUSDT, BTCUSDT... (10 total)
+2025-06-21 18:38:04,427 - INFO - High priority opportunities: SOLUSDT
+2025-06-21 18:38:05,148 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: 0.06, whale: 0.10, smart money: bullish
+2025-06-21 18:38:08,679 - INFO - CoinGecko insights for LAYER: bullish (0.70 confidence), sentiment: 0.36, whale: 0.50, smart money: neutral
+2025-06-21 18:38:13,135 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.14, whale: 0.10, smart money: neutral
+2025-06-21 18:38:18,517 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:38:35,201 - INFO - Updating correlation matrix...
+2025-06-21 18:38:35,202 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.26, whale: 0.10, smart money: neutral
+2025-06-21 18:38:40,122 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:39:12,231 - INFO - Correlation matrix updated for 41 pairs
+2025-06-21 18:39:19,351 - INFO - Market state: Regime=BEAR_TRENDING, Trend=bearish, Volatility=low, Breadth=0.00
+2025-06-21 18:39:20,919 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:39:20,926 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:39:20,931 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:39:20,939 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:39:20,946 - INFO - BTCUSDT analysis: SELL signal with 0.32 strength
+2025-06-21 18:39:20,954 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:39:35,965 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/2 ($0.00, 0.0% of equity)
+2025-06-21 18:39:35,966 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-21 18:39:46,912 - ERROR - Error selecting optimal assets: HTTPSConnectionPool(host='testnet.binance.vision', port=443): Read timed out.
+2025-06-21 18:39:47,558 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 18:39:53,165 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.06, whale: 0.10, smart money: bullish
+2025-06-21 18:39:58,583 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: 0.06, whale: 0.10, smart money: bullish
+2025-06-21 18:40:06,451 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.02, whale: 0.00, smart money: bullish
+2025-06-21 18:40:12,275 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: 0.06, whale: 0.05, smart money: bullish
+2025-06-21 18:40:16,569 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.02, whale: 0.00, smart money: bullish
+2025-06-21 18:40:16,570 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: 0.06, whale: 0.05, smart money: bullish
+2025-06-21 18:40:18,147 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:40:18,154 - INFO - ETHUSDT analysis: SELL signal with 0.38 strength
+2025-06-21 18:40:18,160 - INFO - XRPUSDT analysis: SELL signal with 0.33 strength
+2025-06-21 18:40:18,167 - INFO - BNBUSDT analysis: SELL signal with 0.39 strength
+2025-06-21 18:40:18,173 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:40:18,174 - INFO - Trading cycle completed in 42.21 seconds
+2025-06-21 18:43:32,001 - INFO - Top opportunities found: ['BCHUSDT']
+2025-06-21 18:43:32,967 - INFO - Selected optimal assets: LAYERUSDT, APTUSDT, CRVUSDT, UNIUSDT, BTCUSDT... (10 total)
+2025-06-21 18:43:33,744 - INFO - CoinGecko insights for LAYER: bullish (0.70 confidence), sentiment: 0.32, whale: 0.50, smart money: neutral
+2025-06-21 18:43:45,629 - INFO - CoinGecko insights for LAYER: bullish (0.70 confidence), sentiment: 0.32, whale: 0.50, smart money: neutral
+2025-06-21 18:43:45,629 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.07, whale: 0.00, smart money: bullish
+2025-06-21 18:43:50,407 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:43:54,841 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.26, whale: 0.10, smart money: neutral
+2025-06-21 18:43:59,520 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.13, whale: 0.10, smart money: neutral
+2025-06-21 18:44:03,989 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:44:03,990 - INFO - Taapi.io API available again after backoff period
+2025-06-21 18:44:03,990 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.26, whale: 0.10, smart money: neutral
+2025-06-21 18:44:03,991 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.13, whale: 0.10, smart money: neutral
+2025-06-21 18:44:04,035 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:44:04,036 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:44:05,575 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:44:19,188 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:44:19,189 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:44:20,714 - INFO - BTCUSDT analysis: SELL signal with 0.32 strength
+2025-06-21 18:44:24,012 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:44:24,019 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:44:24,026 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:44:34,277 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:44:34,277 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:44:39,036 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/2 ($0.00, 0.0% of equity)
+2025-06-21 18:44:39,037 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-21 18:44:40,443 - INFO - Selected optimal assets: LAYERUSDT, APTUSDT, CRVUSDT, UNIUSDT, BTCUSDT... (15 total)
+2025-06-21 18:44:41,334 - INFO - CoinGecko insights for LAYER: bullish (0.70 confidence), sentiment: 0.32, whale: 0.50, smart money: neutral
+2025-06-21 18:44:45,817 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.13, whale: 0.10, smart money: neutral
+2025-06-21 18:44:49,344 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:44:49,345 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:44:49,373 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 18:44:52,913 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.26, whale: 0.10, smart money: neutral
+2025-06-21 18:44:57,357 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.07, whale: 0.00, smart money: bullish
+2025-06-21 18:45:00,454 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.00, smart money: neutral
+2025-06-21 18:45:04,019 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.02, whale: 0.00, smart money: bullish
+2025-06-21 18:45:04,486 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 18:45:04,486 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 18:45:07,561 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: 0.06, whale: 0.05, smart money: bullish
+2025-06-21 18:45:23,779 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.08, whale: 0.10, smart money: neutral
+2025-06-21 18:45:27,798 - INFO - CoinGecko insights for ALT: neutral (0.50 confidence), sentiment: -0.30, whale: 0.10, smart money: bearish
+2025-06-21 18:45:31,339 - INFO - CoinGecko insights for TAO: neutral (0.50 confidence), sentiment: -0.19, whale: 0.10, smart money: neutral
+2025-06-21 18:45:33,959 - INFO - CoinGecko insights for WCT: bullish (0.65 confidence), sentiment: 0.23, whale: 0.50, smart money: bearish
+2025-06-21 18:45:38,399 - INFO - CoinGecko insights for KAITO: bearish (0.60 confidence), sentiment: -0.19, whale: 0.10, smart money: neutral
+2025-06-21 18:45:42,861 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: -0.01, whale: 0.10, smart money: neutral
+2025-06-21 18:45:46,423 - INFO - CoinGecko insights for DYDX: neutral (0.50 confidence), sentiment: -0.21, whale: 0.10, smart money: neutral
+2025-06-21 18:45:53,827 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: -0.01, whale: 0.10, smart money: neutral
+2025-06-21 18:45:53,828 - INFO - CoinGecko insights for DYDX: neutral (0.50 confidence), sentiment: -0.21, whale: 0.10, smart money: neutral
+2025-06-21 18:45:55,385 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:45:55,388 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:45:55,392 - INFO - KAITOUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:45:55,395 - INFO - WCTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:45:55,399 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:45:55,403 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:45:55,407 - INFO - XRPUSDT analysis: SELL signal with 0.38 strength
+2025-06-21 18:45:55,410 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:45:55,413 - INFO - BTCUSDT analysis: SELL signal with 0.33 strength
+2025-06-21 18:45:55,416 - INFO - TAOUSDT analysis: SELL signal with 0.33 strength
+2025-06-21 18:45:55,419 - INFO - DYDXUSDT analysis: SELL signal with 0.31 strength
+2025-06-21 18:45:55,422 - INFO - BNBUSDT analysis: SELL signal with 0.39 strength
+2025-06-21 18:45:55,425 - INFO - ALTUSDT analysis: SELL signal with 0.33 strength
+2025-06-21 18:45:55,428 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 18:45:55,431 - INFO - LTCUSDT analysis: SELL signal with 0.35 strength
+2025-06-21 18:45:55,431 - INFO - Trading cycle completed in 76.40 seconds
+2025-06-21 18:46:18,321 - INFO - Bot stopped by user

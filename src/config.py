@@ -6,6 +6,9 @@ load_dotenv()
 
 # Add these to your src/config.py file
 
+
+
+
 # =============================================================================
 # DYNAMIC POSITION SIZING CONFIGURATION
 # =============================================================================
@@ -306,6 +309,46 @@ OPPORTUNITY_WEIGHTS = {
     'social_momentum': 0.10,
     'unusual_buying': 0.10
 }
+
+
+
+# TILFØJ DETTE TIL DIN config.py (efter QUICK_PROFIT_MODE linjen):
+
+# =============================================================================
+# AGGRESSIVE QUICK MODE CONFIGURATION (NEW)
+# =============================================================================
+
+# Quick mode position sizing - 40% of equity per position
+QUICK_MODE_POSITION_SIZE = float(os.getenv('QUICK_MODE_POSITION_SIZE', '0.40'))  # 40% af equity
+
+# Quick mode max positions - only 2 positions at once
+QUICK_MODE_MAX_POSITIONS = int(os.getenv('QUICK_MODE_MAX_POSITIONS', '2'))  # Max 2 positions
+
+# Normal mode settings (existing behavior)
+NORMAL_MODE_MAX_POSITIONS = int(os.getenv('NORMAL_MODE_MAX_POSITIONS', '10'))  # Normal max
+
+# Minimum position sizes for different modes
+QUICK_MODE_MIN_POSITION = float(os.getenv('QUICK_MODE_MIN_POSITION', '300'))   # $300 minimum i quick mode
+NORMAL_MODE_MIN_POSITION = float(os.getenv('NORMAL_MODE_MIN_POSITION', '50'))  # $50 minimum i normal mode
+
+# Signal strength requirements for big positions
+QUICK_MODE_MIN_SIGNAL = float(os.getenv('QUICK_MODE_MIN_SIGNAL', '0.5'))  
+
+# Dynamic MAX_POSITIONS based on mode
+def get_max_positions():
+    """Get max positions based on current trading mode"""
+    if QUICK_PROFIT_MODE == True:
+        return QUICK_MODE_MAX_POSITIONS  # 2 positions
+    else:
+        return NORMAL_MODE_MAX_POSITIONS  # 10 positions
+
+# Update MAX_POSITIONS dynamically
+MAX_POSITIONS = get_max_positions()
+
+
+
+
+
 
 # =============================================================================
 # ASSET SELECTION (ENHANCED)

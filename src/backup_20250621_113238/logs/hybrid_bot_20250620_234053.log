@@ -1,0 +1,444 @@
+2025-06-20 23:40:55,249 - INFO - CoinGecko API connected: (V3) To the Moon!
+2025-06-20 23:40:55,251 - INFO - CoinGecko AI client initialized with demo API key
+2025-06-20 23:40:55,251 - INFO - CoinGecko AI client initialized
+2025-06-20 23:40:55,254 - INFO - Database initialization complete
+2025-06-20 23:40:55,255 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-06-20 23:40:55,256 - INFO - Advanced indicators initialized with Taapi.io
+2025-06-20 23:40:55,256 - INFO - Advanced indicators initialized successfully
+2025-06-20 23:40:55,256 - INFO - Risk Manager initialized with equity protection: Warning at 3.0%, Risk Reduction at 5.0%, High Alert at 8.0%, Emergency at 12.0%
+2025-06-20 23:40:55,257 - INFO - Hybrid Trading Bot initialized with 1000.00 equity
+2025-06-20 23:40:55,257 - INFO - Mode: TEST trading
+2025-06-20 23:40:55,257 - INFO - AI Provider: CoinGecko
+2025-06-20 23:40:55,257 - INFO - Advanced Indicators: Taapi.io
+2025-06-20 23:40:55,258 - INFO - Testing API connections...
+2025-06-20 23:40:55,949 - INFO - Binance server time: 2025-06-20 23:40:55.906000
+2025-06-20 23:40:56,640 - INFO - CoinGecko AI connection successful: -0.11210439525803492
+2025-06-20 23:40:56,640 - INFO - Preloading historical data for analysis...
+2025-06-20 23:40:56,640 - INFO - Preloading historical data for analysis...
+2025-06-20 23:40:56,640 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-06-20 23:40:57,593 - INFO - Found trending pairs: SUSDT, KAIAUSDT, HUMAUSDT, QUICKUSDT, VIRTUALUSDT...
+2025-06-20 23:40:57,594 - INFO - Preloading data for pairs: SOLUSDT, SUSDT, VANAUSDT, VIRTUALUSDT, BTCUSDT
+2025-06-20 23:41:28,643 - INFO - Preloading data for pairs: BABYUSDT, TUSDT, HUMAUSDT, NEARUSDT, RENDERUSDT
+2025-06-20 23:41:59,627 - INFO - Preloading data for pairs: SYRUPUSDT, TRBUSDT, ADAUSDT, JUPUSDT, SEIUSDT
+2025-06-20 23:42:34,409 - INFO - Preloading data for pairs: UNIUSDT, ENAUSDT, DYDXUSDT, BNBUSDT, ETHUSDT
+2025-06-20 23:43:10,396 - INFO - Preloading data for pairs: ONDOUSDT, QUICKUSDT, INITUSDT, LPTUSDT, KAIAUSDT
+2025-06-20 23:43:45,921 - INFO - Historical data preloading complete
+2025-06-20 23:43:53,880 - INFO - Updating correlation matrix...
+2025-06-20 23:43:53,882 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/15 ($0.00, 0.0% of equity)
+2025-06-20 23:43:53,883 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-20 23:43:53,883 - INFO - Fetching top 30 trending cryptocurrency pairs
+2025-06-20 23:43:54,822 - INFO - Found trending pairs: SUSDT, KAIAUSDT, HUMAUSDT, QUICKUSDT, INITUSDT...
+2025-06-20 23:43:55,087 - INFO - Selected optimal assets: TUSDT, SEIUSDT, FUNUSDT, BNBUSDT, CRVUSDT... (15 total)
+2025-06-20 23:43:55,162 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0.0,
+    "avg_daily_return_pct": NaN,
+    "avg_weekly_return_pct": NaN
+  },
+  "trades": {
+    "total": 15,
+    "win_count": 13,
+    "loss_count": 2,
+    "win_rate_pct": 86.67,
+    "profit_factor": 2.0,
+    "avg_profit": 0.29,
+    "avg_loss": -0.94,
+    "expected_value": 0.12,
+    "recent_win_rate_pct": 86.67
+  },
+  "pairs": {
+    "best_pair": "KAIAUSDT",
+    "best_pair_profit": 0.83,
+    "worst_pair": "FUNUSDT",
+    "worst_pair_profit": 0.06
+  },
+  "timestamp": "2025-06-20 23:43:55"
+}
+2025-06-20 23:44:30,533 - INFO - Correlation matrix updated for 41 pairs
+2025-06-20 23:44:38,946 - INFO - Market regime changed: NEUTRAL -> BEAR_TRENDING
+2025-06-20 23:44:38,947 - INFO - Market state: Regime=BEAR_TRENDING, Trend=bearish, Volatility=low, Breadth=0.00
+2025-06-20 23:45:00,025 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.04, whale: 0.00, smart money: bullish
+2025-06-20 23:45:04,413 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.07, whale: 0.10, smart money: neutral
+2025-06-20 23:45:09,515 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.08, whale: 0.00, smart money: bullish
+2025-06-20 23:45:14,390 - INFO - CoinGecko insights for T: bullish (0.85 confidence), sentiment: 0.56, whale: 0.50, smart money: neutral
+2025-06-20 23:45:24,692 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-20 23:45:30,546 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: bullish
+2025-06-20 23:45:34,562 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-20 23:45:38,537 - INFO - CoinGecko insights for S: neutral (0.50 confidence), sentiment: 0.00, whale: 0.10, smart money: neutral
+2025-06-20 23:45:43,635 - INFO - CoinGecko insights for VANA: bearish (0.70 confidence), sentiment: 0.00, whale: 0.00, smart money: bearish
+2025-06-20 23:45:48,067 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.01, whale: 0.00, smart money: neutral
+2025-06-20 23:45:52,486 - INFO - CoinGecko insights for VIRTUAL: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-20 23:45:58,262 - INFO - CoinGecko insights for HUMA: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-20 23:46:02,745 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: -0.10, smart money: neutral
+2025-06-20 23:46:07,480 - INFO - CoinGecko insights for ORDI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-20 23:46:13,282 - INFO - CoinGecko insights for RSR: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-20 23:46:19,357 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:46:19,357 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:46:19,357 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:46:19,358 - INFO - TUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:46:19,358 - INFO - SEIUSDT analysis: BUY signal with 0.42 strength
+2025-06-20 23:46:20,798 - INFO - DYNAMIC BUY: SEIUSDT - Qty: 290.9, Price: $0.2062, Value: $60.00, Signal: 0.42
+2025-06-20 23:46:20,866 - INFO - Stop loss for SEIUSDT initialized at 0.201045 (2.5% below entry)
+2025-06-20 23:46:20,866 - INFO - Trailing take profit for SEIUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-20 23:46:20,866 - INFO - TEST MODE: Simulated buy for SEIUSDT executed successfully
+2025-06-20 23:46:20,867 - INFO - FUNUSDT analysis: BUY signal with 0.47 strength
+2025-06-20 23:46:21,834 - INFO - DYNAMIC BUY: FUNUSDT - Qty: 11489.0, Price: $0.0052, Value: $60.00, Signal: 0.47
+2025-06-20 23:46:21,857 - INFO - Stop loss for FUNUSDT initialized at 0.005091 (2.5% below entry)
+2025-06-20 23:46:21,857 - INFO - Trailing take profit for FUNUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-20 23:46:21,858 - INFO - TEST MODE: Simulated buy for FUNUSDT executed successfully
+2025-06-20 23:46:21,858 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:46:21,858 - INFO - SUSDT analysis: SELL signal with 0.48 strength
+2025-06-20 23:46:21,859 - INFO - VANAUSDT analysis: SELL signal with 0.47 strength
+2025-06-20 23:46:21,859 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:46:21,859 - INFO - VIRTUALUSDT analysis: SELL signal with 0.44 strength
+2025-06-20 23:46:21,859 - INFO - HUMAUSDT analysis: SELL signal with 0.42 strength
+2025-06-20 23:46:21,859 - INFO - NEIROUSDT analysis: SELL signal with 0.35 strength
+2025-06-20 23:46:21,860 - INFO - CoinGecko insights for RSR: neutral (0.50 confidence), sentiment: -0.09, whale: 0.10, smart money: neutral
+2025-06-20 23:46:21,860 - INFO - RSRUSDT analysis: SELL signal with 0.32 strength
+2025-06-20 23:46:24,996 - INFO - ORDIUSDT analysis: SELL signal with 0.40 strength
+2025-06-20 23:46:24,996 - INFO - Trading cycle completed in 151.11 seconds
+2025-06-20 23:49:51,596 - INFO - Top opportunities found: ['TONUSDT', 'SOLUSDT', 'SEIUSDT', 'BTCUSDT', 'TUTUSDT']
+2025-06-20 23:49:52,973 - INFO - Selected optimal assets: TUSDT, SEIUSDT, FUNUSDT, BNBUSDT, CRVUSDT... (10 total)
+2025-06-20 23:49:54,388 - INFO - CoinGecko insights for T: bullish (0.85 confidence), sentiment: 0.56, whale: 0.50, smart money: neutral
+2025-06-20 23:49:58,827 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.41, whale: 0.00, smart money: neutral
+2025-06-20 23:50:02,352 - INFO - CoinGecko insights for FUN: bullish (0.65 confidence), sentiment: 0.39, whale: 0.50, smart money: bullish
+2025-06-20 23:50:08,599 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.08, whale: 0.00, smart money: bullish
+2025-06-20 23:50:13,027 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-20 23:50:18,016 - INFO - TUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:50:18,016 - INFO - SEIUSDT analysis: BUY signal with 0.41 strength
+2025-06-20 23:50:18,016 - INFO - CoinGecko insights for FUN: bullish (0.65 confidence), sentiment: 0.39, whale: 0.50, smart money: bullish
+2025-06-20 23:50:18,017 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-20 23:50:18,017 - INFO - FUNUSDT analysis: BUY signal with 0.57 strength
+2025-06-20 23:50:18,017 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:50:19,862 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.08, whale: 0.00, smart money: bullish
+2025-06-20 23:50:19,863 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:50:36,276 - INFO - Selected optimal assets: TUSDT, SEIUSDT, CRVUSDT, HBARUSDT, SUSDT... (10 total)
+2025-06-20 23:50:36,782 - INFO - CoinGecko insights for T: bullish (0.85 confidence), sentiment: 0.58, whale: 0.50, smart money: neutral
+2025-06-20 23:50:40,311 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.41, whale: 0.00, smart money: neutral
+2025-06-20 23:50:44,775 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-20 23:50:52,496 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.41, whale: 0.00, smart money: neutral
+2025-06-20 23:50:52,496 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-20 23:50:52,496 - INFO - CoinGecko insights for S: neutral (0.50 confidence), sentiment: 0.21, whale: 0.10, smart money: neutral
+2025-06-20 23:50:57,404 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.06, whale: 0.10, smart money: neutral
+2025-06-20 23:51:01,863 - INFO - TUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:51:01,863 - INFO - SEIUSDT analysis: BUY signal with 0.41 strength
+2025-06-20 23:51:01,863 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:51:02,333 - INFO - CoinGecko insights for S: neutral (0.50 confidence), sentiment: 0.21, whale: 0.10, smart money: neutral
+2025-06-20 23:51:02,333 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.06, whale: 0.10, smart money: neutral
+2025-06-20 23:51:02,334 - INFO - SUSDT analysis: SELL signal with 0.48 strength
+2025-06-20 23:51:02,334 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:51:18,711 - INFO - Selected optimal assets: TUSDT, SEIUSDT, CRVUSDT, HBARUSDT, SUSDT... (10 total)
+2025-06-20 23:51:18,713 - INFO - CoinGecko insights for T: bullish (0.85 confidence), sentiment: 0.58, whale: 0.50, smart money: neutral
+2025-06-20 23:51:23,134 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.41, whale: 0.00, smart money: neutral
+2025-06-20 23:51:28,048 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-20 23:51:32,949 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.06, whale: 0.10, smart money: neutral
+2025-06-20 23:51:36,931 - INFO - CoinGecko insights for S: neutral (0.50 confidence), sentiment: 0.21, whale: 0.10, smart money: neutral
+2025-06-20 23:51:43,465 - INFO - TUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:51:43,465 - INFO - SEIUSDT analysis: BUY signal with 0.41 strength
+2025-06-20 23:51:43,466 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.06, whale: 0.10, smart money: neutral
+2025-06-20 23:51:43,466 - INFO - CoinGecko insights for S: neutral (0.50 confidence), sentiment: 0.21, whale: 0.10, smart money: neutral
+2025-06-20 23:51:43,466 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:51:43,467 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:51:43,467 - INFO - SUSDT analysis: SELL signal with 0.48 strength
+2025-06-20 23:51:59,419 - INFO - Selected optimal assets: TUSDT, SEIUSDT, FUNUSDT, CRVUSDT, HBARUSDT... (10 total)
+2025-06-20 23:52:00,170 - INFO - CoinGecko insights for T: bullish (0.85 confidence), sentiment: 0.58, whale: 0.50, smart money: neutral
+2025-06-20 23:52:04,581 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.41, whale: 0.00, smart money: neutral
+2025-06-20 23:52:08,568 - INFO - CoinGecko insights for FUN: bullish (0.65 confidence), sentiment: 0.39, whale: 0.50, smart money: bullish
+2025-06-20 23:52:14,392 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-20 23:52:18,886 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.06, whale: 0.10, smart money: neutral
+2025-06-20 23:52:23,783 - INFO - TUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:52:23,783 - INFO - SEIUSDT analysis: BUY signal with 0.39 strength
+2025-06-20 23:52:23,784 - INFO - CoinGecko insights for FUN: bullish (0.65 confidence), sentiment: 0.39, whale: 0.50, smart money: bullish
+2025-06-20 23:52:23,784 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-20 23:52:23,784 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.06, whale: 0.10, smart money: neutral
+2025-06-20 23:52:23,784 - INFO - FUNUSDT analysis: BUY signal with 0.54 strength
+2025-06-20 23:52:23,785 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:52:23,785 - INFO - HBARUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:52:40,207 - INFO - Selected optimal assets: TUSDT, SEIUSDT, FUNUSDT, CRVUSDT, HBARUSDT... (10 total)
+2025-06-20 23:52:40,208 - INFO - CoinGecko insights for T: bullish (0.85 confidence), sentiment: 0.58, whale: 0.50, smart money: neutral
+2025-06-20 23:52:44,648 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.41, whale: 0.00, smart money: neutral
+2025-06-20 23:52:48,626 - INFO - CoinGecko insights for FUN: bullish (0.65 confidence), sentiment: 0.39, whale: 0.50, smart money: bullish
+2025-06-20 23:52:52,624 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-20 23:52:57,524 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.06, whale: 0.10, smart money: neutral
+2025-06-20 23:53:01,531 - INFO - TUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:53:01,531 - INFO - SEIUSDT analysis: BUY signal with 0.38 strength
+2025-06-20 23:53:01,532 - INFO - CoinGecko insights for FUN: bullish (0.65 confidence), sentiment: 0.39, whale: 0.50, smart money: bullish
+2025-06-20 23:53:01,533 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-20 23:53:01,533 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.06, whale: 0.10, smart money: neutral
+2025-06-20 23:53:01,534 - INFO - FUNUSDT analysis: BUY signal with 0.54 strength
+2025-06-20 23:53:01,534 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:53:01,535 - INFO - HBARUSDT analysis: SELL signal with 0.40 strength
+2025-06-20 23:53:17,485 - INFO - Selected optimal assets: TUSDT, SEIUSDT, FUNUSDT, CRVUSDT, HBARUSDT... (10 total)
+2025-06-20 23:53:17,487 - INFO - CoinGecko insights for T: bullish (0.85 confidence), sentiment: 0.58, whale: 0.50, smart money: neutral
+2025-06-20 23:53:21,032 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.41, whale: 0.00, smart money: neutral
+2025-06-20 23:53:25,908 - INFO - CoinGecko insights for FUN: bullish (0.65 confidence), sentiment: 0.39, whale: 0.50, smart money: bullish
+2025-06-20 23:53:30,362 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-20 23:53:35,686 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.06, whale: 0.10, smart money: neutral
+2025-06-20 23:53:41,971 - INFO - TUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:53:41,972 - INFO - SEIUSDT analysis: BUY signal with 0.38 strength
+2025-06-20 23:53:41,972 - INFO - FUNUSDT analysis: BUY signal with 0.53 strength
+2025-06-20 23:53:41,973 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-20 23:53:41,973 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.06, whale: 0.10, smart money: neutral
+2025-06-20 23:53:41,974 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:53:41,974 - INFO - HBARUSDT analysis: SELL signal with 0.34 strength
+2025-06-20 23:53:56,983 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 2/15 ($120.00, 12.0% of equity)
+2025-06-20 23:53:56,984 - INFO - Active positions: SEI:-0.9%, FUN:-1.1%
+2025-06-20 23:53:56,985 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-20 23:53:58,395 - INFO - Selected optimal assets: TUSDT, SEIUSDT, FUNUSDT, CRVUSDT, HBARUSDT... (15 total)
+2025-06-20 23:53:59,083 - INFO - CoinGecko insights for T: bullish (0.85 confidence), sentiment: 0.58, whale: 0.50, smart money: neutral
+2025-06-20 23:54:03,068 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.41, whale: 0.00, smart money: neutral
+2025-06-20 23:54:08,006 - INFO - CoinGecko insights for FUN: bullish (0.65 confidence), sentiment: 0.39, whale: 0.50, smart money: bullish
+2025-06-20 23:54:11,984 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-20 23:54:16,881 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.06, whale: 0.10, smart money: neutral
+2025-06-20 23:54:22,696 - INFO - CoinGecko insights for S: neutral (0.50 confidence), sentiment: 0.21, whale: 0.10, smart money: neutral
+2025-06-20 23:54:28,072 - INFO - CoinGecko insights for VANA: bearish (0.70 confidence), sentiment: -0.33, whale: 0.10, smart money: bearish
+2025-06-20 23:54:46,409 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.01, whale: 0.00, smart money: neutral
+2025-06-20 23:54:52,902 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.35, whale: 0.10, smart money: bearish
+2025-06-20 23:54:58,496 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.04, whale: 0.00, smart money: bullish
+2025-06-20 23:55:03,418 - INFO - CoinGecko insights for HUMA: neutral (0.50 confidence), sentiment: -0.28, whale: -0.30, smart money: neutral
+2025-06-20 23:55:08,301 - INFO - CoinGecko insights for ORDI: neutral (0.50 confidence), sentiment: -0.12, whale: 0.10, smart money: bearish
+2025-06-20 23:55:14,349 - INFO - CoinGecko insights for RSR: neutral (0.50 confidence), sentiment: -0.10, whale: 0.10, smart money: neutral
+2025-06-20 23:55:19,720 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.21, whale: 0.10, smart money: neutral
+2025-06-20 23:55:24,626 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-20 23:55:31,112 - INFO - TUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:55:31,113 - INFO - SEIUSDT analysis: BUY signal with 0.39 strength
+2025-06-20 23:55:31,114 - INFO - FUNUSDT analysis: BUY signal with 0.54 strength
+2025-06-20 23:55:31,114 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:55:32,738 - INFO - HBARUSDT analysis: SELL signal with 0.34 strength
+2025-06-20 23:55:32,739 - INFO - SUSDT analysis: SELL signal with 0.48 strength
+2025-06-20 23:55:32,739 - INFO - VANAUSDT analysis: SELL signal with 0.60 strength
+2025-06-20 23:55:32,740 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:55:32,740 - INFO - VIRTUALUSDT analysis: SELL signal with 0.47 strength
+2025-06-20 23:55:32,740 - INFO - BTCUSDT analysis: SELL signal with 0.44 strength
+2025-06-20 23:55:32,741 - INFO - HUMAUSDT analysis: SELL signal with 0.44 strength
+2025-06-20 23:55:32,741 - INFO - ORDIUSDT analysis: SELL signal with 0.53 strength
+2025-06-20 23:55:32,741 - INFO - RSRUSDT analysis: SELL signal with 0.32 strength
+2025-06-20 23:55:32,741 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.21, whale: 0.10, smart money: neutral
+2025-06-20 23:55:32,742 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: -0.25, whale: 0.10, smart money: bearish
+2025-06-20 23:55:32,742 - INFO - UNIUSDT analysis: SELL signal with 0.37 strength
+2025-06-20 23:55:32,742 - INFO - NXPCUSDT analysis: SELL signal with 0.30 strength
+2025-06-20 23:55:32,742 - INFO - Trading cycle completed in 95.76 seconds
+2025-06-20 23:59:08,375 - INFO - Top opportunities found: ['TONUSDT', 'SEIUSDT', 'BTCUSDT', 'TUTUSDT']
+2025-06-20 23:59:09,332 - INFO - Selected optimal assets: TUSDT, SEIUSDT, FUNUSDT, BNBUSDT, CRVUSDT... (10 total)
+2025-06-20 23:59:10,998 - INFO - CoinGecko insights for T: bullish (0.85 confidence), sentiment: 0.57, whale: 0.50, smart money: neutral
+2025-06-20 23:59:25,250 - INFO - CoinGecko insights for T: bullish (0.85 confidence), sentiment: 0.57, whale: 0.50, smart money: neutral
+2025-06-20 23:59:25,251 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.08, whale: 0.00, smart money: bullish
+2025-06-20 23:59:33,791 - INFO - CoinGecko insights for FUN: bullish (0.65 confidence), sentiment: 0.41, whale: 0.50, smart money: bullish
+2025-06-20 23:59:38,970 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-20 23:59:45,309 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.40, whale: 0.00, smart money: neutral
+2025-06-20 23:59:54,519 - INFO - TUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:59:55,433 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:59:55,434 - INFO - FUNUSDT analysis: BUY signal with 0.56 strength
+2025-06-20 23:59:55,434 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.40, whale: 0.00, smart money: neutral
+2025-06-20 23:59:55,435 - INFO - CRVUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-20 23:59:55,435 - INFO - SEIUSDT analysis: BUY signal with 0.39 strength
+2025-06-21 00:00:11,825 - INFO - Selected optimal assets: TUSDT, SEIUSDT, FUNUSDT, CRVUSDT, HBARUSDT... (10 total)
+2025-06-21 00:00:12,233 - INFO - CoinGecko insights for T: bullish (0.85 confidence), sentiment: 0.57, whale: 0.50, smart money: neutral
+2025-06-21 00:00:16,216 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.40, whale: 0.00, smart money: neutral
+2025-06-21 00:00:20,858 - INFO - CoinGecko insights for FUN: bullish (0.65 confidence), sentiment: 0.41, whale: 0.50, smart money: bullish
+2025-06-21 00:00:25,781 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 00:00:30,246 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.08, whale: 0.10, smart money: neutral
+2025-06-21 00:00:35,598 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0.0,
+    "avg_daily_return_pct": NaN,
+    "avg_weekly_return_pct": NaN
+  },
+  "trades": {
+    "total": 15,
+    "win_count": 13,
+    "loss_count": 2,
+    "win_rate_pct": 86.67,
+    "profit_factor": 2.0,
+    "avg_profit": 0.29,
+    "avg_loss": -0.94,
+    "expected_value": 0.12,
+    "recent_win_rate_pct": 86.67
+  },
+  "pairs": {
+    "best_pair": "KAIAUSDT",
+    "best_pair_profit": 0.83,
+    "worst_pair": "FUNUSDT",
+    "worst_pair_profit": 0.06
+  },
+  "timestamp": "2025-06-21 00:00:35"
+}
+2025-06-21 00:00:35,600 - INFO - TUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 00:00:35,600 - INFO - SEIUSDT analysis: BUY signal with 0.39 strength
+2025-06-21 00:00:35,601 - INFO - CoinGecko insights for FUN: bullish (0.65 confidence), sentiment: 0.41, whale: 0.50, smart money: bullish
+2025-06-21 00:00:35,601 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 00:00:35,601 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.08, whale: 0.10, smart money: neutral
+2025-06-21 00:00:35,601 - INFO - FUNUSDT analysis: BUY signal with 0.59 strength
+2025-06-21 00:00:35,602 - INFO - CRVUSDT analysis: SELL signal with 0.31 strength
+2025-06-21 00:00:35,602 - INFO - HBARUSDT analysis: SELL signal with 0.47 strength
+2025-06-21 00:00:51,579 - INFO - Selected optimal assets: TUSDT, SEIUSDT, FUNUSDT, CRVUSDT, HBARUSDT... (10 total)
+2025-06-21 00:00:51,581 - INFO - CoinGecko insights for T: bullish (0.85 confidence), sentiment: 0.57, whale: 0.50, smart money: neutral
+2025-06-21 00:00:56,489 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.40, whale: 0.00, smart money: neutral
+2025-06-21 00:01:00,925 - INFO - CoinGecko insights for FUN: bullish (0.65 confidence), sentiment: 0.41, whale: 0.50, smart money: bullish
+2025-06-21 00:01:06,730 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 00:01:11,635 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.08, whale: 0.10, smart money: neutral
+2025-06-21 00:01:17,899 - INFO - TUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 00:01:17,900 - INFO - SEIUSDT analysis: BUY signal with 0.39 strength
+2025-06-21 00:01:17,900 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 00:01:17,901 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.08, whale: 0.10, smart money: neutral
+2025-06-21 00:01:17,901 - INFO - FUNUSDT analysis: BUY signal with 0.57 strength
+2025-06-21 00:01:17,901 - INFO - CRVUSDT analysis: SELL signal with 0.31 strength
+2025-06-21 00:01:17,901 - INFO - HBARUSDT analysis: SELL signal with 0.47 strength
+2025-06-21 00:01:34,291 - INFO - Selected optimal assets: TUSDT, SEIUSDT, FUNUSDT, CRVUSDT, HBARUSDT... (10 total)
+2025-06-21 00:01:34,294 - INFO - CoinGecko insights for T: bullish (0.85 confidence), sentiment: 0.57, whale: 0.50, smart money: neutral
+2025-06-21 00:01:37,802 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.40, whale: 0.00, smart money: neutral
+2025-06-21 00:01:44,517 - INFO - CoinGecko insights for FUN: bullish (0.65 confidence), sentiment: 0.41, whale: 0.50, smart money: bullish
+2025-06-21 00:01:48,507 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 00:01:53,852 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.08, whale: 0.10, smart money: neutral
+2025-06-21 00:01:59,212 - INFO - TUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 00:01:59,212 - INFO - SEIUSDT analysis: BUY signal with 0.39 strength
+2025-06-21 00:01:59,213 - INFO - FUNUSDT analysis: BUY signal with 0.57 strength
+2025-06-21 00:01:59,213 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 00:01:59,213 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.08, whale: 0.10, smart money: neutral
+2025-06-21 00:01:59,214 - INFO - CRVUSDT analysis: SELL signal with 0.31 strength
+2025-06-21 00:01:59,214 - INFO - HBARUSDT analysis: SELL signal with 0.47 strength
+2025-06-21 00:02:14,228 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 2/15 ($120.00, 12.0% of equity)
+2025-06-21 00:02:14,228 - INFO - Active positions: SEI:-0.9%, FUN:-1.0%
+2025-06-21 00:02:14,239 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-21 00:02:15,205 - INFO - Selected optimal assets: TUSDT, SEIUSDT, FUNUSDT, CRVUSDT, HBARUSDT... (15 total)
+2025-06-21 00:02:15,927 - INFO - CoinGecko insights for T: bullish (0.85 confidence), sentiment: 0.57, whale: 0.50, smart money: neutral
+2025-06-21 00:02:20,833 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.40, whale: 0.00, smart money: neutral
+2025-06-21 00:02:25,767 - INFO - CoinGecko insights for FUN: bullish (0.65 confidence), sentiment: 0.41, whale: 0.50, smart money: bullish
+2025-06-21 00:02:30,251 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 00:02:35,587 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.08, whale: 0.10, smart money: neutral
+2025-06-21 00:02:40,446 - INFO - CoinGecko insights for S: neutral (0.50 confidence), sentiment: 0.27, whale: 0.10, smart money: neutral
+2025-06-21 00:02:47,148 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.08, whale: 0.00, smart money: bullish
+2025-06-21 00:03:06,942 - INFO - CoinGecko insights for VANA: bearish (0.70 confidence), sentiment: -0.34, whale: 0.10, smart money: bearish
+2025-06-21 00:03:13,747 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.02, whale: 0.00, smart money: neutral
+2025-06-21 00:03:17,539 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.36, whale: 0.10, smart money: bearish
+2025-06-21 00:03:22,701 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.03, whale: 0.00, smart money: bullish
+2025-06-21 00:03:28,503 - INFO - CoinGecko insights for HUMA: neutral (0.50 confidence), sentiment: -0.32, whale: -0.30, smart money: neutral
+2025-06-21 00:03:32,896 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.22, whale: 0.10, smart money: neutral
+2025-06-21 00:03:39,431 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: -0.27, whale: 0.10, smart money: bearish
+2025-06-21 00:03:51,645 - INFO - CoinGecko insights for QUICK: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-21 00:03:55,425 - INFO - TUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 00:03:55,426 - INFO - SEIUSDT analysis: BUY signal with 0.39 strength
+2025-06-21 00:03:55,427 - INFO - FUNUSDT analysis: BUY signal with 0.54 strength
+2025-06-21 00:03:55,427 - INFO - CRVUSDT analysis: SELL signal with 0.31 strength
+2025-06-21 00:03:55,427 - INFO - HBARUSDT analysis: SELL signal with 0.34 strength
+2025-06-21 00:03:56,877 - INFO - SUSDT analysis: SELL signal with 0.61 strength
+2025-06-21 00:03:56,877 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 00:03:56,878 - INFO - VANAUSDT analysis: SELL signal with 0.46 strength
+2025-06-21 00:03:56,878 - INFO - WBTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 00:03:56,879 - INFO - VIRTUALUSDT analysis: SELL signal with 0.47 strength
+2025-06-21 00:03:56,879 - INFO - BTCUSDT analysis: SELL signal with 0.44 strength
+2025-06-21 00:03:56,879 - INFO - HUMAUSDT analysis: SELL signal with 0.44 strength
+2025-06-21 00:03:56,880 - INFO - UNIUSDT analysis: SELL signal with 0.36 strength
+2025-06-21 00:03:56,880 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: -0.27, whale: 0.10, smart money: bearish
+2025-06-21 00:03:56,880 - INFO - CoinGecko insights for QUICK: bearish (0.60 confidence), sentiment: -0.29, whale: 0.10, smart money: neutral
+2025-06-21 00:03:56,880 - INFO - NXPCUSDT analysis: SELL signal with 0.32 strength
+2025-06-21 00:03:56,881 - INFO - QUICKUSDT analysis: SELL signal with 0.42 strength
+2025-06-21 00:03:56,881 - INFO - Trading cycle completed in 102.65 seconds
+2025-06-21 00:07:29,289 - INFO - Top opportunities found: ['TONUSDT', 'SEIUSDT', 'TUTUSDT', 'BTCUSDT']
+2025-06-21 00:07:30,688 - INFO - Selected optimal assets: TUSDT, SEIUSDT, FUNUSDT, CRVUSDT, HBARUSDT... (10 total)
+2025-06-21 00:07:32,353 - INFO - CoinGecko insights for T: bullish (0.85 confidence), sentiment: 0.55, whale: 0.50, smart money: neutral
+2025-06-21 00:07:48,459 - INFO - CoinGecko insights for CRV: neutral (0.50 confidence), sentiment: 0.05, whale: 0.00, smart money: neutral
+2025-06-21 00:07:53,624 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.10, whale: 0.10, smart money: neutral
+2025-06-21 00:07:58,723 - INFO - CoinGecko insights for FUN: bullish (0.65 confidence), sentiment: 0.40, whale: 0.50, smart money: bullish
+2025-06-21 00:08:02,925 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.39, whale: 0.00, smart money: neutral
+2025-06-21 00:08:08,342 - INFO - TUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 00:08:09,742 - INFO - CRVUSDT analysis: SELL signal with 0.32 strength
+2025-06-21 00:08:09,742 - INFO - CoinGecko insights for FUN: bullish (0.65 confidence), sentiment: 0.40, whale: 0.50, smart money: bullish
+2025-06-21 00:08:09,743 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.39, whale: 0.00, smart money: neutral
+2025-06-21 00:08:09,743 - INFO - HBARUSDT analysis: SELL signal with 0.36 strength
+2025-06-21 00:08:09,743 - INFO - FUNUSDT analysis: BUY signal with 0.56 strength
+2025-06-21 00:08:09,744 - INFO - SEIUSDT analysis: BUY signal with 0.35 strength
+2025-06-21 00:08:25,713 - INFO - Selected optimal assets: TUSDT, SEIUSDT, FUNUSDT, HBARUSDT, SUSDT... (10 total)
+2025-06-21 00:08:26,406 - INFO - CoinGecko insights for T: bullish (0.85 confidence), sentiment: 0.55, whale: 0.50, smart money: neutral
+2025-06-21 00:08:30,851 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.39, whale: 0.00, smart money: neutral
+2025-06-21 00:08:35,515 - INFO - CoinGecko insights for FUN: bullish (0.65 confidence), sentiment: 0.40, whale: 0.50, smart money: bullish
+2025-06-21 00:08:40,500 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.10, whale: 0.10, smart money: neutral
+2025-06-21 00:08:45,855 - INFO - CoinGecko insights for S: neutral (0.50 confidence), sentiment: 0.28, whale: 0.10, smart money: neutral
+2025-06-21 00:08:50,522 - INFO - Stop loss triggered for SEIUSDT at -1.50%
+2025-06-21 00:08:50,522 - INFO - SELL ORDER: SEIUSDT - 290.9 at approx. $0.2031, P/L: $-0.90 (-1.50%)
+2025-06-21 00:08:50,595 - INFO - TEST MODE: Simulated sell for SEIUSDT executed successfully
+2025-06-21 00:08:50,595 - INFO - Session stats: 1 trades, 0.0% win rate, $-0.90 profit
+2025-06-21 00:08:50,835 - INFO - TUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 00:08:50,847 - INFO - SEIUSDT analysis: BUY signal with 0.35 strength
+2025-06-21 00:08:50,847 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.10, whale: 0.10, smart money: neutral
+2025-06-21 00:08:50,848 - INFO - CoinGecko insights for S: neutral (0.50 confidence), sentiment: 0.28, whale: 0.10, smart money: neutral
+2025-06-21 00:08:50,848 - INFO - FUNUSDT analysis: BUY signal with 0.56 strength
+2025-06-21 00:08:50,848 - INFO - HBARUSDT analysis: SELL signal with 0.36 strength
+2025-06-21 00:08:50,848 - INFO - SUSDT analysis: SELL signal with 0.48 strength
+2025-06-21 00:09:06,800 - INFO - Selected optimal assets: TUSDT, SEIUSDT, FUNUSDT, HBARUSDT, SUSDT... (10 total)
+2025-06-21 00:09:06,802 - INFO - CoinGecko insights for T: bullish (0.85 confidence), sentiment: 0.55, whale: 0.50, smart money: neutral
+2025-06-21 00:09:10,765 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.39, whale: 0.00, smart money: neutral
+2025-06-21 00:09:16,088 - INFO - CoinGecko insights for FUN: bullish (0.65 confidence), sentiment: 0.40, whale: 0.50, smart money: bullish
+2025-06-21 00:09:20,533 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.10, whale: 0.10, smart money: neutral
+2025-06-21 00:09:25,442 - INFO - CoinGecko insights for S: neutral (0.50 confidence), sentiment: 0.28, whale: 0.10, smart money: neutral
+2025-06-21 00:09:31,926 - INFO - TUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 00:09:31,927 - INFO - SEIUSDT analysis: BUY signal with 0.35 strength
+2025-06-21 00:09:33,344 - INFO - DYNAMIC BUY: SEIUSDT - Qty: 197.1, Price: $0.2029, Value: $40.00, Signal: 0.35
+2025-06-21 00:09:33,419 - INFO - Stop loss for SEIUSDT initialized at 0.197827 (2.5% below entry)
+2025-06-21 00:09:33,420 - INFO - Trailing take profit for SEIUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-21 00:09:33,420 - INFO - TEST MODE: Simulated buy for SEIUSDT executed successfully
+2025-06-21 00:09:33,420 - INFO - FUNUSDT analysis: BUY signal with 0.56 strength
+2025-06-21 00:09:33,420 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.10, whale: 0.10, smart money: neutral
+2025-06-21 00:09:33,421 - INFO - CoinGecko insights for S: neutral (0.50 confidence), sentiment: 0.28, whale: 0.10, smart money: neutral
+2025-06-21 00:09:33,421 - INFO - HBARUSDT analysis: SELL signal with 0.36 strength
+2025-06-21 00:09:33,421 - INFO - SUSDT analysis: SELL signal with 0.48 strength
+2025-06-21 00:09:49,375 - INFO - Selected optimal assets: TUSDT, SEIUSDT, FUNUSDT, HBARUSDT, SUSDT... (10 total)
+2025-06-21 00:09:49,377 - INFO - CoinGecko insights for T: bullish (0.85 confidence), sentiment: 0.55, whale: 0.50, smart money: neutral
+2025-06-21 00:09:54,269 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.39, whale: 0.00, smart money: neutral
+2025-06-21 00:09:59,179 - INFO - CoinGecko insights for FUN: bullish (0.65 confidence), sentiment: 0.40, whale: 0.50, smart money: bullish
+2025-06-21 00:10:04,082 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.10, whale: 0.10, smart money: neutral
+2025-06-21 00:10:08,977 - INFO - CoinGecko insights for S: neutral (0.50 confidence), sentiment: 0.28, whale: 0.10, smart money: neutral
+2025-06-21 00:10:16,150 - INFO - TUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 00:10:16,150 - INFO - SEIUSDT analysis: BUY signal with 0.34 strength
+2025-06-21 00:10:16,151 - INFO - FUNUSDT analysis: BUY signal with 0.56 strength
+2025-06-21 00:10:16,151 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.10, whale: 0.10, smart money: neutral
+2025-06-21 00:10:16,151 - INFO - CoinGecko insights for S: neutral (0.50 confidence), sentiment: 0.28, whale: 0.10, smart money: neutral
+2025-06-21 00:10:16,151 - INFO - HBARUSDT analysis: SELL signal with 0.36 strength
+2025-06-21 00:10:16,152 - INFO - SUSDT analysis: SELL signal with 0.48 strength
+2025-06-21 00:10:31,162 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 2/15 ($100.00, 10.0% of equity)
+2025-06-21 00:10:31,162 - INFO - Active positions: FUN:-0.6%, SEI:+0.0%
+2025-06-21 00:10:31,163 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-21 00:10:32,110 - INFO - Selected optimal assets: TUSDT, SEIUSDT, FUNUSDT, HBARUSDT, SUSDT... (15 total)
+2025-06-21 00:10:32,599 - INFO - CoinGecko insights for T: bullish (0.85 confidence), sentiment: 0.55, whale: 0.50, smart money: neutral
+2025-06-21 00:10:37,015 - INFO - CoinGecko insights for SEI: bullish (0.75 confidence), sentiment: 0.39, whale: 0.00, smart money: neutral
+2025-06-21 00:10:41,465 - INFO - CoinGecko insights for FUN: bullish (0.65 confidence), sentiment: 0.40, whale: 0.50, smart money: bullish
+2025-06-21 00:10:45,937 - INFO - CoinGecko insights for HBAR: neutral (0.50 confidence), sentiment: -0.10, whale: 0.10, smart money: neutral
+2025-06-21 00:10:49,922 - INFO - CoinGecko insights for S: neutral (0.50 confidence), sentiment: 0.28, whale: 0.10, smart money: neutral
+2025-06-21 00:10:55,294 - INFO - CoinGecko insights for VANA: bearish (0.70 confidence), sentiment: -0.36, whale: 0.10, smart money: bearish
+2025-06-21 00:11:18,004 - INFO - CoinGecko insights for WBTC: neutral (0.50 confidence), sentiment: -0.05, whale: 0.00, smart money: neutral
+2025-06-21 00:11:21,983 - INFO - CoinGecko insights for VIRTUAL: bearish (0.63 confidence), sentiment: -0.39, whale: 0.10, smart money: bearish
+2025-06-21 00:11:26,451 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.02, whale: 0.00, smart money: bullish
+2025-06-21 00:11:47,664 - INFO - CoinGecko insights for HUMA: neutral (0.50 confidence), sentiment: -0.34, whale: -0.30, smart money: neutral
+2025-06-21 00:11:54,444 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.25, whale: 0.10, smart money: neutral
+2025-06-21 00:12:00,489 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: -0.27, whale: 0.10, smart money: bearish
+2025-06-21 00:12:05,653 - INFO - CoinGecko insights for QNT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-21 00:12:10,110 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 00:12:16,168 - INFO - CoinGecko insights for QUICK: bearish (0.60 confidence), sentiment: -0.29, whale: 0.10, smart money: neutral
+2025-06-21 00:12:20,604 - INFO - TUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 00:12:20,605 - INFO - SEIUSDT analysis: BUY signal with 0.35 strength
+2025-06-21 00:12:20,605 - INFO - FUNUSDT analysis: BUY signal with 0.58 strength
+2025-06-21 00:12:20,606 - INFO - HBARUSDT analysis: SELL signal with 0.36 strength
+2025-06-21 00:12:22,474 - INFO - SUSDT analysis: SELL signal with 0.48 strength
+2025-06-21 00:12:22,475 - INFO - VANAUSDT analysis: SELL signal with 0.48 strength
+2025-06-21 00:12:22,475 - INFO - WBTCUSDT analysis: SELL signal with 0.41 strength
+2025-06-21 00:12:22,476 - INFO - VIRTUALUSDT analysis: SELL signal with 0.61 strength
+2025-06-21 00:12:22,476 - INFO - BTCUSDT analysis: SELL signal with 0.46 strength
+2025-06-21 00:12:22,476 - INFO - HUMAUSDT analysis: SELL signal with 0.46 strength
+2025-06-21 00:12:22,476 - INFO - UNIUSDT analysis: SELL signal with 0.38 strength
+2025-06-21 00:12:22,477 - INFO - NXPCUSDT analysis: SELL signal with 0.32 strength
+2025-06-21 00:12:22,477 - INFO - QNTUSDT analysis: SELL signal with 0.38 strength
+2025-06-21 00:12:22,477 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.06, whale: 0.00, smart money: bullish
+2025-06-21 00:12:22,477 - INFO - CoinGecko insights for QUICK: bearish (0.60 confidence), sentiment: -0.29, whale: 0.10, smart money: neutral
+2025-06-21 00:12:22,478 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 00:12:22,478 - INFO - QUICKUSDT analysis: SELL signal with 0.42 strength
+2025-06-21 00:12:22,478 - INFO - Trading cycle completed in 111.32 seconds
+2025-06-21 00:12:53,412 - INFO - Ultra-quick profit exit for SEIUSDT at 0.34% (5 min)
+2025-06-21 00:12:53,413 - INFO - SELL ORDER: SEIUSDT - 197.1 at approx. $0.2036, P/L: $0.14 (0.34%)
+2025-06-21 00:12:53,449 - INFO - TEST MODE: Simulated sell for SEIUSDT executed successfully
+2025-06-21 00:12:53,450 - INFO - Session stats: 2 trades, 50.0% win rate, $-0.76 profit

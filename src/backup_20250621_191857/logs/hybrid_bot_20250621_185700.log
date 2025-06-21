@@ -1,0 +1,385 @@
+2025-06-21 18:57:01,721 - INFO - CoinGecko API connected: (V3) To the Moon!
+2025-06-21 18:57:01,723 - INFO - CoinGecko AI client initialized with demo API key
+2025-06-21 18:57:01,723 - INFO - CoinGecko AI client initialized
+2025-06-21 18:57:01,790 - INFO - Database initialization complete
+2025-06-21 18:57:01,801 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN take_profit_pct REAL
+2025-06-21 18:57:01,810 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN stop_loss_pct REAL
+2025-06-21 18:57:01,818 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN is_new_asset INTEGER DEFAULT 0
+2025-06-21 18:57:01,827 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN exit_price REAL
+2025-06-21 18:57:01,837 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN exit_time TEXT
+2025-06-21 18:57:01,892 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN profit_loss REAL
+2025-06-21 18:57:02,004 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN signal_source TEXT
+2025-06-21 18:57:02,025 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN signal_strength REAL
+2025-06-21 18:57:02,034 - INFO - Schema update applied: ALTER TABLE trades ADD COLUMN signal_source TEXT
+2025-06-21 18:57:02,045 - INFO - Schema update applied: ALTER TABLE trades ADD COLUMN signal_strength REAL
+2025-06-21 18:57:02,045 - INFO - Database schema updated successfully with 10 changes
+2025-06-21 18:57:02,058 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-06-21 18:57:02,058 - INFO - Advanced indicators initialized with Taapi.io
+2025-06-21 18:57:02,071 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-06-21 18:57:02,071 - INFO - Advanced indicators initialized with Taapi.io
+2025-06-21 18:57:02,071 - INFO - Advanced indicators initialized successfully
+2025-06-21 18:57:02,072 - INFO - Risk Manager initialized with equity protection: Warning at 3.0%, Risk Reduction at 5.0%, High Alert at 8.0%, Emergency at 12.0%
+2025-06-21 18:57:02,072 - INFO - Hybrid Trading Bot initialized with 1000.00 equity
+2025-06-21 18:57:02,072 - INFO - Mode: TEST trading
+2025-06-21 18:57:02,072 - INFO - AI Provider: CoinGecko
+2025-06-21 18:57:02,072 - INFO - Advanced Indicators: Taapi.io
+2025-06-21 18:57:02,073 - INFO - Testing API connections...
+2025-06-21 18:57:02,315 - INFO - Binance server time: 2025-06-21 18:57:02.196000
+2025-06-21 18:57:02,811 - INFO - CoinGecko AI connection successful: -0.0618995331111212
+2025-06-21 18:57:02,812 - INFO - Preloading historical data for analysis...
+2025-06-21 18:57:02,812 - INFO - Preloading historical data for analysis...
+2025-06-21 18:57:02,812 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-06-21 18:57:03,759 - INFO - Found trending pairs: FUNUSDT, SEIUSDT, VIRTUALUSDT, LAYERUSDT, UNIUSDT...
+2025-06-21 18:57:03,760 - INFO - Preloading data for pairs: FUNUSDT, TUSDT, VANAUSDT, NEIROUSDT, SOLUSDT
+2025-06-21 18:57:34,886 - INFO - Preloading data for pairs: SUSDT, KMNOUSDT, WCTUSDT, QNTUSDT, ADAUSDT
+2025-06-21 18:58:05,953 - INFO - Preloading data for pairs: ETHUSDT, SEIUSDT, SOPHUSDT, LAYERUSDT, HUMAUSDT
+2025-06-21 18:58:38,354 - INFO - Preloading data for pairs: UNIUSDT, VIRTUALUSDT, KAITOUSDT, SYRUPUSDT, ORDIUSDT
+2025-06-21 18:59:06,038 - INFO - Preloading data for pairs: BABYUSDT, BTCUSDT, ALTUSDT, ENAUSDT, BNBUSDT
+2025-06-21 18:59:37,727 - INFO - Historical data preloading complete
+2025-06-21 18:59:43,857 - INFO - Updating correlation matrix...
+2025-06-21 18:59:43,859 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/2 ($0.00, 0.0% of equity)
+2025-06-21 18:59:43,871 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-21 18:59:43,871 - INFO - Fetching top 30 trending cryptocurrency pairs
+2025-06-21 18:59:44,820 - INFO - Found trending pairs: FUNUSDT, SEIUSDT, VIRTUALUSDT, LAYERUSDT, UNIUSDT...
+2025-06-21 18:59:46,219 - INFO - Selected optimal assets: WCTUSDT, LAYERUSDT, CRVUSDT, APTUSDT, FUNUSDT... (25 total)
+2025-06-21 18:59:46,898 - INFO - Filtered out WCTUSDT - low volume: $0.0M
+2025-06-21 18:59:47,134 - INFO - Filtered out LAYERUSDT - low volume: $0.0M
+2025-06-21 18:59:47,827 - INFO - Filtered out CRVUSDT - low volume: $0.0M
+2025-06-21 18:59:48,505 - INFO - Filtered out APTUSDT - low volume: $0.0M
+2025-06-21 18:59:49,207 - INFO - Filtered out FUNUSDT - low volume: $0.0M
+2025-06-21 18:59:49,438 - INFO - Filtered out TUSDT - low volume: $0.0M
+2025-06-21 18:59:49,669 - INFO - Filtered out NEIROUSDT - low volume: $0.0M
+2025-06-21 18:59:49,906 - INFO - Filtered out LPTUSDT - low volume: $0.0M
+2025-06-21 18:59:50,587 - INFO - Filtered out SEIUSDT - low volume: $0.0M
+2025-06-21 18:59:51,292 - INFO - Filtered out TRBUSDT - low volume: $0.0M
+2025-06-21 18:59:51,986 - INFO - Filtered out APEUSDT - low volume: $0.0M
+2025-06-21 18:59:52,223 - INFO - Filtered out HUMAUSDT - low volume: $0.0M
+2025-06-21 18:59:52,460 - INFO - Filtered out HBARUSDT - low volume: $0.0M
+2025-06-21 18:59:52,696 - INFO - Filtered out VIRTUALUSDT - low volume: $0.0M
+2025-06-21 18:59:52,933 - INFO - Filtered out BIGTIMEUSDT - low volume: $0.0M
+2025-06-21 18:59:53,171 - INFO - Filtered out WBTCUSDT - low volume: $0.0M
+2025-06-21 18:59:53,407 - INFO - Filtered out ALTUSDT - low volume: $0.0M
+2025-06-21 18:59:53,407 - INFO - Filtered from 25 to 8 high-quality pairs
+2025-06-21 18:59:53,446 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0,
+    "avg_daily_return_pct": 0,
+    "avg_weekly_return_pct": 0
+  },
+  "trades": {
+    "total": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "profit_factor": 0,
+    "avg_profit": 0,
+    "avg_loss": 0,
+    "expected_value": 0,
+    "recent_win_rate_pct": 0
+  },
+  "pairs": {
+    "best_pair": "None",
+    "best_pair_profit": 0,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-06-21 18:59:53"
+}
+2025-06-21 19:00:25,830 - INFO - Correlation matrix updated for 41 pairs
+2025-06-21 19:00:33,852 - INFO - Market regime changed: NEUTRAL -> BEAR_TRENDING
+2025-06-21 19:00:33,852 - INFO - Market state: Regime=BEAR_TRENDING, Trend=bearish, Volatility=low, Breadth=0.00
+2025-06-21 19:00:33,853 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: 0.05, whale: 0.10, smart money: bullish
+2025-06-21 19:00:38,782 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.06, whale: 0.10, smart money: bullish
+2025-06-21 19:00:51,920 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: 0.06, whale: 0.05, smart money: bullish
+2025-06-21 19:00:56,115 - INFO - CoinGecko insights for ADA: neutral (0.50 confidence), sentiment: 0.01, whale: 0.10, smart money: neutral
+2025-06-21 19:00:59,204 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.24, whale: 0.10, smart money: neutral
+2025-06-21 19:01:04,104 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.07, whale: 0.00, smart money: bullish
+2025-06-21 19:01:09,496 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: -0.00, whale: 0.10, smart money: neutral
+2025-06-21 19:01:13,510 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.01, whale: 0.00, smart money: bullish
+2025-06-21 19:01:17,521 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.07, whale: 0.00, smart money: bullish
+2025-06-21 19:01:17,521 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: -0.00, whale: 0.10, smart money: neutral
+2025-06-21 19:01:17,522 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.01, whale: 0.00, smart money: bullish
+2025-06-21 19:01:17,921 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 19:01:17,922 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 19:01:19,456 - INFO - SOLUSDT analysis: SELL signal with 0.36 strength
+2025-06-21 19:01:32,706 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 19:01:32,706 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 19:01:34,245 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:01:37,534 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:01:37,547 - INFO - ADAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:01:37,554 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:01:37,560 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:01:37,564 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:01:37,569 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:01:37,570 - INFO - Trading cycle completed in 113.71 seconds
+2025-06-21 19:01:47,803 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 19:01:47,806 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 19:02:02,893 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 19:02:02,893 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 19:02:17,990 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 19:02:17,991 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 19:02:18,534 - ERROR - Error detecting volume surges: HTTPSConnectionPool(host='testnet.binance.vision', port=443): Read timed out.
+2025-06-21 19:02:33,108 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 19:02:33,108 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 19:02:48,218 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 19:02:48,219 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 19:03:03,276 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 19:03:03,276 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 19:05:07,453 - INFO - Top opportunities found: ['SOLUSDT', 'BCHUSDT']
+2025-06-21 19:05:07,454 - INFO - Filtered high priority opportunities to: SOLUSDT
+2025-06-21 19:05:08,860 - INFO - Selected optimal assets: WCTUSDT, LAYERUSDT, CRVUSDT, APTUSDT, FUNUSDT... (20 total)
+2025-06-21 19:05:09,100 - INFO - Filtered out WCTUSDT - low volume: $0.0M
+2025-06-21 19:05:09,339 - INFO - Filtered out LAYERUSDT - low volume: $0.0M
+2025-06-21 19:05:09,574 - INFO - Filtered out CRVUSDT - low volume: $0.0M
+2025-06-21 19:05:10,267 - INFO - Filtered out APTUSDT - low volume: $0.0M
+2025-06-21 19:05:10,968 - INFO - Filtered out FUNUSDT - low volume: $0.0M
+2025-06-21 19:05:11,208 - INFO - Filtered out TUSDT - low volume: $0.0M
+2025-06-21 19:05:11,910 - INFO - Filtered out NEIROUSDT - low volume: $0.0M
+2025-06-21 19:05:12,143 - INFO - Filtered out LPTUSDT - low volume: $0.0M
+2025-06-21 19:05:12,375 - INFO - Filtered out SEIUSDT - low volume: $0.0M
+2025-06-21 19:05:12,615 - INFO - Filtered out TRBUSDT - low volume: $0.0M
+2025-06-21 19:05:12,854 - INFO - Filtered out APEUSDT - low volume: $0.0M
+2025-06-21 19:05:13,545 - INFO - Filtered out HUMAUSDT - low volume: $0.0M
+2025-06-21 19:05:14,254 - INFO - Filtered out HBARUSDT - low volume: $0.0M
+2025-06-21 19:05:14,490 - INFO - Filtered out VIRTUALUSDT - low volume: $0.0M
+2025-06-21 19:05:14,725 - INFO - Filtered out BIGTIMEUSDT - low volume: $0.0M
+2025-06-21 19:05:14,725 - INFO - High priority quality opportunities: SOLUSDT
+2025-06-21 19:05:14,809 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0.0,
+    "avg_daily_return_pct": NaN,
+    "avg_weekly_return_pct": NaN
+  },
+  "trades": {
+    "total": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "profit_factor": 0,
+    "avg_profit": 0,
+    "avg_loss": 0,
+    "expected_value": 0,
+    "recent_win_rate_pct": 0
+  },
+  "pairs": {
+    "best_pair": "None",
+    "best_pair_profit": 0,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-06-21 19:05:14"
+}
+2025-06-21 19:05:15,552 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: 0.05, whale: 0.10, smart money: bullish
+2025-06-21 19:05:20,444 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: 0.06, whale: 0.05, smart money: bullish
+2025-06-21 19:05:24,930 - INFO - CoinGecko insights for ADA: neutral (0.50 confidence), sentiment: 0.01, whale: 0.10, smart money: neutral
+2025-06-21 19:05:29,858 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.05, whale: 0.10, smart money: bullish
+2025-06-21 19:05:35,502 - INFO - CoinGecko insights for ADA: neutral (0.50 confidence), sentiment: 0.01, whale: 0.10, smart money: neutral
+2025-06-21 19:05:35,503 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.05, whale: 0.10, smart money: bullish
+2025-06-21 19:05:37,034 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:05:37,041 - INFO - ADAUSDT analysis: SELL signal with 0.30 strength
+2025-06-21 19:05:37,047 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:05:37,053 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:05:52,068 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/2 ($0.00, 0.0% of equity)
+2025-06-21 19:05:52,069 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-21 19:05:53,008 - INFO - Selected optimal assets: WCTUSDT, LAYERUSDT, CRVUSDT, APTUSDT, FUNUSDT... (25 total)
+2025-06-21 19:05:53,251 - INFO - Filtered out WCTUSDT - low volume: $0.0M
+2025-06-21 19:05:53,490 - INFO - Filtered out LAYERUSDT - low volume: $0.0M
+2025-06-21 19:05:54,180 - INFO - Filtered out CRVUSDT - low volume: $0.0M
+2025-06-21 19:05:54,878 - INFO - Filtered out APTUSDT - low volume: $0.0M
+2025-06-21 19:05:55,572 - INFO - Filtered out FUNUSDT - low volume: $0.0M
+2025-06-21 19:05:55,823 - INFO - Filtered out TUSDT - low volume: $0.0M
+2025-06-21 19:05:56,061 - INFO - Filtered out NEIROUSDT - low volume: $0.0M
+2025-06-21 19:05:56,297 - INFO - Filtered out LPTUSDT - low volume: $0.0M
+2025-06-21 19:05:56,532 - INFO - Filtered out SEIUSDT - low volume: $0.0M
+2025-06-21 19:05:57,231 - INFO - Filtered out TRBUSDT - low volume: $0.0M
+2025-06-21 19:05:57,465 - INFO - Filtered out APEUSDT - low volume: $0.0M
+2025-06-21 19:05:57,703 - INFO - Filtered out HUMAUSDT - low volume: $0.0M
+2025-06-21 19:05:57,938 - INFO - Filtered out HBARUSDT - low volume: $0.0M
+2025-06-21 19:05:58,174 - INFO - Filtered out VIRTUALUSDT - low volume: $0.0M
+2025-06-21 19:05:58,411 - INFO - Filtered out BIGTIMEUSDT - low volume: $0.0M
+2025-06-21 19:05:58,647 - INFO - Filtered out WBTCUSDT - low volume: $0.0M
+2025-06-21 19:05:59,349 - INFO - Filtered out ALTUSDT - low volume: $0.0M
+2025-06-21 19:05:59,350 - INFO - Filtered from 25 to 8 high-quality pairs
+2025-06-21 19:06:00,128 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: 0.08, whale: 0.10, smart money: bullish
+2025-06-21 19:06:04,130 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: 0.08, whale: 0.05, smart money: bullish
+2025-06-21 19:06:07,662 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.05, whale: 0.10, smart money: bullish
+2025-06-21 19:06:19,233 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.05, whale: 0.10, smart money: bullish
+2025-06-21 19:06:19,233 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.03, whale: 0.00, smart money: bullish
+2025-06-21 19:06:23,214 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.08, whale: 0.00, smart money: bullish
+2025-06-21 19:06:28,103 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.10, smart money: neutral
+2025-06-21 19:06:32,277 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.21, whale: 0.10, smart money: neutral
+2025-06-21 19:06:36,049 - INFO - CoinGecko insights for ADA: neutral (0.50 confidence), sentiment: 0.03, whale: 0.10, smart money: neutral
+2025-06-21 19:06:40,706 - INFO - CoinGecko insights for LTC: neutral (0.50 confidence), sentiment: 0.01, whale: 0.10, smart money: neutral
+2025-06-21 19:06:40,706 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.21, whale: 0.10, smart money: neutral
+2025-06-21 19:06:40,706 - INFO - CoinGecko insights for ADA: neutral (0.50 confidence), sentiment: 0.03, whale: 0.10, smart money: neutral
+2025-06-21 19:06:42,253 - INFO - SOLUSDT analysis: SELL signal with 0.36 strength
+2025-06-21 19:06:42,258 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:06:42,265 - INFO - BNBUSDT analysis: SELL signal with 0.39 strength
+2025-06-21 19:06:42,272 - INFO - ADAUSDT analysis: SELL signal with 0.30 strength
+2025-06-21 19:06:42,278 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:06:42,284 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:06:42,289 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:06:42,294 - INFO - LTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:06:42,295 - INFO - Trading cycle completed in 50.23 seconds
+2025-06-21 19:10:02,590 - INFO - Top opportunities found: ['NOTUSDT', 'BCHUSDT', 'GNSUSDT', 'BANANAS31USDT', 'SOLUSDT']
+2025-06-21 19:10:03,543 - INFO - Selected optimal assets: WCTUSDT, LAYERUSDT, CRVUSDT, APTUSDT, FUNUSDT... (20 total)
+2025-06-21 19:10:04,237 - INFO - Filtered out WCTUSDT - low volume: $0.0M
+2025-06-21 19:10:04,477 - INFO - Filtered out LAYERUSDT - low volume: $0.0M
+2025-06-21 19:10:04,721 - INFO - Filtered out CRVUSDT - low volume: $0.0M
+2025-06-21 19:10:05,420 - INFO - Filtered out APTUSDT - low volume: $0.0M
+2025-06-21 19:10:05,678 - INFO - Filtered out FUNUSDT - low volume: $0.0M
+2025-06-21 19:10:05,918 - INFO - Filtered out TUSDT - low volume: $0.0M
+2025-06-21 19:10:06,611 - INFO - Filtered out NEIROUSDT - low volume: $0.0M
+2025-06-21 19:10:06,850 - INFO - Filtered out LPTUSDT - low volume: $0.0M
+2025-06-21 19:10:07,089 - INFO - Filtered out SEIUSDT - low volume: $0.0M
+2025-06-21 19:10:07,789 - INFO - Filtered out TRBUSDT - low volume: $0.0M
+2025-06-21 19:10:08,487 - INFO - Filtered out APEUSDT - low volume: $0.0M
+2025-06-21 19:10:08,724 - INFO - Filtered out HUMAUSDT - low volume: $0.0M
+2025-06-21 19:10:08,963 - INFO - Filtered out HBARUSDT - low volume: $0.0M
+2025-06-21 19:10:09,651 - INFO - Filtered out VIRTUALUSDT - low volume: $0.0M
+2025-06-21 19:10:09,901 - INFO - Filtered out BIGTIMEUSDT - low volume: $0.0M
+2025-06-21 19:10:09,902 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: 0.08, whale: 0.10, smart money: bullish
+2025-06-21 19:10:14,351 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: 0.08, whale: 0.05, smart money: bullish
+2025-06-21 19:10:19,755 - INFO - CoinGecko insights for ADA: neutral (0.50 confidence), sentiment: 0.03, whale: 0.10, smart money: neutral
+2025-06-21 19:10:23,755 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.05, whale: 0.10, smart money: bullish
+2025-06-21 19:10:28,801 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: 0.08, whale: 0.05, smart money: bullish
+2025-06-21 19:10:28,801 - INFO - CoinGecko insights for ADA: neutral (0.50 confidence), sentiment: 0.03, whale: 0.10, smart money: neutral
+2025-06-21 19:10:28,802 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.04, whale: 0.10, smart money: bullish
+2025-06-21 19:10:28,803 - INFO - Taapi.io API available again after backoff period
+2025-06-21 19:10:29,285 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 19:10:29,285 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 19:10:30,856 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:10:43,955 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 19:10:43,955 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 19:10:45,488 - INFO - ADAUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:10:48,814 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:10:48,824 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:10:59,095 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 19:10:59,095 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 19:11:03,837 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/2 ($0.00, 0.0% of equity)
+2025-06-21 19:11:03,838 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-21 19:11:05,250 - INFO - Selected optimal assets: WCTUSDT, LAYERUSDT, CRVUSDT, APTUSDT, FUNUSDT... (25 total)
+2025-06-21 19:11:05,950 - INFO - Filtered out WCTUSDT - low volume: $0.0M
+2025-06-21 19:11:06,191 - INFO - Filtered out LAYERUSDT - low volume: $0.0M
+2025-06-21 19:11:06,431 - INFO - Filtered out CRVUSDT - low volume: $0.0M
+2025-06-21 19:11:07,121 - INFO - Filtered out APTUSDT - low volume: $0.0M
+2025-06-21 19:11:07,356 - INFO - Filtered out FUNUSDT - low volume: $0.0M
+2025-06-21 19:11:07,594 - INFO - Filtered out TUSDT - low volume: $0.0M
+2025-06-21 19:11:07,830 - INFO - Filtered out NEIROUSDT - low volume: $0.0M
+2025-06-21 19:11:08,065 - INFO - Filtered out JUPUSDT - low volume: $0.0M
+2025-06-21 19:11:08,306 - INFO - Filtered out LPTUSDT - low volume: $0.0M
+2025-06-21 19:11:08,547 - INFO - Filtered out SUIUSDT - low volume: $0.0M
+2025-06-21 19:11:08,781 - INFO - Filtered out SEIUSDT - low volume: $0.0M
+2025-06-21 19:11:09,481 - INFO - Filtered out TRBUSDT - low volume: $0.0M
+2025-06-21 19:11:09,722 - INFO - Filtered out APEUSDT - low volume: $0.0M
+2025-06-21 19:11:10,411 - INFO - Filtered out HUMAUSDT - low volume: $0.0M
+2025-06-21 19:11:10,647 - INFO - Filtered out HBARUSDT - low volume: $0.0M
+2025-06-21 19:11:11,346 - INFO - Filtered out VIRTUALUSDT - low volume: $0.0M
+2025-06-21 19:11:11,586 - INFO - Filtered out BIGTIMEUSDT - low volume: $0.0M
+2025-06-21 19:11:12,279 - INFO - Filtered out INITUSDT - low volume: $0.0M
+2025-06-21 19:11:12,521 - INFO - Filtered out WBTCUSDT - low volume: $0.0M
+2025-06-21 19:11:12,522 - INFO - Filtered from 25 to 6 high-quality pairs
+2025-06-21 19:11:13,079 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: 0.08, whale: 0.10, smart money: bullish
+2025-06-21 19:11:14,204 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 19:11:14,204 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 19:11:17,096 - INFO - CoinGecko insights for ADA: neutral (0.50 confidence), sentiment: 0.03, whale: 0.10, smart money: neutral
+2025-06-21 19:11:21,569 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.04, whale: 0.10, smart money: bullish
+2025-06-21 19:11:26,035 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.21, whale: 0.10, smart money: neutral
+2025-06-21 19:11:31,409 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.08, whale: 0.00, smart money: bullish
+2025-06-21 19:11:37,790 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: 0.08, whale: 0.05, smart money: bullish
+2025-06-21 19:11:44,760 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: 0.08, whale: 0.05, smart money: bullish
+2025-06-21 19:11:44,761 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.09, whale: 0.00, smart money: bullish
+2025-06-21 19:11:46,317 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:11:46,353 - INFO - ADAUSDT analysis: SELL signal with 0.30 strength
+2025-06-21 19:11:46,358 - INFO - ETHUSDT analysis: SELL signal with 0.39 strength
+2025-06-21 19:11:46,363 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:11:46,368 - INFO - XRPUSDT analysis: SELL signal with 0.38 strength
+2025-06-21 19:11:46,373 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:11:46,374 - INFO - Trading cycle completed in 42.54 seconds
+2025-06-21 19:15:12,916 - INFO - Top opportunities found: ['NOTUSDT', 'BTCUSDT', 'BCHUSDT', 'GNSUSDT', 'BANANAS31USDT']
+2025-06-21 19:15:13,861 - INFO - Selected optimal assets: WCTUSDT, LAYERUSDT, CRVUSDT, APTUSDT, WBTCUSDT... (20 total)
+2025-06-21 19:15:14,564 - INFO - Filtered out WCTUSDT - low volume: $0.0M
+2025-06-21 19:15:14,803 - INFO - Filtered out LAYERUSDT - low volume: $0.0M
+2025-06-21 19:15:15,039 - INFO - Filtered out CRVUSDT - low volume: $0.0M
+2025-06-21 19:15:15,275 - INFO - Filtered out APTUSDT - low volume: $0.0M
+2025-06-21 19:15:15,510 - INFO - Filtered out WBTCUSDT - low volume: $0.0M
+2025-06-21 19:15:15,746 - INFO - Filtered out FUNUSDT - low volume: $0.0M
+2025-06-21 19:15:15,982 - INFO - Filtered out TUSDT - low volume: $0.0M
+2025-06-21 19:15:16,218 - INFO - Filtered out NEIROUSDT - low volume: $0.0M
+2025-06-21 19:15:16,454 - INFO - Filtered out JUPUSDT - low volume: $0.0M
+2025-06-21 19:15:16,694 - INFO - Filtered out LPTUSDT - low volume: $0.0M
+2025-06-21 19:15:16,933 - INFO - Filtered out SEIUSDT - low volume: $0.0M
+2025-06-21 19:15:17,627 - INFO - Filtered out TRBUSDT - low volume: $0.0M
+2025-06-21 19:15:17,866 - INFO - Filtered out APEUSDT - low volume: $0.0M
+2025-06-21 19:15:18,557 - INFO - Filtered out HUMAUSDT - low volume: $0.0M
+2025-06-21 19:15:19,249 - INFO - Filtered out HBARUSDT - low volume: $0.0M
+2025-06-21 19:15:19,250 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.09, whale: 0.00, smart money: bullish
+2025-06-21 19:15:23,263 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: 0.08, whale: 0.10, smart money: bullish
+2025-06-21 19:15:27,723 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: 0.08, whale: 0.05, smart money: bullish
+2025-06-21 19:15:32,203 - INFO - CoinGecko insights for ADA: neutral (0.50 confidence), sentiment: 0.03, whale: 0.10, smart money: neutral
+2025-06-21 19:15:37,149 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: 0.08, whale: 0.10, smart money: bullish
+2025-06-21 19:15:37,150 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: 0.08, whale: 0.05, smart money: bullish
+2025-06-21 19:15:37,150 - INFO - CoinGecko insights for ADA: neutral (0.50 confidence), sentiment: 0.03, whale: 0.10, smart money: neutral
+2025-06-21 19:15:38,694 - INFO - BTCUSDT analysis: SELL signal with 0.32 strength
+2025-06-21 19:15:38,699 - INFO - SOLUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:15:38,704 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:15:38,709 - INFO - ADAUSDT analysis: SELL signal with 0.36 strength
+2025-06-21 19:15:53,722 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/2 ($0.00, 0.0% of equity)
+2025-06-21 19:15:53,723 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-21 19:15:54,672 - INFO - Selected optimal assets: WCTUSDT, LAYERUSDT, CRVUSDT, APTUSDT, BTCUSDT... (25 total)
+2025-06-21 19:15:55,369 - INFO - Filtered out WCTUSDT - low volume: $0.0M
+2025-06-21 19:15:56,062 - INFO - Filtered out LAYERUSDT - low volume: $0.0M
+2025-06-21 19:15:56,299 - INFO - Filtered out CRVUSDT - low volume: $0.0M
+2025-06-21 19:15:56,535 - INFO - Filtered out APTUSDT - low volume: $0.0M
+2025-06-21 19:15:56,776 - INFO - Filtered out FUNUSDT - low volume: $0.0M
+2025-06-21 19:15:57,462 - INFO - Filtered out TUSDT - low volume: $0.0M
+2025-06-21 19:15:57,701 - INFO - Filtered out NEIROUSDT - low volume: $0.0M
+2025-06-21 19:15:57,941 - INFO - Filtered out JUPUSDT - low volume: $0.0M
+2025-06-21 19:15:58,176 - INFO - Filtered out LPTUSDT - low volume: $0.0M
+2025-06-21 19:15:58,414 - INFO - Filtered out NXPCUSDT - low volume: $0.0M
+2025-06-21 19:15:58,650 - INFO - Filtered out SEIUSDT - low volume: $0.0M
+2025-06-21 19:15:58,885 - INFO - Filtered out TRBUSDT - low volume: $0.0M
+2025-06-21 19:15:59,120 - INFO - Filtered out APEUSDT - low volume: $0.0M
+2025-06-21 19:15:59,357 - INFO - Filtered out HUMAUSDT - low volume: $0.0M
+2025-06-21 19:16:00,046 - INFO - Filtered out HBARUSDT - low volume: $0.0M
+2025-06-21 19:16:00,284 - INFO - Filtered out VIRTUALUSDT - low volume: $0.0M
+2025-06-21 19:16:00,521 - INFO - Filtered out BIGTIMEUSDT - low volume: $0.0M
+2025-06-21 19:16:00,763 - INFO - Filtered out INITUSDT - low volume: $0.0M
+2025-06-21 19:16:01,000 - INFO - Filtered out WBTCUSDT - low volume: $0.0M
+2025-06-21 19:16:01,001 - INFO - Filtered from 25 to 6 high-quality pairs
+2025-06-21 19:16:01,794 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.09, whale: 0.00, smart money: bullish
+2025-06-21 19:16:06,241 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: 0.08, whale: 0.10, smart money: bullish
+2025-06-21 19:16:09,782 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: 0.08, whale: 0.05, smart money: bullish
+2025-06-21 19:16:13,804 - INFO - CoinGecko insights for ADA: neutral (0.50 confidence), sentiment: 0.03, whale: 0.10, smart money: neutral
+2025-06-21 19:16:16,874 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.04, whale: 0.10, smart money: bullish
+2025-06-21 19:16:19,958 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.21, whale: 0.10, smart money: neutral
+2025-06-21 19:16:24,668 - INFO - CoinGecko insights for ADA: neutral (0.50 confidence), sentiment: 0.03, whale: 0.10, smart money: neutral
+2025-06-21 19:16:24,669 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: -0.04, whale: 0.10, smart money: bullish
+2025-06-21 19:16:24,669 - INFO - CoinGecko insights for UNI: neutral (0.50 confidence), sentiment: -0.21, whale: 0.10, smart money: neutral
+2025-06-21 19:16:24,670 - INFO - Taapi.io API available again after backoff period
+2025-06-21 19:16:24,757 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 19:16:24,758 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 19:16:26,304 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:16:39,851 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 19:16:39,851 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 19:16:41,398 - INFO - SOLUSDT analysis: SELL signal with 0.36 strength
+2025-06-21 19:16:44,683 - INFO - XRPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:16:44,686 - INFO - ADAUSDT analysis: SELL signal with 0.36 strength
+2025-06-21 19:16:44,691 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:16:44,697 - INFO - UNIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-21 19:16:44,697 - INFO - Trading cycle completed in 50.98 seconds
+2025-06-21 19:16:54,924 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 19:16:54,925 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 19:17:10,055 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 19:17:10,055 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 19:17:25,122 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 19:17:25,122 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 19:17:40,239 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-06-21 19:17:40,239 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-06-21 19:18:54,596 - INFO - Bot stopped by user
