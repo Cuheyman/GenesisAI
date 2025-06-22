@@ -4,7 +4,6 @@ import time
 import asyncio
 from typing import Dict, List, Any, Tuple
 import config
-from advanced_indicators import AdvancedIndicators
 
 class EnhancedStrategy:
     def __init__(self, binance_client, ai_client, market_analysis, order_book):
@@ -14,15 +13,7 @@ class EnhancedStrategy:
         self.order_book = order_book
         self.cache = {}
         self.cache_expiry = {}
-
-        try:
-            
-            self.advanced_indicators = AdvancedIndicators()
-            logging.info("✅ Advanced indicators initialized in strategy")
-        except Exception as e:
-            logging.warning(f"⚠️ Failed to initialize advanced indicators: {str(e)}")
-            self.advanced_indicators = None
-
+        
     async def analyze_pair(self, pair: str, mtf_analysis=None, order_book_data=None, 
                     correlation_data=None, market_state=None, nebula_signal=None) -> Dict[str, Any]:
         try:
@@ -33,7 +24,7 @@ class EnhancedStrategy:
             # Validate MTF analysis
             if not mtf_analysis or mtf_analysis.get('timeframes_analyzed', 0) == 0:
                 logging.warning(f"No timeframe data available for {pair}, using minimal analysis")
-                mtf_analysis = await self._get_minimal_analysis(pair)
+                mtf_analysis = self._get_minimal_analysis(pair)
                 
             # Get order book analysis
             if not order_book_data:
@@ -66,22 +57,6 @@ class EnhancedStrategy:
             else:
                 logging.debug(f"AI client not available for {pair}")
                 ai_insights = self._get_default_ai_insights()
-            
-            # 🔥 TILFØJ DETTE: Get advanced indicators signals (NYT!)
-            advanced_signals = None
-            if self.advanced_indicators:
-                try:
-                    advanced_task = asyncio.create_task(self.advanced_indicators.get_advanced_signals(pair))
-                    advanced_signals = await asyncio.wait_for(advanced_task, timeout=20)
-                    logging.debug(f"🔍 Advanced signals for {pair}: {len(advanced_signals) if advanced_signals else 0} indicators")
-                except asyncio.TimeoutError:
-                    logging.debug(f"⏰ Advanced indicators timed out for {pair}")
-                    advanced_signals = None
-                except Exception as e:
-                    logging.debug(f"❌ Advanced indicators error for {pair}: {str(e)}")
-                    advanced_signals = None
-            else:
-                logging.debug(f"Advanced indicators not available for {pair}")
                 
             # Generate initial signals from technical analysis
             technical_signals = self._get_technical_signals(mtf_analysis)
@@ -92,15 +67,14 @@ class EnhancedStrategy:
             # Generate signals from AI insights
             ai_signals = self._get_ai_signals(ai_insights)
             
-           
+            # Combine all signals with appropriate weights
             combined_signals = self._combine_all_signals(
                 technical_signals,
                 orderbook_signals,
                 ai_signals,
                 correlation_data,
                 market_state,
-                nebula_signal,  
-                advanced_signals  
+                nebula_signal  # Keep parameter name for compatibility
             )
             
             return combined_signals
@@ -114,7 +88,6 @@ class EnhancedStrategy:
                 "source": "error",
                 "error": str(e)
             }
-
     
     async def _get_minimal_analysis(self, pair: str):
         """Get minimal analysis when MTF fails"""
@@ -454,8 +427,7 @@ class EnhancedStrategy:
             }
     
     def _combine_all_signals(self, technical_signals, orderbook_signals, 
-                           ai_signals, correlation_data, market_state, nebula_signal=None, 
-                           advanced_signals=None):  # 🔥 TILFØJ DENNE PARAMETER
+                           ai_signals, correlation_data, market_state, nebula_signal=None):
         """Combine all signals from different sources with improved logic"""
         try:
             # Extract signals
@@ -471,18 +443,6 @@ class EnhancedStrategy:
             ai_sell = ai_signals.get('sell_signal', False)
             ai_strength = ai_signals.get('signal_strength', 0)
             
-            # 🔥 TILFØJ DETTE: Extract advanced signals
-            adv_buy = False
-            adv_sell = False
-            adv_strength = 0
-            
-            if advanced_signals and advanced_signals.get('overall_signal'):
-                adv_signal = advanced_signals['overall_signal']
-                adv_buy = adv_signal.get('buy_signal', False)
-                adv_sell = adv_signal.get('sell_signal', False)
-                adv_strength = adv_signal.get('signal_strength', 0)
-                logging.debug(f"🔍 Advanced signal: buy={adv_buy}, sell={adv_sell}, strength={adv_strength:.3f}")
-            
             # Add direct signal if available (from nebula_signal parameter for compatibility)
             direct_signal_action = None
             direct_signal_strength = 0
@@ -492,7 +452,7 @@ class EnhancedStrategy:
                 direct_signal_strength = nebula_signal.get('strength', 0.5)
             
             # Convert action to buy/sell signal
-            if direct_signal_action == 'buy' and direct_signal_strength > 0.5:
+            if direct_signal_action == 'buy' and direct_signal_strength > 0.5:  # Reduced threshold
                 ai_buy = True
                 ai_strength = max(ai_strength, direct_signal_strength)
             elif direct_signal_action == 'sell' and direct_signal_strength > 0.5:
@@ -505,34 +465,30 @@ class EnhancedStrategy:
             final_strength = 0
             signal_source = "none"
             
-            # 🔥 OPDATER DETTE: Enhanced weight factors based on market state (TILFØJ advanced weight)
-            ta_weight = getattr(config, 'TECHNICAL_WEIGHT', 0.4)      # Reduced to make room for advanced
-            ob_weight = getattr(config, 'ORDERBOOK_WEIGHT', 0.15)    # Keep same
-            ai_weight = getattr(config, 'ONCHAIN_WEIGHT', 0.2)       # Reduced  
-            adv_weight = getattr(config, 'TAAPI_OVERALL_WEIGHT', 0.25)  # 🔥 TILFØJ DENNE
+            # Enhanced weight factors based on market state
+            ta_weight = getattr(config, 'TECHNICAL_WEIGHT', 0.5)  # Default technical weight
+            ob_weight = 0.15  # Default orderbook weight
+            ai_weight = getattr(config, 'ONCHAIN_WEIGHT', 0.35)  # Default AI weight
             
             # Adjust weights based on market regime
             regime = market_state.get('regime', 'NEUTRAL') if market_state else 'NEUTRAL'
             
             if regime == "BULL_TRENDING":
-                ta_weight = 0.40
+                ta_weight = 0.50
                 ob_weight = 0.15
-                ai_weight = 0.20
-                adv_weight = 0.25  # 🔥 TILFØJ
+                ai_weight = 0.35
             elif regime == "BEAR_TRENDING":
-                ta_weight = 0.45
-                ob_weight = 0.20
-                ai_weight = 0.15
-                adv_weight = 0.20  # 🔥 TILFØJ
-            elif regime in ["BULL_VOLATILE", "BEAR_VOLATILE"]:
-                ta_weight = 0.35
+                ta_weight = 0.55
                 ob_weight = 0.25
-                ai_weight = 0.15
-                adv_weight = 0.25  # 🔥 TILFØJ
+                ai_weight = 0.20
+            elif regime in ["BULL_VOLATILE", "BEAR_VOLATILE"]:
+                ta_weight = 0.45
+                ob_weight = 0.30
+                ai_weight = 0.25
             
             # More lenient signal combination logic
             
-            # BUY SIGNAL LOGIC (🔥 TILFØJ ADVANCED)
+            # BUY SIGNAL LOGIC
             buy_sources = []
             buy_strength = 0
             
@@ -548,12 +504,7 @@ class EnhancedStrategy:
                 buy_sources.append(f"AI:{ai_strength:.2f}")
                 buy_strength += ai_strength * ai_weight
             
-            # 🔥 TILFØJ DETTE: Advanced indicators buy signal
-            if adv_buy and adv_strength > 0.2:
-                buy_sources.append(f"Taapi:{adv_strength:.2f}")
-                buy_strength += adv_strength * adv_weight
-            
-            # SELL SIGNAL LOGIC (🔥 TILFØJ ADVANCED)
+            # SELL SIGNAL LOGIC
             sell_sources = []
             sell_strength = 0
             
@@ -568,11 +519,6 @@ class EnhancedStrategy:
             if ai_sell and ai_strength > 0.2:
                 sell_sources.append(f"AI:{ai_strength:.2f}")
                 sell_strength += ai_strength * ai_weight
-            
-            # 🔥 TILFØJ DETTE: Advanced indicators sell signal
-            if adv_sell and adv_strength > 0.2:
-                sell_sources.append(f"Taapi:{adv_strength:.2f}")
-                sell_strength += adv_strength * adv_weight
             
             # DETERMINE FINAL SIGNAL
             
@@ -593,17 +539,13 @@ class EnhancedStrategy:
             elif buy_strength > 0:
                 final_buy = True
                 final_strength = buy_strength
-                signal_source = "buy:" + ",".join(buy_sources)
+                signal_source = "combined_buy:" + ",".join(buy_sources)
             
             # If we only have a sell signal
             elif sell_strength > 0:
                 final_sell = True
                 final_strength = sell_strength
-                signal_source = "sell:" + ",".join(sell_sources)
-            
-            # 🔥 TILFØJ DETTE: Enhanced logging for debugging
-            if buy_sources or sell_sources:
-                logging.info(f" Signal sources: {', '.join(buy_sources + sell_sources)} → Final: {final_strength:.3f}")
+                signal_source = "combined_sell:" + ",".join(sell_sources)
             
             # Adjust for correlation (if provided)
             if final_buy and correlation_data:
@@ -620,7 +562,7 @@ class EnhancedStrategy:
                     signal_source += ",diversity_bonus"
             
             # Final check: ensure minimum signal threshold (more lenient)
-            min_threshold = getattr(config, 'MIN_SIGNAL_STRENGTH', 0.25)  # More lenient default
+            min_threshold = config.MIN_SIGNAL_STRENGTH  # Reduced from 0.3
             if final_strength < min_threshold:
                 final_buy = False
                 final_sell = False
@@ -635,7 +577,6 @@ class EnhancedStrategy:
                 "technical": technical_signals.get('details', {}),
                 "orderbook": orderbook_signals.get('details', {}),
                 "ai": ai_signals.get('details', {}),
-                "advanced": advanced_signals.get('overall_signal', {}) if advanced_signals else {},  # 🔥 TILFØJ
                 "timestamp": time.time()
             }
             

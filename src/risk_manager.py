@@ -265,26 +265,8 @@ class RiskManager:
             logging.error(f"Error checking recovery mode exit: {str(e)}")
     
     def should_take_trade(self, pair, signal_strength, correlation_data=None):
- 
-        if hasattr(config, 'QUICK_PROFIT_MODE') and config.QUICK_PROFIT_MODE:
-            max_positions_quick = getattr(config, 'QUICK_MODE_MAX_POSITIONS', 2)
-            
-            if self.position_count >= max_positions_quick:
-                return False, f"QUICK MODE: Maximum {max_positions_quick} positions reached ({self.position_count}/{max_positions_quick})"
-            
-            # Quick mode signal strength requirement
-            min_signal = getattr(config, 'QUICK_MODE_MIN_SIGNAL', 0.6)
-            if signal_strength < min_signal:
-                return False, f"QUICK MODE: Signal too weak ({signal_strength:.2f} < {min_signal})"
-            
-            logging.info(f" QUICK MODE: Position {self.position_count + 1}/{max_positions_quick} approved")
-        else:
-        # Emergency mode - no new trades
-            if self.risk_level == "emergency":
-                return False, "No new trades allowed in emergency mode"
-
-
-
+        """Determine if a new trade should be taken based on risk management"""
+        # Check if we're in recovery mode with severe restrictions
         if self.severe_recovery_mode and self.position_count >= 3:
             return False, "Maximum positions reached for severe recovery mode"
             
@@ -312,104 +294,46 @@ class RiskManager:
         # Skip highly correlated assets in high-risk conditions
         if not is_diversified and (self.recovery_mode or self.risk_level != "normal"):
             return False, "Avoiding correlated assets during elevated risk conditions"
-
-        max_positions = getattr(config, 'NORMAL_MODE_MAX_POSITIONS', 10)
-        if self.position_count >= max_positions:
-            return False, f"NORMAL MODE: Maximum {max_positions} positions reached"
-
-
+            
         # Calculate position size based on risk level and signal strength
         position_size = self._calculate_position_size(signal_strength)
         
         return True, {
-        "approved": True,
-        "position_size": position_size,
-        "risk_level": self.risk_level,
-        "recovery_mode": self.recovery_mode,
-        "trading_mode": "QUICK" if (hasattr(config, 'QUICK_PROFIT_MODE') and config.QUICK_PROFIT_MODE) else "NORMAL"
-    }
+            "approved": True,
+            "position_size": position_size,
+            "risk_level": self.risk_level,
+            "recovery_mode": self.recovery_mode
+        }
     
     def _calculate_position_size(self, signal_strength):
-   
-    
-        # 🔥 CHECK FOR QUICK PROFIT MODE - AGGRESSIVE SIZING
-        if hasattr(config, 'QUICK_PROFIT_MODE') and config.QUICK_PROFIT_MODE:
+        """Calculate position size based on risk level and signal strength"""
+        # Base size as percentage of equity (5-10% for $1000 account)
+        if signal_strength > 0.8:  # Very strong signal
+            base_percent = 0.10  # 10% of equity ($100)
+        elif signal_strength > 0.6:  # Strong signal
+            base_percent = 0.08  # 8% of equity ($80)
+        elif signal_strength > 0.4:  # Moderate signal
+            base_percent = 0.06  # 6% of equity ($60)
+        else:  # Weaker signal
+            base_percent = 0.05  # 5% of equity ($50)
             
-            # Quick Mode: 40% of equity per position (aggressive)
-            logging.info(f" QUICK MODE: Using aggressive position sizing")
-            
-            # Check signal strength requirement for big positions
-            min_signal_required = getattr(config, 'QUICK_MODE_MIN_SIGNAL', 0.6)
-            
-            if signal_strength >= min_signal_required:
-                # High signal strength: Use full 40% allocation
-                base_percent = getattr(config, 'QUICK_MODE_POSITION_SIZE', 0.40)  # 40% af equity
-                logging.info(f" High signal ({signal_strength:.2f}) - Using {base_percent*100}% of equity")
-            elif signal_strength >= 0.4:
-                # Medium signal: Use 30% allocation  
-                base_percent = 0.30  # 30% af equity
-                logging.info(f" Medium signal ({signal_strength:.2f}) - Using {base_percent*100}% of equity")
-            else:
-                # Low signal: Use normal sizing (not suitable for quick mode)
-                base_percent = 0.08  # 8% af equity (fall back til normal)
-                logging.info(f" Low signal ({signal_strength:.2f}) - Using conservative {base_percent*100}% of equity")
-            
-            # Calculate position size
-            position_size = self.total_equity * base_percent
-            
-            # Apply drawdown-based multiplier (but less impact in quick mode)
-            position_size = position_size * max(0.8, self.position_size_multiplier)  # Max 20% reduction
-            
-            # Ensure minimum for quick mode
-            min_trade = getattr(config, 'QUICK_MODE_MIN_POSITION', 300.0)  # $300 minimum
-            if position_size < min_trade:
-                position_size = min_trade
-                logging.info(f" Adjusted to minimum quick mode position: ${position_size:.2f}")
-            
-            # Cap at 45% of equity (safety limit)
-            max_position = self.total_equity * 0.45  # Max 45% per position
-            if position_size > max_position:
-                position_size = max_position
-                logging.info(f" Capped position at 45% of equity: ${position_size:.2f}")
-            
-            logging.info(f" QUICK MODE POSITION: ${position_size:.2f} ({(position_size/self.total_equity)*100:.1f}% of ${self.total_equity:.2f} equity)")
-            
-            return position_size
+        # Calculate base position size
+        base_size = self.total_equity * base_percent
         
-        # 🔄 NORMAL MODE: Existing conservative sizing
-        else:
-            logging.info(f" NORMAL MODE: Using conservative position sizing")
+        # Apply drawdown-based position size multiplier
+        position_size = base_size * self.position_size_multiplier
+        
+        # Ensure minimum viable trade size
+        min_trade = 50.0  # $50 minimum
+        if position_size < min_trade:
+            position_size = min_trade
             
-            # Original logic for normal mode
-            if signal_strength > 0.8:  # Very strong signal
-                base_percent = 0.10  # 10% of equity ($100)
-            elif signal_strength > 0.6:  # Strong signal
-                base_percent = 0.08  # 8% of equity ($80)
-            elif signal_strength > 0.4:  # Moderate signal
-                base_percent = 0.06  # 6% of equity ($60)
-            else:  # Weaker signal
-                base_percent = 0.05  # 5% of equity ($50)
-                
-            # Calculate base position size
-            base_size = self.total_equity * base_percent
+        # Cap at maximum position size (15% of equity)
+        max_position = self.total_equity * 0.15  # Max $150 per position
+        if position_size > max_position:
+            position_size = max_position
             
-            # Apply drawdown-based position size multiplier
-            position_size = base_size * self.position_size_multiplier
-            
-            # Ensure minimum viable trade size
-            min_trade = getattr(config, 'NORMAL_MODE_MIN_POSITION', 50.0)  # $50 minimum
-            if position_size < min_trade:
-                position_size = min_trade
-                
-            # Cap at maximum position size (15% of equity)
-            max_position = self.total_equity * 0.15  # Max $150 per position
-            if position_size > max_position:
-                position_size = max_position
-            
-            logging.info(f" NORMAL MODE POSITION: ${position_size:.2f} ({(position_size/self.total_equity)*100:.1f}% of ${self.total_equity:.2f} equity)")
-            
-            return position_size
-
+        return position_size
     
     def add_position(self, pair, position_size):
         """Track a new position"""

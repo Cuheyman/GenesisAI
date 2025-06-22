@@ -383,7 +383,7 @@ MAX_CONCURRENT_SCANS = int(os.getenv('MAX_CONCURRENT_SCANS', '100'))  # Scan top
 # =============================================================================
 
 # Minimum signal strength to consider for trades
-MIN_SIGNAL_STRENGTH = float(os.getenv('MIN_SIGNAL_STRENGTH', '0.3'))
+MIN_SIGNAL_STRENGTH = float(os.getenv('MIN_SIGNAL_STRENGTH', '0.35'))
 
 # Correlation threshold for diversification
 MAX_CORRELATION_THRESHOLD = float(os.getenv('MAX_CORRELATION_THRESHOLD', '0.7'))
