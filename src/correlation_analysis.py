@@ -32,29 +32,71 @@ class CorrelationAnalysis:
             
             # Gather price data in parallel
             async def get_pair_prices(pair):
-                # Get recent klines
-                klines = await self.market_analysis.get_klines(
-                    pair, 
-                    int(time.time() * 1000) - (86400 * 1000 * 5),  # 5 days
-                    '1h'
-                )
+                try:
+                    # Get recent klines
+                    klines = await self.market_analysis.get_klines(
+                        pair, 
+                        int(time.time() * 1000) - (86400 * 1000 * 5),  # 5 days
+                        '1h'
+                    )
+                    
+                    # FIXED: Proper null checking and validation
+                    if klines is not None and isinstance(klines, list) and len(klines) > 24:
+                        # Extract closing prices with additional validation
+                        closes = []
+                        for k in klines:
+                            try:
+                                # Ensure k is not None and has enough elements
+                                if k is not None and len(k) > 4:
+                                    close_price = float(k[4])
+                                    if close_price > 0:  # Ensure valid price
+                                        closes.append(close_price)
+                            except (ValueError, TypeError, IndexError) as e:
+                                logging.debug(f"Invalid kline data for {pair}: {e}")
+                                continue
+                        
+                        if len(closes) >= 24:  # Still need at least 24 valid data points
+                            return pair, closes
+                        else:
+                            logging.debug(f"Insufficient valid price data for {pair}: {len(closes)} points")
+                    else:
+                        logging.debug(f"No klines data for {pair} or insufficient length")
+                        
+                except Exception as e:
+                    logging.error(f"Error getting price data for {pair}: {str(e)}")
                 
-                if klines and len(klines) > 24:  # Need at least 24 hours of data
-                    # Extract closing prices
-                    closes = [float(k[4]) for k in klines]
-                    return pair, closes
                 return pair, []
             
             # Get price data for all pairs in parallel
             tasks = [get_pair_prices(pair) for pair in pairs]
-            results = await asyncio.gather(*tasks)
+            results = await asyncio.gather(*tasks, return_exceptions=True)
             
             # Filter results to pairs with sufficient data
-            for pair, closes in results:
-                if closes:
-                    price_data[pair] = closes
+            valid_pairs_count = 0
+            for result in results:
+                try:
+                    if isinstance(result, Exception):
+                        logging.error(f"Exception in correlation data gathering: {result}")
+                        continue
+                    
+                    pair, closes = result
+                    if closes and len(closes) >= 24:
+                        price_data[pair] = closes
+                        valid_pairs_count += 1
+                except Exception as e:
+                    logging.error(f"Error processing correlation result: {e}")
+                    continue
             
-            # Create correlation matrix
+            logging.info(f"Successfully gathered price data for {valid_pairs_count}/{len(pairs)} pairs")
+            
+            # Create correlation matrix only if we have valid data
+            if len(price_data) < 2:
+                logging.warning("Insufficient pairs for correlation matrix calculation")
+                # Create empty matrix to avoid downstream errors
+                self.correlation_matrix = {}
+                self.last_update_time = time.time()
+                return
+            
             matrix = {}
             for pair1 in price_data:
                 matrix[pair1] = {}
@@ -62,22 +104,32 @@ class CorrelationAnalysis:
                     if pair1 == pair2:
                         matrix[pair1][pair2] = 1.0  # Self-correlation is always 1.0
                     else:
-                        # Calculate correlation
-                        prices1 = price_data[pair1]
-                        prices2 = price_data[pair2]
-                        
-                        # Ensure both price series are the same length
-                        min_length = min(len(prices1), len(prices2))
-                        if min_length >= 24:  # Need at least 24 data points
-                            prices1 = prices1[-min_length:]
-                            prices2 = prices2[-min_length:]
+                        try:
+                            # Calculate correlation
+                            prices1 = price_data[pair1]
+                            prices2 = price_data[pair2]
                             
-                            try:
-                                correlation = np.corrcoef(prices1, prices2)[0, 1]
-                                matrix[pair1][pair2] = correlation
-                            except:
+                            # Ensure both price series are the same length
+                            min_length = min(len(prices1), len(prices2))
+                            if min_length >= 24:  # Need at least 24 data points
+                                prices1 = prices1[-min_length:]
+                                prices2 = prices2[-min_length:]
+                                
+                                # Additional validation before correlation calculation
+                                if len(prices1) == len(prices2) and len(prices1) > 1:
+                                    correlation = np.corrcoef(prices1, prices2)[0, 1]
+                                    
+                                    # Handle NaN correlations (can happen with constant prices)
+                                    if np.isnan(correlation) or np.isinf(correlation):
+                                        correlation = 0.0
+                                    
+                                    matrix[pair1][pair2] = float(correlation)
+                                else:
+                                    matrix[pair1][pair2] = 0.0
+                            else:
                                 matrix[pair1][pair2] = 0.0
-                        else:
+                        except Exception as e:
+                            logging.debug(f"Error calculating correlation between {pair1} and {pair2}: {e}")
                             matrix[pair1][pair2] = 0.0
             
             self.correlation_matrix = matrix
@@ -87,11 +139,19 @@ class CorrelationAnalysis:
             
         except Exception as e:
             logging.error(f"Error updating correlation matrix: {str(e)}")
+            # Ensure we have a valid (even if empty) correlation matrix
+            if not hasattr(self, 'correlation_matrix') or self.correlation_matrix is None:
+                self.correlation_matrix = {}
     
     def get_pair_correlation(self, pair1: str, pair2: str) -> float:
         """Get correlation between two specific pairs"""
-        if pair1 in self.correlation_matrix and pair2 in self.correlation_matrix[pair1]:
-            return self.correlation_matrix[pair1][pair2]
+        try:
+            if (self.correlation_matrix and 
+                pair1 in self.correlation_matrix and 
+                pair2 in self.correlation_matrix[pair1]):
+                return self.correlation_matrix[pair1][pair2]
+        except Exception as e:
+            logging.debug(f"Error getting correlation between {pair1} and {pair2}: {e}")
         return 0.0  # Default to no correlation if data not available
     
     def get_portfolio_correlation(self, pair: str, active_positions: List[str]) -> float:

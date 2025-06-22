@@ -7,7 +7,53 @@ load_dotenv()
 # Add these to your src/config.py file
 
 
+# ADD THESE LINES TO YOUR EXISTING src/config.py FILE
+# Place them anywhere in the file (I recommend after the COINGECKO_WEIGHTS section)
 
+# =============================================================================
+# ENHANCED COINGECKO RATE LIMITING (ADD THIS SECTION)
+# =============================================================================
+
+# Ultra-conservative CoinGecko rate limiting for free tier
+COINGECKO_FREE_TIER_INTERVAL = float(os.getenv('COINGECKO_FREE_TIER_INTERVAL', '5.0'))  # 5 seconds between requests
+COINGECKO_FREE_TIER_MAX_PER_MINUTE = int(os.getenv('COINGECKO_FREE_TIER_MAX_PER_MINUTE', '10'))  # 10 requests per minute
+
+# Demo/Pro tier settings (still conservative)
+COINGECKO_DEMO_TIER_INTERVAL = float(os.getenv('COINGECKO_DEMO_TIER_INTERVAL', '2.0'))  # 2 seconds between requests
+COINGECKO_DEMO_TIER_MAX_PER_MINUTE = int(os.getenv('COINGECKO_DEMO_TIER_MAX_PER_MINUTE', '25'))  # 25 requests per minute
+
+# Rate limit backoff settings
+COINGECKO_INITIAL_BACKOFF = int(os.getenv('COINGECKO_INITIAL_BACKOFF', '30'))  # 30 seconds initial backoff
+COINGECKO_MAX_BACKOFF_MULTIPLIER = float(os.getenv('COINGECKO_MAX_BACKOFF_MULTIPLIER', '5.0'))  # Max 5x slower
+
+# Batch processing settings for CoinGecko (much smaller)
+COINGECKO_BATCH_SIZE = int(os.getenv('COINGECKO_BATCH_SIZE', '10'))  # Very small batches for free tier
+COINGECKO_BATCH_DELAY = float(os.getenv('COINGECKO_BATCH_DELAY', '8.0'))  # 8 seconds between batches
+
+# Disable CoinGecko entirely if rate limits become too problematic
+DISABLE_COINGECKO_ON_LIMITS = os.getenv('DISABLE_COINGECKO_ON_LIMITS', 'false').lower() == 'true'
+
+# =============================================================================
+# TRADING FREQUENCY ADJUSTMENTS (ADD THIS SECTION TO REDUCE API PRESSURE)
+# =============================================================================
+
+# Increase trading cycle intervals to reduce API pressure
+TRADING_CYCLE_INTERVAL = int(os.getenv('TRADING_CYCLE_INTERVAL', '180'))  # 3 minutes between cycles (increased from 60s)
+
+# Reduce the number of pairs analyzed simultaneously  
+MAX_CONCURRENT_ANALYSIS = int(os.getenv('MAX_CONCURRENT_ANALYSIS', '5'))  # Max 5 pairs analyzed at once
+
+# Increase correlation matrix update interval
+CORRELATION_UPDATE_INTERVAL = int(os.getenv('CORRELATION_UPDATE_INTERVAL', '7200'))  # 2 hours (increased from 1 hour)
+
+# Add delays between different API calls
+API_CALL_DELAY = float(os.getenv('API_CALL_DELAY', '1.0'))  # 1 second delay between different API calls
+
+# ALSO UPDATE YOUR EXISTING OPPORTUNITY_SCAN_INTERVAL TO BE LESS AGGRESSIVE:
+# Change this line in your config:
+# OPPORTUNITY_SCAN_INTERVAL = int(os.getenv('OPPORTUNITY_SCAN_INTERVAL', '30'))  # Changed from 20 to 30
+# TO:
+OPPORTUNITY_SCAN_INTERVAL = int(os.getenv('OPPORTUNITY_SCAN_INTERVAL', '60'))  # Changed to 60 seconds to reduce API pressure
 
 # =============================================================================
 # DYNAMIC POSITION SIZING CONFIGURATION
@@ -279,6 +325,9 @@ MAX_POSITION_AGE_MINUTES = int(os.getenv('MAX_POSITION_AGE_MINUTES', '360'))  # 
 ENABLE_PARTIAL_PROFITS = os.getenv('ENABLE_PARTIAL_PROFITS', 'true').lower() == 'true'
 PARTIAL_PROFIT_PERCENTAGE = float(os.getenv('PARTIAL_PROFIT_PERCENTAGE', '0.5'))  # Sell 50% at first target
 
+
+
+
 # =============================================================================
 # SIGNAL ANALYSIS WEIGHTS
 # =============================================================================
@@ -401,7 +450,6 @@ LOW_VOLATILITY_THRESHOLD = float(os.getenv('LOW_VOLATILITY_THRESHOLD', '0.3'))
 # =============================================================================
 
 # Scanner intervals (in seconds)
-OPPORTUNITY_SCAN_INTERVAL = int(os.getenv('OPPORTUNITY_SCAN_INTERVAL', '30'))  # Changed from 20 to 30
 POSITION_MONITOR_INTERVAL = int(os.getenv('POSITION_MONITOR_INTERVAL', '20'))  # Check positions every 20 seconds
 MARKET_ANALYSIS_INTERVAL = int(os.getenv('MARKET_ANALYSIS_INTERVAL', '300'))  # Full market analysis every 5 minutes
 QUICK_SCAN_INTERVAL = int(os.getenv('QUICK_SCAN_INTERVAL', '10'))  # Ultra-fast scans every 15 seconds

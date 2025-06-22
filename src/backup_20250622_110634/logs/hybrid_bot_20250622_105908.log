@@ -1,0 +1,93 @@
+2025-06-22 10:59:09,449 - INFO - CoinGecko API connected: (V3) To the Moon!
+2025-06-22 10:59:09,450 - INFO - CoinGecko AI client initialized successfully
+2025-06-22 10:59:09,451 - INFO - CoinGecko AI client initialized
+2025-06-22 10:59:09,537 - INFO - Database initialization complete
+2025-06-22 10:59:09,550 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN take_profit_pct REAL
+2025-06-22 10:59:09,562 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN stop_loss_pct REAL
+2025-06-22 10:59:09,573 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN is_new_asset INTEGER DEFAULT 0
+2025-06-22 10:59:09,585 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN exit_price REAL
+2025-06-22 10:59:09,597 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN exit_time TEXT
+2025-06-22 10:59:09,608 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN profit_loss REAL
+2025-06-22 10:59:09,619 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN signal_source TEXT
+2025-06-22 10:59:09,631 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN signal_strength REAL
+2025-06-22 10:59:09,642 - INFO - Schema update applied: ALTER TABLE trades ADD COLUMN signal_source TEXT
+2025-06-22 10:59:09,654 - INFO - Schema update applied: ALTER TABLE trades ADD COLUMN signal_strength REAL
+2025-06-22 10:59:09,654 - INFO - Database schema updated successfully with 10 changes
+2025-06-22 10:59:09,668 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-06-22 10:59:09,669 - INFO - Advanced indicators initialized with Taapi.io
+2025-06-22 10:59:09,669 - INFO - Advanced indicators initialized successfully
+2025-06-22 10:59:09,669 - INFO - Risk Manager initialized with equity protection: Warning at 3.0%, Risk Reduction at 5.0%, High Alert at 8.0%, Emergency at 12.0%
+2025-06-22 10:59:09,670 - INFO - Hybrid Trading Bot initialized with 1000.00 equity
+2025-06-22 10:59:09,670 - INFO - Mode: TEST trading
+2025-06-22 10:59:09,670 - INFO - AI Provider: CoinGecko
+2025-06-22 10:59:09,671 - INFO - Advanced Indicators: Taapi.io
+2025-06-22 10:59:09,672 - INFO - Testing API connections...
+2025-06-22 10:59:09,908 - INFO - Binance server time: 2025-06-22 10:59:14.110000
+2025-06-22 10:59:10,374 - INFO - CoinGecko AI connection successful: -0.2760127502698797
+2025-06-22 10:59:10,374 - INFO - Preloading historical data for analysis...
+2025-06-22 10:59:10,374 - INFO - Preloading historical data for analysis...
+2025-06-22 10:59:10,374 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-06-22 10:59:11,773 - INFO - Found trending pairs: NEIROUSDT, NXPCUSDT, APTUSDT, VIRTUALUSDT, INITUSDT...
+2025-06-22 10:59:11,775 - INFO - Preloading data for pairs: LPTUSDT, KAITOUSDT, SOLUSDT, JUPUSDT, APEUSDT
+2025-06-22 10:59:47,835 - INFO - Preloading data for pairs: LAYERUSDT, ETHUSDT, UNIUSDT, TRBUSDT, BTCUSDT
+2025-06-22 11:00:23,489 - INFO - Preloading data for pairs: NXPCUSDT, ORDIUSDT, APTUSDT, ENAUSDT, ADAUSDT
+2025-06-22 11:01:01,109 - INFO - Preloading data for pairs: VANAUSDT, INITUSDT, TAOUSDT, DYDXUSDT, SEIUSDT
+2025-06-22 11:01:36,029 - INFO - Preloading data for pairs: BNBUSDT, VIRTUALUSDT, HUMAUSDT, NEIROUSDT, BABYUSDT
+2025-06-22 11:02:13,044 - INFO - Historical data preloading complete
+2025-06-22 11:02:21,953 - INFO - Updating correlation matrix...
+2025-06-22 11:02:21,954 - ERROR - Error in trading cycle: 'NoneType' object is not subscriptable
+2025-06-22 11:02:21,973 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0,
+    "avg_daily_return_pct": 0,
+    "avg_weekly_return_pct": 0
+  },
+  "trades": {
+    "total": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "profit_factor": 0,
+    "avg_profit": 0,
+    "avg_loss": 0,
+    "expected_value": 0,
+    "recent_win_rate_pct": 0
+  },
+  "pairs": {
+    "best_pair": "None",
+    "best_pair_profit": 0,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-06-22 11:02:21"
+}
+2025-06-22 11:02:57,171 - INFO - Correlation matrix updated for 41 pairs
+2025-06-22 11:03:06,052 - INFO - Market regime changed: NEUTRAL -> BEAR_TRENDING
+2025-06-22 11:03:06,052 - INFO - Market state: Regime=BEAR_TRENDING, Trend=bearish, Volatility=low, Breadth=0.00
+2025-06-22 11:06:18,899 - INFO - Top opportunities found: ['FUNUSDT', 'BTCUSDT', 'XRPUSDT', 'BNBUSDT', 'LTCUSDT']
+2025-06-22 11:06:18,899 - INFO - Fetching top 30 trending cryptocurrency pairs
+2025-06-22 11:06:20,283 - INFO - Found trending pairs: NEIROUSDT, NXPCUSDT, APTUSDT, SEIUSDT, VIRTUALUSDT...
+2025-06-22 11:06:21,225 - INFO - Selected optimal assets: FUNUSDT, LPTUSDT, XRPUSDT, LAYERUSDT, WBTCUSDT... (10 total)
+2025-06-22 11:06:26,198 - WARNING - CoinGecko rate limit hit, backing off...
+2025-06-22 11:06:26,484 - WARNING - CoinGecko rate limit hit, backing off...
+2025-06-22 11:06:26,744 - WARNING - CoinGecko rate limit hit, backing off...
+2025-06-22 11:06:26,993 - WARNING - CoinGecko rate limit hit, backing off...
+2025-06-22 11:06:27,232 - WARNING - CoinGecko rate limit hit, backing off...
+2025-06-22 11:06:27,483 - WARNING - CoinGecko rate limit hit, backing off...
+2025-06-22 11:06:27,776 - WARNING - CoinGecko rate limit hit, backing off...
+2025-06-22 11:06:28,026 - WARNING - CoinGecko rate limit hit, backing off...
+2025-06-22 11:06:28,281 - WARNING - CoinGecko rate limit hit, backing off...
+2025-06-22 11:06:28,531 - WARNING - CoinGecko rate limit hit, backing off...
+2025-06-22 11:06:28,782 - WARNING - CoinGecko rate limit hit, backing off...
+2025-06-22 11:06:29,025 - WARNING - CoinGecko rate limit hit, backing off...
+2025-06-22 11:06:29,279 - WARNING - CoinGecko rate limit hit, backing off...
+2025-06-22 11:06:29,556 - WARNING - CoinGecko rate limit hit, backing off...
+2025-06-22 11:06:29,833 - WARNING - CoinGecko rate limit hit, backing off...
+2025-06-22 11:06:30,071 - WARNING - CoinGecko rate limit hit, backing off...
+2025-06-22 11:06:30,317 - WARNING - CoinGecko rate limit hit, backing off...
+2025-06-22 11:06:30,587 - WARNING - CoinGecko rate limit hit, backing off...
+2025-06-22 11:06:30,837 - WARNING - CoinGecko rate limit hit, backing off...
+2025-06-22 11:06:31,888 - INFO - Bot stopped by user

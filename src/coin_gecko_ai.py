@@ -21,10 +21,31 @@ class CoinGeckoAI:
         
         # Rate limiting - CoinGecko has different limits for free vs pro
         self.last_request_time = 0
-        self.min_request_interval = 1.0 if not self.api_key else 0.2  # Free: 1 req/sec, Pro: 5 req/sec
+        
+            # NEW: Progressive rate limiting based on API key type
+        if not self.api_key or not self.api_key.startswith('CG-'):
+            # No API key or free demo key - be very conservative
+            self.min_request_interval = 5.0  # 5 seconds between requests (was 3.0)
+            self.max_requests_per_minute = 10  # Very conservative limit (NEW)
+            logging.info("CoinGecko initialized for FREE TIER: 1 request every 5 seconds")
+        else:
+            # Demo/Pro keys - still conservative but faster  
+            self.min_request_interval = 2.0  # 2 seconds between requests
+            self.max_requests_per_minute = 25  # (NEW)
+            logging.info("CoinGecko initialized for DEMO/PRO TIER: 1 request every 2 seconds")
+        
+        # NEW: Track requests for proper rate limiting
+        self.request_history = []
+        
+        # NEW: Rate limit backoff tracking
+        self.consecutive_rate_limits = 0
+        self.backoff_multiplier = 1.0
+
+        self.min_request_interval = 3.0  # 3 seconds for free tier
+        self.max_requests_per_minute = 15  # Conservative limit # Free: 1 req/sec, Pro: 5 req/sec
         
         # Request timeout
-        self.request_timeout = 10  # seconds
+        self.request_timeout = 15  # seconds
         
         # Check if API is available
         self.api_available = self._check_api_connection()
@@ -96,18 +117,47 @@ class CoinGeckoAI:
                 headers["x-cg-pro-api-key"] = self.api_key
         return headers
     
+
+        # 2. ADD THIS NEW METHOD after _get_headers():
+    def _check_rate_limit(self):
+        """Check if we're within rate limits"""
+        current_time = time.time()
+        
+        # Remove requests older than 1 minute
+        self.request_history = [req_time for req_time in self.request_history 
+                            if current_time - req_time < 60]
+        
+        # Check if we're hitting the per-minute limit
+        if len(self.request_history) >= self.max_requests_per_minute:
+            oldest_request = min(self.request_history)
+            wait_time = 60 - (current_time - oldest_request) + 2  # Add 2 second buffer
+            return wait_time
+        
+        return 0
+        
     async def _make_api_request(self, endpoint: str, params: Dict[str, Any] = None) -> Optional[Dict]:
-        """Make API request with rate limiting and error handling"""
+        """Make API request with enhanced rate limiting and error handling"""
         if not self.api_available:
             logging.debug(f"Skipping CoinGecko request to {endpoint} - API not available")
             return None
+
+        # NEW: Check rate limits
+        rate_limit_wait = self._check_rate_limit()
+        if rate_limit_wait > 0:
+            logging.info(f"CoinGecko rate limit protection: waiting {rate_limit_wait:.1f} seconds")
+            await asyncio.sleep(rate_limit_wait)
+
+        # NEW: Apply backoff multiplier if we've been hitting rate limits
+        effective_interval = self.min_request_interval * self.backoff_multiplier
         
         # Ensure minimum time between requests
         current_time = time.time()
         time_since_last = current_time - self.last_request_time
-        if time_since_last < self.min_request_interval:
-            await asyncio.sleep(self.min_request_interval - time_since_last)
-        
+        if time_since_last < effective_interval:
+            wait_time = effective_interval - time_since_last
+            logging.debug(f"CoinGecko rate limiting: waiting {wait_time:.1f} seconds")
+            await asyncio.sleep(wait_time)
+
         try:
             url = f"{self._get_base_url()}/{endpoint}"
             response = requests.get(
@@ -116,28 +166,53 @@ class CoinGeckoAI:
                 headers=self._get_headers(),
                 timeout=self.request_timeout
             )
-            
+
+            # NEW: Record the request time and add to history
             self.last_request_time = time.time()
-            
+            self.request_history.append(self.last_request_time)
+
             if response.status_code == 200:
                 data = response.json()
+                logging.debug(f"CoinGecko API success: {endpoint}")
+                
+                # NEW: Reset backoff on success
+                self.consecutive_rate_limits = 0
+                self.backoff_multiplier = max(1.0, self.backoff_multiplier * 0.9)  # Gradually reduce
+                
                 return data
+                
             elif response.status_code == 429:
-                logging.warning("CoinGecko rate limit hit, backing off...")
-                await asyncio.sleep(5)
-                return None
-            else:
-                logging.error(f"CoinGecko API error: {response.status_code} - {response.text[:200]}")
+                # FIXED: Much more aggressive backoff
+                self.consecutive_rate_limits += 1
+                self.backoff_multiplier = min(5.0, self.backoff_multiplier * 1.5)  # Increase backoff
+                
+                backoff_time = 30 + (self.consecutive_rate_limits * 10)  # 30s + 10s per consecutive hit
+                
+                logging.warning(f"CoinGecko rate limit hit! (#{self.consecutive_rate_limits}) "
+                            f"Backing off for {backoff_time} seconds. "
+                            f"New interval: {self.min_request_interval * self.backoff_multiplier:.1f}s")
+                
+                await asyncio.sleep(backoff_time)  # CHANGED FROM 5 SECONDS TO 30+ SECONDS
                 return None
                 
+            elif response.status_code == 403:
+                logging.error("CoinGecko API forbidden - check API key")
+                self.api_available = False
+                return None
+                
+            else:
+                logging.warning(f"CoinGecko API returned status {response.status_code}: {response.text[:200]}")
+                return None
+
         except requests.exceptions.Timeout:
-            logging.error(f"CoinGecko API timeout after {self.request_timeout} seconds")
+            logging.warning(f"CoinGecko request to {endpoint} timed out after {self.request_timeout}s")
             return None
-        except requests.exceptions.RequestException as e:
-            logging.error(f"CoinGecko API request error: {str(e)}")
+        except requests.exceptions.ConnectionError:
+            logging.warning(f"CoinGecko connection error for {endpoint}")
+            # Don't disable API completely on connection errors
             return None
         except Exception as e:
-            logging.error(f"Error making CoinGecko API request: {str(e)}")
+            logging.error(f"CoinGecko request error for {endpoint}: {str(e)}")
             return None
     
     async def _get_coin_id(self, symbol: str) -> str:
