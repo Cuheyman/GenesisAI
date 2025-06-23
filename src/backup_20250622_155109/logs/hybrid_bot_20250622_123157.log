@@ -1,0 +1,1050 @@
+2025-06-22 12:31:58,285 - INFO - CoinGecko initialiseret - Gratis tier
+2025-06-22 12:31:58,539 - WARNING - CoinGecko API returned status 429
+2025-06-22 12:31:58,541 - INFO - CoinGecko AI klient initialiseret succesfuldt
+2025-06-22 12:31:58,541 - INFO - CoinGecko AI client initialized
+2025-06-22 12:31:58,627 - INFO - Database initialization complete
+2025-06-22 12:31:58,640 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN take_profit_pct REAL
+2025-06-22 12:31:58,650 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN stop_loss_pct REAL
+2025-06-22 12:31:58,663 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN is_new_asset INTEGER DEFAULT 0
+2025-06-22 12:31:58,674 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN exit_price REAL
+2025-06-22 12:31:58,685 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN exit_time TEXT
+2025-06-22 12:31:58,695 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN profit_loss REAL
+2025-06-22 12:31:58,706 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN signal_source TEXT
+2025-06-22 12:31:58,717 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN signal_strength REAL
+2025-06-22 12:31:58,730 - INFO - Schema update applied: ALTER TABLE trades ADD COLUMN signal_source TEXT
+2025-06-22 12:31:58,741 - INFO - Schema update applied: ALTER TABLE trades ADD COLUMN signal_strength REAL
+2025-06-22 12:31:58,741 - INFO - Database schema updated successfully with 10 changes
+2025-06-22 12:31:58,756 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-06-22 12:31:58,756 - INFO - Advanced indicators initialized with Taapi.io
+2025-06-22 12:31:58,757 - INFO - Advanced indicators initialized successfully
+2025-06-22 12:31:58,757 - INFO - Risk Manager initialized with equity protection: Warning at 2.0%, Risk Reduction at 3.0%, High Alert at 5.0%, Emergency at 8.0%
+2025-06-22 12:31:58,757 - INFO - Hybrid Trading Bot initialized with 1000.00 equity
+2025-06-22 12:31:58,757 - INFO - Mode: TEST trading
+2025-06-22 12:31:58,757 - INFO - AI Provider: CoinGecko
+2025-06-22 12:31:58,758 - INFO - Advanced Indicators: Taapi.io
+2025-06-22 12:31:58,758 - INFO - Testing API connections...
+2025-06-22 12:31:58,987 - INFO - Binance server time: 2025-06-22 12:32:03.229000
+2025-06-22 12:31:59,246 - INFO - CoinGecko AI connection successful: 0
+2025-06-22 12:31:59,247 - INFO - Preloading historical data for analysis...
+2025-06-22 12:31:59,247 - INFO - Preloading historical data for analysis...
+2025-06-22 12:31:59,247 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-06-22 12:32:00,190 - INFO - Found trending pairs: NEIROUSDT, APTUSDT, VIRTUALUSDT, NXPCUSDT, ALTUSDT...
+2025-06-22 12:32:00,192 - INFO - Preloading data for pairs: FUNUSDT, DYDXUSDT, HUMAUSDT, ORDIUSDT, NEIROUSDT
+2025-06-22 12:32:34,146 - INFO - Preloading data for pairs: SEIUSDT, NXPCUSDT, BNBUSDT, JUPUSDT, TAOUSDT
+2025-06-22 12:33:10,489 - INFO - Preloading data for pairs: ADAUSDT, APEUSDT, ENAUSDT, SOLUSDT, ALTUSDT
+2025-06-22 12:33:43,930 - INFO - Preloading data for pairs: BABYUSDT, LAYERUSDT, VANAUSDT, APTUSDT, TRBUSDT
+2025-06-22 12:34:18,050 - INFO - Preloading data for pairs: ETHUSDT, VIRTUALUSDT, LPTUSDT, INITUSDT, BTCUSDT
+2025-06-22 12:34:53,233 - INFO - Historical data preloading complete
+2025-06-22 12:35:02,993 - INFO - Updating correlation matrix...
+2025-06-22 12:35:02,995 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/2 ($0.00, 0.0% of equity)
+2025-06-22 12:35:03,258 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 12:35:03,278 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0,
+    "avg_daily_return_pct": 0,
+    "avg_weekly_return_pct": 0
+  },
+  "trades": {
+    "total": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "profit_factor": 0,
+    "avg_profit": 0,
+    "avg_loss": 0,
+    "expected_value": 0,
+    "recent_win_rate_pct": 0
+  },
+  "pairs": {
+    "best_pair": "None",
+    "best_pair_profit": 0,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-06-22 12:35:03"
+}
+2025-06-22 12:38:32,107 - INFO - Successfully gathered price data for 41/41 pairs
+2025-06-22 12:38:32,217 - INFO - Correlation matrix updated for 41 pairs
+2025-06-22 12:38:41,581 - INFO - Market regime changed: NEUTRAL -> BEAR_TRENDING
+2025-06-22 12:38:41,582 - INFO - Market state: Regime=BEAR_TRENDING, Trend=bearish, Volatility=low, Breadth=0.00
+2025-06-22 12:38:41,582 - INFO - Top opportunities found: ['FUNUSDT', 'GPSUSDT']
+2025-06-22 12:38:41,583 - INFO - Fetching top 30 trending cryptocurrency pairs
+2025-06-22 12:38:42,528 - INFO - Found trending pairs: NEIROUSDT, APTUSDT, VIRTUALUSDT, NXPCUSDT, INITUSDT...
+2025-06-22 12:38:43,925 - INFO - Selected optimal assets: FUNUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT, BNBUSDT... (15 total)
+2025-06-22 12:38:54,178 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:38:59,989 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:39:03,499 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:39:07,475 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: bearish
+2025-06-22 12:39:12,820 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:39:16,824 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 12:39:16,825 - INFO - NXPCUSDT analysis: SELL signal with 0.42 strength
+2025-06-22 12:39:16,825 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: -0.02, whale: 0.00, smart money: bullish
+2025-06-22 12:39:16,825 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.18, whale: -0.10, smart money: bearish
+2025-06-22 12:39:16,825 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 12:39:16,826 - INFO - NEIROUSDT analysis: SELL signal with 0.42 strength
+2025-06-22 12:39:26,836 - INFO - FUNUSDT analysis: BUY signal with 0.59 strength
+2025-06-22 12:39:26,837 - INFO - QUICK MODE: Using 40.0% of equity for signal strength 0.59
+2025-06-22 12:39:26,837 - INFO - QUICK MODE: Approved position for FUNUSDT - Size: $320.00, Signal: 0.59
+2025-06-22 12:39:27,812 - INFO - QUICK MODE: Using 40.0% of equity for signal strength 0.59
+2025-06-22 12:39:27,813 - INFO - DYNAMIC BUY: FUNUSDT - Qty: 43091.0, Price: $0.0074, Value: $320.00, Signal: 0.59
+2025-06-22 12:39:27,838 - INFO - Stop loss for FUNUSDT initialized at 0.007240 (2.5% below entry)
+2025-06-22 12:39:27,838 - INFO - Trailing take profit for FUNUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-22 12:39:27,838 - INFO - TEST MODE: Simulated buy for FUNUSDT executed successfully
+2025-06-22 12:39:27,839 - INFO - Trading cycle completed in 264.85 seconds
+2025-06-22 12:39:42,855 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/2 ($320.00, 32.0% of equity)
+2025-06-22 12:39:42,855 - INFO - Active positions: FUN:+0.0%
+2025-06-22 12:39:42,856 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 12:42:29,724 - INFO - Top opportunities found: ['FUNUSDT', 'GPSUSDT']
+2025-06-22 12:42:31,123 - INFO - Selected optimal assets: FUNUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT, BNBUSDT... (15 total)
+2025-06-22 12:42:31,816 - INFO - Ultra-quick profit exit for FUNUSDT at 0.67% (5 min)
+2025-06-22 12:42:31,817 - INFO - SELL ORDER: FUNUSDT - 43091.0 at approx. $0.007476, P/L: $2.15 (0.67%)
+2025-06-22 12:42:31,845 - INFO - TEST MODE: Simulated sell for FUNUSDT executed successfully
+2025-06-22 12:42:31,845 - INFO - Session stats: 1 trades, 100.0% win rate, $2.15 profit
+2025-06-22 12:42:32,266 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.18, whale: -0.10, smart money: bearish
+2025-06-22 12:42:37,154 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: -0.02, whale: 0.00, smart money: bullish
+2025-06-22 12:42:41,606 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.18, whale: -0.10, smart money: bearish
+2025-06-22 12:42:41,607 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: -0.02, whale: 0.00, smart money: bullish
+2025-06-22 12:42:41,607 - INFO - NEIROUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 12:42:41,607 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 12:42:41,871 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:42:47,253 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:42:51,254 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:42:57,262 - INFO - FUNUSDT analysis: BUY signal with 0.44 strength
+2025-06-22 12:42:57,262 - INFO - QUICK MODE: Using 40.0% of equity for signal strength 0.44
+2025-06-22 12:42:57,263 - INFO - QUICK MODE: Approved position for FUNUSDT - Size: $320.00, Signal: 0.44
+2025-06-22 12:42:58,001 - INFO - QUICK MODE: Using 40.0% of equity for signal strength 0.44
+2025-06-22 12:42:58,001 - INFO - DYNAMIC BUY: FUNUSDT - Qty: 42803.0, Price: $0.0075, Value: $320.00, Signal: 0.44
+2025-06-22 12:42:58,027 - INFO - Stop loss for FUNUSDT initialized at 0.007289 (2.5% below entry)
+2025-06-22 12:42:58,027 - INFO - Trailing take profit for FUNUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-22 12:42:58,027 - INFO - TEST MODE: Simulated buy for FUNUSDT executed successfully
+2025-06-22 12:43:01,260 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 12:43:05,228 - INFO - NXPCUSDT analysis: SELL signal with 0.54 strength
+2025-06-22 12:43:05,229 - INFO - Trading cycle completed in 202.38 seconds
+2025-06-22 12:43:20,247 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/2 ($320.00, 32.0% of equity)
+2025-06-22 12:43:20,247 - INFO - Active positions: FUN:+0.0%
+2025-06-22 12:43:20,248 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 12:46:07,882 - INFO - Ultra-quick profit exit for FUNUSDT at 0.62% (5 min)
+2025-06-22 12:46:07,883 - INFO - SELL ORDER: FUNUSDT - 42803.0 at approx. $0.007522, P/L: $1.97 (0.62%)
+2025-06-22 12:46:07,909 - INFO - TEST MODE: Simulated sell for FUNUSDT executed successfully
+2025-06-22 12:46:07,909 - INFO - Session stats: 2 trades, 100.0% win rate, $4.12 profit
+2025-06-22 12:46:21,190 - INFO - Top opportunities found: ['FUNUSDT', 'GPSUSDT']
+2025-06-22 12:46:21,670 - INFO - Selected optimal assets: FUNUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT, BNBUSDT... (15 total)
+2025-06-22 12:46:32,486 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:46:38,763 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:46:41,611 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:46:48,237 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:46:53,437 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:46:58,296 - INFO - NXPCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 12:46:58,296 - INFO - NEIROUSDT analysis: SELL signal with 0.54 strength
+2025-06-22 12:46:58,297 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 12:47:03,452 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 12:47:10,367 - INFO - FUNUSDT analysis: BUY signal with 0.44 strength
+2025-06-22 12:47:10,367 - INFO - QUICK MODE: Using 40.0% of equity for signal strength 0.44
+2025-06-22 12:47:10,399 - INFO - QUICK MODE: Approved position for FUNUSDT - Size: $320.00, Signal: 0.44
+2025-06-22 12:47:11,793 - INFO - QUICK MODE: Using 40.0% of equity for signal strength 0.44
+2025-06-22 12:47:11,794 - INFO - DYNAMIC BUY: FUNUSDT - Qty: 42660.0, Price: $0.0075, Value: $320.00, Signal: 0.44
+2025-06-22 12:47:11,851 - INFO - Stop loss for FUNUSDT initialized at 0.007313 (2.5% below entry)
+2025-06-22 12:47:11,852 - INFO - Trailing take profit for FUNUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-22 12:47:11,852 - INFO - TEST MODE: Simulated buy for FUNUSDT executed successfully
+2025-06-22 12:47:11,852 - INFO - Trading cycle completed in 231.61 seconds
+2025-06-22 12:47:26,866 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/2 ($320.00, 32.0% of equity)
+2025-06-22 12:47:26,866 - INFO - Active positions: FUN:+0.0%
+2025-06-22 12:47:26,867 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 12:50:20,316 - INFO - Top opportunities found: ['FUNUSDT', 'QNTUSDT', 'POLUSDT', 'GPSUSDT']
+2025-06-22 12:50:21,715 - INFO - Selected optimal assets: FUNUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT, BNBUSDT... (15 total)
+2025-06-22 12:50:21,717 - INFO - High priority opportunities: FUNUSDT
+2025-06-22 12:50:28,822 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: -0.01, whale: 0.00, smart money: bullish
+2025-06-22 12:50:32,831 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: -0.01, whale: 0.00, smart money: bullish
+2025-06-22 12:50:32,831 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 12:50:38,827 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:50:44,183 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:50:49,381 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:50:56,056 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:51:01,693 - INFO - CoinGecko insights for TAO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:51:10,098 - INFO - FUNUSDT analysis: BUY signal with 0.43 strength
+2025-06-22 12:51:10,098 - INFO - NEIROUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 12:51:10,099 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 12:51:11,705 - INFO - NXPCUSDT analysis: SELL signal with 0.49 strength
+2025-06-22 12:51:19,114 - INFO - TAOUSDT analysis: SELL signal with 0.46 strength
+2025-06-22 12:51:19,114 - INFO - Trading cycle completed in 232.25 seconds
+2025-06-22 12:51:34,123 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/2 ($320.00, 32.0% of equity)
+2025-06-22 12:51:34,124 - INFO - Active positions: FUN:-0.1%
+2025-06-22 12:51:34,125 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 12:51:44,159 - ERROR - Error detecting volume surges: HTTPSConnectionPool(host='testnet.binance.vision', port=443): Read timed out. (read timeout=10)
+2025-06-22 12:54:32,779 - INFO - Top opportunities found: ['FUNUSDT', 'QNTUSDT', 'POLUSDT', 'GPSUSDT', 'BTCUSDT']
+2025-06-22 12:54:33,735 - INFO - Selected optimal assets: FUNUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT, BNBUSDT... (15 total)
+2025-06-22 12:54:33,737 - INFO - High priority opportunities: FUNUSDT
+2025-06-22 12:54:41,683 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: -0.01, whale: 0.00, smart money: bullish
+2025-06-22 12:54:45,212 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: -0.01, whale: 0.00, smart money: bullish
+2025-06-22 12:54:45,213 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 12:54:51,699 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:55:03,514 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:55:07,494 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:55:11,290 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:55:16,704 - INFO - CoinGecko insights for TAO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:55:29,956 - INFO - FUNUSDT analysis: BUY signal with 0.44 strength
+2025-06-22 12:55:29,956 - INFO - NEIROUSDT analysis: SELL signal with 0.52 strength
+2025-06-22 12:55:29,957 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 12:55:29,957 - INFO - NXPCUSDT analysis: SELL signal with 0.49 strength
+2025-06-22 12:55:39,392 - INFO - TAOUSDT analysis: SELL signal with 0.47 strength
+2025-06-22 12:55:39,393 - INFO - Trading cycle completed in 245.27 seconds
+2025-06-22 12:55:54,400 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/2 ($320.00, 32.0% of equity)
+2025-06-22 12:55:54,401 - INFO - Active positions: FUN:-0.0%
+2025-06-22 12:55:54,402 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 12:58:50,695 - INFO - Top opportunities found: ['FUNUSDT', 'QNTUSDT', 'POLUSDT', 'PEPEUSDT', 'GPSUSDT']
+2025-06-22 12:58:52,112 - INFO - Selected optimal assets: FUNUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT, BNBUSDT... (15 total)
+2025-06-22 12:58:52,114 - INFO - High priority opportunities: FUNUSDT
+2025-06-22 12:59:09,358 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:59:12,470 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:59:16,913 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:59:22,306 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:59:33,774 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:59:38,474 - INFO - CoinGecko insights for TAO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 12:59:44,654 - INFO - FUNUSDT analysis: BUY signal with 0.45 strength
+2025-06-22 12:59:44,654 - INFO - NEIROUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 12:59:44,655 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 12:59:44,655 - INFO - NXPCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 12:59:48,489 - INFO - BNBUSDT analysis: SELL signal with 0.45 strength
+2025-06-22 12:59:54,089 - INFO - TAOUSDT analysis: SELL signal with 0.47 strength
+2025-06-22 12:59:54,089 - INFO - Trading cycle completed in 239.69 seconds
+2025-06-22 13:00:09,096 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/2 ($320.00, 32.0% of equity)
+2025-06-22 13:00:09,096 - INFO - Active positions: FUN:+0.1%
+2025-06-22 13:00:09,097 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 13:03:00,266 - INFO - Top opportunities found: ['FUNUSDT', 'QNTUSDT', 'PAXGUSDT', 'POLUSDT', 'GPSUSDT']
+2025-06-22 13:03:01,199 - INFO - Selected optimal assets: LAYERUSDT, FUNUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT... (15 total)
+2025-06-22 13:03:10,661 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0.0,
+    "avg_daily_return_pct": NaN,
+    "avg_weekly_return_pct": NaN
+  },
+  "trades": {
+    "total": 2,
+    "win_count": 2,
+    "loss_count": 0,
+    "win_rate_pct": 100.0,
+    "profit_factor": Infinity,
+    "avg_profit": 2.06,
+    "avg_loss": 0,
+    "expected_value": 2.06,
+    "recent_win_rate_pct": 100.0
+  },
+  "pairs": {
+    "best_pair": "FUNUSDT",
+    "best_pair_profit": 4.12,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-06-22 13:03:10"
+}
+2025-06-22 13:03:20,673 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:03:25,534 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:03:30,839 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:03:35,981 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:03:42,044 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:03:47,651 - INFO - LAYERUSDT analysis: BUY signal with 0.42 strength
+2025-06-22 13:03:47,651 - INFO - QUICK MODE: Using 40.0% of equity for signal strength 0.42
+2025-06-22 13:03:47,651 - INFO - QUICK MODE: Approved position for LAYERUSDT - Size: $320.00, Signal: 0.42
+2025-06-22 13:03:49,274 - INFO - QUICK MODE: Using 40.0% of equity for signal strength 0.42
+2025-06-22 13:03:49,275 - INFO - DYNAMIC BUY: LAYERUSDT - Qty: 443.95, Price: $0.7208, Value: $320.00, Signal: 0.42
+2025-06-22 13:03:49,308 - INFO - Stop loss for LAYERUSDT initialized at 0.702780 (2.5% below entry)
+2025-06-22 13:03:49,308 - INFO - Trailing take profit for LAYERUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-22 13:03:49,308 - INFO - TEST MODE: Simulated buy for LAYERUSDT executed successfully
+2025-06-22 13:03:49,309 - INFO - FUNUSDT analysis: BUY signal with 0.49 strength
+2025-06-22 13:03:49,309 - INFO - NEIROUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:03:52,056 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:03:56,966 - INFO - NXPCUSDT analysis: SELL signal with 0.45 strength
+2025-06-22 13:03:56,967 - INFO - Trading cycle completed in 227.87 seconds
+2025-06-22 13:04:11,979 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 2/2 ($640.00, 64.0% of equity)
+2025-06-22 13:04:11,979 - INFO - Active positions: FUN:+0.8%, LAYER:+0.0%
+2025-06-22 13:04:11,980 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 13:04:21,997 - ERROR - Error detecting volume surges: HTTPSConnectionPool(host='testnet.binance.vision', port=443): Read timed out. (read timeout=10)
+2025-06-22 13:07:17,766 - INFO - Top opportunities found: ['FUNUSDT', 'PAXGUSDT', 'POLUSDT', 'PEPEUSDT', 'GPSUSDT']
+2025-06-22 13:07:18,711 - INFO - Selected optimal assets: LAYERUSDT, FUNUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT... (15 total)
+2025-06-22 13:07:28,713 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:07:33,821 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:07:38,000 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:07:47,608 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:07:52,050 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:07:58,453 - INFO - Profit target reached for FUNUSDT at 2.53%
+2025-06-22 13:07:58,453 - INFO - SELL ORDER: FUNUSDT - 42660.0 at approx. $0.007691, P/L: $8.11 (2.53%)
+2025-06-22 13:07:58,519 - INFO - TEST MODE: Simulated sell for FUNUSDT executed successfully
+2025-06-22 13:07:58,519 - INFO - Session stats: 3 trades, 100.0% win rate, $12.23 profit
+2025-06-22 13:07:58,760 - INFO - LAYERUSDT analysis: BUY signal with 0.40 strength
+2025-06-22 13:07:58,760 - INFO - FUNUSDT analysis: BUY signal with 0.50 strength
+2025-06-22 13:07:58,761 - INFO - NEIROUSDT analysis: SELL signal with 0.53 strength
+2025-06-22 13:08:02,056 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:08:07,427 - INFO - NXPCUSDT analysis: SELL signal with 0.47 strength
+2025-06-22 13:08:07,427 - INFO - Trading cycle completed in 235.45 seconds
+2025-06-22 13:08:22,444 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/2 ($320.00, 32.0% of equity)
+2025-06-22 13:08:22,444 - INFO - Active positions: LAYER:+0.1%
+2025-06-22 13:08:22,445 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 13:11:12,307 - INFO - Top opportunities found: ['FUNUSDT', 'PAXGUSDT', 'BTCUSDT', 'QNTUSDT', 'WBTCUSDT']
+2025-06-22 13:11:13,702 - INFO - Selected optimal assets: FUNUSDT, LAYERUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT... (15 total)
+2025-06-22 13:11:31,970 - INFO - Updating correlation matrix...
+2025-06-22 13:12:14,196 - INFO - Successfully gathered price data for 41/41 pairs
+2025-06-22 13:12:14,309 - INFO - Correlation matrix updated for 41 pairs
+2025-06-22 13:12:26,763 - INFO - Market state: Regime=BEAR_TRENDING, Trend=bearish, Volatility=low, Breadth=0.00
+2025-06-22 13:12:26,764 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:12:33,341 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:12:38,979 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.20, whale: -0.30, smart money: bearish
+2025-06-22 13:12:44,356 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:12:48,807 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:12:55,140 - INFO - FUNUSDT analysis: BUY signal with 0.46 strength
+2025-06-22 13:12:55,140 - INFO - QUICK MODE: Using 40.0% of equity for signal strength 0.59
+2025-06-22 13:12:55,141 - INFO - QUICK MODE: Approved position for FUNUSDT - Size: $320.00, Signal: 0.59
+2025-06-22 13:13:05,828 - ERROR - Error calculating dynamic position size: HTTPSConnectionPool(host='testnet.binance.vision', port=443): Read timed out. (read timeout=10)
+2025-06-22 13:13:05,828 - ERROR - Could not calculate valid quantity for FUNUSDT
+2025-06-22 13:13:05,829 - INFO - LAYERUSDT analysis: BUY signal with 0.40 strength
+2025-06-22 13:13:05,829 - INFO - NEIROUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:13:05,830 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:13:05,830 - INFO - NXPCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:13:05,830 - INFO - Trading cycle completed in 283.39 seconds
+2025-06-22 13:13:20,847 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/2 ($320.00, 32.0% of equity)
+2025-06-22 13:13:20,848 - INFO - Active positions: LAYER:-0.2%
+2025-06-22 13:13:20,849 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 13:16:16,182 - INFO - Top opportunities found: ['FUNUSDT', 'BTCUSDT', 'LTCUSDT', 'QNTUSDT', 'WBTCUSDT']
+2025-06-22 13:16:17,580 - INFO - Selected optimal assets: FUNUSDT, LAYERUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT... (15 total)
+2025-06-22 13:16:27,851 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:16:32,310 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:16:36,750 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:16:41,699 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:16:45,706 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:16:51,784 - INFO - NXPCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:16:51,785 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:16:51,785 - INFO - NEIROUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:16:55,718 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:17:01,561 - INFO - FUNUSDT analysis: BUY signal with 0.42 strength
+2025-06-22 13:17:01,561 - INFO - QUICK MODE: Using 40.0% of equity for signal strength 0.54
+2025-06-22 13:17:01,562 - INFO - QUICK MODE: Approved position for FUNUSDT - Size: $320.00, Signal: 0.54
+2025-06-22 13:17:03,421 - INFO - QUICK MODE: Using 40.0% of equity for signal strength 0.54
+2025-06-22 13:17:03,422 - INFO - DYNAMIC BUY: FUNUSDT - Qty: 43120.0, Price: $0.0074, Value: $320.00, Signal: 0.54
+2025-06-22 13:17:03,447 - INFO - Stop loss for FUNUSDT initialized at 0.007235 (2.5% below entry)
+2025-06-22 13:17:03,447 - INFO - Trailing take profit for FUNUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-22 13:17:03,447 - INFO - TEST MODE: Simulated buy for FUNUSDT executed successfully
+2025-06-22 13:17:03,447 - INFO - Trading cycle completed in 222.60 seconds
+2025-06-22 13:17:18,456 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 2/2 ($640.00, 64.0% of equity)
+2025-06-22 13:17:18,456 - INFO - Active positions: LAYER:-0.2%, FUN:+0.0%
+2025-06-22 13:17:18,457 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 13:20:23,725 - INFO - Top opportunities found: ['BTCUSDT', 'FUNUSDT', 'LTCUSDT', 'QNTUSDT', 'WBTCUSDT']
+2025-06-22 13:20:25,140 - INFO - Selected optimal assets: FUNUSDT, LAYERUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT... (15 total)
+2025-06-22 13:20:25,142 - INFO - High priority opportunities: BTCUSDT
+2025-06-22 13:20:25,143 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.20, whale: -0.30, smart money: bearish
+2025-06-22 13:20:29,166 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.20, whale: -0.30, smart money: bearish
+2025-06-22 13:20:29,166 - INFO - NEIROUSDT analysis: SELL signal with 0.52 strength
+2025-06-22 13:20:35,752 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:20:39,732 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:20:44,655 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:20:49,117 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:20:53,606 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:20:57,418 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:20:57,419 - INFO - FUNUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:20:59,118 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:21:03,620 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:21:07,171 - INFO - NXPCUSDT analysis: SELL signal with 0.47 strength
+2025-06-22 13:21:07,172 - INFO - Trading cycle completed in 228.72 seconds
+2025-06-22 13:21:25,911 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 2/2 ($640.00, 64.0% of equity)
+2025-06-22 13:21:25,912 - INFO - Active positions: LAYER:-0.6%, FUN:+0.1%
+2025-06-22 13:21:25,913 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 13:24:33,885 - INFO - Top opportunities found: ['BNBUSDT', 'FUNUSDT', 'BTCUSDT', 'SUIUSDT', 'LTCUSDT']
+2025-06-22 13:24:35,310 - INFO - Selected optimal assets: FUNUSDT, LAYERUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT... (15 total)
+2025-06-22 13:24:48,296 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.16, whale: 0.00, smart money: neutral
+2025-06-22 13:24:52,365 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:24:56,418 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:25:01,348 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:25:06,785 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:25:12,621 - INFO - NEIROUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 13:25:12,621 - INFO - NXPCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:25:12,622 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:25:16,790 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:25:21,698 - INFO - FUNUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:25:21,698 - INFO - Trading cycle completed in 235.79 seconds
+2025-06-22 13:25:36,713 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 2/2 ($640.00, 64.0% of equity)
+2025-06-22 13:25:36,713 - INFO - Active positions: LAYER:-1.0%, FUN:-0.3%
+2025-06-22 13:25:36,715 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 13:28:34,789 - INFO - Top opportunities found: ['FUNUSDT', 'XRPUSDT', 'BTCUSDT', 'QNTUSDT', 'WBTCUSDT']
+2025-06-22 13:28:35,729 - INFO - Selected optimal assets: LAYERUSDT, FUNUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT... (15 total)
+2025-06-22 13:28:35,732 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.16, whale: -0.10, smart money: bearish
+2025-06-22 13:28:40,651 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.16, whale: -0.10, smart money: bearish
+2025-06-22 13:28:40,652 - INFO - NEIROUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:28:46,291 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:28:51,195 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:28:56,098 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:29:01,473 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:29:07,243 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:29:07,244 - INFO - FUNUSDT analysis: BUY signal with 0.41 strength
+2025-06-22 13:29:11,478 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:29:17,234 - INFO - NXPCUSDT analysis: SELL signal with 0.43 strength
+2025-06-22 13:29:17,235 - INFO - Trading cycle completed in 220.52 seconds
+2025-06-22 13:29:33,603 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 2/2 ($640.00, 64.0% of equity)
+2025-06-22 13:29:33,603 - INFO - Active positions: LAYER:-1.2%, FUN:+0.0%
+2025-06-22 13:29:33,604 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 13:29:44,355 - ERROR - Error detecting volume surges: HTTPSConnectionPool(host='testnet.binance.vision', port=443): Read timed out.
+2025-06-22 13:32:28,711 - INFO - Top opportunities found: ['FUNUSDT', 'BTCUSDT', 'WBTCUSDT', 'GPSUSDT']
+2025-06-22 13:32:29,656 - INFO - Selected optimal assets: LAYERUSDT, FUNUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT... (15 total)
+2025-06-22 13:32:44,262 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:32:48,259 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:32:53,393 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:32:58,267 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: -0.10, smart money: neutral
+2025-06-22 13:33:03,894 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:33:09,279 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:33:09,280 - INFO - NXPCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:33:09,280 - INFO - FUNUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:33:09,281 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.18, whale: -0.10, smart money: bearish
+2025-06-22 13:33:09,281 - INFO - NEIROUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:33:18,357 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:33:18,357 - INFO - Trading cycle completed in 224.76 seconds
+2025-06-22 13:33:33,373 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 2/2 ($640.00, 64.0% of equity)
+2025-06-22 13:33:33,373 - INFO - Active positions: LAYER:-1.0%, FUN:+0.4%
+2025-06-22 13:33:33,375 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 13:36:31,615 - INFO - Top opportunities found: ['FUNUSDT', 'BTCUSDT', 'WBTCUSDT', 'GPSUSDT']
+2025-06-22 13:36:33,021 - INFO - Selected optimal assets: LAYERUSDT, FUNUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT... (15 total)
+2025-06-22 13:36:33,023 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.18, whale: -0.10, smart money: bearish
+2025-06-22 13:36:37,038 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.18, whale: -0.10, smart money: bearish
+2025-06-22 13:36:37,039 - INFO - NEIROUSDT analysis: SELL signal with 0.42 strength
+2025-06-22 13:36:43,037 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:36:49,130 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:36:53,540 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:36:59,636 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:37:06,442 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:37:06,442 - INFO - FUNUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:37:09,638 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:37:15,212 - INFO - NXPCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:37:15,212 - INFO - Trading cycle completed in 221.84 seconds
+2025-06-22 13:37:31,208 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 2/2 ($640.00, 64.0% of equity)
+2025-06-22 13:37:31,209 - INFO - Active positions: LAYER:-0.6%, FUN:-0.3%
+2025-06-22 13:37:31,210 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 13:40:21,634 - INFO - Top opportunities found: ['FUNUSDT', 'BTCUSDT', 'WBTCUSDT', 'GPSUSDT']
+2025-06-22 13:40:21,635 - INFO - Fetching top 30 trending cryptocurrency pairs
+2025-06-22 13:40:22,568 - INFO - Found trending pairs: VIRTUALUSDT, NEIROUSDT, NXPCUSDT, APTUSDT, INITUSDT...
+2025-06-22 13:40:23,047 - INFO - Selected optimal assets: LAYERUSDT, FUNUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT... (15 total)
+2025-06-22 13:40:38,400 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:40:44,218 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:40:49,117 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:40:53,129 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:40:57,600 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:41:03,874 - INFO - NXPCUSDT analysis: SELL signal with 0.49 strength
+2025-06-22 13:41:03,875 - INFO - NEIROUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:41:03,875 - INFO - FUNUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:41:07,605 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:41:12,953 - INFO - LAYERUSDT analysis: BUY signal with 0.40 strength
+2025-06-22 13:41:12,953 - INFO - Trading cycle completed in 221.75 seconds
+2025-06-22 13:41:27,988 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 2/2 ($640.00, 64.0% of equity)
+2025-06-22 13:41:27,989 - INFO - Active positions: LAYER:-0.6%, FUN:-0.3%
+2025-06-22 13:41:27,990 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 13:44:34,941 - INFO - Updating correlation matrix...
+2025-06-22 13:45:14,217 - INFO - Top opportunities found: ['FUNUSDT', 'BTCUSDT', 'WBTCUSDT', 'GPSUSDT']
+2025-06-22 13:45:15,159 - INFO - Selected optimal assets: LAYERUSDT, FUNUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT... (15 total)
+2025-06-22 13:45:15,161 - INFO - Successfully gathered price data for 41/41 pairs
+2025-06-22 13:45:15,273 - INFO - Correlation matrix updated for 41 pairs
+2025-06-22 13:45:23,696 - INFO - Market state: Regime=BEAR_TRENDING, Trend=bearish, Volatility=low, Breadth=0.00
+2025-06-22 13:45:25,040 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.18, whale: -0.10, smart money: bearish
+2025-06-22 13:45:29,464 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:45:34,393 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:45:38,840 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:45:44,223 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:45:49,561 - INFO - NEIROUSDT analysis: SELL signal with 0.43 strength
+2025-06-22 13:45:49,561 - INFO - LAYERUSDT analysis: BUY signal with 0.40 strength
+2025-06-22 13:45:49,562 - INFO - FUNUSDT analysis: BUY signal with 0.50 strength
+2025-06-22 13:45:54,226 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:45:59,135 - INFO - NXPCUSDT analysis: SELL signal with 0.41 strength
+2025-06-22 13:45:59,135 - INFO - Trading cycle completed in 271.17 seconds
+2025-06-22 13:46:14,536 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 2/2 ($640.00, 64.0% of equity)
+2025-06-22 13:46:14,536 - INFO - Active positions: LAYER:-0.4%, FUN:+0.2%
+2025-06-22 13:46:14,537 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 13:49:04,040 - INFO - Top opportunities found: ['BNBUSDT', 'FUNUSDT', 'BTCUSDT', 'WBTCUSDT', 'PAXGUSDT']
+2025-06-22 13:49:05,437 - INFO - Selected optimal assets: LAYERUSDT, FUNUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT... (15 total)
+2025-06-22 13:49:18,065 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:49:22,067 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:49:26,054 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:49:33,045 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:49:37,835 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:49:43,932 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:49:43,933 - INFO - NXPCUSDT analysis: SELL signal with 0.42 strength
+2025-06-22 13:49:43,933 - INFO - FUNUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:49:47,838 - INFO - NEIROUSDT analysis: SELL signal with 0.44 strength
+2025-06-22 13:49:52,979 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:49:52,980 - INFO - Trading cycle completed in 218.45 seconds
+2025-06-22 13:50:08,033 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 2/2 ($640.00, 64.0% of equity)
+2025-06-22 13:50:08,034 - INFO - Active positions: LAYER:-1.2%, FUN:+0.3%
+2025-06-22 13:50:08,035 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 13:52:51,870 - INFO - Momentum trade time-based exit for FUNUSDT at 0.73%
+2025-06-22 13:52:51,870 - INFO - SELL ORDER: FUNUSDT - 43120.0 at approx. $0.007475, P/L: $2.33 (0.73%)
+2025-06-22 13:52:51,909 - INFO - TEST MODE: Simulated sell for FUNUSDT executed successfully
+2025-06-22 13:52:51,910 - INFO - Session stats: 4 trades, 100.0% win rate, $14.56 profit
+2025-06-22 13:53:10,182 - INFO - Top opportunities found: ['BNBUSDT', 'FUNUSDT', 'BTCUSDT', 'WBTCUSDT', 'PAXGUSDT']
+2025-06-22 13:53:21,130 - ERROR - Error selecting optimal assets: HTTPSConnectionPool(host='testnet.binance.vision', port=443): Read timed out.
+2025-06-22 13:53:31,136 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:53:37,910 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:53:42,828 - INFO - CoinGecko insights for SOL: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:53:50,681 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:53:55,608 - INFO - CoinGecko insights for XRP: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:54:00,410 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:54:00,410 - INFO - ETHUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:54:00,693 - INFO - SOLUSDT analysis: SELL signal with 0.42 strength
+2025-06-22 13:54:05,612 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:54:09,903 - INFO - XRPUSDT analysis: SELL signal with 0.42 strength
+2025-06-22 13:54:09,904 - INFO - Trading cycle completed in 241.87 seconds
+2025-06-22 13:54:24,910 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/2 ($320.00, 32.0% of equity)
+2025-06-22 13:54:24,911 - INFO - Active positions: LAYER:-0.2%
+2025-06-22 13:54:24,912 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 13:57:19,079 - INFO - Top opportunities found: ['BTCUSDT', 'FUNUSDT', 'ETHUSDT', 'WBTCUSDT', 'PAXGUSDT']
+2025-06-22 13:57:20,032 - INFO - Selected optimal assets: LAYERUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT, BNBUSDT... (15 total)
+2025-06-22 13:57:20,033 - INFO - High priority opportunities: BTCUSDT
+2025-06-22 13:57:26,998 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.21, whale: -0.30, smart money: bearish
+2025-06-22 13:57:32,352 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: -0.01, whale: 0.00, smart money: bullish
+2025-06-22 13:57:36,371 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.21, whale: -0.30, smart money: bearish
+2025-06-22 13:57:36,372 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: -0.01, whale: 0.00, smart money: bullish
+2025-06-22 13:57:36,372 - INFO - NEIROUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:57:36,373 - INFO - BNBUSDT analysis: SELL signal with 0.40 strength
+2025-06-22 13:57:37,008 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:57:41,291 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:57:46,426 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:57:51,118 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 13:57:56,789 - INFO - BTCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:57:56,790 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:58:01,124 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 13:58:06,529 - INFO - NXPCUSDT analysis: SELL signal with 0.53 strength
+2025-06-22 13:58:06,530 - INFO - Trading cycle completed in 221.62 seconds
+2025-06-22 13:58:21,581 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/2 ($320.00, 32.0% of equity)
+2025-06-22 13:58:21,582 - INFO - Active positions: LAYER:-0.4%
+2025-06-22 13:58:21,583 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 13:58:32,304 - ERROR - Error detecting volume surges: HTTPSConnectionPool(host='testnet.binance.vision', port=443): Read timed out.
+2025-06-22 14:01:17,800 - INFO - Top opportunities found: ['SOLUSDT', 'WBTCUSDT', 'BTCUSDT', 'PAXGUSDT', 'GPSUSDT']
+2025-06-22 14:01:19,220 - INFO - Selected optimal assets: LAYERUSDT, FUNUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT... (15 total)
+2025-06-22 14:01:29,913 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:01:34,606 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:01:38,163 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:01:42,894 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:01:49,631 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:01:55,184 - INFO - LAYERUSDT analysis: BUY signal with 0.42 strength
+2025-06-22 14:01:55,184 - INFO - FUNUSDT analysis: BUY signal with 0.43 strength
+2025-06-22 14:01:55,185 - INFO - QUICK MODE: Using 40.0% of equity for signal strength 0.56
+2025-06-22 14:01:55,185 - INFO - QUICK MODE: Approved position for FUNUSDT - Size: $320.00, Signal: 0.56
+2025-06-22 14:01:56,612 - INFO - QUICK MODE: Using 40.0% of equity for signal strength 0.56
+2025-06-22 14:01:56,613 - INFO - DYNAMIC BUY: FUNUSDT - Qty: 42872.0, Price: $0.0075, Value: $320.00, Signal: 0.56
+2025-06-22 14:01:56,686 - INFO - Stop loss for FUNUSDT initialized at 0.007277 (2.5% below entry)
+2025-06-22 14:01:56,686 - INFO - Trailing take profit for FUNUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-22 14:01:56,687 - INFO - TEST MODE: Simulated buy for FUNUSDT executed successfully
+2025-06-22 14:01:56,687 - INFO - NEIROUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:01:59,631 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:02:04,336 - INFO - NXPCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:02:04,336 - INFO - Trading cycle completed in 222.80 seconds
+2025-06-22 14:02:22,765 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 2/2 ($640.00, 64.0% of equity)
+2025-06-22 14:02:22,765 - INFO - Active positions: LAYER:-0.3%, FUN:+0.0%
+2025-06-22 14:02:22,766 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 14:05:08,178 - INFO - Momentum trade stop loss for FUNUSDT at -1.94%
+2025-06-22 14:05:08,178 - INFO - SELL ORDER: FUNUSDT - 42872.0 at approx. $0.007319, P/L: $-6.22 (-1.94%)
+2025-06-22 14:05:08,204 - INFO - TEST MODE: Simulated sell for FUNUSDT executed successfully
+2025-06-22 14:05:08,205 - INFO - Session stats: 5 trades, 80.0% win rate, $8.34 profit
+2025-06-22 14:05:08,266 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0.0,
+    "avg_daily_return_pct": NaN,
+    "avg_weekly_return_pct": NaN
+  },
+  "trades": {
+    "total": 5,
+    "win_count": 4,
+    "loss_count": 1,
+    "win_rate_pct": 80.0,
+    "profit_factor": 2.34,
+    "avg_profit": 3.64,
+    "avg_loss": -6.22,
+    "expected_value": 1.67,
+    "recent_win_rate_pct": 80.0
+  },
+  "pairs": {
+    "best_pair": "FUNUSDT",
+    "best_pair_profit": 8.34,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-06-22 14:05:08"
+}
+2025-06-22 14:05:31,480 - INFO - Top opportunities found: ['SOLUSDT', 'PAXGUSDT', 'FUNUSDT', 'GPSUSDT']
+2025-06-22 14:05:31,973 - INFO - Selected optimal assets: FUNUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT, BNBUSDT... (15 total)
+2025-06-22 14:05:31,975 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.21, whale: -0.30, smart money: bearish
+2025-06-22 14:05:35,507 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.21, whale: -0.30, smart money: bearish
+2025-06-22 14:05:35,507 - INFO - NEIROUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:05:38,456 - INFO - Stop loss triggered for LAYERUSDT at -1.78%
+2025-06-22 14:05:38,456 - INFO - SELL ORDER: LAYERUSDT - 443.95 at approx. $0.708, P/L: $-5.68 (-1.78%)
+2025-06-22 14:05:38,613 - INFO - TEST MODE: Simulated sell for LAYERUSDT executed successfully
+2025-06-22 14:05:38,613 - INFO - Session stats: 6 trades, 66.7% win rate, $2.66 profit
+2025-06-22 14:05:44,064 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: -0.02, whale: 0.00, smart money: neutral
+2025-06-22 14:05:49,006 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:05:52,578 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:05:56,998 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:06:00,971 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:06:02,593 - INFO - NXPCUSDT analysis: SELL signal with 0.53 strength
+2025-06-22 14:06:07,330 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:06:07,330 - INFO - FUNUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:06:07,331 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:06:07,331 - INFO - Trading cycle completed in 224.57 seconds
+2025-06-22 14:06:22,348 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/2 ($0.00, 0.0% of equity)
+2025-06-22 14:06:22,349 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 14:09:10,790 - INFO - Top opportunities found: ['SOLUSDT', 'FUNUSDT', 'PAXGUSDT', 'GPSUSDT']
+2025-06-22 14:09:11,728 - INFO - Selected optimal assets: FUNUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT, BNBUSDT... (15 total)
+2025-06-22 14:09:11,729 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: -0.02, whale: 0.00, smart money: bullish
+2025-06-22 14:09:15,739 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: -0.02, whale: 0.00, smart money: bullish
+2025-06-22 14:09:15,739 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:09:22,693 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:09:28,329 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: -0.30, smart money: neutral
+2025-06-22 14:09:32,613 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:09:37,640 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:09:42,084 - INFO - NXPCUSDT analysis: SELL signal with 0.47 strength
+2025-06-22 14:09:42,085 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.21, whale: -0.30, smart money: bearish
+2025-06-22 14:09:42,085 - INFO - NEIROUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:09:45,812 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:09:45,812 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:09:45,813 - INFO - FUNUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:09:45,813 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:09:45,814 - INFO - Trading cycle completed in 203.47 seconds
+2025-06-22 14:10:00,823 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/2 ($0.00, 0.0% of equity)
+2025-06-22 14:10:00,825 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 14:12:50,041 - INFO - Top opportunities found: ['FUNUSDT', 'PAXGUSDT', 'GPSUSDT']
+2025-06-22 14:12:50,998 - INFO - Selected optimal assets: FUNUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT, BNBUSDT... (15 total)
+2025-06-22 14:12:51,000 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.21, whale: -0.30, smart money: bearish
+2025-06-22 14:12:56,847 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.21, whale: -0.30, smart money: bearish
+2025-06-22 14:12:56,848 - INFO - NEIROUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:13:03,009 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: bullish
+2025-06-22 14:13:07,476 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:13:13,609 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:13:18,077 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:13:24,047 - INFO - BNBUSDT analysis: SELL signal with 0.42 strength
+2025-06-22 14:13:24,048 - INFO - NXPCUSDT analysis: SELL signal with 0.53 strength
+2025-06-22 14:13:28,089 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:13:33,671 - INFO - FUNUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:13:33,672 - INFO - Trading cycle completed in 212.85 seconds
+2025-06-22 14:13:48,685 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/2 ($0.00, 0.0% of equity)
+2025-06-22 14:13:48,686 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 14:16:39,666 - INFO - Updating correlation matrix...
+2025-06-22 14:17:18,516 - INFO - Successfully gathered price data for 41/41 pairs
+2025-06-22 14:17:18,679 - INFO - Correlation matrix updated for 41 pairs
+2025-06-22 14:17:27,526 - INFO - Market state: Regime=BEAR_TRENDING, Trend=bearish, Volatility=low, Breadth=0.00
+2025-06-22 14:17:39,721 - INFO - Top opportunities found: ['FUNUSDT', 'PAXGUSDT', 'GPSUSDT', 'BTCUSDT']
+2025-06-22 14:17:39,987 - INFO - Selected optimal assets: FUNUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT, BNBUSDT... (15 total)
+2025-06-22 14:17:40,003 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: -0.02, whale: 0.00, smart money: bullish
+2025-06-22 14:17:43,549 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: -0.02, whale: 0.00, smart money: bullish
+2025-06-22 14:17:43,549 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:17:52,151 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:17:57,867 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:18:04,116 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:18:09,535 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:18:13,593 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:18:14,129 - INFO - NXPCUSDT analysis: SELL signal with 0.54 strength
+2025-06-22 14:18:19,543 - INFO - NEIROUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:18:23,287 - INFO - FUNUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:18:23,287 - INFO - Trading cycle completed in 274.61 seconds
+2025-06-22 14:18:38,299 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/2 ($0.00, 0.0% of equity)
+2025-06-22 14:18:38,300 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 14:21:39,284 - INFO - Top opportunities found: ['FUNUSDT', 'QNTUSDT', 'PAXGUSDT', 'GPSUSDT', 'BTCUSDT']
+2025-06-22 14:21:40,232 - INFO - Selected optimal assets: FUNUSDT, LAYERUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT... (15 total)
+2025-06-22 14:21:52,909 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:21:56,912 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:22:01,836 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:22:05,374 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:22:09,384 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:22:13,858 - INFO - NXPCUSDT analysis: SELL signal with 0.41 strength
+2025-06-22 14:22:13,859 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:22:15,376 - INFO - NEIROUSDT analysis: SELL signal with 0.53 strength
+2025-06-22 14:22:19,390 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:22:23,863 - INFO - FUNUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:22:23,863 - INFO - Trading cycle completed in 225.57 seconds
+2025-06-22 14:22:38,868 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/2 ($0.00, 0.0% of equity)
+2025-06-22 14:22:38,868 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 14:25:35,354 - INFO - Top opportunities found: ['FUNUSDT', 'PAXGUSDT', 'GPSUSDT', 'BTCUSDT']
+2025-06-22 14:25:36,297 - INFO - Selected optimal assets: FUNUSDT, LAYERUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT... (15 total)
+2025-06-22 14:25:46,306 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:25:50,319 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:25:55,706 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:26:00,624 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:26:05,088 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:26:10,439 - INFO - FUNUSDT analysis: BUY signal with 0.42 strength
+2025-06-22 14:26:10,440 - INFO - QUICK MODE: Using 40.0% of equity for signal strength 0.55
+2025-06-22 14:26:10,440 - INFO - QUICK MODE: Approved position for FUNUSDT - Size: $320.00, Signal: 0.55
+2025-06-22 14:26:11,403 - INFO - QUICK MODE: Using 40.0% of equity for signal strength 0.55
+2025-06-22 14:26:11,403 - INFO - DYNAMIC BUY: FUNUSDT - Qty: 43074.0, Price: $0.0074, Value: $320.00, Signal: 0.55
+2025-06-22 14:26:11,431 - INFO - Stop loss for FUNUSDT initialized at 0.007243 (2.5% below entry)
+2025-06-22 14:26:11,431 - INFO - Trailing take profit for FUNUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-22 14:26:11,431 - INFO - TEST MODE: Simulated buy for FUNUSDT executed successfully
+2025-06-22 14:26:11,432 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:26:11,432 - INFO - NEIROUSDT analysis: SELL signal with 0.40 strength
+2025-06-22 14:26:15,093 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:26:20,448 - INFO - NXPCUSDT analysis: SELL signal with 0.54 strength
+2025-06-22 14:26:20,449 - INFO - Trading cycle completed in 221.58 seconds
+2025-06-22 14:26:35,458 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/2 ($320.00, 32.0% of equity)
+2025-06-22 14:26:35,458 - INFO - Active positions: FUN:+0.0%
+2025-06-22 14:26:35,459 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 14:29:23,142 - INFO - Top opportunities found: ['FUNUSDT', 'QNTUSDT', 'PAXGUSDT', 'GPSUSDT', 'BTCUSDT']
+2025-06-22 14:29:24,549 - INFO - Selected optimal assets: FUNUSDT, LAYERUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT... (15 total)
+2025-06-22 14:29:30,850 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.22, whale: -0.30, smart money: bearish
+2025-06-22 14:29:35,277 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.22, whale: -0.30, smart money: bearish
+2025-06-22 14:29:35,278 - INFO - NEIROUSDT analysis: SELL signal with 0.58 strength
+2025-06-22 14:29:40,856 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:29:45,274 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:29:49,738 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:29:54,188 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:29:59,097 - INFO - FUNUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:29:59,754 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:30:04,198 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:30:08,149 - INFO - NXPCUSDT analysis: SELL signal with 0.54 strength
+2025-06-22 14:30:08,150 - INFO - Trading cycle completed in 212.69 seconds
+2025-06-22 14:30:23,157 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/2 ($320.00, 32.0% of equity)
+2025-06-22 14:30:23,157 - INFO - Active positions: FUN:-0.8%
+2025-06-22 14:30:23,158 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 14:33:10,018 - INFO - Top opportunities found: ['SOLUSDT', 'FUNUSDT', 'BTCUSDT']
+2025-06-22 14:33:10,956 - INFO - Selected optimal assets: FUNUSDT, LAYERUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT... (15 total)
+2025-06-22 14:33:11,598 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.22, whale: -0.30, smart money: bearish
+2025-06-22 14:33:16,521 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.22, whale: -0.30, smart money: bearish
+2025-06-22 14:33:16,522 - INFO - NEIROUSDT analysis: SELL signal with 0.42 strength
+2025-06-22 14:33:21,206 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:33:26,134 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:33:30,136 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:33:34,153 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:33:39,909 - INFO - FUNUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:33:40,145 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:33:44,154 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:33:49,516 - INFO - NXPCUSDT analysis: SELL signal with 0.43 strength
+2025-06-22 14:33:49,517 - INFO - Trading cycle completed in 206.36 seconds
+2025-06-22 14:34:06,353 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/2 ($320.00, 32.0% of equity)
+2025-06-22 14:34:06,354 - INFO - Active positions: FUN:-0.9%
+2025-06-22 14:34:06,355 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 14:37:05,091 - INFO - Top opportunities found: ['FUNUSDT', 'BTCUSDT']
+2025-06-22 14:37:06,590 - INFO - Selected optimal assets: FUNUSDT, LAYERUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT... (15 total)
+2025-06-22 14:37:06,597 - INFO - High priority opportunities: FUNUSDT
+2025-06-22 14:37:29,655 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:37:35,344 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:37:40,157 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:37:45,174 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: -0.02, whale: 0.00, smart money: neutral
+2025-06-22 14:37:49,926 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:37:54,389 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:38:01,283 - INFO - Momentum trade profit target hit for FUNUSDT at 1.33%
+2025-06-22 14:38:01,284 - INFO - SELL ORDER: FUNUSDT - 43074.0 at approx. $0.007528, P/L: $4.26 (1.33%)
+2025-06-22 14:38:01,371 - INFO - TEST MODE: Simulated sell for FUNUSDT executed successfully
+2025-06-22 14:38:01,372 - INFO - Session stats: 7 trades, 71.4% win rate, $6.92 profit
+2025-06-22 14:38:01,373 - INFO - NXPCUSDT analysis: SELL signal with 0.44 strength
+2025-06-22 14:38:01,373 - INFO - NEIROUSDT analysis: SELL signal with 0.43 strength
+2025-06-22 14:38:01,374 - INFO - LAYERUSDT analysis: BUY signal with 0.47 strength
+2025-06-22 14:38:01,374 - INFO - QUICK MODE: Using 40.0% of equity for signal strength 0.47
+2025-06-22 14:38:01,375 - INFO - QUICK MODE: Approved position for LAYERUSDT - Size: $320.00, Signal: 0.47
+2025-06-22 14:38:02,434 - INFO - QUICK MODE: Using 40.0% of equity for signal strength 0.47
+2025-06-22 14:38:02,435 - INFO - DYNAMIC BUY: LAYERUSDT - Qty: 452.23, Price: $0.7076, Value: $320.00, Signal: 0.47
+2025-06-22 14:38:02,506 - INFO - Stop loss for LAYERUSDT initialized at 0.689910 (2.5% below entry)
+2025-06-22 14:38:02,506 - INFO - Trailing take profit for LAYERUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-22 14:38:02,507 - INFO - TEST MODE: Simulated buy for LAYERUSDT executed successfully
+2025-06-22 14:38:02,508 - INFO - BNBUSDT analysis: SELL signal with 0.45 strength
+2025-06-22 14:38:04,396 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:38:11,047 - INFO - FUNUSDT analysis: BUY signal with 0.47 strength
+2025-06-22 14:38:11,048 - INFO - Trading cycle completed in 244.70 seconds
+2025-06-22 14:38:26,054 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/2 ($320.00, 32.0% of equity)
+2025-06-22 14:38:26,055 - INFO - Active positions: LAYER:+0.0%
+2025-06-22 14:38:26,057 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 14:41:10,626 - INFO - Ultra-quick profit exit for LAYERUSDT at 0.41% (5 min)
+2025-06-22 14:41:10,627 - INFO - SELL ORDER: LAYERUSDT - 452.23 at approx. $0.7105, P/L: $1.31 (0.41%)
+2025-06-22 14:41:10,676 - INFO - TEST MODE: Simulated sell for LAYERUSDT executed successfully
+2025-06-22 14:41:10,677 - INFO - Session stats: 8 trades, 75.0% win rate, $8.23 profit
+2025-06-22 14:41:37,547 - INFO - Top opportunities found: ['FUNUSDT']
+2025-06-22 14:41:37,548 - INFO - Fetching top 30 trending cryptocurrency pairs
+2025-06-22 14:41:38,505 - INFO - Found trending pairs: VIRTUALUSDT, NEIROUSDT, NXPCUSDT, INITUSDT, APTUSDT...
+2025-06-22 14:41:39,943 - INFO - Selected optimal assets: LAYERUSDT, FUNUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT... (15 total)
+2025-06-22 14:41:49,960 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:41:55,339 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:41:59,332 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:42:06,192 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:42:12,029 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:42:17,779 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:42:17,780 - INFO - FUNUSDT analysis: BUY signal with 0.50 strength
+2025-06-22 14:42:17,781 - INFO - QUICK MODE: Using 40.0% of equity for signal strength 0.65
+2025-06-22 14:42:17,781 - INFO - QUICK MODE: Approved position for FUNUSDT - Size: $360.00, Signal: 0.65
+2025-06-22 14:42:19,279 - INFO - QUICK MODE: Using 40.0% of equity for signal strength 0.65
+2025-06-22 14:42:19,280 - INFO - DYNAMIC BUY: FUNUSDT - Qty: 56864.0, Price: $0.0076, Value: $432.00, Signal: 0.65
+2025-06-22 14:42:19,353 - INFO - Stop loss for FUNUSDT initialized at 0.007407 (2.5% below entry)
+2025-06-22 14:42:19,353 - INFO - Trailing take profit for FUNUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-22 14:42:19,354 - INFO - TEST MODE: Simulated buy for FUNUSDT executed successfully
+2025-06-22 14:42:19,355 - INFO - NEIROUSDT analysis: SELL signal with 0.57 strength
+2025-06-22 14:42:22,038 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:42:27,050 - INFO - NXPCUSDT analysis: SELL signal with 0.58 strength
+2025-06-22 14:42:27,051 - INFO - Trading cycle completed in 241.00 seconds
+2025-06-22 14:42:42,069 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/2 ($432.00, 43.2% of equity)
+2025-06-22 14:42:42,070 - INFO - Active positions: FUN:+0.0%
+2025-06-22 14:42:42,073 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 14:45:42,055 - INFO - Top opportunities found: ['FUNUSDT']
+2025-06-22 14:45:43,477 - INFO - Selected optimal assets: FUNUSDT, LAYERUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT... (15 total)
+2025-06-22 14:46:08,033 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:46:13,080 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:46:22,333 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:46:27,723 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:46:32,167 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:46:40,820 - INFO - FUNUSDT analysis: BUY signal with 0.48 strength
+2025-06-22 14:46:40,821 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:46:40,822 - INFO - NEIROUSDT analysis: SELL signal with 0.44 strength
+2025-06-22 14:46:42,177 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:46:49,345 - INFO - NXPCUSDT analysis: SELL signal with 0.45 strength
+2025-06-22 14:46:49,346 - INFO - Trading cycle completed in 247.28 seconds
+2025-06-22 14:47:04,361 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/2 ($432.00, 43.2% of equity)
+2025-06-22 14:47:04,362 - INFO - Active positions: FUN:-0.5%
+2025-06-22 14:47:04,364 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 14:47:14,371 - ERROR - Error detecting volume surges: HTTPSConnectionPool(host='testnet.binance.vision', port=443): Read timed out. (read timeout=10)
+2025-06-22 14:50:04,712 - INFO - Top opportunities found: ['FUNUSDT', 'PEPEUSDT']
+2025-06-22 14:50:05,668 - INFO - Selected optimal assets: LAYERUSDT, FUNUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT... (15 total)
+2025-06-22 14:50:33,176 - INFO - Updating correlation matrix...
+2025-06-22 14:51:32,883 - INFO - Successfully gathered price data for 41/41 pairs
+2025-06-22 14:51:33,209 - INFO - Correlation matrix updated for 41 pairs
+2025-06-22 14:51:52,456 - INFO - Market state: Regime=BEAR_TRENDING, Trend=bearish, Volatility=low, Breadth=0.00
+2025-06-22 14:51:52,457 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:51:56,939 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:52:03,084 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.23, whale: -0.30, smart money: bearish
+2025-06-22 14:52:07,589 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:52:13,017 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:52:18,710 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:52:18,711 - INFO - FUNUSDT analysis: BUY signal with 0.50 strength
+2025-06-22 14:52:18,712 - INFO - NEIROUSDT analysis: SELL signal with 0.42 strength
+2025-06-22 14:52:23,026 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:52:27,223 - INFO - NXPCUSDT analysis: SELL signal with 0.60 strength
+2025-06-22 14:52:27,224 - INFO - Trading cycle completed in 322.87 seconds
+2025-06-22 14:52:50,085 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/2 ($432.00, 43.2% of equity)
+2025-06-22 14:52:50,086 - INFO - Active positions: FUN:+0.4%
+2025-06-22 14:52:50,090 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 14:55:47,245 - INFO - Top opportunities found: ['SOLUSDT', 'XRPUSDT', 'FUNUSDT']
+2025-06-22 14:55:48,293 - INFO - Selected optimal assets: FUNUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT, BNBUSDT... (15 total)
+2025-06-22 14:56:08,941 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: -0.03, whale: 0.00, smart money: bullish
+2025-06-22 14:56:15,296 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:56:22,157 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:56:36,698 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: bearish
+2025-06-22 14:56:41,771 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 14:56:46,938 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:56:46,939 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:56:46,940 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.21, whale: -0.30, smart money: bearish
+2025-06-22 14:56:46,941 - INFO - NEIROUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 14:56:46,942 - INFO - NXPCUSDT analysis: SELL signal with 0.50 strength
+2025-06-22 14:56:56,236 - INFO - FUNUSDT analysis: BUY signal with 0.52 strength
+2025-06-22 14:56:56,237 - INFO - Trading cycle completed in 246.94 seconds
+2025-06-22 14:57:11,253 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/2 ($432.00, 43.2% of equity)
+2025-06-22 14:57:11,254 - INFO - Active positions: FUN:+0.8%
+2025-06-22 14:57:11,257 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 15:00:19,267 - INFO - Top opportunities found: ['SOLUSDT', 'ETHUSDT', 'LTCUSDT', 'PEPEUSDT']
+2025-06-22 15:00:20,265 - INFO - Selected optimal assets: NEIROUSDT, SEIUSDT, NXPCUSDT, BNBUSDT, JUPUSDT... (15 total)
+2025-06-22 15:00:20,270 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.21, whale: -0.30, smart money: bearish
+2025-06-22 15:00:25,257 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: -0.03, whale: 0.00, smart money: bullish
+2025-06-22 15:00:29,798 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.21, whale: -0.30, smart money: bearish
+2025-06-22 15:00:29,799 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: -0.03, whale: 0.00, smart money: bullish
+2025-06-22 15:00:29,800 - INFO - NEIROUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 15:00:29,801 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 15:00:30,278 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 15:00:35,195 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 15:00:39,226 - INFO - CoinGecko insights for JUP: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 15:00:45,199 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 15:00:49,240 - INFO - NXPCUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 15:00:54,498 - INFO - JUPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 15:00:54,499 - INFO - Trading cycle completed in 223.25 seconds
+2025-06-22 15:01:12,419 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/2 ($432.00, 43.2% of equity)
+2025-06-22 15:01:12,420 - INFO - Active positions: FUN:+0.1%
+2025-06-22 15:01:12,422 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 15:04:11,178 - INFO - Top opportunities found: ['SOLUSDT', 'BCHUSDT', 'ETHUSDT', 'FUNUSDT', 'LTCUSDT']
+2025-06-22 15:04:12,199 - INFO - Selected optimal assets: FUNUSDT, NEIROUSDT, SEIUSDT, NXPCUSDT, BNBUSDT... (15 total)
+2025-06-22 15:04:30,993 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: bullish
+2025-06-22 15:04:35,626 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 15:04:49,244 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 15:05:03,477 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 15:05:07,983 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 15:05:12,888 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0.0,
+    "avg_daily_return_pct": NaN,
+    "avg_weekly_return_pct": NaN
+  },
+  "trades": {
+    "total": 8,
+    "win_count": 6,
+    "loss_count": 2,
+    "win_rate_pct": 75.0,
+    "profit_factor": 1.69,
+    "avg_profit": 3.36,
+    "avg_loss": -5.95,
+    "expected_value": 1.03,
+    "recent_win_rate_pct": 75.0
+  },
+  "pairs": {
+    "best_pair": "FUNUSDT",
+    "best_pair_profit": 12.61,
+    "worst_pair": "LAYERUSDT",
+    "worst_pair_profit": -4.37
+  },
+  "timestamp": "2025-06-22 15:05:12"
+}
+2025-06-22 15:05:12,893 - INFO - BNBUSDT analysis: SELL signal with 0.43 strength
+2025-06-22 15:05:12,894 - INFO - NXPCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 15:05:13,489 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 15:05:17,987 - INFO - NEIROUSDT analysis: SELL signal with 0.46 strength
+2025-06-22 15:05:22,492 - INFO - FUNUSDT analysis: BUY signal with 0.51 strength
+2025-06-22 15:05:22,493 - INFO - Trading cycle completed in 250.08 seconds
+2025-06-22 15:05:37,501 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/2 ($432.00, 43.2% of equity)
+2025-06-22 15:05:37,502 - INFO - Active positions: FUN:-0.3%
+2025-06-22 15:05:37,504 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 15:08:38,215 - INFO - Top opportunities found: ['SOLUSDT', 'LTCUSDT', 'PEPEUSDT', 'GPSUSDT', 'ADAUSDT']
+2025-06-22 15:08:39,671 - INFO - Selected optimal assets: NEIROUSDT, SEIUSDT, NXPCUSDT, BNBUSDT, JUPUSDT... (15 total)
+2025-06-22 15:08:51,412 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.17, whale: -0.10, smart money: bearish
+2025-06-22 15:09:00,839 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: -0.02, whale: 0.00, smart money: bullish
+2025-06-22 15:09:05,860 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 15:09:14,871 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 15:09:27,010 - INFO - CoinGecko insights for JUP: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 15:09:34,532 - INFO - NEIROUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 15:09:34,533 - INFO - BNBUSDT analysis: SELL signal with 0.44 strength
+2025-06-22 15:09:34,534 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 15:09:37,019 - INFO - NXPCUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 15:09:43,616 - INFO - JUPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 15:09:43,617 - INFO - Trading cycle completed in 246.12 seconds
+2025-06-22 15:10:03,855 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/2 ($432.00, 43.2% of equity)
+2025-06-22 15:10:03,856 - INFO - Active positions: FUN:+0.1%
+2025-06-22 15:10:03,858 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 15:10:13,867 - ERROR - Error detecting volume surges: HTTPSConnectionPool(host='testnet.binance.vision', port=443): Read timed out. (read timeout=10)
+2025-06-22 15:12:53,393 - INFO - Momentum trade stop loss for FUNUSDT at -1.95%
+2025-06-22 15:12:53,394 - INFO - SELL ORDER: FUNUSDT - 56864.0 at approx. $0.007449, P/L: $-8.42 (-1.95%)
+2025-06-22 15:12:53,482 - INFO - TEST MODE: Simulated sell for FUNUSDT executed successfully
+2025-06-22 15:12:53,483 - INFO - Session stats: 9 trades, 66.7% win rate, $-0.18 profit
+2025-06-22 15:13:05,400 - INFO - Top opportunities found: ['LTCUSDT', 'PEPEUSDT', 'GPSUSDT']
+2025-06-22 15:13:06,427 - INFO - Selected optimal assets: NEIROUSDT, SEIUSDT, NXPCUSDT, BNBUSDT, JUPUSDT... (15 total)
+2025-06-22 15:13:06,430 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.17, whale: -0.10, smart money: bearish
+2025-06-22 15:13:11,519 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: -0.17, whale: -0.10, smart money: bearish
+2025-06-22 15:13:11,520 - INFO - NEIROUSDT analysis: SELL signal with 0.53 strength
+2025-06-22 15:13:24,006 - INFO - CoinGecko insights for JUP: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 15:13:28,961 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 15:13:37,630 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 15:13:43,059 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 15:13:54,552 - INFO - JUPUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 15:13:54,553 - INFO - NXPCUSDT analysis: SELL signal with 0.42 strength
+2025-06-22 15:13:54,553 - INFO - BNBUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 15:14:03,786 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 15:14:03,787 - INFO - Trading cycle completed in 239.93 seconds
+2025-06-22 15:14:25,145 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/2 ($0.00, 0.0% of equity)
+2025-06-22 15:14:25,147 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 15:17:24,671 - INFO - Top opportunities found: ['PEPEUSDT']
+2025-06-22 15:17:26,109 - INFO - Selected optimal assets: NEIROUSDT, SEIUSDT, NXPCUSDT, BNBUSDT, JUPUSDT... (15 total)
+2025-06-22 15:17:26,114 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: -0.02, whale: 0.00, smart money: bullish
+2025-06-22 15:17:42,409 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 15:17:48,206 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 15:17:53,222 - INFO - CoinGecko insights for JUP: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 15:17:58,163 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 15:18:07,762 - INFO - BNBUSDT analysis: SELL signal with 0.46 strength
+2025-06-22 15:18:08,531 - INFO - NXPCUSDT analysis: SELL signal with 0.55 strength
+2025-06-22 15:18:08,532 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 15:18:08,532 - INFO - JUPUSDT analysis: SELL signal with 0.56 strength
+2025-06-22 15:18:17,774 - INFO - NEIROUSDT analysis: SELL signal with 0.44 strength
+2025-06-22 15:18:17,776 - INFO - Trading cycle completed in 232.63 seconds
+2025-06-22 15:18:39,672 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/2 ($0.00, 0.0% of equity)
+2025-06-22 15:18:39,673 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 15:21:36,580 - INFO - Selected optimal assets: NEIROUSDT, SEIUSDT, NXPCUSDT, BNBUSDT, JUPUSDT... (15 total)
+2025-06-22 15:21:59,660 - INFO - CoinGecko insights for JUP: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 15:22:06,294 - INFO - CoinGecko insights for BNB: neutral (0.50 confidence), sentiment: -0.03, whale: 0.00, smart money: neutral
+2025-06-22 15:22:16,186 - INFO - CoinGecko insights for NXPC: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 15:22:35,539 - INFO - CoinGecko insights for SEI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 15:22:45,167 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 15:23:10,075 - ERROR - Binance API error for ETHUSDT 1d: HTTPSConnectionPool(host='testnet.binance.vision', port=443): Read timed out. (read timeout=10)
+2025-06-22 15:23:11,790 - INFO - Fallback successful for ETHUSDT 1d with reduced limit
+2025-06-22 15:23:27,049 - INFO - Updating correlation matrix...
+2025-06-22 15:25:39,234 - ERROR - Binance API error for NEARUSDT 1h: HTTPSConnectionPool(host='testnet.binance.vision', port=443): Read timed out. (read timeout=10)
+2025-06-22 15:25:40,849 - INFO - Fallback successful for NEARUSDT 1h with reduced limit
+2025-06-22 15:25:58,219 - INFO - Successfully gathered price data for 41/41 pairs
+2025-06-22 15:25:58,396 - INFO - Correlation matrix updated for 41 pairs
+2025-06-22 15:26:08,676 - INFO - Market state: Regime=BEAR_TRENDING, Trend=bearish, Volatility=low, Breadth=0.00
+2025-06-22 15:26:08,677 - INFO - JUPUSDT analysis: SELL signal with 0.46 strength
+2025-06-22 15:26:08,678 - INFO - BNBUSDT analysis: SELL signal with 0.53 strength
+2025-06-22 15:26:08,678 - INFO - NXPCUSDT analysis: SELL signal with 0.62 strength
+2025-06-22 15:26:08,679 - INFO - SEIUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 15:26:08,679 - INFO - NEIROUSDT analysis: SELL signal with 0.47 strength
+2025-06-22 15:26:08,680 - INFO - Trading cycle completed in 449.01 seconds
+2025-06-22 15:26:23,663 - INFO - Bot stopped by user
+2025-06-22 15:26:23,993 - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-2581' coro=<CoinGeckoAI.get_sentiment_analysis() done, defined at C:\Users\cuhey\Desktop\AI-V2\GenesisAI\src\coin_gecko_ai.py:655> exception=KeyboardInterrupt()>
+Traceback (most recent call last):
+  File "C:\Users\cuhey\Desktop\AI-V2\GenesisAI\src\main.py", line 31, in <module>
+    asyncio.run(bot.run())
+    ~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 712, in run_until_complete
+    self.run_forever()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 683, in run_forever
+    self._run_once()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2040, in _run_once
+    handle._run()
+    ~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\Desktop\AI-V2\GenesisAI\src\coin_gecko_ai.py", line 661, in get_sentiment_analysis
+    coin_data = await self.get_coin_data(token)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\Desktop\AI-V2\GenesisAI\src\coin_gecko_ai.py", line 271, in get_coin_data
+    result = await self._make_api_request(f"coins/{coin_id}", params)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\Desktop\AI-V2\GenesisAI\src\coin_gecko_ai.py", line 149, in _make_api_request
+    response = requests.get(
+        url,
+    ...<2 lines>...
+        timeout=self.request_timeout
+    )
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\site-packages\requests\api.py", line 73, in get
+    return request("get", url, params=params, **kwargs)
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connection.py", line 741, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+        sock=sock,
+    ...<14 lines>...
+        assert_fingerprint=self.assert_fingerprint,
+    )
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\connection.py", line 920, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+        sock=sock,
+    ...<8 lines>...
+        tls_in_tls=tls_in_tls,
+    )
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\site-packages\urllib3\util\ssl_.py", line 438, in ssl_wrap_socket
+    context.load_verify_locations(ca_certs, ca_cert_dir, ca_cert_data)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 157, in _on_sigint
+    raise KeyboardInterrupt()
+KeyboardInterrupt

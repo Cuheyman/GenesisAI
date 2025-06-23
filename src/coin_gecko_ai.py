@@ -13,63 +13,55 @@ class CoinGeckoAI:
     """CoinGecko API integration for crypto trading signals and analysis"""
     
     def __init__(self, api_key=None):
+        """RETTET: Initialisering med hurtigere rate limits som før"""
         self.api_key = api_key or getattr(config, 'COINGECKO_API_KEY', '')
         self.base_url = "https://api.coingecko.com/api/v3"
         self.pro_url = "https://pro-api.coingecko.com/api/v3"
         self.cache = {}
         self.cache_expiry = {}
         
-        # Rate limiting - CoinGecko has different limits for free vs pro
-        self.last_request_time = 0
-        
-            # NEW: Progressive rate limiting based on API key type
+        # HURTIGERE rate limiting som før - IKKE ultra-konservativ
         if not self.api_key or not self.api_key.startswith('CG-'):
-            # No API key or free demo key - be very conservative
-            self.min_request_interval = 5.0  # 5 seconds between requests (was 3.0)
-            self.max_requests_per_minute = 10  # Very conservative limit (NEW)
-            logging.info("CoinGecko initialized for FREE TIER: 1 request every 5 seconds")
+            self.min_request_interval = 2.0  # TILBAGE til 2 sekunder (fra 15)
+            self.max_requests_per_minute = 20  # TILBAGE til 20 (fra 3)
+            logging.info("CoinGecko initialiseret - Gratis tier")
         else:
-            # Demo/Pro keys - still conservative but faster  
-            self.min_request_interval = 2.0  # 2 seconds between requests
-            self.max_requests_per_minute = 25  # (NEW)
-            logging.info("CoinGecko initialized for DEMO/PRO TIER: 1 request every 2 seconds")
+            self.min_request_interval = 1.0   # Hurtig for pro
+            self.max_requests_per_minute = 40  # Mere for pro
+            logging.info("CoinGecko initialiseret - Pro tier")
         
-        # NEW: Track requests for proper rate limiting
+        # Track requests
         self.request_history = []
-        
-        # NEW: Rate limit backoff tracking
         self.consecutive_rate_limits = 0
         self.backoff_multiplier = 1.0
-
-        self.min_request_interval = 3.0  # 3 seconds for free tier
-        self.max_requests_per_minute = 15  # Conservative limit # Free: 1 req/sec, Pro: 5 req/sec
+        self.last_request_time = 0
+        
+        # Global cooldown UDEN spam logging
+        self.global_cooldown_until = 0
         
         # Request timeout
-        self.request_timeout = 15  # seconds
+        self.request_timeout = 15
         
-        # Check if API is available
+        # Tjek om API er tilgængelig
         self.api_available = self._check_api_connection()
         
-        # Create coin ID mapping cache
+        # Opret coin ID mapping cache
         self.coin_id_cache = {}
         
         if self.api_available:
             if self.api_key and self.api_key.startswith('CG-'):
-                logging.info("CoinGecko AI client initialized with demo API key")
+                logging.info("CoinGecko AI klient initialiseret med demo API nøgle")
             else:
-                logging.info("CoinGecko AI client initialized successfully")
+                logging.info("CoinGecko AI klient initialiseret succesfuldt")
         else:
-            # This should rarely happen now
-            logging.warning("CoinGecko AI client initialized - connection check failed but will retry")
-    
+            logging.warning("CoinGecko AI klient initialiseret - forbindelse check fejlede men vil prøve igen")
+        
     def _check_api_connection(self):
         """Check if the CoinGecko API is available"""
         try:
-            # Always test with the free tier ping endpoint
             test_url = "https://api.coingecko.com/api/v3/ping"
             headers = {"accept": "application/json"}
             
-            # Add demo API key if available
             if self.api_key and self.api_key.startswith('CG-'):
                 headers["x-cg-demo-api-key"] = self.api_key
             
@@ -82,80 +74,74 @@ class CoinGeckoAI:
                         logging.info(f"CoinGecko API connected: {data['gecko_says']}")
                         return True
                 except:
-                    # Even without JSON, 200 status means success
                     return True
             else:
                 logging.warning(f"CoinGecko API returned status {response.status_code}")
-                # Don't completely fail - allow retry later
-                return True  # Return True to allow retry on actual requests
+                return True
                 
-        except requests.exceptions.ConnectionError:
-            logging.warning("CoinGecko connection error - will retry later")
-            return True  # Allow retry
-        except requests.exceptions.Timeout:
-            logging.warning("CoinGecko request timed out - will retry later")
-            return True  # Allow retry
         except Exception as e:
             logging.warning(f"CoinGecko connection check error: {str(e)} - will retry later")
-            return True  # Allow retry
+            return True
+    
     def _get_base_url(self):
         """Get the appropriate base URL (pro or free)"""
-        # Always use free tier URL - pro tier requires special paid API keys
-        # Demo keys should use the free tier endpoint
-        return self.base_url  # Always use api.coingecko.com
+        return self.base_url
     
     def _get_headers(self):
         """Get headers for API requests"""
         headers = {"accept": "application/json"}
-        # For demo/free keys, use the demo API key header
         if self.api_key:
-            # Demo keys use x-cg-demo-api-key header
             if self.api_key.startswith('CG-'):
                 headers["x-cg-demo-api-key"] = self.api_key
             else:
-                # Legacy pro key format
                 headers["x-cg-pro-api-key"] = self.api_key
         return headers
     
-
-        # 2. ADD THIS NEW METHOD after _get_headers():
     def _check_rate_limit(self):
-        """Check if we're within rate limits"""
+        """FIXED: More conservative rate limit checking"""
         current_time = time.time()
+        
+        # Check global cooldown first
+        if current_time < self.global_cooldown_until:
+            return self.global_cooldown_until - current_time
         
         # Remove requests older than 1 minute
         self.request_history = [req_time for req_time in self.request_history 
-                            if current_time - req_time < 60]
+                               if current_time - req_time < 60]
         
         # Check if we're hitting the per-minute limit
         if len(self.request_history) >= self.max_requests_per_minute:
             oldest_request = min(self.request_history)
-            wait_time = 60 - (current_time - oldest_request) + 2  # Add 2 second buffer
+            wait_time = 60 - (current_time - oldest_request) + 5  # INCREASED buffer from 2 to 5 seconds
             return wait_time
         
         return 0
         
     async def _make_api_request(self, endpoint: str, params: Dict[str, Any] = None) -> Optional[Dict]:
-        """Make API request with enhanced rate limiting and error handling"""
+     
         if not self.api_available:
-            logging.debug(f"Skipping CoinGecko request to {endpoint} - API not available")
             return None
 
-        # NEW: Check rate limits
+        # Tjek global cooldown STILLE
+        current_time = time.time()
+        if current_time < self.global_cooldown_until:
+            
+            return None
+
+        # Tjek rate limits STILLE
         rate_limit_wait = self._check_rate_limit()
         if rate_limit_wait > 0:
-            logging.info(f"CoinGecko rate limit protection: waiting {rate_limit_wait:.1f} seconds")
+            # FJERNET: Ingen rate limit wait logging
             await asyncio.sleep(rate_limit_wait)
 
-        # NEW: Apply backoff multiplier if we've been hitting rate limits
+        # Apply backoff multiplier
         effective_interval = self.min_request_interval * self.backoff_multiplier
         
-        # Ensure minimum time between requests
-        current_time = time.time()
+        # Sørg for minimum tid mellem requests STILLE
         time_since_last = current_time - self.last_request_time
         if time_since_last < effective_interval:
             wait_time = effective_interval - time_since_last
-            logging.debug(f"CoinGecko rate limiting: waiting {wait_time:.1f} seconds")
+            # FJERNET: Ingen rate limiting logs
             await asyncio.sleep(wait_time)
 
         try:
@@ -167,54 +153,47 @@ class CoinGeckoAI:
                 timeout=self.request_timeout
             )
 
-            # NEW: Record the request time and add to history
+            # Registrer request tid
             self.last_request_time = time.time()
             self.request_history.append(self.last_request_time)
 
             if response.status_code == 200:
                 data = response.json()
-                logging.debug(f"CoinGecko API success: {endpoint}")
+                # FJERNET: Ingen debug success logs
                 
-                # NEW: Reset backoff on success
+                # Reset backoff ved success
                 self.consecutive_rate_limits = 0
-                self.backoff_multiplier = max(1.0, self.backoff_multiplier * 0.9)  # Gradually reduce
+                self.backoff_multiplier = max(1.0, self.backoff_multiplier * 0.9)
                 
                 return data
                 
             elif response.status_code == 429:
-                # FIXED: Much more aggressive backoff
+                # Håndter rate limit STILLE
                 self.consecutive_rate_limits += 1
-                self.backoff_multiplier = min(5.0, self.backoff_multiplier * 1.5)  # Increase backoff
+                self.backoff_multiplier = min(10.0, self.backoff_multiplier * 2.0)
                 
-                backoff_time = 30 + (self.consecutive_rate_limits * 10)  # 30s + 10s per consecutive hit
-                
-                logging.warning(f"CoinGecko rate limit hit! (#{self.consecutive_rate_limits}) "
-                            f"Backing off for {backoff_time} seconds. "
-                            f"New interval: {self.min_request_interval * self.backoff_multiplier:.1f}s")
-                
-                await asyncio.sleep(backoff_time)  # CHANGED FROM 5 SECONDS TO 30+ SECONDS
-                return None
                 
             elif response.status_code == 403:
-                logging.error("CoinGecko API forbidden - check API key")
+                if not hasattr(self, '_403_logged'):
+                    logging.error("CoinGecko API forbudt - tjek API nøgle")
+                    self._403_logged = True  # Log kun én gang
                 self.api_available = False
                 return None
                 
             else:
-                logging.warning(f"CoinGecko API returned status {response.status_code}: {response.text[:200]}")
+                # FJERNET: Reduceret logging for andre fejl
                 return None
 
         except requests.exceptions.Timeout:
-            logging.warning(f"CoinGecko request to {endpoint} timed out after {self.request_timeout}s")
+            # FJERNET: Ingen timeout logs
             return None
         except requests.exceptions.ConnectionError:
-            logging.warning(f"CoinGecko connection error for {endpoint}")
-            # Don't disable API completely on connection errors
+            # FJERNET: Ingen connection error logs
             return None
         except Exception as e:
-            logging.error(f"CoinGecko request error for {endpoint}: {str(e)}")
+            # FJERNET: Ingen generelle error logs
             return None
-    
+
     async def _get_coin_id(self, symbol: str) -> str:
         """Get CoinGecko coin ID from symbol"""
         symbol = symbol.upper().replace("USDT", "")
@@ -263,36 +242,23 @@ class CoinGeckoAI:
             self.coin_id_cache[symbol] = coin_id
             return coin_id
         
-        # If not in common mappings, try to find via API
-        try:
-            coins_list = await self._make_api_request("coins/list")
-            if coins_list:
-                for coin in coins_list:
-                    if coin.get("symbol", "").upper() == symbol:
-                        coin_id = coin["id"]
-                        self.coin_id_cache[symbol] = coin_id
-                        return coin_id
-        except Exception as e:
-            logging.error(f"Error getting coin ID for {symbol}: {str(e)}")
-        
-        # Fallback to lowercase symbol
+        # Fallback to lowercase symbol if not in mappings
         coin_id = symbol.lower()
         self.coin_id_cache[symbol] = coin_id
         return coin_id
     
     async def get_coin_data(self, token: str) -> Optional[Dict]:
-        """Get comprehensive coin data from CoinGecko"""
+        """FIXED: Get comprehensive coin data with better error handling"""
         cache_key = f"coin_data_{token}"
         
         # Check cache
-        cached_data = self._get_cached_data(cache_key, 300)  # 5 minute cache
+        cached_data = self._get_cached_data(cache_key, 300)
         if cached_data:
             return cached_data
         
         try:
             coin_id = await self._get_coin_id(token)
             
-            # Get detailed coin data
             params = {
                 "localization": "false",
                 "tickers": "false",
@@ -304,28 +270,29 @@ class CoinGeckoAI:
             
             result = await self._make_api_request(f"coins/{coin_id}", params)
             
-            if result:
+            # FIXED: Always validate result before caching
+            if result and isinstance(result, dict):
                 self._cache_data(cache_key, result, 300)
                 return result
+            else:
+                logging.debug(f"Invalid coin data returned for {token}")
+                return None
             
         except Exception as e:
             logging.error(f"Error getting coin data for {token}: {str(e)}")
-        
-        return None
+            return None
     
     async def get_market_data(self, token: str) -> Optional[Dict]:
-        """Get market data for analysis"""
+        """FIXED: Get market data with better validation"""
         cache_key = f"market_data_{token}"
         
-        # Check cache
-        cached_data = self._get_cached_data(cache_key, 180)  # 3 minute cache
+        cached_data = self._get_cached_data(cache_key, 180)
         if cached_data:
             return cached_data
         
         try:
             coin_id = await self._get_coin_id(token)
             
-            # Get market data
             params = {
                 "ids": coin_id,
                 "vs_currencies": "usd",
@@ -337,36 +304,42 @@ class CoinGeckoAI:
             
             result = await self._make_api_request("simple/price", params)
             
-            if result and coin_id in result:
+            # FIXED: Better validation of nested response
+            if result and isinstance(result, dict) and coin_id in result:
                 market_data = result[coin_id]
-                self._cache_data(cache_key, market_data, 180)
-                return market_data
+                if isinstance(market_data, dict):  # Additional validation
+                    self._cache_data(cache_key, market_data, 180)
+                    return market_data
+            
+            logging.debug(f"No valid market data for {token}")
+            return None
             
         except Exception as e:
             logging.error(f"Error getting market data for {token}: {str(e)}")
-        
-        return None
+            return None
     
     async def get_market_prediction(self, token: str, timeframe: str = "4h") -> Dict:
-        """Get market prediction based on CoinGecko metrics"""
+        """FIXED: Get market prediction with safe fallbacks"""
         if not self.api_available:
-            return {"prediction": {"direction": "neutral", "confidence": 0.5}}
+            return self._get_default_prediction()
         
         try:
             coin_data = await self.get_coin_data(token)
-            if not coin_data:
-                return {"prediction": {"direction": "neutral", "confidence": 0.5}}
+            if not coin_data or not isinstance(coin_data, dict):
+                return self._get_default_prediction()
             
             market_data = coin_data.get("market_data", {})
+            if not isinstance(market_data, dict):
+                return self._get_default_prediction()
             
-            # Extract key metrics with safe None handling
-            price_change_24h = market_data.get("price_change_percentage_24h") or 0
-            price_change_7d = market_data.get("price_change_percentage_7d") or 0
-            price_change_30d = market_data.get("price_change_percentage_30d") or 0
+            # FIXED: Safe extraction with defaults
+            price_change_24h = self._safe_get_float(market_data, "price_change_percentage_24h", 0)
+            price_change_7d = self._safe_get_float(market_data, "price_change_percentage_7d", 0)
+            price_change_30d = self._safe_get_float(market_data, "price_change_percentage_30d", 0)
             
-            volume_24h = market_data.get("total_volume", {}).get("usd") or 0
-            market_cap = market_data.get("market_cap", {}).get("usd") or 0
-            market_cap_rank = market_data.get("market_cap_rank") or 999
+            volume_24h = self._safe_get_nested_float(market_data, ["total_volume", "usd"], 0)
+            market_cap = self._safe_get_nested_float(market_data, ["market_cap", "usd"], 0)
+            market_cap_rank = self._safe_get_int(market_data, "market_cap_rank", 999)
             
             # Calculate momentum score
             momentum_score = 0
@@ -400,18 +373,18 @@ class CoinGeckoAI:
                 momentum_score -= 0.5
                 confidence_factors.append("negative_weekly_trend")
             
-            # Market cap rank consideration - FIXED: Added None check
-            if market_cap_rank is not None and market_cap_rank <= 50:
-                momentum_score += 0.5  # Top 50 coins get slight boost
+            # Market cap rank consideration
+            if market_cap_rank <= 50:
+                momentum_score += 0.5
                 confidence_factors.append("top_50_coin")
-            elif market_cap_rank is not None and market_cap_rank <= 100:
-                momentum_score += 0.2  # Top 100 coins get small boost
+            elif market_cap_rank <= 100:
+                momentum_score += 0.2
                 confidence_factors.append("top_100_coin")
             
-            # Volume analysis (relative to market cap)
+            # Volume analysis
             if market_cap > 0:
                 volume_to_mcap = volume_24h / market_cap
-                if volume_to_mcap > 0.15:  # High volume relative to market cap
+                if volume_to_mcap > 0.15:
                     momentum_score += 1
                     confidence_factors.append("high_volume_activity")
                 elif volume_to_mcap > 0.05:
@@ -442,30 +415,29 @@ class CoinGeckoAI:
             
         except Exception as e:
             logging.error(f"Error in CoinGecko market prediction: {str(e)}")
-            return {"prediction": {"direction": "neutral", "confidence": 0.5}}
+            return self._get_default_prediction()
     
     async def get_whale_activity(self, token: str) -> Dict:
-        """Analyze whale activity using CoinGecko volume and market data"""
+        """FIXED: Analyze whale activity with safe data handling"""
         if not self.api_available:
             return {"accumulation_score": 0}
         
         try:
             coin_data = await self.get_coin_data(token)
-            if not coin_data:
+            if not coin_data or not isinstance(coin_data, dict):
                 return {"accumulation_score": 0}
             
             market_data = coin_data.get("market_data", {})
+            if not isinstance(market_data, dict):
+                return {"accumulation_score": 0}
             
-            # Get volume and market metrics with safe None handling
-            volume_24h = market_data.get("total_volume", {}).get("usd") or 0
-            market_cap = market_data.get("market_cap", {}).get("usd") or 0
-            price_change_24h = market_data.get("price_change_percentage_24h") or 0
+            # FIXED: Safe extraction
+            volume_24h = self._safe_get_nested_float(market_data, ["total_volume", "usd"], 0)
+            market_cap = self._safe_get_nested_float(market_data, ["market_cap", "usd"], 0)
+            price_change_24h = self._safe_get_float(market_data, "price_change_percentage_24h", 0)
             
             # Calculate volume metrics
-            if market_cap > 0:
-                volume_to_mcap = volume_24h / market_cap
-            else:
-                volume_to_mcap = 0
+            volume_to_mcap = volume_24h / market_cap if market_cap > 0 else 0
             
             accumulation_score = 0
             activity_factors = []
@@ -489,24 +461,23 @@ class CoinGeckoAI:
                 accumulation_score -= 0.2
                 activity_factors.append("moderate_distribution")
             
-            # Market cap rank influence (whales more active in top coins) - FIXED: Added None check
-            market_cap_rank = market_data.get("market_cap_rank") or 999
-            if market_cap_rank is not None and market_cap_rank <= 10 and volume_to_mcap > 0.1:
-                accumulation_score += 0.1  # Top 10 coins with decent volume
+            # Market cap rank influence
+            market_cap_rank = self._safe_get_int(market_data, "market_cap_rank", 999)
+            if market_cap_rank <= 10 and volume_to_mcap > 0.1:
+                accumulation_score += 0.1
                 activity_factors.append("top_10_whale_interest")
-            elif market_cap_rank is not None and market_cap_rank <= 50 and volume_to_mcap > 0.2:
+            elif market_cap_rank <= 50 and volume_to_mcap > 0.2:
                 accumulation_score += 0.05
                 activity_factors.append("established_coin_activity")
             
-            # Price volatility analysis with safe None handling
-            ath = market_data.get("ath", {}).get("usd") or 0
-            current_price = market_data.get("current_price", {}).get("usd") or 0
+            # Price volatility analysis
+            ath = self._safe_get_nested_float(market_data, ["ath", "usd"], 0)
+            current_price = self._safe_get_nested_float(market_data, ["current_price", "usd"], 0)
             
             if ath > 0 and current_price > 0:
                 price_from_ath = (current_price / ath - 1) * 100
                 
-                # Buying near lows could indicate smart money accumulation
-                if price_from_ath < -50:  # More than 50% down from ATH
+                if price_from_ath < -50:
                     accumulation_score += 0.1
                     activity_factors.append("potential_bottom_accumulation")
                 elif price_from_ath < -30:
@@ -529,32 +500,34 @@ class CoinGeckoAI:
             return {"accumulation_score": 0}
     
     async def get_smart_money_positions(self, token: str) -> Dict:
-        """Analyze smart money positions using CoinGecko market data"""
+        """FIXED: Analyze smart money with safe data handling"""
         if not self.api_available:
             return {"position": "neutral"}
         
         try:
             coin_data = await self.get_coin_data(token)
-            if not coin_data:
+            if not coin_data or not isinstance(coin_data, dict):
                 return {"position": "neutral"}
             
             market_data = coin_data.get("market_data", {})
+            if not isinstance(market_data, dict):
+                return {"position": "neutral"}
             
-            # Get relevant metrics with safe None handling
-            market_cap_rank = market_data.get("market_cap_rank") or 999
-            price_change_7d = market_data.get("price_change_percentage_7d") or 0
-            price_change_30d = market_data.get("price_change_percentage_30d") or 0
-            volume_24h = market_data.get("total_volume", {}).get("usd") or 0
-            market_cap = market_data.get("market_cap", {}).get("usd") or 0
+            # FIXED: Safe extraction
+            market_cap_rank = self._safe_get_int(market_data, "market_cap_rank", 999)
+            price_change_7d = self._safe_get_float(market_data, "price_change_percentage_7d", 0)
+            price_change_30d = self._safe_get_float(market_data, "price_change_percentage_30d", 0)
+            volume_24h = self._safe_get_nested_float(market_data, ["total_volume", "usd"], 0)
+            market_cap = self._safe_get_nested_float(market_data, ["market_cap", "usd"], 0)
             
             position_score = 0
             smart_money_factors = []
             
-            # Smart money typically focuses on fundamentally strong projects - FIXED: Added None check
-            if market_cap_rank is not None and market_cap_rank <= 20:
+            # Smart money typically focuses on fundamentally strong projects
+            if market_cap_rank <= 20:
                 position_score += 0.3
                 smart_money_factors.append("top_20_project")
-            elif market_cap_rank is not None and market_cap_rank <= 50:
+            elif market_cap_rank <= 50:
                 position_score += 0.1
                 smart_money_factors.append("established_project")
             
@@ -584,17 +557,17 @@ class CoinGeckoAI:
                     position_score -= 0.2
                     smart_money_factors.append("high_volume_selling")
             
-            # ATH analysis - smart money often accumulates during corrections with safe None handling
-            ath = market_data.get("ath", {}).get("usd") or 0
-            current_price = market_data.get("current_price", {}).get("usd") or 0
+            # ATH analysis
+            ath = self._safe_get_nested_float(market_data, ["ath", "usd"], 0)
+            current_price = self._safe_get_nested_float(market_data, ["current_price", "usd"], 0)
             
             if ath > 0 and current_price > 0:
                 price_from_ath = (current_price / ath - 1) * 100
                 
-                if -40 < price_from_ath < -20:  # 20-40% down from ATH
+                if -40 < price_from_ath < -20:
                     position_score += 0.1
                     smart_money_factors.append("potential_value_zone")
-                elif price_from_ath > -10:  # Near ATH
+                elif price_from_ath > -10:
                     if price_change_7d > 5:
                         position_score += 0.1
                         smart_money_factors.append("momentum_continuation")
@@ -624,18 +597,20 @@ class CoinGeckoAI:
             return {"position": "neutral"}
     
     async def get_trading_signal(self, token: str) -> Dict:
-        """Get consolidated trading signal from CoinGecko data"""
+        """FIXED: Get consolidated trading signal with safe handling"""
         try:
-            # Get all insights
             insights = await self.get_consolidated_insights(token)
             
-            # Extract metrics
-            metrics = insights.get("metrics", {})
+            # FIXED: Safe extraction
+            if not insights or not isinstance(insights, dict):
+                return {"action": "hold", "strength": 0.5}
             
-            # Calculate signal strength
+            metrics = insights.get("metrics", {})
+            if not isinstance(metrics, dict):
+                return {"action": "hold", "strength": 0.5}
+            
             signal_strength = self.get_signal_strength(insights)
             
-            # Determine action based on metrics
             prediction_direction = metrics.get("prediction_direction", "neutral")
             sentiment = metrics.get("overall_sentiment", 0)
             smart_money = metrics.get("smart_money_direction", "neutral")
@@ -678,36 +653,40 @@ class CoinGeckoAI:
             return {"action": "hold", "strength": 0.5}
 
     async def get_sentiment_analysis(self, token: str) -> Dict:
-        """Get sentiment analysis from CoinGecko community and market data"""
+        """FIXED: Get sentiment analysis with safe data handling"""
         if not self.api_available:
             return {"sentiment_score": 0}
         
         try:
             coin_data = await self.get_coin_data(token)
-            if not coin_data:
+            if not coin_data or not isinstance(coin_data, dict):
                 return {"sentiment_score": 0}
             
-            # Extract sentiment indicators
             market_data = coin_data.get("market_data", {})
             community_data = coin_data.get("community_data", {})
+            
+            if not isinstance(market_data, dict):
+                market_data = {}
+            if not isinstance(community_data, dict):
+                community_data = {}
             
             sentiment_score = 0
             sentiment_factors = []
             
-            # Price momentum sentiment - FIXED: Better None handling
-            price_change_24h = market_data.get("price_change_percentage_24h") or 0
-            price_change_7d = market_data.get("price_change_percentage_7d") or 0
+            # FIXED: Safe price momentum calculation
+            price_change_24h = self._safe_get_float(market_data, "price_change_percentage_24h", 0)
+            price_change_7d = self._safe_get_float(market_data, "price_change_percentage_7d", 0)
             
-            # Convert price changes to sentiment (-1 to 1)
-            price_sentiment = np.tanh(price_change_24h / 10)  # Normalize large moves
+            # Convert price changes to sentiment
+            price_sentiment = np.tanh(price_change_24h / 10)
             weekly_sentiment = np.tanh(price_change_7d / 20)
             
             sentiment_score += price_sentiment * 0.4 + weekly_sentiment * 0.3
             
-            # Community sentiment indicators - FIXED: Better None handling
-            twitter_followers = community_data.get("twitter_followers") or 0
-            reddit_subscribers = community_data.get("reddit_subscribers") or 0
-            telegram_users = community_data.get("telegram_channel_user_count") or 0
+            # FIXED: Safe community sentiment indicators
+            twitter_followers = self._safe_get_int(community_data, "twitter_followers", 0)
+            reddit_subscribers = self._safe_get_int(community_data, "reddit_subscribers", 0)
+            telegram_users = self._safe_get_int(community_data, "telegram_channel_user_count", 0)
             
             # Social media growth indicates positive sentiment
             if twitter_followers > 100000:
@@ -720,22 +699,22 @@ class CoinGeckoAI:
                 sentiment_score += 0.05
                 sentiment_factors.append("active_telegram")
             
-            # Market cap and volume sentiment - FIXED: Added proper None check
-            market_cap_rank = market_data.get("market_cap_rank")
-            if market_cap_rank is not None and market_cap_rank <= 20:
+            # Market cap and volume sentiment
+            market_cap_rank = self._safe_get_int(market_data, "market_cap_rank", 999)
+            if market_cap_rank <= 20:
                 sentiment_score += 0.1
                 sentiment_factors.append("top_tier_coin")
-            elif market_cap_rank is not None and market_cap_rank <= 50:
+            elif market_cap_rank <= 50:
                 sentiment_score += 0.05
                 sentiment_factors.append("established_coin")
             
-            # Volume trend sentiment - FIXED: Better None handling
-            volume_24h = market_data.get("total_volume", {}).get("usd") or 0
-            market_cap = market_data.get("market_cap", {}).get("usd") or 0
+            # Volume trend sentiment
+            volume_24h = self._safe_get_nested_float(market_data, ["total_volume", "usd"], 0)
+            market_cap_value = self._safe_get_nested_float(market_data, ["market_cap", "usd"], 0)
             
-            if market_cap > 0:
-                volume_ratio = volume_24h / market_cap
-                if volume_ratio > 0.2:  # Very high volume
+            if market_cap_value > 0:
+                volume_ratio = volume_24h / market_cap_value
+                if volume_ratio > 0.2:
                     sentiment_score += 0.1
                     sentiment_factors.append("high_trading_interest")
                 elif volume_ratio > 0.1:
@@ -758,7 +737,7 @@ class CoinGeckoAI:
             return {"sentiment_score": 0}
 
     async def get_consolidated_insights(self, token: str, max_wait_time: int = 15) -> Dict:
-        """Get consolidated insights from all CoinGecko data sources"""
+        """FIXED: Get consolidated insights with better error handling"""
         token = token.replace("USDT", "").upper()
         
         if not self.api_available:
@@ -766,7 +745,7 @@ class CoinGeckoAI:
             return self._get_fallback_insights(token)
         
         try:
-            # Gather data from all analyses in parallel
+            # FIXED: More conservative task handling
             tasks = [
                 asyncio.create_task(self.get_market_prediction(token)),
                 asyncio.create_task(self.get_sentiment_analysis(token)),
@@ -774,43 +753,35 @@ class CoinGeckoAI:
                 asyncio.create_task(self.get_smart_money_positions(token))
             ]
             
-            # Wait for all tasks with timeout
-            done, pending = await asyncio.wait(tasks, timeout=max_wait_time)
+            # FIXED: Shorter timeout and better error handling
+            done, pending = await asyncio.wait(tasks, timeout=10)  # Reduced from 15 to 10 seconds
             
             # Cancel any pending tasks
             for task in pending:
                 task.cancel()
             
-            # Get results
+            # Get results with defaults
             results = []
-            for task in tasks:
+            for i, task in enumerate(tasks):
                 try:
-                    if task in done:
-                        results.append(task.result())
+                    if task in done and not task.cancelled():
+                        result = task.result()
+                        # FIXED: Validate result before using
+                        if result and isinstance(result, dict):
+                            results.append(result)
+                        else:
+                            results.append(self._get_default_result(i))
                     else:
-                        # Use default values for timed out tasks
-                        if len(results) == 0:  # prediction
-                            results.append({"prediction": {"direction": "neutral", "confidence": 0.5}})
-                        elif len(results) == 1:  # sentiment
-                            results.append({"sentiment_score": 0})
-                        elif len(results) == 2:  # whale activity
-                            results.append({"accumulation_score": 0})
-                        else:  # smart money
-                            results.append({"position": "neutral"})
+                        results.append(self._get_default_result(i))
                 except Exception as e:
-                    logging.error(f"Error getting CoinGecko data: {str(e)}")
-                    # Add default values
-                    if len(results) == 0:
-                        results.append({"prediction": {"direction": "neutral", "confidence": 0.5}})
-                    elif len(results) == 1:
-                        results.append({"sentiment_score": 0})
-                    elif len(results) == 2:
-                        results.append({"accumulation_score": 0})
-                    else:
-                        results.append({"position": "neutral"})
+                    logging.error(f"Error getting CoinGecko data task {i}: {str(e)}")
+                    results.append(self._get_default_result(i))
             
-            # Consolidate results
-            market_prediction, sentiment, whale_activity, smart_money = results
+            # FIXED: Ensure we have exactly 4 results
+            while len(results) < 4:
+                results.append(self._get_default_result(len(results)))
+            
+            market_prediction, sentiment, whale_activity, smart_money = results[:4]
             
             consolidated = {
                 "market_prediction": market_prediction,
@@ -820,18 +791,19 @@ class CoinGeckoAI:
                 "timestamp": time.time()
             }
             
-            # Extract key metrics
+            # FIXED: Safe metrics extraction
+            prediction_data = market_prediction.get("prediction", {}) if isinstance(market_prediction, dict) else {}
+            
             metrics = {
-                "overall_sentiment": sentiment.get("sentiment_score", 0),
-                "prediction_direction": market_prediction.get("prediction", {}).get("direction", "neutral"),
-                "prediction_confidence": market_prediction.get("prediction", {}).get("confidence", 0.5),
-                "whale_accumulation": whale_activity.get("accumulation_score", 0),
-                "smart_money_direction": smart_money.get("position", "neutral")
+                "overall_sentiment": sentiment.get("sentiment_score", 0) if isinstance(sentiment, dict) else 0,
+                "prediction_direction": prediction_data.get("direction", "neutral") if isinstance(prediction_data, dict) else "neutral",
+                "prediction_confidence": prediction_data.get("confidence", 0.5) if isinstance(prediction_data, dict) else 0.5,
+                "whale_accumulation": whale_activity.get("accumulation_score", 0) if isinstance(whale_activity, dict) else 0,
+                "smart_money_direction": smart_money.get("position", "neutral") if isinstance(smart_money, dict) else "neutral"
             }
             
             consolidated["metrics"] = metrics
             
-            # Log successful data retrieval
             logging.info(f"CoinGecko insights for {token}: {metrics['prediction_direction']} "
                         f"({metrics['prediction_confidence']:.2f} confidence), "
                         f"sentiment: {metrics['overall_sentiment']:.2f}, "
@@ -845,16 +817,16 @@ class CoinGeckoAI:
             return self._get_fallback_insights(token)
     
     def get_signal_strength(self, insights: Dict) -> float:
-        """Calculate signal strength from CoinGecko insights"""
+        """FIXED: Calculate signal strength with safe handling"""
         if not insights or not isinstance(insights, dict):
             return 0.5
         
         try:
             metrics = insights.get('metrics', {})
-            if not metrics:
+            if not isinstance(metrics, dict):
                 return 0.5
             
-            # Get individual metrics
+            # Get individual metrics with safe defaults
             prediction_conf = metrics.get('prediction_confidence', 0.5)
             prediction_dir = metrics.get('prediction_direction', 'neutral')
             sentiment = metrics.get('overall_sentiment', 0)
@@ -869,47 +841,82 @@ class CoinGeckoAI:
                 'SMART_MONEY': 0.15
             })
             
-            # Calculate direction multipliers (-1 to 1)
+            # Calculate direction multipliers
             pred_mult = 1 if prediction_dir == 'bullish' else (-1 if prediction_dir == 'bearish' else 0)
             sm_mult = 1 if smart_money == 'bullish' else (-1 if smart_money == 'bearish' else 0)
             
             # Calculate weighted components
-            prediction_comp = pred_mult * prediction_conf * weights['PREDICTION']
-            sentiment_comp = sentiment * weights['SENTIMENT']
-            whale_comp = whale_acc * weights['WHALE']
-            sm_comp = sm_mult * weights['SMART_MONEY'] * 0.8  # Slightly reduced weight
+            prediction_comp = pred_mult * prediction_conf * weights.get('PREDICTION', 0.35)
+            sentiment_comp = sentiment * weights.get('SENTIMENT', 0.30)
+            whale_comp = whale_acc * weights.get('WHALE', 0.20)
+            sm_comp = sm_mult * weights.get('SMART_MONEY', 0.15) * 0.8
             
-            # Calculate final signal (-1 to 1 range)
+            # Calculate final signal
             signal = prediction_comp + sentiment_comp + whale_comp + sm_comp
             
             # Convert to 0-1 range (strength)
-            normalized_signal = abs(signal)  # Take absolute value for strength
-            
-            # Boost signal strength if multiple indicators agree
-            agreement_count = 0
-            if abs(prediction_comp) > 0.1:
-                agreement_count += 1
-            if abs(sentiment_comp) > 0.1:
-                agreement_count += 1
-            if abs(whale_comp) > 0.1:
-                agreement_count += 1
-            if abs(sm_comp) > 0.1:
-                agreement_count += 1
+            normalized_signal = abs(signal)
             
             # Apply agreement bonus
+            agreement_count = sum([
+                1 for comp in [prediction_comp, sentiment_comp, whale_comp, sm_comp]
+                if abs(comp) > 0.1
+            ])
+            
             if agreement_count >= 3:
                 normalized_signal *= 1.2
             elif agreement_count >= 2:
                 normalized_signal *= 1.1
             
-            # Ensure within bounds
-            normalized_signal = min(1.0, max(0.0, normalized_signal))
-            
-            return normalized_signal
+            return min(1.0, max(0.0, normalized_signal))
             
         except Exception as e:
             logging.error(f"Error calculating CoinGecko signal strength: {str(e)}")
             return 0.5
+    
+    # FIXED: Add helper methods for safe data extraction
+    def _safe_get_float(self, data: dict, key: str, default: float = 0.0) -> float:
+        """Safely get a float value from dict"""
+        try:
+            value = data.get(key, default)
+            return float(value) if value is not None else default
+        except (ValueError, TypeError):
+            return default
+    
+    def _safe_get_int(self, data: dict, key: str, default: int = 0) -> int:
+        """Safely get an int value from dict"""
+        try:
+            value = data.get(key, default)
+            return int(value) if value is not None else default
+        except (ValueError, TypeError):
+            return default
+    
+    def _safe_get_nested_float(self, data: dict, keys: list, default: float = 0.0) -> float:
+        """Safely get a nested float value from dict"""
+        try:
+            current = data
+            for key in keys:
+                if isinstance(current, dict) and key in current:
+                    current = current[key]
+                else:
+                    return default
+            return float(current) if current is not None else default
+        except (ValueError, TypeError):
+            return default
+    
+    def _get_default_result(self, index: int) -> Dict:
+        """Get default result for failed API calls"""
+        defaults = [
+            {"prediction": {"direction": "neutral", "confidence": 0.5}},  # market_prediction
+            {"sentiment_score": 0},  # sentiment
+            {"accumulation_score": 0},  # whale_activity
+            {"position": "neutral"}  # smart_money
+        ]
+        return defaults[index] if index < len(defaults) else {}
+    
+    def _get_default_prediction(self) -> Dict:
+        """Get default prediction when API fails"""
+        return {"prediction": {"direction": "neutral", "confidence": 0.5}}
     
     def _get_cached_data(self, cache_key: str, max_age: int) -> Optional[Any]:
         """Get data from cache if not expired"""
@@ -965,16 +972,82 @@ class DummyCoinGeckoAI:
     async def get_trading_signal(self, *args, **kwargs):
         return {"action": "hold", "strength": 0.5}
         
-    async def get_consolidated_insights(self, *args, **kwargs):
-        return {
-            "metrics": {
-                "overall_sentiment": 0,
-                "prediction_direction": "neutral",
-                "prediction_confidence": 0.5,
-                "whale_accumulation": 0,
-                "smart_money_direction": "neutral"
+    async def get_consolidated_insights(self, token: str, max_wait_time: int = 8) -> Dict:
+        """RETTET: Få consolidated insights med SIMPEL logging som før"""
+        token = token.replace("USDT", "").upper()
+        
+        if not self.api_available:
+            return self._get_fallback_insights(token)
+        
+        try:
+            # MEGET kortere timeout for hurtigere responses
+            tasks = [
+                asyncio.create_task(self.get_market_prediction(token)),
+                asyncio.create_task(self.get_sentiment_analysis(token)),
+                asyncio.create_task(self.get_whale_activity(token)),
+                asyncio.create_task(self.get_smart_money_positions(token))
+            ]
+            
+            # Vent på alle tasks med reduceret timeout
+            done, pending = await asyncio.wait(tasks, timeout=6)  # REDUCERET fra 15 til 6 sekunder
+            
+            # Cancel alle pending tasks
+            for task in pending:
+                task.cancel()
+            
+            # Få resultater med defaults
+            results = []
+            for i, task in enumerate(tasks):
+                try:
+                    if task in done and not task.cancelled():
+                        result = task.result()
+                        if result and isinstance(result, dict):
+                            results.append(result)
+                        else:
+                            results.append(self._get_default_result(i))
+                    else:
+                        results.append(self._get_default_result(i))
+                except Exception:
+                    results.append(self._get_default_result(i))
+            
+            # Sørg for vi har præcis 4 resultater
+            while len(results) < 4:
+                results.append(self._get_default_result(len(results)))
+            
+            market_prediction, sentiment, whale_activity, smart_money = results[:4]
+            
+            consolidated = {
+                "market_prediction": market_prediction,
+                "sentiment": sentiment,
+                "whale_activity": whale_activity,
+                "smart_money": smart_money,
+                "timestamp": time.time()
             }
-        }
-    
+            
+            # Udtræk nøgle metrics
+            prediction_data = market_prediction.get("prediction", {}) if isinstance(market_prediction, dict) else {}
+            
+            metrics = {
+                "overall_sentiment": sentiment.get("sentiment_score", 0) if isinstance(sentiment, dict) else 0,
+                "prediction_direction": prediction_data.get("direction", "neutral") if isinstance(prediction_data, dict) else "neutral",
+                "prediction_confidence": prediction_data.get("confidence", 0.5) if isinstance(prediction_data, dict) else 0.5,
+                "whale_accumulation": whale_activity.get("accumulation_score", 0) if isinstance(whale_activity, dict) else 0,
+                "smart_money_direction": smart_money.get("position", "neutral") if isinstance(smart_money, dict) else "neutral"
+            }
+            
+            consolidated["metrics"] = metrics
+            
+            # SIMPEL, REN logging som du havde før - KUN log insights
+            logging.info(f"CoinGecko insights for {token}: {metrics['prediction_direction']} "
+                        f"({metrics['prediction_confidence']:.2f} confidence), "
+                        f"sentiment: {metrics['overall_sentiment']:.2f}, "
+                        f"whale: {metrics['whale_accumulation']:.2f}, "
+                        f"smart money: {metrics['smart_money_direction']}")
+            
+            return consolidated
+            
+        except Exception:
+            # Returner fallback stille uden error logs
+            return self._get_fallback_insights(token)
     def get_signal_strength(self, *args, **kwargs):
         return 0.5

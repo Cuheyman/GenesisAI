@@ -42,6 +42,14 @@ class AssetSelection:
                     if not ticker_data:
                         continue
                     
+                    # TILFØJ DETTE HER - RECENTLY TRADED FILTER (OPTION 3)
+                    # Skip pairs that were traded recently (within last 30 minutes)
+                    if hasattr(self, 'recently_traded') and pair in getattr(self, 'recently_traded', {}):
+                        recent_trade_time = self.recently_traded[pair]
+                        if time.time() - recent_trade_time < 600:  # 30 minutes in seconds
+                            logging.debug(f"Skipping {pair} - traded recently")
+                            continue
+                    
                     price_change_24h = float(ticker_data['priceChangePercent'])
                     volume_24h = float(ticker_data['quoteVolume'])
                     
@@ -98,6 +106,23 @@ class AssetSelection:
             logging.error(f"Error selecting optimal assets: {str(e)}")
             # Return default pairs on error
             return ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'BNBUSDT', 'XRPUSDT']
+
+  
+    def mark_recently_traded(self, pair):
+        """Mark a pair as recently traded to avoid immediate re-trading"""
+        if not hasattr(self, 'recently_traded'):
+            self.recently_traded = {}
+        
+        self.recently_traded[pair] = time.time()
+        
+            # Clean up old entries (older than 1 hour)
+        current_time = time.time()
+        self.recently_traded = {
+            p: t for p, t in self.recently_traded.items() 
+            if current_time - t < 3600  # Keep for 1 hour
+        }
+
+
     async def get_available_pairs(self):
         """Get available trading pairs from Binance"""
         try:

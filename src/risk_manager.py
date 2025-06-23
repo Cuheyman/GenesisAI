@@ -85,6 +85,79 @@ class RiskManager:
         else:
             self.risk_level = "normal"
 
+
+
+    def should_take_trade(self, pair, signal_strength, correlation_data=None):
+        """FIXED: Enhanced trade approval with comprehensive error handling"""
+        try:
+            # Check if we're in quick profit mode
+            is_quick_mode = getattr(config, 'QUICK_PROFIT_MODE', False)
+            
+            if is_quick_mode:
+                # Quick mode: stricter position limits
+                max_positions = getattr(config, 'QUICK_MODE_MAX_POSITIONS', 2)
+                min_signal = getattr(config, 'QUICK_MODE_MIN_SIGNAL', 0.5)
+                
+                # Check signal strength requirement
+                if signal_strength < min_signal:
+                    return False, f"Quick mode requires signal strength >= {min_signal}, got {signal_strength:.2f}"
+                
+                # Check position count
+                if self.position_count >= max_positions:
+                    return False, f"Quick mode maximum positions reached ({max_positions})"
+                    
+            else:
+                # Normal mode: existing logic
+                max_positions = getattr(config, 'NORMAL_MODE_MAX_POSITIONS', 10)
+                if self.position_count >= max_positions:
+                    return False, f"Normal mode maximum positions reached ({max_positions})"
+            
+            # Continue with existing risk checks
+            if self.severe_recovery_mode:
+                return False, "Severe recovery mode active - no new positions"
+                
+            # Check if we're in recovery mode with moderate restrictions
+            if self.recovery_mode and self.position_count >= (5 * self.max_positions_multiplier):
+                return False, "Maximum positions reached for recovery mode"
+                
+            # Check risk level based on drawdown
+            if self.risk_level == "minimal" and self.position_count >= 3:
+                return False, "Maximum positions reached for minimal risk level"
+                
+            if self.risk_level == "reduced" and self.position_count >= (7 * self.max_positions_multiplier):
+                return False, "Maximum positions reached for reduced risk level"
+                
+            # FIXED: Safe correlation data handling
+            is_diversified = True
+            if correlation_data and isinstance(correlation_data, dict):
+                is_diversified = correlation_data.get('is_diversified', True)
+                
+            # Skip highly correlated assets in high-risk conditions
+            if not is_diversified and (self.recovery_mode or self.risk_level != "normal"):
+                return False, "Avoiding correlated assets during elevated risk conditions"
+                
+            # Calculate position size based on mode and risk level
+            position_size = self._calculate_position_size(signal_strength)
+            
+            # FIXED: Ensure minimum position size
+            if position_size < 10:  # Minimum viable trade
+                return False, f"Position size too small: ${position_size:.2f}"
+            
+            mode_info = "QUICK" if is_quick_mode else "NORMAL"
+            logging.info(f"{mode_info} MODE: Approved position for {pair} - Size: ${position_size:.2f}, Signal: {signal_strength:.2f}")
+            
+            return True, {
+                "approved": True,
+                "position_size": position_size,
+                "risk_level": self.risk_level,
+                "recovery_mode": self.recovery_mode,
+                "trading_mode": mode_info
+            }
+            
+        except Exception as e:
+            logging.error(f"Error in should_take_trade: {str(e)}")
+            return False, f"Error in trade approval: {str(e)}"        
+
     def can_open_position(self, pair=None, signal_strength=0.5, correlation_data=None):
         """Enhanced position approval with quick mode considerations"""
         

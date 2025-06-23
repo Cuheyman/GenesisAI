@@ -303,7 +303,17 @@ class HybridTradingBot:
                 logging.error(f"Error getting advanced indicators stats: {str(e)}")
 
 
-
+    def _get_neutral_analysis(self):
+       
+        return {
+            "mtf_trend": 0,
+            "mtf_momentum": 0,
+            "mtf_volatility": 0.5,
+            "mtf_volume": 0.5,
+            "overall_score": 0,
+            "timeframes_analyzed": 0,
+            "data_source": "neutral_fallback"
+        }
 
     async def market_monitor_task(self):
         """Task to monitor market conditions"""
@@ -378,56 +388,84 @@ class HybridTradingBot:
             asyncio.create_task(self.market_monitor_task())
     
     async def trading_task(self):
-        """Task to handle trading decisions"""
+        """FIXED: Task to handle trading decisions with better error handling"""
         try:
             while True:
                 try:
                     start_time = time.time()
                     
-                    # Update equity and risk parameters
-                    current_equity = self.get_total_equity()
-                    risk_status = self.risk_manager.update_equity(current_equity)
-                    
-                
+                    # FIXED: Safe equity and risk parameter updates
+                    try:
+                        current_equity = self.get_total_equity()
+                        risk_status = self.risk_manager.update_equity(current_equity)
+                        
+                        # FIXED: Ensure risk_status is valid
+                        if not risk_status or not isinstance(risk_status, dict):
+                            risk_status = {
+                                'daily_roi': 0,
+                                'drawdown': 0,
+                                'risk_level': 'normal',
+                                'severe_recovery_mode': False
+                            }
+                    except Exception as e:
+                        logging.error(f"Error updating equity/risk: {str(e)}")
+                        current_equity = 1000  # Default fallback
+                        risk_status = {
+                            'daily_roi': 0,
+                            'drawdown': 0,
+                            'risk_level': 'normal',
+                            'severe_recovery_mode': False
+                        }
+
                     open_positions = len(self.active_positions)
                     total_position_value = sum(pos.get('position_size', 0) for pos in self.active_positions.values())
                     position_percentage = (total_position_value / current_equity * 100) if current_equity > 0 else 0
 
-                    # Format position details
+                    # Format position details safely
                     position_details = []
-                    for pair, pos in self.active_positions.items():
-                        current_price = await self.get_current_price(pair)
-                        entry_price = pos['entry_price']
-                        profit_pct = ((current_price / entry_price) - 1) * 100 if entry_price > 0 else 0
-                        position_details.append(f"{pair.replace('USDT', '')}:{profit_pct:+.1f}%")
+                    try:
+                        for pair, pos in self.active_positions.items():
+                            current_price = await self.get_current_price(pair)
+                            entry_price = pos.get('entry_price', 0)
+                            if entry_price > 0 and current_price > 0:
+                                profit_pct = ((current_price / entry_price) - 1) * 100
+                                position_details.append(f"{pair.replace('USDT', '')}:{profit_pct:+.1f}%")
+                    except Exception as e:
+                        logging.debug(f"Error formatting position details: {str(e)}")
 
                     positions_str = ", ".join(position_details) if position_details else "None"
 
                     # Log current status with position information
                     logging.info(f"Current equity: ${current_equity:.2f}, " +
-                            f"Daily ROI: {risk_status['daily_roi']:.2f}%, " +
-                            f"Drawdown: {risk_status['drawdown']:.2f}%, " +
-                            f"Risk level: {risk_status['risk_level']}, " +
+                            f"Daily ROI: {risk_status.get('daily_roi', 0):.2f}%, " +
+                            f"Drawdown: {risk_status.get('drawdown', 0):.2f}%, " +
+                            f"Risk level: {risk_status.get('risk_level', 'normal')}, " +
                             f"Positions: {open_positions}/{config.MAX_POSITIONS} " +
                             f"(${total_position_value:.2f}, {position_percentage:.1f}% of equity)")
 
                     if open_positions > 0:
                         logging.info(f"Active positions: {positions_str}")
-                              
+                            
                     # Check for drawdown protection events
-                    protection_level = self.risk_manager._check_drawdown_protection()
-                    if protection_level:
-                        await self.handle_drawdown_protection(protection_level)
-                        # After taking protective actions, pause trading for a cycle
-                        await asyncio.sleep(300)  # 5 minute pause after drawdown action
-                        continue
+                    try:
+                        protection_level = self.risk_manager._check_drawdown_protection()
+                        if protection_level:
+                            await self.handle_drawdown_protection(protection_level)
+                            await asyncio.sleep(300)  # 5 minute pause after drawdown action
+                            continue
+                    except Exception as e:
+                        logging.error(f"Error in drawdown protection: {str(e)}")
                     
-                    # Check daily ROI target
-                    roi_status, roi_message = self.performance_tracker.check_daily_roi_target(
-                        current_equity, self.initial_equity
-                    )
-                    
-                    logging.info(roi_message)
+                    # FIXED: Safe ROI check
+                    try:
+                        roi_status, roi_message = self.performance_tracker.check_daily_roi_target(
+                            current_equity, self.initial_equity
+                        )
+                        if roi_message:
+                            logging.info(roi_message)
+                    except Exception as e:
+                        logging.error(f"Error checking ROI target: {str(e)}")
+                        roi_status = False
                     
                     # If in severe recovery mode, skip trading this cycle
                     if risk_status.get('severe_recovery_mode', False):
@@ -435,88 +473,102 @@ class HybridTradingBot:
                         await asyncio.sleep(60)
                         continue
                         
-                    # Get pairs to analyze - use optimal asset selection
-                    pairs_to_analyze = await self.asset_selection.select_optimal_assets(limit=15)
+                    # FIXED: Safe opportunity scanning
+                    opportunities = []
+                    try:
+                        if hasattr(self, 'opportunity_scanner'):
+                            opportunities = await self.opportunity_scanner.scan_for_opportunities()
+                            # FIXED: Ensure opportunities is a list
+                            if not opportunities or not isinstance(opportunities, list):
+                                opportunities = []
+                    except Exception as e:
+                        logging.error(f"Error scanning opportunities: {str(e)}")
+                        opportunities = []
                     
-                    # Process fewer pairs in high volatility to avoid overtrading
-                    if self.market_state['volatility'] == 'high':
+                    # FIXED: Safe asset selection
+                    try:
+                        pairs_to_analyze = await self.asset_selection.select_optimal_assets(limit=15)
+                        # FIXED: Ensure we have a valid list
+                        if not pairs_to_analyze or not isinstance(pairs_to_analyze, list):
+                            pairs_to_analyze = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'ADAUSDT']
+                    except Exception as e:
+                        logging.error(f"Error selecting assets: {str(e)}")
+                        pairs_to_analyze = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'ADAUSDT']
+                    
+                    # Process high-priority opportunities
+                    high_priority_pairs = []
+                    try:
+                        for opp in opportunities:
+                            if isinstance(opp, dict) and opp.get('score', 0) > 2.0:
+                                symbol = opp.get('symbol')
+                                if symbol:
+                                    high_priority_pairs.append(symbol)
+                                    # Mark as momentum trade
+                                    if not hasattr(self, 'momentum_trades'):
+                                        self.momentum_trades = {}
+                                    
+                                    sources = opp.get('sources', ['unknown'])
+                                    self.momentum_trades[symbol] = {
+                                        'type': sources[0] if sources else 'unknown',
+                                        'score': opp.get('score', 0),
+                                        'entry_time': time.time()
+                                    }
+                    except Exception as e:
+                        logging.error(f"Error processing opportunities: {str(e)}")
+                    
+                    # Process fewer pairs in high volatility
+                    if self.market_state.get('volatility') == 'high':
                         pairs_to_analyze = pairs_to_analyze[:10]
                         logging.info("High volatility - limiting analysis to 10 pairs")
                     
-                    # Analyze pairs in parallel
-                    analysis_tasks = []
-                    for pair in pairs_to_analyze:
-                        analysis_tasks.append(self.analyze_and_trade(pair))
+                    # Combine priority and regular pairs
+                    final_pairs = high_priority_pairs[:10] + [p for p in pairs_to_analyze if p not in high_priority_pairs][:5]
                     
-                    # Wait for all analyses to complete
-                    await asyncio.gather(*analysis_tasks)
+                    if high_priority_pairs:
+                        logging.info(f"High priority opportunities: {', '.join(high_priority_pairs[:5])}")
+                    
+                    # FIXED: Safe parallel analysis
+                    analysis_tasks = []
+                    for pair in final_pairs[:15]:  # Limit total pairs
+                        try:
+                            priority = 'high' if pair in high_priority_pairs else 'normal'
+                            analysis_tasks.append(self.analyze_and_trade(pair, priority=priority))
+                        except Exception as e:
+                            logging.error(f"Error creating analysis task for {pair}: {str(e)}")
+                    
+                    # Execute analysis tasks with error handling
+                    if analysis_tasks:
+                        try:
+                            await asyncio.gather(*analysis_tasks, return_exceptions=True)
+                        except Exception as e:
+                            logging.error(f"Error in analysis tasks: {str(e)}")
                     
                     # Check if we've reached daily goal
-                    if roi_status and risk_status['daily_roi'] >= config.TARGET_DAILY_ROI_MIN * 100:
-                        logging.info("Daily ROI target achieved! Reducing risk exposure.")
-                        # Take partial profits
-                        await self.secure_profits()
+                    try:
+                        if (roi_status and 
+                            risk_status.get('daily_roi', 0) >= config.TARGET_DAILY_ROI_MIN * 100):
+                            logging.info("Daily ROI target achieved! Reducing risk exposure.")
+                            await self.secure_profits()
+                    except Exception as e:
+                        logging.error(f"Error checking daily goal: {str(e)}")
                     
-                    # Calculate processing time and log
+                    # Calculate processing time and adaptive sleep
                     processing_time = time.time() - start_time
                     logging.info(f"Trading cycle completed in {processing_time:.2f} seconds")
                     
-                    # Adaptive sleep time based on processing
-                    sleep_time = max(30, 60 - processing_time)
+                    sleep_time = max(15, 30 - processing_time)  # Faster cycles
                     await asyncio.sleep(sleep_time)
                     
                 except Exception as inner_e:
                     logging.error(f"Error in trading cycle: {str(inner_e)}")
+                    import traceback
+                    traceback.print_exc()
                     await asyncio.sleep(60)
-
-                opportunities = await self.opportunity_scanner.scan_for_opportunities()
-                    
-                    # Process high-score opportunities immediately
-                high_priority_pairs = []
-                for opp in opportunities:
-                        if opp['score'] > 2.0:  # High priority threshold
-                            high_priority_pairs.append(opp['symbol'])
-                            # Mark as momentum trade
-                            self.momentum_trades[opp['symbol']] = {
-                                'type': opp['sources'][0],
-                                'score': opp['score'],
-                                'entry_time': time.time()
-                            }
-                    
-                    # Combine with regular asset selection
-                        regular_pairs = await self.asset_selection.select_optimal_assets(limit=10)
-                    
-                    # Prioritize opportunity pairs
-                        pairs_to_analyze = high_priority_pairs[:10] + [p for p in regular_pairs if p not in high_priority_pairs][:5]
                         
-                        # Log what we're analyzing
-                        if high_priority_pairs:
-                            logging.info(f"High priority opportunities: {', '.join(high_priority_pairs[:5])}")
-                        
-                        # Analyze pairs in parallel with priority
-                        analysis_tasks = []
-                        
-                        # High priority pairs first
-                        for pair in high_priority_pairs[:10]:
-                            analysis_tasks.append(self.analyze_and_trade(pair, priority='high'))
-                        
-                        # Then regular pairs
-                        for pair in regular_pairs[:5]:
-                            if pair not in high_priority_pairs:
-                                analysis_tasks.append(self.analyze_and_trade(pair, priority='normal'))
-                        
-                        # Wait for all analyses to complete
-                        await asyncio.gather(*analysis_tasks)
-
-                        # Faster cycle for momentum trading
-                        processing_time = time.time() - start_time
-                        sleep_time = max(15, 30 - processing_time)  # Faster 15-30 second cycles
-                        await asyncio.sleep(sleep_time)
-                        
-                    
-                    
         except Exception as e:
             logging.error(f"Error in trading task: {str(e)}")
+            import traceback
+            traceback.print_exc()
             # Restart the task after a delay
             await asyncio.sleep(60)
             asyncio.create_task(self.trading_task())
@@ -664,23 +716,24 @@ class HybridTradingBot:
 
 
     async def analyze_and_trade(self, pair, priority='normal'):
-        
+        """FIXED: Analyze and trade with comprehensive error handling"""
         try:
-            # Skip if this pair was recently processed (within 5 minutes)
+            # FIXED: Safe cache checking
             cache_key = f"processed_{pair}"
             current_time = time.time()
-            cache_duration = 60  # 5 minutes
-
-            #if hasattr(self, 'cache_expiry') and cache_key in self.cache_expiry:
-             #   if self.cache_expiry[cache_key] > current_time:
-              #      return
-                
-            # Initialize cache if needed
+            
             if not hasattr(self, 'cache_expiry'):
                 self.cache_expiry = {}
 
-            is_momentum_trade = pair in self.momentum_trades
-            momentum_data = self.momentum_trades.get(pair, {})
+            # Check momentum trade status safely
+            is_momentum_trade = False
+            momentum_data = {}
+            try:
+                if hasattr(self, 'momentum_trades') and pair in self.momentum_trades:
+                    is_momentum_trade = True
+                    momentum_data = self.momentum_trades[pair]
+            except Exception as e:
+                logging.debug(f"Error checking momentum trade for {pair}: {str(e)}")
                 
             # Check if we already have a position
             have_position = pair in self.active_positions
@@ -688,119 +741,208 @@ class HybridTradingBot:
             # Extract token from pair
             token = pair.replace("USDT", "")
             
-            # Get trading signal from AI client (CoinGecko)
-            ai_signal = await self.ai_client.get_trading_signal(token)
-            
-            # Run multi-timeframe analysis
-            mtf_analysis = await self.market_analysis.get_multi_timeframe_analysis(pair)
-            
-            # Get order book data
-            order_book_data = await self.order_book.get_order_book_data(pair)
-            
-            # Get correlation data
-            active_positions = list(self.active_positions.keys())
-            correlation_data = {
-                'portfolio_correlation': self.correlation.get_portfolio_correlation(pair, active_positions),
-                'is_diversified': self.correlation.are_pairs_diversified(pair, active_positions)
-            }
-            
-            # Get combined analysis from all sources
-            analysis = await self.strategy.analyze_pair(
-                pair,
-                mtf_analysis=mtf_analysis,
-                order_book_data=order_book_data,
-                correlation_data=correlation_data,
-                market_state=self.market_state,
-                nebula_signal=ai_signal  # Pass the AI signal to the strategy (keep parameter name for compatibility)
-            )
-            
-    
-            # Log the analysis
-            signal_type = "BUY" if analysis['buy_signal'] else ("SELL" if analysis['sell_signal'] else "NEUTRAL")
-            logging.info(f"{pair} analysis: {signal_type} signal with {analysis['signal_strength']:.2f} strength")
-
-            # Add detailed logging for weak signals
-            if analysis['signal_strength'] > 0 and analysis['signal_strength'] < config.MIN_SIGNAL_STRENGTH:
-                logging.info(f"  -> Signal too weak to trade: {analysis['signal_strength']:.2f} < {config.MIN_SIGNAL_STRENGTH}")
-
-            # Store analysis
-            self.analyzed_pairs[pair] = {
-                "timestamp": time.time(),
-                "analysis": analysis,
-                "ai_signal": ai_signal
-            }
-
-            if is_momentum_trade:
-                momentum_score = momentum_data.get('score', 0)
-                if momentum_score > 2.0:
-                    # Boost signal strength for high-score opportunities
-                    analysis['signal_strength'] = min(0.95, analysis['signal_strength'] * 1.3)
-                    analysis['source'] += f",momentum_{momentum_data.get('type', 'unknown')}"
-            
-            # ENHANCED: More aggressive entry for high priority
-            if priority == 'high' and analysis['buy_signal']:
-                # Lower threshold for high priority opportunities
-                if analysis['signal_strength'] > 0.5:  # Lower from 0.6
-                    analysis['signal_strength'] = min(0.9, analysis['signal_strength'] * 1.2)
-            
-            # Execute trades based on signals
-            if analysis['buy_signal'] and not have_position:
-                # Check risk management with adjusted parameters for momentum
-                can_trade, trade_details = self.risk_manager.should_take_trade(
-                    pair, analysis['signal_strength'], correlation_data
-                )
-                
-                if can_trade:
-                    # Adjust position size for momentum trades
-                    position_size = trade_details['position_size']
-                    if is_momentum_trade and momentum_score > 2.5:
-                        position_size *= 1.2  # 20% larger for strong momentum
-                    
-                    success = await self.execute_buy(pair, position_size, analysis)
-                    
-                    if success:
-                        self.risk_manager.add_position(pair, position_size)
-                        
-                        # Track momentum trade entry
-                        if is_momentum_trade:
-                            self.active_positions[pair]['momentum_trade'] = True
-                            self.active_positions[pair]['momentum_type'] = momentum_data.get('type')
-            
-            elif analysis['sell_signal'] and have_position:
-                # Check if we should take profit
-                position = self.active_positions[pair]
-                profit_percent = self.calculate_profit_percent(pair)
-                position_age_hours = (time.time() - position['entry_time']) / 3600
-                
-                should_sell = self.risk_manager.should_take_profit(
-                    pair, profit_percent, position_age_hours
-                )
-                
-                if should_sell:
-                    # Execute sell
-                    success = await self.execute_sell(pair, analysis)
-                    
-                    if success:
-                        # Update risk manager
-                        self.risk_manager.remove_position(pair)
+            # FIXED: Safe AI signal retrieval
+            ai_signal = None
+            try:
+                if hasattr(self, 'ai_client') and self.ai_client:
+                    ai_signal = await self.ai_client.get_trading_signal(token)
+                    # FIXED: Validate ai_signal
+                    if not ai_signal or not isinstance(ai_signal, dict):
+                        ai_signal = {"action": "hold", "strength": 0.5}
                 else:
-                    logging.info(f"Holding {pair} position with {profit_percent:.2f}% profit")
-                    
-            # Mark this pair as processed
-            self.cache_expiry[cache_key] = current_time + 15  # Don't process again for 15 seconds
+                    ai_signal = {"action": "hold", "strength": 0.5}
+            except Exception as e:
+                logging.debug(f"Error getting AI signal for {pair}: {str(e)}")
+                ai_signal = {"action": "hold", "strength": 0.5}
             
+            # FIXED: Safe multi-timeframe analysis
+            mtf_analysis = None
+            try:
+                mtf_analysis = await self.market_analysis.get_multi_timeframe_analysis(pair)
+                # FIXED: Validate mtf_analysis
+                if not mtf_analysis or not isinstance(mtf_analysis, dict):
+                    mtf_analysis = self._get_neutral_analysis()
+            except Exception as e:
+                logging.debug(f"Error getting MTF analysis for {pair}: {str(e)}")
+                mtf_analysis = self._get_neutral_analysis()
+            
+            # FIXED: Safe order book data
+            order_book_data = None
+            try:
+                order_book_data = await self.order_book.get_order_book_data(pair)
+                # FIXED: Validate order_book_data
+                if not order_book_data or not isinstance(order_book_data, dict):
+                    order_book_data = {
+                        'pressure': 'neutral',
+                        'order_book_imbalance': 0
+                    }
+            except Exception as e:
+                logging.debug(f"Error getting order book data for {pair}: {str(e)}")
+                order_book_data = {
+                    'pressure': 'neutral',
+                    'order_book_imbalance': 0
+                }
+            
+            # FIXED: Safe correlation data
+            correlation_data = None
+            try:
+                active_positions = list(self.active_positions.keys())
+                correlation_data = {
+                    'portfolio_correlation': self.correlation.get_portfolio_correlation(pair, active_positions),
+                    'is_diversified': self.correlation.are_pairs_diversified(pair, active_positions)
+                }
+            except Exception as e:
+                logging.debug(f"Error getting correlation data for {pair}: {str(e)}")
+                correlation_data = {
+                    'portfolio_correlation': 0,
+                    'is_diversified': True
+                }
+            
+            # FIXED: Safe combined analysis
+            analysis = None
+            try:
+                analysis = await self.strategy.analyze_pair(
+                    pair,
+                    mtf_analysis=mtf_analysis,
+                    order_book_data=order_book_data,
+                    correlation_data=correlation_data,
+                    market_state=self.market_state,
+                    nebula_signal=ai_signal
+                )
+                # FIXED: Validate analysis
+                if not analysis or not isinstance(analysis, dict):
+                    analysis = {
+                        "buy_signal": False,
+                        "sell_signal": False,
+                        "signal_strength": 0,
+                        "source": "error"
+                    }
+            except Exception as e:
+                logging.error(f"Error in strategy analysis for {pair}: {str(e)}")
+                analysis = {
+                    "buy_signal": False,
+                    "sell_signal": False,
+                    "signal_strength": 0,
+                    "source": "error"
+                }
+
+            # Log the analysis safely
+            try:
+                signal_type = "BUY" if analysis.get('buy_signal', False) else ("SELL" if analysis.get('sell_signal', False) else "NEUTRAL")
+                signal_strength = analysis.get('signal_strength', 0)
+                logging.info(f"{pair} analysis: {signal_type} signal with {signal_strength:.2f} strength")
+
+                # Add detailed logging for weak signals
+                min_signal = getattr(config, 'MIN_SIGNAL_STRENGTH', 0.35)
+                if signal_strength > 0 and signal_strength < min_signal:
+                    logging.info(f"  -> Signal too weak to trade: {signal_strength:.2f} < {min_signal}")
+            except Exception as e:
+                logging.debug(f"Error logging analysis for {pair}: {str(e)}")
+
+            # FIXED: Safe analysis storage
+            try:
+                if not hasattr(self, 'analyzed_pairs'):
+                    self.analyzed_pairs = {}
+                
+                self.analyzed_pairs[pair] = {
+                    "timestamp": time.time(),
+                    "analysis": analysis,
+                    "ai_signal": ai_signal
+                }
+            except Exception as e:
+                logging.debug(f"Error storing analysis for {pair}: {str(e)}")
+
+            # FIXED: Safe momentum signal boosting
+            try:
+                if is_momentum_trade and isinstance(momentum_data, dict):
+                    momentum_score = momentum_data.get('score', 0)
+                    if momentum_score > 2.0:
+                        # Boost signal strength for high-score opportunities
+                        old_strength = analysis.get('signal_strength', 0)
+                        analysis['signal_strength'] = min(0.95, old_strength * 1.3)
+                        analysis['source'] = analysis.get('source', '') + f",momentum_{momentum_data.get('type', 'unknown')}"
+            except Exception as e:
+                logging.debug(f"Error boosting momentum signal for {pair}: {str(e)}")
+            
+            # FIXED: Safe priority boosting
+            try:
+                if priority == 'high' and analysis.get('buy_signal', False):
+                    if analysis.get('signal_strength', 0) > 0.5:
+                        old_strength = analysis.get('signal_strength', 0)
+                        analysis['signal_strength'] = min(0.9, old_strength * 1.2)
+            except Exception as e:
+                logging.debug(f"Error boosting priority signal for {pair}: {str(e)}")
+            
+            # FIXED: Safe trade execution
+            try:
+                if analysis.get('buy_signal', False) and not have_position:
+                    # Check risk management
+                    can_trade, trade_details = self.risk_manager.should_take_trade(
+                        pair, analysis.get('signal_strength', 0), correlation_data
+                    )
+                    
+                    if can_trade and isinstance(trade_details, dict):
+                        position_size = trade_details.get('position_size', 0)
+                        
+                        # Adjust position size for momentum trades
+                        if is_momentum_trade and isinstance(momentum_data, dict):
+                            momentum_score = momentum_data.get('score', 0)
+                            if momentum_score > 2.5:
+                                position_size *= 1.2
+                        
+                        success = await self.execute_buy(pair, position_size, analysis)
+                        
+                        if success:
+                            self.risk_manager.add_position(pair, position_size)
+                            
+                            # Track momentum trade entry
+                            if is_momentum_trade:
+                                if pair in self.active_positions:
+                                    self.active_positions[pair]['momentum_trade'] = True
+                                    self.active_positions[pair]['momentum_type'] = momentum_data.get('type', 'unknown')
+                
+                elif analysis.get('sell_signal', False) and have_position:
+                    # FIXED: Safe position profit calculation
+                    try:
+                        position = self.active_positions.get(pair, {})
+                        profit_percent = self.calculate_profit_percent(pair)
+                        position_age_hours = (time.time() - position.get('entry_time', time.time())) / 3600
+                        
+                        should_sell = self.risk_manager.should_take_profit(
+                            pair, profit_percent, position_age_hours
+                        )
+                        
+                        if should_sell:
+                            success = await self.execute_sell(pair, analysis)
+                            if success:
+                                self.risk_manager.remove_position(pair)
+                        else:
+                            logging.info(f"Holding {pair} position with {profit_percent:.2f}% profit")
+                    except Exception as e:
+                        logging.error(f"Error in sell logic for {pair}: {str(e)}")
+            except Exception as e:
+                logging.error(f"Error in trade execution for {pair}: {str(e)}")
+                
+            # Mark pair as processed
+            try:
+                self.cache_expiry[cache_key] = current_time + 15
+            except Exception as e:
+                logging.debug(f"Error caching for {pair}: {str(e)}")
+                
         except Exception as e:
             logging.error(f"Error analyzing {pair}: {str(e)}")
-    
- 
+            import traceback
+            traceback.print_exc()
     
     async def get_current_price(self, pair: str) -> float:
-        """Get current price of a trading pair with caching"""
+        """FIXED: Get current price with comprehensive error handling"""
         try:
             # Check cache first
             cache_key = f"price_{pair}"
             current_time = time.time()
-            if hasattr(self, 'data_cache') and cache_key in self.data_cache and hasattr(self, 'cache_expiry') and self.cache_expiry.get(cache_key, 0) > current_time:
+            
+            if (hasattr(self, 'data_cache') and cache_key in self.data_cache and 
+                hasattr(self, 'cache_expiry') and self.cache_expiry.get(cache_key, 0) > current_time):
                 return self.data_cache[cache_key]
                 
             # Initialize cache if needed
@@ -810,24 +952,49 @@ class HybridTradingBot:
                 self.cache_expiry = {}
                 
             # Track API call
-            self.track_api_call("get_symbol_ticker")
+            try:
+                self.track_api_call("get_symbol_ticker")
+            except:
+                pass
 
-            # Get ticker info from Binance
-            async with self.api_semaphore:
-                ticker = self.binance_client.get_symbol_ticker(symbol=pair)
-                price = float(ticker['price'])
+            # FIXED: Safe API call with fallback
+            price = 0.0
+            try:
+                async with self.api_semaphore:
+                    ticker = self.binance_client.get_symbol_ticker(symbol=pair)
+                    if ticker and isinstance(ticker, dict) and 'price' in ticker:
+                        price = float(ticker['price'])
+                    else:
+                        logging.warning(f"Invalid ticker response for {pair}: {ticker}")
+                        return 0.0
+            except Exception as api_e:
+                logging.error(f"API error getting price for {pair}: {str(api_e)}")
+                # Try to return cached price if available
+                if hasattr(self, 'data_cache') and cache_key in self.data_cache:
+                    cached_price = self.data_cache[cache_key]
+                    logging.info(f"Using cached price for {pair}: {cached_price}")
+                    return cached_price
+                return 0.0
 
-            # Cache the price for a brief period
-            self.data_cache[cache_key] = price
-            self.cache_expiry[cache_key] = current_time + 30  # 30 second cache
-
-            return price
+            # FIXED: Validate price before caching
+            if price > 0:
+                # Cache the price
+                self.data_cache[cache_key] = price
+                self.cache_expiry[cache_key] = current_time + 30
+                return price
+            else:
+                logging.warning(f"Invalid price for {pair}: {price}")
+                return 0.0
+                
         except Exception as e:
             logging.error(f"Error getting current price for {pair}: {str(e)}")
-            # If available, return last known price from cache
-            if hasattr(self, 'data_cache') and cache_key in self.data_cache:
-                return self.data_cache[cache_key]
-            # If all else fails, return 0
+            # Return cached price if available
+            try:
+                cache_key = f"price_{pair}"
+                if hasattr(self, 'data_cache') and cache_key in self.data_cache:
+                    return self.data_cache[cache_key]
+            except:
+                pass
             return 0.0
     
     def track_api_call(self, endpoint: str):
@@ -978,10 +1145,15 @@ class HybridTradingBot:
                 if config.ENABLE_TRAILING_TP:
                     await self.initialize_trailing_take_profit(pair, current_price)
                 
+                # TILFØJ: Mark pair as recently traded for diversification
+                if hasattr(self, 'asset_selection'):
+                    self.asset_selection.mark_recently_traded(pair)
+                
                 logging.info(f"TEST MODE: Simulated buy for {pair} executed successfully")
                 return True
+                
             else:
-                # Execute real order
+                # KOMPLET: Execute real order for live trading
                 try:
                     order = self.binance_client.order_market_buy(
                         symbol=pair,
@@ -989,7 +1161,65 @@ class HybridTradingBot:
                     )
                     
                     if order and order.get('status') == 'FILLED':
-                        # ... rest of your existing real order handling code ...
+                        # Get actual execution details
+                        actual_price = float(order['fills'][0]['price'])
+                        actual_quantity = float(order['executedQty'])
+                        actual_value = actual_price * actual_quantity
+                        
+                        # Record the trade in database
+                        await self.db_manager.execute_query(
+                            """
+                            INSERT INTO trades
+                            (trade_id, pair, type, price, quantity, value, timestamp)
+                            VALUES (?, ?, ?, ?, ?, ?, ?)
+                            """,
+                            (
+                                trade_id, pair, 'buy', actual_price, actual_quantity,
+                                actual_value, datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                            ),
+                            commit=True
+                        )
+                        
+                        # Record the position
+                        position_id = await self.db_manager.execute_query(
+                            """
+                            INSERT INTO positions
+                            (pair, entry_price, quantity, entry_time, status, signal_source, signal_strength)
+                            VALUES (?, ?, ?, ?, ?, ?, ?)
+                            """,
+                            (
+                                pair, actual_price, actual_quantity,
+                                datetime.now().strftime('%Y-%m-%d %H:%M:%S'), 
+                                'open', analysis.get('source', 'combined'),
+                                signal_strength
+                            ),
+                            commit=True
+                        )
+                        
+                        # Record in active positions dictionary
+                        self.active_positions[pair] = {
+                            "id": position_id,
+                            "entry_price": actual_price,
+                            "quantity": actual_quantity,
+                            "entry_time": time.time(),
+                            "position_size": actual_value,
+                            "order_id": order.get('orderId'),
+                            "signal_source": analysis.get('source', 'combined'),
+                            "signal_strength": signal_strength
+                        }
+                        
+                        # Initialize stop loss if needed
+                        await self.initialize_stop_loss(pair, actual_price)
+                        
+                        # Initialize trailing take profit if enabled
+                        if config.ENABLE_TRAILING_TP:
+                            await self.initialize_trailing_take_profit(pair, actual_price)
+                        
+                        # TILFØJ: Mark pair as recently traded for diversification
+                        if hasattr(self, 'asset_selection'):
+                            self.asset_selection.mark_recently_traded(pair)
+                        
+                        logging.info(f"LIVE: Buy order for {pair} executed successfully at ${actual_price:.4f}")
                         return True
                     else:
                         logging.error(f"Buy order failed: {order}")
@@ -1001,11 +1231,9 @@ class HybridTradingBot:
         except Exception as e:
             logging.error(f"Error executing buy for {pair}: {str(e)}")
             return False
-    
- 
-    
+
     async def execute_sell(self, pair, analysis):
-        """Execute a sell order with enhanced tracking"""
+        """Execute a sell order with enhanced tracking and recently traded marking"""
         try:
             if pair not in self.active_positions:
                 logging.warning(f"Cannot sell {pair}: no active position")
@@ -1099,19 +1327,16 @@ class HybridTradingBot:
                 if pair in self.position_scales:
                     del self.position_scales[pair]
                 
-
-                
                 # Remove the position
                 del self.active_positions[pair]
                 
-                # Lige efter 'del self.active_positions[pair]' tilføj:
+                # Update risk manager
                 self.risk_manager.remove_position(pair)
                 
-                logging.info(f"TEST MODE: Simulated sell for {pair} executed successfully")
                 success = True
                 
             else:
-                # Execute real order
+                # Execute real order for live trading
                 try:
                     order = self.binance_client.order_market_sell(
                         symbol=pair,
@@ -1187,10 +1412,10 @@ class HybridTradingBot:
                         # Remove the position
                         del self.active_positions[pair]
 
-                        # Lige efter 'del self.active_positions[pair]' tilføj:
+                        # Update risk manager
                         self.risk_manager.remove_position(pair)
                         
-                        logging.info(f"Sell order for {pair} executed successfully")
+                        logging.info(f"LIVE: Sell order for {pair} executed successfully at ${actual_price:.4f}")
                         success = True
                     else:
                         logging.error(f"Sell order failed: {order}")
@@ -1199,26 +1424,13 @@ class HybridTradingBot:
                     logging.error(f"Error executing sell order: {str(e)}")
                     success = False
             
-            # TRACK RECENTLY TRADED - This is the key addition
+            # RETTET: Improved recently traded tracking
             if success:
-                # Initialize recently_traded if it doesn't exist
-                if not hasattr(self, 'recently_traded'):
-                    self.recently_traded = {}
-                    
-                # Mark this pair as recently traded
-                self.recently_traded[pair] = time.time()
+                # TILFØJ: Mark pair as recently traded using asset_selection method
+                if hasattr(self, 'asset_selection'):
+                    self.asset_selection.mark_recently_traded(pair)
                 
-                # Clean old entries (keep only last hour)
-                current_time = time.time()
-                self.recently_traded = {
-                    p: t for p, t in self.recently_traded.items() 
-                    if current_time - t < 3600  # Keep for 1 hour
-                }
-                
-                # Log recently traded pairs for debugging
-                logging.debug(f"Recently traded pairs: {list(self.recently_traded.keys())}")
-                
-                # Also track profit/loss for this session
+                # Session stats tracking (simplified)
                 if not hasattr(self, 'session_stats'):
                     self.session_stats = {
                         'total_trades': 0,
@@ -1241,25 +1453,42 @@ class HybridTradingBot:
         except Exception as e:
             logging.error(f"Error executing sell for {pair}: {str(e)}")
             return False
-        
+            
 
         
     def calculate_profit_percent(self, pair):
-        """Calculate current profit percentage for a position"""
-        if pair not in self.active_positions:
-            return 0
-            
-        position = self.active_positions[pair]
-        entry_price = position['entry_price']
-        
-        # Get current price
+        """FIXED: Calculate profit percentage with safe error handling"""
         try:
-            ticker = self.binance_client.get_symbol_ticker(symbol=pair)
-            current_price = float(ticker['price'])
+            if pair not in self.active_positions:
+                return 0
+                
+            position = self.active_positions[pair]
+            entry_price = position.get('entry_price', 0)
             
-            profit_percent = ((current_price / entry_price) - 1) * 100
-            return profit_percent
-        except:
+            if entry_price <= 0:
+                logging.warning(f"Invalid entry price for {pair}: {entry_price}")
+                return 0
+            
+            # Get current price safely
+            try:
+                ticker = self.binance_client.get_symbol_ticker(symbol=pair)
+                if ticker and isinstance(ticker, dict) and 'price' in ticker:
+                    current_price = float(ticker['price'])
+                    if current_price > 0:
+                        profit_percent = ((current_price / entry_price) - 1) * 100
+                        return profit_percent
+                    else:
+                        logging.warning(f"Invalid current price for {pair}: {current_price}")
+                        return 0
+                else:
+                    logging.warning(f"Invalid ticker for {pair}: {ticker}")
+                    return 0
+            except Exception as price_e:
+                logging.error(f"Error getting current price for profit calculation {pair}: {str(price_e)}")
+                return 0
+                
+        except Exception as e:
+            logging.error(f"Error calculating profit for {pair}: {str(e)}")
             return 0
     
     async def monitor_positions(self):

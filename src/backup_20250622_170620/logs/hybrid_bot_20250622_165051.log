@@ -1,0 +1,156 @@
+2025-06-22 16:50:52,385 - INFO - CoinGecko initialiseret - Gratis tier
+2025-06-22 16:50:52,759 - INFO - CoinGecko API connected: (V3) To the Moon!
+2025-06-22 16:50:52,760 - INFO - CoinGecko AI klient initialiseret succesfuldt
+2025-06-22 16:50:52,760 - INFO - CoinGecko AI client initialized
+2025-06-22 16:50:52,891 - INFO - Database initialization complete
+2025-06-22 16:50:52,904 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN take_profit_pct REAL
+2025-06-22 16:50:52,916 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN stop_loss_pct REAL
+2025-06-22 16:50:52,929 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN is_new_asset INTEGER DEFAULT 0
+2025-06-22 16:50:52,941 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN exit_price REAL
+2025-06-22 16:50:52,953 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN exit_time TEXT
+2025-06-22 16:50:52,966 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN profit_loss REAL
+2025-06-22 16:50:52,977 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN signal_source TEXT
+2025-06-22 16:50:52,989 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN signal_strength REAL
+2025-06-22 16:50:53,012 - INFO - Schema update applied: ALTER TABLE trades ADD COLUMN signal_source TEXT
+2025-06-22 16:50:53,024 - INFO - Schema update applied: ALTER TABLE trades ADD COLUMN signal_strength REAL
+2025-06-22 16:50:53,024 - INFO - Database schema updated successfully with 10 changes
+2025-06-22 16:50:53,038 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-06-22 16:50:53,038 - INFO - Advanced indicators initialized with Taapi.io
+2025-06-22 16:50:53,038 - INFO - Advanced indicators initialized successfully
+2025-06-22 16:50:53,038 - INFO - Risk Manager initialized with equity protection: Warning at 2.0%, Risk Reduction at 3.0%, High Alert at 5.0%, Emergency at 8.0%
+2025-06-22 16:50:53,038 - INFO - Hybrid Trading Bot initialized with 1000.00 equity
+2025-06-22 16:50:53,039 - INFO - Mode: TEST trading
+2025-06-22 16:50:53,039 - INFO - AI Provider: CoinGecko
+2025-06-22 16:50:53,039 - INFO - Advanced Indicators: Taapi.io
+2025-06-22 16:50:53,040 - INFO - Testing API connections...
+2025-06-22 16:50:53,279 - INFO - Binance server time: 2025-06-22 16:50:58.800000
+2025-06-22 16:50:53,544 - INFO - CoinGecko AI connection successful: -0.32873736814704085
+2025-06-22 16:50:53,545 - INFO - Preloading historical data for analysis...
+2025-06-22 16:50:53,545 - INFO - Preloading historical data for analysis...
+2025-06-22 16:50:53,545 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-06-22 16:50:54,945 - INFO - Found trending pairs: VANAUSDT, APTUSDT, WCTUSDT, SEIUSDT, ONDOUSDT...
+2025-06-22 16:50:54,947 - INFO - Preloading data for pairs: WCTUSDT, NEIROUSDT, RENDERUSDT, BTCUSDT, VANAUSDT
+2025-06-22 16:51:28,187 - INFO - Preloading data for pairs: CRVUSDT, ONDOUSDT, APTUSDT, NXPCUSDT, BABYUSDT
+2025-06-22 16:52:04,329 - INFO - Preloading data for pairs: SEIUSDT, TAOUSDT, HBARUSDT, ENSUSDT, ENAUSDT
+2025-06-22 16:52:39,400 - INFO - Preloading data for pairs: RSRUSDT, BNBUSDT, INITUSDT, JUPUSDT, SOLUSDT
+2025-06-22 16:53:15,387 - INFO - Preloading data for pairs: ADAUSDT, DYDXUSDT, ETHUSDT, TRBUSDT
+2025-06-22 16:53:45,682 - INFO - Historical data preloading complete
+2025-06-22 16:53:55,017 - INFO - Updating correlation matrix...
+2025-06-22 16:53:55,018 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/5 ($0.00, 0.0% of equity)
+2025-06-22 16:53:55,101 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 16:53:55,120 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0,
+    "avg_daily_return_pct": 0,
+    "avg_weekly_return_pct": 0
+  },
+  "trades": {
+    "total": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "profit_factor": 0,
+    "avg_profit": 0,
+    "avg_loss": 0,
+    "expected_value": 0,
+    "recent_win_rate_pct": 0
+  },
+  "pairs": {
+    "best_pair": "None",
+    "best_pair_profit": 0,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-06-22 16:53:55"
+}
+2025-06-22 16:57:15,513 - INFO - Successfully gathered price data for 41/41 pairs
+2025-06-22 16:57:15,627 - INFO - Correlation matrix updated for 41 pairs
+2025-06-22 16:57:24,529 - INFO - Market regime changed: NEUTRAL -> BEAR_TRENDING
+2025-06-22 16:57:24,529 - INFO - Market state: Regime=BEAR_TRENDING, Trend=bearish, Volatility=low, Breadth=0.00
+2025-06-22 16:57:24,530 - INFO - Top opportunities found: ['BTCUSDT', 'ETHUSDT', 'GPSUSDT', 'PAXGUSDT']
+2025-06-22 16:57:24,530 - INFO - Fetching top 30 trending cryptocurrency pairs
+2025-06-22 16:57:25,904 - INFO - Found trending pairs: WCTUSDT, VANAUSDT, APTUSDT, SEIUSDT, ENAUSDT...
+2025-06-22 16:57:27,321 - INFO - Selected optimal assets: WCTUSDT, NEIROUSDT, VANAUSDT, ONDOUSDT, APTUSDT... (15 total)
+2025-06-22 16:57:27,322 - INFO - High priority opportunities: BTCUSDT, ETHUSDT
+2025-06-22 16:57:27,683 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: -0.13, whale: 0.00, smart money: bullish
+2025-06-22 16:57:40,488 - INFO - CoinGecko insights for BTC: neutral (0.50 confidence), sentiment: -0.13, whale: 0.00, smart money: bullish
+2025-06-22 16:57:40,488 - INFO - CoinGecko insights for ONDO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 16:57:44,070 - INFO - CoinGecko insights for NEIRO: neutral (0.50 confidence), sentiment: 0.00, whale: -0.30, smart money: neutral
+2025-06-22 16:57:48,961 - INFO - CoinGecko insights for VANA: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 16:57:54,816 - INFO - CoinGecko insights for APT: bearish (0.65 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 16:57:59,280 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 16:58:05,081 - INFO - CoinGecko insights for ETH: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 16:58:10,689 - INFO - BTCUSDT analysis: SELL signal with 0.54 strength
+2025-06-22 16:58:10,690 - INFO - ONDOUSDT analysis: SELL signal with 0.57 strength
+2025-06-22 16:58:10,690 - INFO - NEIROUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 16:58:10,690 - INFO - VANAUSDT analysis: SELL signal with 0.43 strength
+2025-06-22 16:58:10,691 - INFO - APTUSDT analysis: SELL signal with 0.40 strength
+2025-06-22 16:58:15,089 - INFO - WCTUSDT analysis: SELL signal with 0.42 strength
+2025-06-22 16:58:20,695 - INFO - ETHUSDT analysis: SELL signal with 0.57 strength
+2025-06-22 16:58:20,696 - INFO - Trading cycle completed in 265.68 seconds
+2025-06-22 16:58:35,707 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/5 ($0.00, 0.0% of equity)
+2025-06-22 16:58:35,708 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 17:01:22,536 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0.0,
+    "avg_daily_return_pct": NaN,
+    "avg_weekly_return_pct": NaN
+  },
+  "trades": {
+    "total": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "profit_factor": 0,
+    "avg_profit": 0,
+    "avg_loss": 0,
+    "expected_value": 0,
+    "recent_win_rate_pct": 0
+  },
+  "pairs": {
+    "best_pair": "None",
+    "best_pair_profit": 0,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-06-22 17:01:22"
+}
+2025-06-22 17:01:27,286 - INFO - Top opportunities found: ['PAXGUSDT']
+2025-06-22 17:01:27,548 - INFO - Selected optimal assets: WCTUSDT, NEIROUSDT, VANAUSDT, ONDOUSDT, APTUSDT... (15 total)
+2025-06-22 17:01:27,549 - INFO - CoinGecko insights for NEIRO: bearish (0.65 confidence), sentiment: -0.36, whale: -0.30, smart money: bearish
+2025-06-22 17:01:32,010 - INFO - CoinGecko insights for APT: bearish (0.65 confidence), sentiment: -0.36, whale: 0.10, smart money: neutral
+2025-06-22 17:01:36,008 - INFO - CoinGecko insights for NEIRO: bearish (0.65 confidence), sentiment: -0.36, whale: -0.30, smart money: bearish
+2025-06-22 17:01:36,009 - INFO - CoinGecko insights for APT: bearish (0.65 confidence), sentiment: -0.36, whale: 0.10, smart money: neutral
+2025-06-22 17:01:36,009 - INFO - NEIROUSDT analysis: SELL signal with 0.53 strength
+2025-06-22 17:01:36,009 - INFO - APTUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 17:01:37,565 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 17:01:42,923 - INFO - CoinGecko insights for VANA: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 17:01:47,829 - INFO - CoinGecko insights for ONDO: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 17:01:53,937 - INFO - WCTUSDT analysis: SELL signal with 0.43 strength
+2025-06-22 17:01:57,836 - INFO - VANAUSDT analysis: SELL signal with 0.43 strength
+2025-06-22 17:02:03,706 - INFO - ONDOUSDT analysis: SELL signal with 0.45 strength
+2025-06-22 17:02:03,706 - INFO - Trading cycle completed in 208.00 seconds
+2025-06-22 17:02:18,722 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/5 ($0.00, 0.0% of equity)
+2025-06-22 17:02:18,724 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 17:05:03,722 - INFO - Top opportunities found: ['FUNUSDT', 'LPTUSDT', 'PEPEUSDT', 'PAXGUSDT']
+2025-06-22 17:05:04,215 - INFO - Selected optimal assets: TUSDT, FUNUSDT, WCTUSDT, NEIROUSDT, VANAUSDT... (15 total)
+2025-06-22 17:05:13,820 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 17:05:17,808 - INFO - CoinGecko insights for NEIRO: bearish (0.65 confidence), sentiment: 0.00, whale: -0.30, smart money: neutral
+2025-06-22 17:05:21,796 - INFO - CoinGecko insights for VANA: neutral (0.50 confidence), sentiment: 0.00, whale: 0.10, smart money: neutral
+2025-06-22 17:05:27,191 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 17:05:31,654 - INFO - CoinGecko insights for T: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 17:05:37,952 - INFO - WCTUSDT analysis: SELL signal with 0.41 strength
+2025-06-22 17:05:37,952 - INFO - NEIROUSDT analysis: SELL signal with 0.41 strength
+2025-06-22 17:05:37,952 - INFO - VANAUSDT analysis: SELL signal with 0.45 strength
+2025-06-22 17:05:41,656 - INFO - FUNUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 17:05:47,955 - INFO - TUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 17:05:47,956 - INFO - Trading cycle completed in 209.23 seconds
+2025-06-22 17:06:02,969 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/5 ($0.00, 0.0% of equity)
+2025-06-22 17:06:02,970 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 17:06:16,871 - INFO - Bot stopped by user

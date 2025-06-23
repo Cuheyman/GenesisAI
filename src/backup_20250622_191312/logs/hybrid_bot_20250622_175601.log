@@ -1,0 +1,499 @@
+2025-06-22 17:56:02,672 - INFO - CoinGecko initialiseret - Gratis tier
+2025-06-22 17:56:02,931 - WARNING - CoinGecko API returned status 429
+2025-06-22 17:56:02,933 - INFO - CoinGecko AI klient initialiseret succesfuldt
+2025-06-22 17:56:02,933 - INFO - CoinGecko AI client initialized
+2025-06-22 17:56:03,017 - INFO - Database initialization complete
+2025-06-22 17:56:03,030 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN take_profit_pct REAL
+2025-06-22 17:56:03,042 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN stop_loss_pct REAL
+2025-06-22 17:56:03,053 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN is_new_asset INTEGER DEFAULT 0
+2025-06-22 17:56:03,064 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN exit_price REAL
+2025-06-22 17:56:03,076 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN exit_time TEXT
+2025-06-22 17:56:03,088 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN profit_loss REAL
+2025-06-22 17:56:03,099 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN signal_source TEXT
+2025-06-22 17:56:03,110 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN signal_strength REAL
+2025-06-22 17:56:03,121 - INFO - Schema update applied: ALTER TABLE trades ADD COLUMN signal_source TEXT
+2025-06-22 17:56:03,132 - INFO - Schema update applied: ALTER TABLE trades ADD COLUMN signal_strength REAL
+2025-06-22 17:56:03,133 - INFO - Database schema updated successfully with 10 changes
+2025-06-22 17:56:03,147 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-06-22 17:56:03,148 - INFO - Advanced indicators initialized with Taapi.io
+2025-06-22 17:56:03,148 - INFO - Advanced indicators initialized successfully
+2025-06-22 17:56:03,148 - INFO - Risk Manager initialized with equity protection: Warning at 2.0%, Risk Reduction at 3.0%, High Alert at 5.0%, Emergency at 8.0%
+2025-06-22 17:56:03,149 - INFO - Hybrid Trading Bot initialized with 1000.00 equity
+2025-06-22 17:56:03,149 - INFO - Mode: TEST trading
+2025-06-22 17:56:03,149 - INFO - AI Provider: CoinGecko
+2025-06-22 17:56:03,149 - INFO - Advanced Indicators: Taapi.io
+2025-06-22 17:56:03,150 - INFO - Testing API connections...
+2025-06-22 17:56:03,842 - INFO - Binance server time: 2025-06-22 17:56:09.377000
+2025-06-22 17:56:04,096 - INFO - CoinGecko AI connection successful: 0
+2025-06-22 17:56:04,096 - INFO - Preloading historical data for analysis...
+2025-06-22 17:56:04,096 - INFO - Preloading historical data for analysis...
+2025-06-22 17:56:04,097 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-06-22 17:56:05,518 - INFO - Found trending pairs: WCTUSDT, SEIUSDT, VANAUSDT, ENAUSDT, ONDOUSDT...
+2025-06-22 17:56:05,520 - INFO - Preloading data for pairs: WCTUSDT, RSRUSDT, TAOUSDT, TRBUSDT, INITUSDT
+2025-06-22 17:56:41,808 - INFO - Preloading data for pairs: FUNUSDT, APTUSDT, UNIUSDT, VANAUSDT, SOLUSDT
+2025-06-22 17:57:20,273 - INFO - Preloading data for pairs: ENAUSDT, ADAUSDT, ONDOUSDT, BTCUSDT, RENDERUSDT
+2025-06-22 17:57:56,942 - INFO - Preloading data for pairs: BNBUSDT, DYDXUSDT, BABYUSDT, NEIROUSDT, JUPUSDT
+2025-06-22 17:58:32,432 - INFO - Preloading data for pairs: ENSUSDT, SEIUSDT, ETHUSDT, NXPCUSDT
+2025-06-22 17:59:01,095 - INFO - Historical data preloading complete
+2025-06-22 17:59:09,523 - INFO - Updating correlation matrix...
+2025-06-22 17:59:09,524 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/10 ($0.00, 0.0% of equity)
+2025-06-22 17:59:09,540 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 17:59:09,577 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0,
+    "avg_daily_return_pct": 0,
+    "avg_weekly_return_pct": 0
+  },
+  "trades": {
+    "total": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "profit_factor": 0,
+    "avg_profit": 0,
+    "avg_loss": 0,
+    "expected_value": 0,
+    "recent_win_rate_pct": 0
+  },
+  "pairs": {
+    "best_pair": "None",
+    "best_pair_profit": 0,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-06-22 17:59:09"
+}
+2025-06-22 18:02:34,759 - INFO - Successfully gathered price data for 41/41 pairs
+2025-06-22 18:02:34,865 - INFO - Correlation matrix updated for 41 pairs
+2025-06-22 18:02:43,781 - INFO - Market regime changed: NEUTRAL -> BEAR_TRENDING
+2025-06-22 18:02:43,781 - INFO - Market state: Regime=BEAR_TRENDING, Trend=bearish, Volatility=low, Breadth=0.00
+2025-06-22 18:02:43,782 - INFO - Fetching top 30 trending cryptocurrency pairs
+2025-06-22 18:02:44,734 - INFO - Found trending pairs: WCTUSDT, VANAUSDT, SEIUSDT, ENAUSDT, ONDOUSDT...
+2025-06-22 18:02:46,136 - INFO - Selected optimal assets: WCTUSDT, RSRUSDT, INITUSDT, APTUSDT, VANAUSDT... (15 total)
+2025-06-22 18:02:55,836 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:03:00,727 - INFO - CoinGecko insights for VANA: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:03:05,174 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:03:10,497 - INFO - CoinGecko insights for RSR: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:03:18,496 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:03:24,626 - INFO - APTUSDT analysis: SELL signal with 0.59 strength
+2025-06-22 18:03:24,627 - INFO - VANAUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:03:24,627 - INFO - INITUSDT analysis: SELL signal with 0.47 strength
+2025-06-22 18:03:28,502 - INFO - RSRUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:03:34,629 - INFO - WCTUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:03:34,630 - INFO - Trading cycle completed in 265.11 seconds
+2025-06-22 18:03:49,638 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/10 ($0.00, 0.0% of equity)
+2025-06-22 18:03:49,639 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 18:06:26,347 - INFO - Top opportunities found: ['FUNUSDT']
+2025-06-22 18:06:27,763 - INFO - Selected optimal assets: WCTUSDT, RSRUSDT, INITUSDT, FUNUSDT, APTUSDT... (15 total)
+2025-06-22 18:06:27,800 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0.0,
+    "avg_daily_return_pct": NaN,
+    "avg_weekly_return_pct": NaN
+  },
+  "trades": {
+    "total": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "profit_factor": 0,
+    "avg_profit": 0,
+    "avg_loss": 0,
+    "expected_value": 0,
+    "recent_win_rate_pct": 0
+  },
+  "pairs": {
+    "best_pair": "None",
+    "best_pair_profit": 0,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-06-22 18:06:27"
+}
+2025-06-22 18:06:28,407 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:06:34,239 - INFO - CoinGecko insights for APT: bearish (0.65 confidence), sentiment: -0.37, whale: 0.10, smart money: neutral
+2025-06-22 18:06:39,645 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:06:44,084 - INFO - CoinGecko insights for RSR: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:06:49,001 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:06:54,083 - INFO - INITUSDT analysis: SELL signal with 0.47 strength
+2025-06-22 18:06:54,084 - INFO - APTUSDT analysis: SELL signal with 0.46 strength
+2025-06-22 18:06:54,084 - INFO - WCTUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:06:59,005 - INFO - RSRUSDT analysis: SELL signal with 0.61 strength
+2025-06-22 18:07:03,489 - INFO - FUNUSDT analysis: BUY signal with 0.45 strength
+2025-06-22 18:07:03,490 - INFO - NORMAL MODE: Approved position for FUNUSDT - Size: $60.00, Signal: 0.45
+2025-06-22 18:07:04,890 - INFO - DYNAMIC BUY: FUNUSDT - Qty: 7927.0, Price: $0.0076, Value: $60.00, Signal: 0.45
+2025-06-22 18:07:04,919 - INFO - Stop loss for FUNUSDT initialized at 0.007380 (2.5% below entry)
+2025-06-22 18:07:04,919 - INFO - Trailing take profit for FUNUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-22 18:07:04,920 - INFO - TEST MODE: Simulated buy for FUNUSDT executed successfully
+2025-06-22 18:07:04,920 - INFO - Trading cycle completed in 195.28 seconds
+2025-06-22 18:07:21,071 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/10 ($60.00, 6.0% of equity)
+2025-06-22 18:07:21,072 - INFO - Active positions: FUN:+0.0%
+2025-06-22 18:07:21,072 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 18:10:14,599 - INFO - Top opportunities found: ['FUNUSDT']
+2025-06-22 18:10:15,077 - INFO - Selected optimal assets: WCTUSDT, RSRUSDT, INITUSDT, APTUSDT, VANAUSDT... (15 total)
+2025-06-22 18:10:26,741 - INFO - CoinGecko insights for APT: bearish (0.65 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:10:30,748 - INFO - CoinGecko insights for VANA: neutral (0.50 confidence), sentiment: -0.51, whale: 0.10, smart money: neutral
+2025-06-22 18:10:35,219 - INFO - CoinGecko insights for RSR: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:10:40,601 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:10:45,957 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:10:49,736 - INFO - APTUSDT analysis: SELL signal with 0.46 strength
+2025-06-22 18:10:49,736 - INFO - VANAUSDT analysis: SELL signal with 0.61 strength
+2025-06-22 18:10:50,609 - INFO - RSRUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:10:55,958 - INFO - INITUSDT analysis: SELL signal with 0.46 strength
+2025-06-22 18:10:59,514 - INFO - WCTUSDT analysis: SELL signal with 0.60 strength
+2025-06-22 18:10:59,515 - INFO - Trading cycle completed in 218.45 seconds
+2025-06-22 18:11:14,522 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/10 ($60.00, 6.0% of equity)
+2025-06-22 18:11:14,523 - INFO - Active positions: FUN:-0.5%
+2025-06-22 18:11:14,524 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 18:13:41,078 - INFO - Stop loss triggered for FUNUSDT at -1.70%
+2025-06-22 18:13:41,078 - INFO - SELL ORDER: FUNUSDT - 7927.0 at approx. $0.00744, P/L: $-1.02 (-1.70%)
+2025-06-22 18:13:41,142 - INFO - Session stats: 1 trades, 0.0% win rate, $-1.02 profit
+2025-06-22 18:13:59,045 - INFO - Top opportunities found: ['SUIUSDT', 'FUNUSDT']
+2025-06-22 18:13:59,538 - INFO - Selected optimal assets: WCTUSDT, RSRUSDT, INITUSDT, APTUSDT, VANAUSDT... (15 total)
+2025-06-22 18:13:59,539 - INFO - High priority opportunities: SUIUSDT
+2025-06-22 18:13:59,540 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:14:03,517 - INFO - CoinGecko insights for APT: bearish (0.65 confidence), sentiment: -0.41, whale: 0.10, smart money: neutral
+2025-06-22 18:14:08,901 - INFO - CoinGecko insights for VANA: bearish (0.65 confidence), sentiment: -0.51, whale: 0.10, smart money: bearish
+2025-06-22 18:14:15,964 - INFO - CoinGecko insights for SUI: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:14:21,336 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:14:26,694 - INFO - CoinGecko insights for RSR: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:14:32,528 - INFO - INITUSDT analysis: SELL signal with 0.47 strength
+2025-06-22 18:14:32,528 - INFO - APTUSDT analysis: SELL signal with 0.47 strength
+2025-06-22 18:14:32,528 - INFO - VANAUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:14:32,529 - INFO - SUIUSDT analysis: SELL signal with 0.61 strength
+2025-06-22 18:14:36,709 - INFO - WCTUSDT analysis: SELL signal with 0.55 strength
+2025-06-22 18:14:42,537 - INFO - RSRUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:14:42,538 - INFO - Trading cycle completed in 208.02 seconds
+2025-06-22 18:14:57,542 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/10 ($0.00, 0.0% of equity)
+2025-06-22 18:14:57,543 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 18:17:51,436 - INFO - Top opportunities found: ['FUNUSDT']
+2025-06-22 18:17:52,856 - INFO - Selected optimal assets: WCTUSDT, RSRUSDT, INITUSDT, APTUSDT, VANAUSDT... (15 total)
+2025-06-22 18:17:52,857 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:17:57,314 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:17:57,315 - INFO - INITUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:18:02,589 - INFO - CoinGecko insights for VANA: neutral (0.50 confidence), sentiment: -0.52, whale: 0.10, smart money: bearish
+2025-06-22 18:18:07,501 - INFO - CoinGecko insights for RSR: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:18:11,969 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:18:16,878 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:18:21,791 - INFO - VANAUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:18:21,792 - INFO - CoinGecko insights for APT: bearish (0.65 confidence), sentiment: -0.37, whale: 0.10, smart money: neutral
+2025-06-22 18:18:21,793 - INFO - APTUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:18:21,980 - INFO - RSRUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:18:24,679 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:18:24,679 - INFO - WCTUSDT analysis: SELL signal with 0.45 strength
+2025-06-22 18:18:24,680 - INFO - Trading cycle completed in 207.14 seconds
+2025-06-22 18:18:39,687 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/10 ($0.00, 0.0% of equity)
+2025-06-22 18:18:39,688 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 18:18:49,693 - ERROR - Error detecting volume surges: HTTPSConnectionPool(host='testnet.binance.vision', port=443): Read timed out. (read timeout=10)
+2025-06-22 18:21:35,964 - INFO - Top opportunities found: ['GPSUSDT', 'FUNUSDT']
+2025-06-22 18:21:36,901 - INFO - Selected optimal assets: WCTUSDT, RSRUSDT, INITUSDT, APTUSDT, VANAUSDT... (15 total)
+2025-06-22 18:21:36,903 - INFO - CoinGecko insights for APT: bearish (0.65 confidence), sentiment: -0.37, whale: 0.10, smart money: neutral
+2025-06-22 18:21:40,940 - INFO - CoinGecko insights for VANA: bearish (0.65 confidence), sentiment: -0.52, whale: 0.10, smart money: bearish
+2025-06-22 18:21:49,079 - INFO - CoinGecko insights for APT: bearish (0.65 confidence), sentiment: -0.37, whale: 0.10, smart money: neutral
+2025-06-22 18:21:49,079 - INFO - CoinGecko insights for VANA: bearish (0.65 confidence), sentiment: -0.52, whale: 0.10, smart money: bearish
+2025-06-22 18:21:49,079 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:21:54,450 - INFO - CoinGecko insights for RSR: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:21:57,567 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:22:04,333 - INFO - APTUSDT analysis: SELL signal with 0.60 strength
+2025-06-22 18:22:04,333 - INFO - VANAUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:22:04,334 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:22:04,334 - INFO - INITUSDT analysis: SELL signal with 0.60 strength
+2025-06-22 18:22:07,581 - INFO - RSRUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:22:11,101 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:22:11,102 - INFO - WCTUSDT analysis: SELL signal with 0.54 strength
+2025-06-22 18:22:11,102 - INFO - Trading cycle completed in 211.42 seconds
+2025-06-22 18:22:26,110 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/10 ($0.00, 0.0% of equity)
+2025-06-22 18:22:26,111 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 18:25:11,814 - INFO - Top opportunities found: ['GPSUSDT']
+2025-06-22 18:25:12,297 - INFO - Selected optimal assets: WCTUSDT, RSRUSDT, INITUSDT, APTUSDT, VANAUSDT... (15 total)
+2025-06-22 18:25:12,299 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:25:22,924 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:25:22,925 - INFO - CoinGecko insights for RSR: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:25:28,311 - INFO - CoinGecko insights for VANA: neutral (0.50 confidence), sentiment: -0.52, whale: 0.00, smart money: bearish
+2025-06-22 18:25:33,709 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: -0.38, whale: 0.10, smart money: neutral
+2025-06-22 18:25:37,700 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:25:42,160 - INFO - INITUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:25:42,161 - INFO - RSRUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:25:42,161 - INFO - CoinGecko insights for VANA: bearish (0.65 confidence), sentiment: -0.52, whale: 0.10, smart money: bearish
+2025-06-22 18:25:42,162 - INFO - CoinGecko insights for APT: bearish (0.65 confidence), sentiment: -0.38, whale: 0.10, smart money: neutral
+2025-06-22 18:25:42,162 - INFO - VANAUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:25:42,162 - INFO - APTUSDT analysis: SELL signal with 0.61 strength
+2025-06-22 18:25:44,997 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:25:44,997 - INFO - WCTUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:25:44,998 - INFO - Trading cycle completed in 198.89 seconds
+2025-06-22 18:26:00,010 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/10 ($0.00, 0.0% of equity)
+2025-06-22 18:26:00,012 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 18:28:43,075 - INFO - Top opportunities found: ['GPSUSDT']
+2025-06-22 18:28:44,473 - INFO - Selected optimal assets: WCTUSDT, RSRUSDT, INITUSDT, APTUSDT, VANAUSDT... (15 total)
+2025-06-22 18:28:44,475 - INFO - CoinGecko insights for APT: bearish (0.65 confidence), sentiment: -0.38, whale: 0.10, smart money: neutral
+2025-06-22 18:28:48,496 - INFO - CoinGecko insights for VANA: bearish (0.65 confidence), sentiment: -0.52, whale: 0.10, smart money: bearish
+2025-06-22 18:28:58,027 - INFO - CoinGecko insights for APT: bearish (0.65 confidence), sentiment: -0.38, whale: 0.10, smart money: neutral
+2025-06-22 18:28:58,027 - INFO - CoinGecko insights for VANA: bearish (0.65 confidence), sentiment: -0.52, whale: 0.10, smart money: bearish
+2025-06-22 18:28:58,028 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:29:02,511 - INFO - CoinGecko insights for RSR: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:29:07,870 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:29:13,268 - INFO - APTUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:29:13,268 - INFO - VANAUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:29:13,269 - INFO - INITUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:29:17,883 - INFO - RSRUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:29:20,618 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:29:20,618 - INFO - WCTUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:29:20,619 - INFO - Trading cycle completed in 200.61 seconds
+2025-06-22 18:29:35,625 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/10 ($0.00, 0.0% of equity)
+2025-06-22 18:29:35,627 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 18:32:16,380 - INFO - Top opportunities found: ['GPSUSDT']
+2025-06-22 18:32:17,801 - INFO - Selected optimal assets: WCTUSDT, RSRUSDT, INITUSDT, FUNUSDT, APTUSDT... (15 total)
+2025-06-22 18:32:17,803 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:32:27,450 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:32:27,450 - INFO - CoinGecko insights for RSR: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:32:31,939 - INFO - CoinGecko insights for APT: bearish (0.65 confidence), sentiment: 0.00, whale: 0.10, smart money: neutral
+2025-06-22 18:32:37,810 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:32:42,286 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:32:46,299 - INFO - INITUSDT analysis: SELL signal with 0.47 strength
+2025-06-22 18:32:54,723 - INFO - Updating correlation matrix...
+2025-06-22 18:32:54,724 - INFO - RSRUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:33:33,925 - INFO - APTUSDT analysis: SELL signal with 0.59 strength
+2025-06-22 18:33:33,926 - INFO - Successfully gathered price data for 41/41 pairs
+2025-06-22 18:33:34,033 - INFO - Correlation matrix updated for 41 pairs
+2025-06-22 18:33:43,332 - INFO - Market state: Regime=BEAR_TRENDING, Trend=bearish, Volatility=low, Breadth=0.00
+2025-06-22 18:33:43,332 - INFO - FUNUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 18:33:43,390 - INFO - WCTUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:33:43,391 - INFO - Trading cycle completed in 247.77 seconds
+2025-06-22 18:33:58,396 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/10 ($0.00, 0.0% of equity)
+2025-06-22 18:33:58,397 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 18:36:46,561 - INFO - Top opportunities found: ['GPSUSDT', 'FUNUSDT']
+2025-06-22 18:36:47,505 - INFO - Selected optimal assets: FUNUSDT, WCTUSDT, RSRUSDT, INITUSDT, APTUSDT... (15 total)
+2025-06-22 18:36:47,899 - INFO - CoinGecko insights for APT: bearish (0.65 confidence), sentiment: -0.37, whale: 0.10, smart money: neutral
+2025-06-22 18:36:53,309 - INFO - CoinGecko insights for APT: bearish (0.65 confidence), sentiment: -0.37, whale: 0.10, smart money: neutral
+2025-06-22 18:36:53,310 - INFO - APTUSDT analysis: SELL signal with 0.47 strength
+2025-06-22 18:36:57,509 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:37:02,412 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:37:06,452 - INFO - CoinGecko insights for RSR: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:37:11,794 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:37:17,518 - INFO - FUNUSDT analysis: BUY signal with 0.38 strength
+2025-06-22 18:37:17,518 - INFO - NORMAL MODE: Approved position for FUNUSDT - Size: $50.00, Signal: 0.38
+2025-06-22 18:37:18,482 - INFO - DYNAMIC BUY: FUNUSDT - Qty: 5348.0, Price: $0.0075, Value: $40.00, Signal: 0.38
+2025-06-22 18:37:18,539 - INFO - Stop loss for FUNUSDT initialized at 0.007292 (2.5% below entry)
+2025-06-22 18:37:18,539 - INFO - Trailing take profit for FUNUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-22 18:37:18,539 - INFO - TEST MODE: Simulated buy for FUNUSDT executed successfully
+2025-06-22 18:37:18,540 - INFO - WCTUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:37:21,807 - INFO - RSRUSDT analysis: SELL signal with 0.61 strength
+2025-06-22 18:37:27,127 - INFO - INITUSDT analysis: SELL signal with 0.47 strength
+2025-06-22 18:37:27,128 - INFO - Trading cycle completed in 208.73 seconds
+2025-06-22 18:37:42,138 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/10 ($40.00, 4.0% of equity)
+2025-06-22 18:37:42,138 - INFO - Active positions: FUN:+0.0%
+2025-06-22 18:37:42,139 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 18:40:24,139 - INFO - Top opportunities found: ['BNBUSDT', 'FUNUSDT', 'BTCUSDT', 'SOLUSDT']
+2025-06-22 18:40:25,543 - INFO - Selected optimal assets: WCTUSDT, RSRUSDT, INITUSDT, APTUSDT, VANAUSDT... (15 total)
+2025-06-22 18:40:25,544 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:40:30,033 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:40:30,033 - INFO - INITUSDT analysis: SELL signal with 0.46 strength
+2025-06-22 18:40:35,179 - INFO - CoinGecko insights for RSR: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:40:40,583 - INFO - CoinGecko insights for VANA: bearish (0.65 confidence), sentiment: -0.51, whale: 0.10, smart money: neutral
+2025-06-22 18:40:44,585 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:40:49,028 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:40:53,248 - INFO - RSRUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:40:53,248 - INFO - CoinGecko insights for VANA: bearish (0.65 confidence), sentiment: -0.51, whale: 0.10, smart money: bearish
+2025-06-22 18:40:53,248 - INFO - VANAUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:40:58,251 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:40:58,251 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:40:58,251 - INFO - WCTUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:40:58,251 - INFO - APTUSDT analysis: SELL signal with 0.45 strength
+2025-06-22 18:40:58,251 - INFO - Trading cycle completed in 196.12 seconds
+2025-06-22 18:41:13,265 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/10 ($40.00, 4.0% of equity)
+2025-06-22 18:41:13,266 - INFO - Active positions: FUN:-0.4%
+2025-06-22 18:41:13,266 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 18:43:57,829 - INFO - Top opportunities found: ['GPSUSDT', 'FUNUSDT']
+2025-06-22 18:43:59,224 - INFO - Selected optimal assets: WCTUSDT, RSRUSDT, INITUSDT, APTUSDT, VANAUSDT... (15 total)
+2025-06-22 18:43:59,225 - INFO - CoinGecko insights for VANA: bearish (0.65 confidence), sentiment: -0.51, whale: 0.10, smart money: bearish
+2025-06-22 18:44:03,205 - INFO - CoinGecko insights for VANA: bearish (0.65 confidence), sentiment: -0.51, whale: 0.10, smart money: bearish
+2025-06-22 18:44:03,205 - INFO - VANAUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:44:10,295 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.10, smart money: neutral
+2025-06-22 18:44:14,759 - INFO - CoinGecko insights for RSR: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:44:19,210 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:44:23,188 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:44:29,232 - INFO - APTUSDT analysis: SELL signal with 0.47 strength
+2025-06-22 18:44:29,233 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:44:29,233 - INFO - INITUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:44:29,233 - INFO - RSRUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:44:32,402 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:44:32,403 - INFO - WCTUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:44:32,403 - INFO - Trading cycle completed in 199.14 seconds
+2025-06-22 18:44:47,407 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/10 ($40.00, 4.0% of equity)
+2025-06-22 18:44:47,408 - INFO - Active positions: FUN:+0.1%
+2025-06-22 18:44:47,409 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 18:47:30,727 - INFO - Top opportunities found: ['ADAUSDT', 'FUNUSDT']
+2025-06-22 18:47:31,672 - INFO - Selected optimal assets: FUNUSDT, WCTUSDT, RSRUSDT, INITUSDT, APTUSDT... (15 total)
+2025-06-22 18:47:31,673 - INFO - High priority opportunities: ADAUSDT
+2025-06-22 18:47:31,674 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:47:37,504 - INFO - CoinGecko insights for APT: bearish (0.65 confidence), sentiment: -0.36, whale: 0.10, smart money: neutral
+2025-06-22 18:47:48,145 - INFO - CoinGecko insights for ADA: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:47:53,055 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:47:57,539 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:48:01,989 - INFO - CoinGecko insights for RSR: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:48:06,709 - INFO - INITUSDT analysis: SELL signal with 0.47 strength
+2025-06-22 18:48:06,710 - INFO - APTUSDT analysis: SELL signal with 0.47 strength
+2025-06-22 18:48:06,710 - INFO - ADAUSDT analysis: SELL signal with 0.47 strength
+2025-06-22 18:48:07,541 - INFO - FUNUSDT analysis: BUY signal with 0.30 strength
+2025-06-22 18:48:12,238 - INFO - CoinGecko insights for RSR: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:48:12,239 - INFO - RSRUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:48:12,239 - INFO - WCTUSDT analysis: SELL signal with 0.61 strength
+2025-06-22 18:48:12,239 - INFO - Trading cycle completed in 204.83 seconds
+2025-06-22 18:48:27,247 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/10 ($40.00, 4.0% of equity)
+2025-06-22 18:48:27,247 - INFO - Active positions: FUN:-0.3%
+2025-06-22 18:48:27,248 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 18:51:11,606 - INFO - Top opportunities found: ['FUNUSDT', 'ETHUSDT']
+2025-06-22 18:51:12,564 - INFO - Selected optimal assets: WCTUSDT, RSRUSDT, INITUSDT, FUNUSDT, APTUSDT... (15 total)
+2025-06-22 18:51:20,389 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:51:23,905 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:51:28,347 - INFO - CoinGecko insights for RSR: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:51:34,195 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:51:40,030 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:51:45,220 - INFO - FUNUSDT analysis: BUY signal with 0.30 strength
+2025-06-22 18:51:45,220 - INFO - APTUSDT analysis: SELL signal with 0.47 strength
+2025-06-22 18:51:45,220 - INFO - RSRUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:51:45,221 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:51:45,221 - INFO - INITUSDT analysis: SELL signal with 0.46 strength
+2025-06-22 18:51:54,987 - INFO - WCTUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:51:54,987 - INFO - Trading cycle completed in 207.74 seconds
+2025-06-22 18:52:09,989 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/10 ($40.00, 4.0% of equity)
+2025-06-22 18:52:09,989 - INFO - Active positions: FUN:-0.4%
+2025-06-22 18:52:09,990 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 18:55:05,336 - INFO - Top opportunities found: ['FUNUSDT']
+2025-06-22 18:55:06,740 - INFO - Selected optimal assets: WCTUSDT, RSRUSDT, INITUSDT, FUNUSDT, APTUSDT... (15 total)
+2025-06-22 18:55:06,742 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:55:10,739 - INFO - CoinGecko insights for APT: bearish (0.65 confidence), sentiment: -0.43, whale: 0.10, smart money: neutral
+2025-06-22 18:55:15,176 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:55:15,176 - INFO - CoinGecko insights for APT: bearish (0.65 confidence), sentiment: -0.43, whale: 0.10, smart money: neutral
+2025-06-22 18:55:15,176 - INFO - INITUSDT analysis: SELL signal with 0.46 strength
+2025-06-22 18:55:15,177 - INFO - APTUSDT analysis: SELL signal with 0.47 strength
+2025-06-22 18:55:16,756 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:55:22,189 - INFO - CoinGecko insights for RSR: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:55:25,740 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:55:32,196 - INFO - WCTUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:55:35,755 - INFO - RSRUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:55:40,244 - INFO - FUNUSDT analysis: BUY signal with 0.33 strength
+2025-06-22 18:55:40,244 - INFO - Trading cycle completed in 210.26 seconds
+2025-06-22 18:55:55,248 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/10 ($40.00, 4.0% of equity)
+2025-06-22 18:55:55,248 - INFO - Active positions: FUN:-0.1%
+2025-06-22 18:55:55,249 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 18:58:51,870 - INFO - Top opportunities found: ['FUNUSDT']
+2025-06-22 18:58:52,133 - INFO - Selected optimal assets: WCTUSDT, RSRUSDT, INITUSDT, FUNUSDT, APTUSDT... (15 total)
+2025-06-22 18:58:52,134 - INFO - CoinGecko insights for APT: bearish (0.65 confidence), sentiment: -0.43, whale: 0.10, smart money: neutral
+2025-06-22 18:59:03,854 - INFO - CoinGecko insights for APT: bearish (0.65 confidence), sentiment: -0.43, whale: 0.10, smart money: neutral
+2025-06-22 18:59:03,855 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:59:08,828 - INFO - CoinGecko insights for RSR: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:59:13,298 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:59:16,844 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:59:23,593 - INFO - APTUSDT analysis: SELL signal with 0.65 strength
+2025-06-22 18:59:23,594 - INFO - FUNUSDT analysis: BUY signal with 0.30 strength
+2025-06-22 18:59:23,595 - INFO - RSRUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:59:23,595 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:59:23,595 - INFO - INITUSDT analysis: SELL signal with 0.47 strength
+2025-06-22 18:59:26,984 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 18:59:26,984 - INFO - WCTUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 18:59:26,984 - INFO - Trading cycle completed in 211.74 seconds
+2025-06-22 18:59:29,355 - INFO - Stop loss triggered for FUNUSDT at -1.62%
+2025-06-22 18:59:29,355 - INFO - SELL ORDER: FUNUSDT - 5348.0 at approx. $0.007358, P/L: $-0.65 (-1.62%)
+2025-06-22 18:59:29,415 - INFO - Session stats: 2 trades, 0.0% win rate, $-1.67 profit
+2025-06-22 18:59:42,001 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/10 ($0.00, 0.0% of equity)
+2025-06-22 18:59:42,002 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 19:02:15,144 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0.0,
+    "avg_daily_return_pct": NaN,
+    "avg_weekly_return_pct": NaN
+  },
+  "trades": {
+    "total": 2,
+    "win_count": 0,
+    "loss_count": 2,
+    "win_rate_pct": 0.0,
+    "profit_factor": 0.0,
+    "avg_profit": 0,
+    "avg_loss": -0.83,
+    "expected_value": -0.83,
+    "recent_win_rate_pct": 0.0
+  },
+  "pairs": {
+    "best_pair": "FUNUSDT",
+    "best_pair_profit": -1.67,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-06-22 19:02:15"
+}
+2025-06-22 19:02:25,639 - INFO - Top opportunities found: ['FUNUSDT']
+2025-06-22 19:02:27,059 - INFO - Selected optimal assets: WCTUSDT, RSRUSDT, INITUSDT, APTUSDT, VANAUSDT... (15 total)
+2025-06-22 19:02:27,061 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 19:02:31,546 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 19:02:31,546 - INFO - INITUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 19:02:38,919 - INFO - CoinGecko insights for VANA: bearish (0.65 confidence), sentiment: 0.00, whale: 0.10, smart money: bearish
+2025-06-22 19:02:43,993 - INFO - CoinGecko insights for RSR: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 19:02:48,931 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 19:02:53,855 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 19:02:58,801 - INFO - VANAUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 19:03:02,031 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 19:03:02,031 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 19:03:02,032 - INFO - APTUSDT analysis: SELL signal with 0.47 strength
+2025-06-22 19:03:02,032 - INFO - WCTUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 19:03:02,032 - INFO - RSRUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 19:03:02,033 - INFO - Trading cycle completed in 200.03 seconds
+2025-06-22 19:03:17,040 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/10 ($0.00, 0.0% of equity)
+2025-06-22 19:03:17,041 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 19:06:07,030 - INFO - Updating correlation matrix...
+2025-06-22 19:06:41,221 - INFO - Top opportunities found: ['FUNUSDT']
+2025-06-22 19:06:41,222 - INFO - Fetching top 30 trending cryptocurrency pairs
+2025-06-22 19:06:42,195 - INFO - Found trending pairs: WCTUSDT, SEIUSDT, VANAUSDT, TRBUSDT, APTUSDT...
+2025-06-22 19:06:43,190 - INFO - Selected optimal assets: WCTUSDT, RSRUSDT, TRBUSDT, INITUSDT, APTUSDT... (15 total)
+2025-06-22 19:06:43,191 - INFO - Successfully gathered price data for 41/41 pairs
+2025-06-22 19:06:43,298 - INFO - Correlation matrix updated for 41 pairs
+2025-06-22 19:06:52,152 - INFO - Market state: Regime=BEAR_TRENDING, Trend=bearish, Volatility=low, Breadth=0.00
+2025-06-22 19:06:53,193 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 19:06:59,526 - INFO - CoinGecko insights for RSR: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 19:07:03,998 - INFO - CoinGecko insights for TRB: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 19:07:08,910 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 19:07:14,301 - INFO - CoinGecko insights for APT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 19:07:18,927 - INFO - WCTUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 19:07:18,928 - INFO - RSRUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 19:07:18,928 - INFO - TRBUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 19:07:24,307 - INFO - INITUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 19:07:28,331 - INFO - APTUSDT analysis: SELL signal with 0.47 strength
+2025-06-22 19:07:28,331 - INFO - Trading cycle completed in 251.29 seconds
+2025-06-22 19:07:43,347 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/10 ($0.00, 0.0% of equity)
+2025-06-22 19:07:43,348 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 19:10:33,630 - INFO - Top opportunities found: ['FUNUSDT', 'SOLUSDT']
+2025-06-22 19:10:35,026 - INFO - Selected optimal assets: FUNUSDT, WCTUSDT, RSRUSDT, TRBUSDT, INITUSDT... (15 total)
+2025-06-22 19:10:35,027 - INFO - High priority opportunities: FUNUSDT
+2025-06-22 19:10:35,028 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 19:10:39,966 - INFO - CoinGecko insights for INIT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 19:10:39,966 - INFO - INITUSDT analysis: SELL signal with 0.47 strength
+2025-06-22 19:10:47,253 - INFO - CoinGecko insights for RSR: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 19:10:52,643 - INFO - CoinGecko insights for TRB: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 19:10:58,452 - INFO - CoinGecko insights for WCT: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 19:11:03,345 - INFO - CoinGecko insights for LAYER: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 19:11:09,288 - INFO - CoinGecko insights for FUN: neutral (0.50 confidence), sentiment: 0.00, whale: 0.00, smart money: neutral
+2025-06-22 19:11:13,790 - INFO - RSRUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 19:11:13,791 - INFO - TRBUSDT analysis: SELL signal with 0.47 strength
+2025-06-22 19:11:13,792 - INFO - WCTUSDT analysis: SELL signal with 0.48 strength
+2025-06-22 19:11:19,295 - INFO - LAYERUSDT analysis: NEUTRAL signal with 0.00 strength
+2025-06-22 19:11:23,795 - INFO - FUNUSDT analysis: BUY signal with 0.42 strength
+2025-06-22 19:11:23,795 - INFO - NORMAL MODE: Approved position for FUNUSDT - Size: $80.00, Signal: 0.66
+2025-06-22 19:11:24,761 - INFO - DYNAMIC BUY: FUNUSDT - Qty: 12750.0, Price: $0.0075, Value: $96.00, Signal: 0.66
+2025-06-22 19:11:24,833 - INFO - Stop loss for FUNUSDT initialized at 0.007341 (2.5% below entry)
+2025-06-22 19:11:24,834 - INFO - Trailing take profit for FUNUSDT initialized (activates at 2.0%, trails at 3.0%)
+2025-06-22 19:11:24,835 - INFO - TEST MODE: Simulated buy for FUNUSDT executed successfully
+2025-06-22 19:11:24,835 - INFO - Trading cycle completed in 221.49 seconds
+2025-06-22 19:11:39,841 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/10 ($96.00, 9.6% of equity)
+2025-06-22 19:11:39,842 - INFO - Active positions: FUN:+0.0%
+2025-06-22 19:11:39,843 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-06-22 19:13:06,828 - INFO - Bot stopped by user
