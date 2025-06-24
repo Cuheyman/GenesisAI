@@ -4,6 +4,39 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
+# nebula_config.py
+"""
+Configuration file for Nebula AI integration
+Add these settings to your existing config.py
+"""
+
+# Nebula AI API Configuration
+ENABLE_NEBULA = True  # Set to False to disable Nebula integration
+NEBULA_SECRET_KEY = "S4I2YbrgLJSH6E3OpuFZx156vjC_MiD1EcQvgvrkx40f3bNZNwjtT_3ZIxhb046nZBg2hGKtY9p6JLOGPhSAsA"  # Get from thirdweb dashboard
+
+# Nebula Integration Settings
+NEBULA_MIN_CONFIDENCE_THRESHOLD = 0.6  # Minimum confidence to act on Nebula advice
+NEBULA_POSITION_SIZE_MULTIPLIER = 1.0  # Adjust Nebula position sizes (0.5 = half size, 2.0 = double)
+NEBULA_TIMEOUT_SECONDS = 5.0  # API timeout
+NEBULA_MAX_RETRIES = 3  # Maximum retry attempts
+NEBULA_RATE_LIMIT_SECONDS = 1.0  # Minimum time between requests
+
+# Integration Strategy
+USE_NEBULA_FOR_ENTRIES = True  # Use Nebula for buy decisions
+USE_NEBULA_FOR_EXITS = True   # Use Nebula for sell decisions
+USE_NEBULA_FOR_RISK_MANAGEMENT = True  # Use Nebula for stop loss/take profit
+NEBULA_OVERRIDE_CONFIDENCE = 0.8  # If Nebula confidence > this, override internal signals
+
+# Fallback Behavior
+NEBULA_FALLBACK_ENABLED = True  # Fall back to internal logic if Nebula fails
+NEBULA_MAX_CONSECUTIVE_FAILURES = 3  # After this many failures, enter cooldown
+NEBULA_COOLDOWN_PERIOD_SECONDS = 300  # 5 minutes cooldown after failures
+
+# Performance Tracking
+ENABLE_NEBULA_PERFORMANCE_LOGGING = True  # Log detailed Nebula performance
+NEBULA_DECISION_LOG_FILE = "logs/nebula_decisions.log"
+
+
 # =============================================================================
 # ULTRA-CONSERVATIVE COINGECKO RATE LIMITING (FIXED)
 # =============================================================================

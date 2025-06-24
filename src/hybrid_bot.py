@@ -21,6 +21,9 @@ from enhanced_strategy import EnhancedStrategy
 from risk_manager import RiskManager
 from performance_tracker import PerformanceTracker
 from opportunity_scanner import OpportunityScanner
+from nebula_integration import NebulaAIIntegration, NebulaEnhancedTradingBot, TradingAdvice
+import config
+
 
 import config
 
@@ -36,6 +39,29 @@ class HybridTradingBot:
             config.BINANCE_API_SECRET,
             testnet=config.TEST_MODE
         )
+
+        self.nebula_enabled = False
+        self.nebula_integration = None
+
+
+        if getattr(config, 'ENABLE_NEBULA', False) and hasattr(config, 'NEBULA_SECRET_KEY'):
+            try:
+                from nebula_integration import NebulaAIIntegration
+                self.nebula_integration = NebulaAIIntegration(
+                    secret_key=config.NEBULA_SECRET_KEY,
+                    trading_bot_instance=self
+                )
+                self.nebula_enabled = True
+                logging.info("Nebula AI integration enabled")
+            except Exception as e:
+                logging.warning(f"Nebula AI initialization failed: {str(e)} - continuing without Nebula")
+                self.nebula_enabled = False
+        else:
+            logging.info("ℹ️ Nebula AI integration disabled in config")
+        
+        # Nebula tracking variables
+        self.nebula_decisions_today = 0
+        self.nebula_successful_calls = 0
         
         # Initialize CoinGecko AI client
         if hasattr(config, 'ENABLE_COINGECKO') and config.ENABLE_COINGECKO:
@@ -158,6 +184,7 @@ class HybridTradingBot:
         self.trade_logger.addHandler(logging.FileHandler(trade_log_file))
         self.trade_logger.propagate = False  # Prevent duplicate logging
     
+
     def get_total_equity(self):
         """Get total account equity"""
         if config.TEST_MODE:
@@ -2235,3 +2262,5 @@ class HybridTradingBot:
         except Exception as e:
             logging.error(f"Error scaling up position for {pair}: {str(e)}")
             return False
+        
+
