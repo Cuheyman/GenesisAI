@@ -1,0 +1,315 @@
+2025-07-01 19:15:21,930 - INFO - Nebula AI Integration initialized with session: f0f84032-cb97-4a02-b75d-893c9f999cc4
+2025-07-01 19:15:21,931 - INFO - Nebula AI integration enabled
+2025-07-01 19:15:21,936 - INFO - CoinGecko initialiseret - Gratis tier
+2025-07-01 19:15:22,308 - INFO - CoinGecko API connected: (V3) To the Moon!
+2025-07-01 19:15:22,309 - INFO - CoinGecko AI klient initialiseret succesfuldt
+2025-07-01 19:15:22,347 - INFO - CoinGecko AI client initialized
+2025-07-01 19:15:22,399 - INFO - Database initialization complete
+2025-07-01 19:15:22,405 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN take_profit_pct REAL
+2025-07-01 19:15:22,410 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN stop_loss_pct REAL
+2025-07-01 19:15:22,414 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN is_new_asset INTEGER DEFAULT 0
+2025-07-01 19:15:22,419 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN exit_price REAL
+2025-07-01 19:15:22,422 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN exit_time TEXT
+2025-07-01 19:15:22,426 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN profit_loss REAL
+2025-07-01 19:15:22,431 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN signal_source TEXT
+2025-07-01 19:15:22,435 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN signal_strength REAL
+2025-07-01 19:15:22,438 - INFO - Schema update applied: ALTER TABLE trades ADD COLUMN signal_source TEXT
+2025-07-01 19:15:22,451 - INFO - Schema update applied: ALTER TABLE trades ADD COLUMN signal_strength REAL
+2025-07-01 19:15:22,470 - INFO - Database schema updated successfully with 10 changes
+2025-07-01 19:15:22,477 - INFO - Enhanced Signal API Client initialized: http://localhost:3001/api
+2025-07-01 19:15:22,477 - INFO - API Enhanced Strategy initialized
+2025-07-01 19:15:22,477 - INFO - API enabled: True
+2025-07-01 19:15:22,477 - INFO - API URL: http://localhost:3001/api
+2025-07-01 19:15:22,477 - INFO - Fallback enabled: True
+2025-07-01 19:15:22,477 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:15:22,477 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:15:22,478 - INFO - Advanced indicators initialized successfully
+2025-07-01 19:15:22,478 - INFO - Risk Manager initialized with equity protection: Warning at 2.0%, Risk Reduction at 3.0%, High Alert at 5.0%, Emergency at 8.0%
+2025-07-01 19:15:22,478 - INFO - Hybrid Trading Bot initialized with Enhanced Signal API
+2025-07-01 19:15:22,478 - INFO - API URL: http://localhost:3001/api
+2025-07-01 19:15:22,478 - INFO - API enabled: True
+2025-07-01 19:15:22,478 - INFO - Mode: TEST trading
+2025-07-01 19:15:22,480 - INFO - AI Provider: CoinGecko
+2025-07-01 19:15:22,480 - INFO - Advanced Indicators: Taapi.io
+2025-07-01 19:15:22,483 - INFO - Testing API connections...
+2025-07-01 19:15:22,484 - INFO - Initializing Enhanced Signal API...
+2025-07-01 19:15:22,510 - INFO - API health check passed
+2025-07-01 19:15:22,510 - INFO - Enhanced Signal API initialized successfully
+2025-07-01 19:15:22,521 - INFO - Enhanced Signal API initialized successfully
+2025-07-01 19:15:22,521 - INFO - Using AI-powered signals with on-chain analysis
+2025-07-01 19:15:23,205 - INFO - Binance server time: 2025-07-01 19:15:22.144000
+2025-07-01 19:15:23,489 - INFO - CoinGecko AI connection successful: -0.014799969727293874
+2025-07-01 19:15:23,489 - INFO - Preloading historical data for analysis...
+2025-07-01 19:15:23,489 - INFO - Preloading historical data for analysis...
+2025-07-01 19:15:23,489 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-07-01 19:15:24,426 - INFO - Found trending pairs: HFTUSDT, MAVUSDT, GPSUSDT, TRBUSDT, INITUSDT...
+2025-07-01 19:15:24,427 - INFO - Preloading data for pairs: VIRTUALUSDT, GPSUSDT, NEIROUSDT, SYRUPUSDT, MAVUSDT
+2025-07-01 19:15:54,840 - INFO - Preloading data for pairs: HFTUSDT, ZKUSDT, LPTUSDT, INITUSDT, APTUSDT
+2025-07-01 19:16:26,771 - INFO - Preloading data for pairs: JUPUSDT, SUPERUSDT, SEIUSDT, ADAUSDT, TRBUSDT
+2025-07-01 19:16:56,744 - INFO - Preloading data for pairs: ARBUSDT, RENDERUSDT, BTCUSDT, ENAUSDT, BNBUSDT
+2025-07-01 19:17:26,214 - INFO - Preloading data for pairs: 1000SATSUSDT, SOLUSDT, ORDIUSDT, ETHUSDT
+2025-07-01 19:17:52,128 - INFO - Historical data preloading complete
+2025-07-01 19:18:00,501 - INFO - Updating correlation matrix...
+2025-07-01 19:18:00,502 - INFO - API STRATEGY STATISTICS:
+2025-07-01 19:18:00,503 - INFO -   • Total Analyses: 0
+2025-07-01 19:18:00,503 - INFO -   • API Signals Used: 0 (0.0%)
+2025-07-01 19:18:00,503 - INFO -   • Fallback Used: 0 (0.0%)
+2025-07-01 19:18:00,503 - INFO -   • API Success Rate: 0.0%
+2025-07-01 19:18:00,503 - INFO -   • API Cache Hits: 0
+2025-07-01 19:18:00,503 - INFO -   • API Available: True
+2025-07-01 19:18:00,505 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/5 ($0.00, 0.0% of equity)
+2025-07-01 19:18:00,511 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-07-01 19:18:00,545 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0,
+    "avg_daily_return_pct": 0,
+    "avg_weekly_return_pct": 0
+  },
+  "trades": {
+    "total": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "profit_factor": 0,
+    "avg_profit": 0,
+    "avg_loss": 0,
+    "expected_value": 0,
+    "recent_win_rate_pct": 0
+  },
+  "pairs": {
+    "best_pair": "None",
+    "best_pair_profit": 0,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-07-01 19:18:00"
+}
+2025-07-01 19:21:03,405 - INFO - Successfully gathered price data for 41/41 pairs
+2025-07-01 19:21:03,503 - INFO - Correlation matrix updated for 41 pairs
+2025-07-01 19:21:10,568 - INFO - Market state: Regime=NEUTRAL, Trend=neutral, Volatility=low, Breadth=0.40
+2025-07-01 19:21:10,568 - INFO - Top opportunities found: ['PENGUUSDT']
+2025-07-01 19:21:10,568 - INFO - Fetching top 30 trending cryptocurrency pairs
+2025-07-01 19:21:11,986 - INFO - Found trending pairs: HFTUSDT, MAVUSDT, GPSUSDT, TRBUSDT, SYRUPUSDT...
+2025-07-01 19:21:12,972 - INFO - Selected optimal assets: GPSUSDT, NEIROUSDT, LTCUSDT, SYRUPUSDT, MAVUSDT... (15 total)
+2025-07-01 19:21:13,228 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751390473207_9w3muy5zt","error":"Internal server error","message":"Signal generation failed","timestamp":1751390473226}
+2025-07-01 19:21:13,229 - INFO - Using fallback analysis for GPSUSDT (API unavailable/invalid)
+2025-07-01 19:21:13,229 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:21:13,229 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:21:13,229 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:21:16,880 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751390476877_azhvrw8is","error":"Internal server error","message":"Signal generation failed","timestamp":1751390476878}
+2025-07-01 19:21:16,880 - INFO - Using fallback analysis for NEIROUSDT (API unavailable/invalid)
+2025-07-01 19:21:16,880 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:21:16,898 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:21:16,899 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:21:16,983 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:21:16,983 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:21:19,972 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751390476882_q6d3f3cem","error":"Internal server error","message":"Signal generation failed","timestamp":1751390476883}
+2025-07-01 19:21:19,973 - INFO - Using fallback analysis for LTCUSDT (API unavailable/invalid)
+2025-07-01 19:21:19,973 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:21:19,973 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:21:19,973 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:21:20,031 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:21:20,031 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:21:23,956 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751390476884_s24i63199","error":"Internal server error","message":"Signal generation failed","timestamp":1751390476885}
+2025-07-01 19:21:23,956 - INFO - Using fallback analysis for SYRUPUSDT (API unavailable/invalid)
+2025-07-01 19:21:23,958 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:21:23,958 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:21:23,958 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:21:27,960 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751390476886_yce067hls","error":"Internal server error","message":"Signal generation failed","timestamp":1751390476888}
+2025-07-01 19:21:27,960 - INFO - Using fallback analysis for MAVUSDT (API unavailable/invalid)
+2025-07-01 19:21:27,961 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:21:27,961 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:21:27,961 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:21:31,123 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:21:31,123 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:21:31,125 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:21:31,125 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:21:31,146 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:21:31,147 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:21:32,690 - INFO - Trading cycle completed in 212.19 seconds
+2025-07-01 19:21:47,713 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/5 ($0.00, 0.0% of equity)
+2025-07-01 19:21:47,714 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-07-01 19:24:14,451 - INFO - Top opportunities found: ['PENGUUSDT']
+2025-07-01 19:24:15,387 - INFO - Selected optimal assets: PENGUUSDT, GPSUSDT, NEIROUSDT, LTCUSDT, SYRUPUSDT... (15 total)
+2025-07-01 19:24:15,398 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751390655396_ks9mw0p9t","error":"Internal server error","message":"Signal generation failed","timestamp":1751390655398}
+2025-07-01 19:24:15,398 - INFO - Using fallback analysis for PENGUUSDT (API unavailable/invalid)
+2025-07-01 19:24:15,399 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:24:15,399 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:24:15,399 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:24:20,278 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751390660277_m7dvoh6r8","error":"Internal server error","message":"Signal generation failed","timestamp":1751390660278}
+2025-07-01 19:24:20,278 - INFO - Using fallback analysis for GPSUSDT (API unavailable/invalid)
+2025-07-01 19:24:20,278 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:24:20,278 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:24:20,280 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:24:20,368 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:24:20,368 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:24:23,811 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751390660282_0m8lbc61j","error":"Internal server error","message":"Signal generation failed","timestamp":1751390660283}
+2025-07-01 19:24:23,812 - INFO - Using fallback analysis for NEIROUSDT (API unavailable/invalid)
+2025-07-01 19:24:23,813 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:24:23,813 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:24:23,813 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:24:23,942 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:24:23,942 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:24:27,354 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751390660285_yqpdh6e69","error":"Internal server error","message":"Signal generation failed","timestamp":1751390660285}
+2025-07-01 19:24:27,354 - INFO - Using fallback analysis for LTCUSDT (API unavailable/invalid)
+2025-07-01 19:24:27,355 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:24:27,355 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:24:27,355 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:24:31,792 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751390660286_7v8m67njl","error":"Internal server error","message":"Signal generation failed","timestamp":1751390660287}
+2025-07-01 19:24:31,792 - INFO - Using fallback analysis for SYRUPUSDT (API unavailable/invalid)
+2025-07-01 19:24:31,950 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:24:31,950 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:24:31,950 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:24:36,466 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:24:36,466 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:24:36,477 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:24:36,477 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:24:36,484 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:24:36,484 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:24:37,991 - INFO - Trading cycle completed in 170.28 seconds
+2025-07-01 19:24:52,998 - INFO - API health check passed
+2025-07-01 19:24:53,000 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/5 ($0.00, 0.0% of equity)
+2025-07-01 19:24:53,001 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-07-01 19:27:24,344 - INFO - Top opportunities found: ['PENGUUSDT', 'ETHUSDT']
+2025-07-01 19:27:25,738 - INFO - Selected optimal assets: PENGUUSDT, GPSUSDT, NEIROUSDT, LTCUSDT, SYRUPUSDT... (15 total)
+2025-07-01 19:27:25,740 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
+Traceback (most recent call last):
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python312\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python312\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+ConnectionResetError: [WinError 10054] En eksisterende forbindelse blev tvangsafbrudt af en ekstern vært
+2025-07-01 19:27:25,857 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751390845856_3h8wg2kfv","error":"Internal server error","message":"Signal generation failed","timestamp":1751390845857}
+2025-07-01 19:27:25,858 - INFO - Using fallback analysis for PENGUUSDT (API unavailable/invalid)
+2025-07-01 19:27:25,858 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:27:25,858 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:27:25,858 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:27:30,734 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751390850733_4h0llmadk","error":"Internal server error","message":"Signal generation failed","timestamp":1751390850734}
+2025-07-01 19:27:30,734 - INFO - Using fallback analysis for GPSUSDT (API unavailable/invalid)
+2025-07-01 19:27:30,734 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:27:30,735 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:27:30,735 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:27:30,859 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:27:30,859 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:27:33,801 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751390850736_3z8h6xo25","error":"Internal server error","message":"Signal generation failed","timestamp":1751390850737}
+2025-07-01 19:27:33,802 - INFO - Using fallback analysis for NEIROUSDT (API unavailable/invalid)
+2025-07-01 19:27:33,803 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:27:33,803 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:27:33,803 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:27:34,172 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:27:34,172 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:27:37,786 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751390850738_mjvagkhhv","error":"Internal server error","message":"Signal generation failed","timestamp":1751390850739}
+2025-07-01 19:27:37,786 - INFO - Using fallback analysis for LTCUSDT (API unavailable/invalid)
+2025-07-01 19:27:37,786 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:27:37,786 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:27:37,786 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:27:41,767 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751390850740_drcwgaodb","error":"Internal server error","message":"Signal generation failed","timestamp":1751390850741}
+2025-07-01 19:27:41,767 - INFO - Using fallback analysis for SYRUPUSDT (API unavailable/invalid)
+2025-07-01 19:27:41,768 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:27:41,768 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:27:41,768 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:27:45,358 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:27:45,359 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:27:45,381 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:27:45,381 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:27:45,386 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:27:45,386 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:27:46,899 - INFO - Trading cycle completed in 173.90 seconds
+2025-07-01 19:28:01,908 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/5 ($0.00, 0.0% of equity)
+2025-07-01 19:28:01,910 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-07-01 19:30:32,957 - INFO - Top opportunities found: ['SOLUSDT', 'PENGUUSDT', 'BTCUSDT']
+2025-07-01 19:30:33,894 - INFO - Selected optimal assets: PENGUUSDT, GPSUSDT, NEIROUSDT, LTCUSDT, SYRUPUSDT... (15 total)
+2025-07-01 19:30:33,905 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751391033903_i9rwxtd62","error":"Internal server error","message":"Signal generation failed","timestamp":1751391033904}
+2025-07-01 19:30:33,905 - INFO - Using fallback analysis for PENGUUSDT (API unavailable/invalid)
+2025-07-01 19:30:33,905 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:30:33,905 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:30:33,905 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:30:38,328 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751391038326_gwpp3ckqp","error":"Internal server error","message":"Signal generation failed","timestamp":1751391038327}
+2025-07-01 19:30:38,328 - INFO - Using fallback analysis for GPSUSDT (API unavailable/invalid)
+2025-07-01 19:30:38,329 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:30:38,329 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:30:38,329 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:30:38,427 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:30:38,427 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:30:43,619 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751391038328_xnv012b7d","error":"Internal server error","message":"Signal generation failed","timestamp":1751391038329}
+2025-07-01 19:30:43,620 - INFO - Using fallback analysis for NEIROUSDT (API unavailable/invalid)
+2025-07-01 19:30:43,635 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:30:43,635 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:30:43,635 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:30:43,714 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:30:43,714 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:30:48,541 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751391038330_25euoaqnn","error":"Internal server error","message":"Signal generation failed","timestamp":1751391038331}
+2025-07-01 19:30:48,541 - INFO - Using fallback analysis for LTCUSDT (API unavailable/invalid)
+2025-07-01 19:30:48,542 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:30:48,542 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:30:48,542 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:30:53,408 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751391038332_36p41rvbp","error":"Internal server error","message":"Signal generation failed","timestamp":1751391038333}
+2025-07-01 19:30:53,408 - INFO - Using fallback analysis for SYRUPUSDT (API unavailable/invalid)
+2025-07-01 19:30:53,408 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:30:53,408 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:30:53,408 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:30:57,954 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:30:57,954 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:30:57,972 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:30:57,972 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:30:58,009 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:30:58,009 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:30:59,495 - INFO - Trading cycle completed in 177.59 seconds
+2025-07-01 19:31:14,502 - INFO - API health check passed
+2025-07-01 19:31:14,505 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/5 ($0.00, 0.0% of equity)
+2025-07-01 19:31:14,505 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-07-01 19:33:49,612 - INFO - Top opportunities found: ['SOLUSDT', 'PENGUUSDT', 'HFTUSDT', 'BANANAS31USDT', 'XRPUSDT']
+2025-07-01 19:33:50,981 - INFO - Selected optimal assets: PENGUUSDT, GPSUSDT, NEIROUSDT, LTCUSDT, SYRUPUSDT... (15 total)
+2025-07-01 19:33:50,982 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
+Traceback (most recent call last):
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python312\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python312\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+ConnectionResetError: [WinError 10054] En eksisterende forbindelse blev tvangsafbrudt af en ekstern vært
+2025-07-01 19:33:50,986 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751391230984_n8khl1den","error":"Internal server error","message":"Signal generation failed","timestamp":1751391230985}
+2025-07-01 19:33:50,987 - INFO - Using fallback analysis for PENGUUSDT (API unavailable/invalid)
+2025-07-01 19:33:50,987 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:33:50,987 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:33:50,988 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:33:54,515 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751391234513_nj8kg4q6y","error":"Internal server error","message":"Signal generation failed","timestamp":1751391234514}
+2025-07-01 19:33:54,516 - INFO - Using fallback analysis for GPSUSDT (API unavailable/invalid)
+2025-07-01 19:33:54,516 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:33:54,516 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:33:54,516 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:33:54,652 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:33:54,652 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:33:59,426 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751391234516_ktn83fahw","error":"Internal server error","message":"Signal generation failed","timestamp":1751391234517}
+2025-07-01 19:33:59,428 - INFO - Using fallback analysis for NEIROUSDT (API unavailable/invalid)
+2025-07-01 19:33:59,428 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:33:59,428 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:33:59,428 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:33:59,483 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:33:59,483 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:34:03,880 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751391234518_df9zaysxw","error":"Internal server error","message":"Signal generation failed","timestamp":1751391234518}
+2025-07-01 19:34:03,880 - INFO - Using fallback analysis for LTCUSDT (API unavailable/invalid)
+2025-07-01 19:34:03,880 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:34:03,880 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:34:03,882 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:34:07,389 - ERROR - API request failed with status 500: {"success":false,"request_id":"req_1751391234518_9wxkg63a3","error":"Internal server error","message":"Signal generation failed","timestamp":1751391234519}
+2025-07-01 19:34:07,389 - INFO - Using fallback analysis for SYRUPUSDT (API unavailable/invalid)
+2025-07-01 19:34:07,390 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 19:34:07,390 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 19:34:07,390 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 19:34:11,442 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:34:11,442 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:34:11,482 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:34:11,483 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:34:11,487 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 19:34:11,487 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 19:34:12,996 - INFO - Trading cycle completed in 178.49 seconds
+2025-07-01 19:34:28,005 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/5 ($0.00, 0.0% of equity)
+2025-07-01 19:34:28,006 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-07-01 19:35:19,355 - INFO - Bot stopped by user
+2025-07-01 19:35:19,597 - ERROR - Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x000002DA84B68500>

@@ -4,11 +4,149 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
-# nebula_config.py
+
 """
 Configuration file for Nebula AI integration
 Add these settings to your existing config.py
 """
+
+# =============================================================================
+# ENHANCED SIGNAL API CONFIGURATION (ADD THIS SECTION)
+# =============================================================================
+
+# Enhanced Signal API settings - CRITICAL FOR BOT OPERATION
+SIGNAL_API_URL = os.getenv('SIGNAL_API_URL', 'http://localhost:3001/api')
+SIGNAL_API_KEY = os.getenv('SIGNAL_API_KEY', '1234')
+
+# Enable/disable Enhanced Signal API
+ENABLE_ENHANCED_API = os.getenv('ENABLE_ENHANCED_API', 'true').lower() == 'true'
+
+# API client settings
+API_REQUEST_TIMEOUT = int(os.getenv('API_REQUEST_TIMEOUT', '30'))  # Seconds
+API_MIN_INTERVAL = float(os.getenv('API_MIN_INTERVAL', '2.0'))     # Seconds between requests
+API_CACHE_DURATION = int(os.getenv('API_CACHE_DURATION', '60'))    # Cache duration in seconds
+
+# API reliability settings
+API_MAX_RETRIES = int(os.getenv('API_MAX_RETRIES', '3'))
+API_FALLBACK_ENABLED = os.getenv('API_FALLBACK_ENABLED', 'true').lower() == 'true'
+API_HEALTH_CHECK_INTERVAL = int(os.getenv('API_HEALTH_CHECK_INTERVAL', '300'))  # 5 minutes
+
+# Signal processing settings
+API_MIN_CONFIDENCE = float(os.getenv('API_MIN_CONFIDENCE', '55'))      # Minimum confidence threshold (55%)
+API_OVERRIDE_CONFIDENCE = float(os.getenv('API_OVERRIDE_CONFIDENCE', '85'))  # High confidence override (85%)
+
+# API feature usage
+USE_API_POSITION_SIZING = os.getenv('USE_API_POSITION_SIZING', 'true').lower() == 'true'
+USE_API_STOP_LOSS = os.getenv('USE_API_STOP_LOSS', 'true').lower() == 'true'
+USE_API_TAKE_PROFIT = os.getenv('USE_API_TAKE_PROFIT', 'true').lower() == 'true'
+USE_API_TIME_HORIZONS = os.getenv('USE_API_TIME_HORIZONS', 'true').lower() == 'true'
+
+# Signal weighting (when combining API with internal signals)
+API_SIGNAL_WEIGHT = float(os.getenv('API_SIGNAL_WEIGHT', '0.85'))      # 85% weight to API signals
+INTERNAL_SIGNAL_WEIGHT = float(os.getenv('INTERNAL_SIGNAL_WEIGHT', '0.15'))  # 15% weight to internal
+
+# =============================================================================
+# API ANALYSIS PARAMETERS (CUSTOMIZE THESE)
+# =============================================================================
+
+# Default analysis parameters for API calls
+DEFAULT_API_TIMEFRAME = os.getenv('DEFAULT_API_TIMEFRAME', '1h')
+DEFAULT_API_ANALYSIS_DEPTH = os.getenv('DEFAULT_API_ANALYSIS_DEPTH', 'comprehensive')
+DEFAULT_API_RISK_LEVEL = os.getenv('DEFAULT_API_RISK_LEVEL', 'moderate')
+
+# Market condition based parameters
+API_VOLATILE_TIMEFRAME = os.getenv('API_VOLATILE_TIMEFRAME', '15m')
+API_STABLE_TIMEFRAME = os.getenv('API_STABLE_TIMEFRAME', '4h')
+API_TRENDING_ANALYSIS = os.getenv('API_TRENDING_ANALYSIS', 'comprehensive')
+API_RANGING_ANALYSIS = os.getenv('API_RANGING_ANALYSIS', 'advanced')
+
+# =============================================================================
+# ENHANCED POSITION MANAGEMENT WITH API
+# =============================================================================
+
+# API-based position sizing
+API_MAX_POSITION_SIZE_PCT = float(os.getenv('API_MAX_POSITION_SIZE_PCT', '12'))   # Max 12% per position with API
+API_MIN_POSITION_SIZE_PCT = float(os.getenv('API_MIN_POSITION_SIZE_PCT', '2'))    # Min 2% per position
+
+# API confidence based sizing multipliers
+API_CONFIDENCE_MULTIPLIERS = {
+    'very_high': float(os.getenv('API_VERY_HIGH_CONFIDENCE_MULT', '1.3')),  # 85%+ confidence
+    'high': float(os.getenv('API_HIGH_CONFIDENCE_MULT', '1.1')),            # 70-84% confidence  
+    'medium': float(os.getenv('API_MEDIUM_CONFIDENCE_MULT', '1.0')),        # 55-69% confidence
+    'low': float(os.getenv('API_LOW_CONFIDENCE_MULT', '0.7'))               # 55-60% confidence
+}
+
+# On-chain score based adjustments
+API_ONCHAIN_SCORE_MULTIPLIERS = {
+    'excellent': float(os.getenv('API_ONCHAIN_EXCELLENT_MULT', '1.2')),     # 80+ on-chain score
+    'good': float(os.getenv('API_ONCHAIN_GOOD_MULT', '1.1')),              # 60-79 on-chain score
+    'fair': float(os.getenv('API_ONCHAIN_FAIR_MULT', '1.0')),              # 40-59 on-chain score
+    'poor': float(os.getenv('API_ONCHAIN_POOR_MULT', '0.8'))               # <40 on-chain score
+}
+
+# Whale influence adjustments
+API_WHALE_INFLUENCE_MULTIPLIERS = {
+    'POSITIVE': float(os.getenv('API_WHALE_POSITIVE_MULT', '1.15')),        # Whale accumulation
+    'NEUTRAL': float(os.getenv('API_WHALE_NEUTRAL_MULT', '1.0')),          # No whale activity
+    'NEGATIVE': float(os.getenv('API_WHALE_NEGATIVE_MULT', '0.85'))         # Whale distribution
+}
+
+# =============================================================================
+# API RISK MANAGEMENT OVERRIDES
+# =============================================================================
+
+# Override risk management with API recommendations
+USE_API_RISK_MANAGEMENT = os.getenv('USE_API_RISK_MANAGEMENT', 'true').lower() == 'true'
+
+# API-based stop loss settings
+API_DYNAMIC_STOP_LOSS = os.getenv('API_DYNAMIC_STOP_LOSS', 'true').lower() == 'true'
+API_MAX_STOP_LOSS_PCT = float(os.getenv('API_MAX_STOP_LOSS_PCT', '3.0'))    # Max 3% stop loss
+API_MIN_STOP_LOSS_PCT = float(os.getenv('API_MIN_STOP_LOSS_PCT', '1.0'))    # Min 1% stop loss
+
+# API-based take profit settings  
+API_DYNAMIC_TAKE_PROFIT = os.getenv('API_DYNAMIC_TAKE_PROFIT', 'true').lower() == 'true'
+API_PARTIAL_PROFIT_ENABLED = os.getenv('API_PARTIAL_PROFIT_ENABLED', 'true').lower() == 'true'
+API_MAX_TAKE_PROFIT_PCT = float(os.getenv('API_MAX_TAKE_PROFIT_PCT', '15.0'))  # Max 15% take profit
+
+# API time horizon respect
+RESPECT_API_TIME_HORIZONS = os.getenv('RESPECT_API_TIME_HORIZONS', 'true').lower() == 'true'
+API_MAX_HOLD_TIME_HOURS = int(os.getenv('API_MAX_HOLD_TIME_HOURS', '48'))     # Max 48 hours
+API_MIN_HOLD_TIME_MINUTES = int(os.getenv('API_MIN_HOLD_TIME_MINUTES', '5'))  # Min 5 minutes
+
+# =============================================================================
+# API MONITORING AND ALERTING
+# =============================================================================
+
+# API performance monitoring
+ENABLE_API_PERFORMANCE_MONITORING = os.getenv('ENABLE_API_PERFORMANCE_MONITORING', 'true').lower() == 'true'
+API_STATS_LOG_INTERVAL = int(os.getenv('API_STATS_LOG_INTERVAL', '1800'))  # Log every 30 minutes
+API_HEALTH_LOG_INTERVAL = int(os.getenv('API_HEALTH_LOG_INTERVAL', '300'))  # Check every 5 minutes
+
+# API failure handling
+API_MAX_CONSECUTIVE_FAILURES = int(os.getenv('API_MAX_CONSECUTIVE_FAILURES', '5'))
+API_FAILURE_COOLDOWN_MINUTES = int(os.getenv('API_FAILURE_COOLDOWN_MINUTES', '15'))
+API_AUTO_FALLBACK_THRESHOLD = float(os.getenv('API_AUTO_FALLBACK_THRESHOLD', '0.6'))  # <60% success rate
+
+# =============================================================================
+# SIGNAL VALIDATION AND FILTERING  
+# =============================================================================
+
+# API signal validation
+VALIDATE_API_SIGNALS = os.getenv('VALIDATE_API_SIGNALS', 'true').lower() == 'true'
+API_SIGNAL_CONSISTENCY_CHECK = os.getenv('API_SIGNAL_CONSISTENCY_CHECK', 'true').lower() == 'true'
+
+# Signal filtering based on market conditions
+FILTER_API_SIGNALS_BY_REGIME = os.getenv('FILTER_API_SIGNALS_BY_REGIME', 'true').lower() == 'true'
+API_AVOID_VOLATILE_MARKETS = os.getenv('API_AVOID_VOLATILE_MARKETS', 'false').lower() == 'true'
+
+# Minimum signal requirements
+API_MIN_TECHNICAL_SCORE = float(os.getenv('API_MIN_TECHNICAL_SCORE', '45'))   # Min technical score
+API_MIN_MOMENTUM_SCORE = float(os.getenv('API_MIN_MOMENTUM_SCORE', '40'))     # Min momentum score  
+API_MIN_ONCHAIN_SCORE = float(os.getenv('API_MIN_ONCHAIN_SCORE', '35'))      # Min on-chain score
+
+
+
+
 
 # Nebula AI API Configuration
 ENABLE_NEBULA = True  # Set to False to disable Nebula integration
@@ -500,6 +638,66 @@ BACKTEST_END_DATE = os.getenv('BACKTEST_END_DATE', '2024-12-31')
 # VALIDATION
 # =============================================================================
 
+def validate_api_config():
+    """Validate Enhanced Signal API configuration"""
+    errors = []
+    
+    # Check required settings
+    if ENABLE_ENHANCED_API:
+        if not SIGNAL_API_URL or SIGNAL_API_URL == 'your-api-key-here':
+            errors.append("SIGNAL_API_URL must be configured when ENABLE_ENHANCED_API is True")
+        
+        if not SIGNAL_API_KEY or SIGNAL_API_KEY == 'your-api-key-here':
+            errors.append("SIGNAL_API_KEY must be configured when ENABLE_ENHANCED_API is True")
+    
+    # Validate thresholds
+    if not 0 <= API_MIN_CONFIDENCE <= 100:
+        errors.append("API_MIN_CONFIDENCE must be between 0 and 100")
+    
+    if not 0 <= API_OVERRIDE_CONFIDENCE <= 100:
+        errors.append("API_OVERRIDE_CONFIDENCE must be between 0 and 100")
+    
+    if API_MIN_CONFIDENCE >= API_OVERRIDE_CONFIDENCE:
+        errors.append("API_OVERRIDE_CONFIDENCE must be higher than API_MIN_CONFIDENCE")
+    
+    # Validate weights
+    total_weight = API_SIGNAL_WEIGHT + INTERNAL_SIGNAL_WEIGHT
+    if abs(total_weight - 1.0) > 0.01:
+        errors.append(f"API signal weights must sum to 1.0, got {total_weight}")
+    
+    # Validate position sizing
+    if API_MAX_POSITION_SIZE_PCT <= API_MIN_POSITION_SIZE_PCT:
+        errors.append("API_MAX_POSITION_SIZE_PCT must be greater than API_MIN_POSITION_SIZE_PCT")
+    
+    if API_MAX_POSITION_SIZE_PCT > 25:
+        errors.append("API_MAX_POSITION_SIZE_PCT should not exceed 25% for safety")
+    
+    # Validate timeframes
+    valid_timeframes = ['1m', '5m', '15m', '30m', '1h', '2h', '4h', '6h', '12h', '1d']
+    if DEFAULT_API_TIMEFRAME not in valid_timeframes:
+        errors.append(f"DEFAULT_API_TIMEFRAME must be one of {valid_timeframes}")
+    
+    # Validate analysis depths
+    valid_depths = ['basic', 'advanced', 'comprehensive']
+    if DEFAULT_API_ANALYSIS_DEPTH not in valid_depths:
+        errors.append(f"DEFAULT_API_ANALYSIS_DEPTH must be one of {valid_depths}")
+    
+    # Validate risk levels
+    valid_risk_levels = ['conservative', 'moderate', 'aggressive']
+    if DEFAULT_API_RISK_LEVEL not in valid_risk_levels:
+        errors.append(f"DEFAULT_API_RISK_LEVEL must be one of {valid_risk_levels}")
+    
+    if errors:
+        raise ValueError("Enhanced Signal API configuration validation failed:\n" + 
+                        "\n".join(f"- {error}" for error in errors))
+    
+    return True
+
+
+
+
+
+
 def validate_taapi_config():
     """Validate Taapi.io configuration settings"""
     errors = []
@@ -555,6 +753,9 @@ def validate_config():
     
     if not binance_key_valid or not binance_secret_valid:
         errors.append("Binance API key and secret are required and must be valid")
+
+    if ENABLE_ENHANCED_API:
+        validate_api_config()
     
     # Validate drawdown thresholds
     thresholds_to_check = CONSERVATIVE_THRESHOLDS if CONSERVATIVE_THRESHOLDS_ENABLED else DRAWDOWN_THRESHOLDS
@@ -601,10 +802,30 @@ def validate_config():
     
     return True
 
+
+def print_api_config_summary():
+        """Print summary of API configuration"""
+        print("\n" + "="*60)
+        print("ENHANCED SIGNAL API CONFIGURATION SUMMARY")
+        print("="*60)
+        print(f"API Enabled: {ENABLE_ENHANCED_API}")
+        print(f"API URL: {SIGNAL_API_URL}")
+        print(f"API Key Configured: {'Yes' if SIGNAL_API_KEY != 'your-api-key-here' else 'No'}")
+        print(f"Fallback Enabled: {API_FALLBACK_ENABLED}")
+        print(f"Min Confidence: {API_MIN_CONFIDENCE}%")
+        print(f"Override Confidence: {API_OVERRIDE_CONFIDENCE}%")
+        print(f"API Weight: {API_SIGNAL_WEIGHT*100:.1f}%")
+        print(f"Position Sizing: {'API' if USE_API_POSITION_SIZING else 'Internal'}")
+        print(f"Stop Loss: {'API' if USE_API_STOP_LOSS else 'Internal'}")
+        print(f"Take Profit: {'API' if USE_API_TAKE_PROFIT else 'Internal'}")
+        print("="*60)
+
 # Validate configuration on import
 if __name__ == "__main__":
     try:
         validate_config()
+        print_api_config_summary()
+        print("✅ Configuration validation passed!")
         print("Configuration validation passed!")
         print(f"- Opportunity Scanner: {'ENABLED' if ENABLE_OPPORTUNITY_SCANNER else 'DISABLED'}")
         print(f"- Momentum Trading: {'ENABLED' if MOMENTUM_TRADE_ENABLED else 'DISABLED'}")
@@ -620,3 +841,4 @@ else:
     # Only validate in non-test environments
     if not os.getenv('SKIP_CONFIG_VALIDATION'):
         validate_config()
+        validate_api_config()

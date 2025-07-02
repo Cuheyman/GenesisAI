@@ -1,0 +1,268 @@
+2025-07-01 18:18:16,938 - INFO - Nebula AI Integration initialized with session: 54c54121-3206-4852-95df-0cd03889e514
+2025-07-01 18:18:16,938 - INFO - Nebula AI integration enabled
+2025-07-01 18:18:16,939 - INFO - CoinGecko initialiseret - Gratis tier
+2025-07-01 18:18:17,294 - INFO - CoinGecko API connected: (V3) To the Moon!
+2025-07-01 18:18:17,295 - INFO - CoinGecko AI klient initialiseret succesfuldt
+2025-07-01 18:18:17,295 - INFO - CoinGecko AI client initialized
+2025-07-01 18:18:17,324 - INFO - Database initialization complete
+2025-07-01 18:18:17,330 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN take_profit_pct REAL
+2025-07-01 18:18:17,335 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN stop_loss_pct REAL
+2025-07-01 18:18:17,338 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN is_new_asset INTEGER DEFAULT 0
+2025-07-01 18:18:17,341 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN exit_price REAL
+2025-07-01 18:18:17,345 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN exit_time TEXT
+2025-07-01 18:18:17,349 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN profit_loss REAL
+2025-07-01 18:18:17,352 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN signal_source TEXT
+2025-07-01 18:18:17,357 - INFO - Schema update applied: ALTER TABLE positions ADD COLUMN signal_strength REAL
+2025-07-01 18:18:17,361 - INFO - Schema update applied: ALTER TABLE trades ADD COLUMN signal_source TEXT
+2025-07-01 18:18:17,363 - INFO - Schema update applied: ALTER TABLE trades ADD COLUMN signal_strength REAL
+2025-07-01 18:18:17,365 - INFO - Database schema updated successfully with 10 changes
+2025-07-01 18:18:17,373 - INFO - Enhanced Signal API Client initialized: http://localhost:3001/api
+2025-07-01 18:18:17,373 - INFO - API Enhanced Strategy initialized
+2025-07-01 18:18:17,373 - INFO - API enabled: True
+2025-07-01 18:18:17,373 - INFO - API URL: http://localhost:3001/api
+2025-07-01 18:18:17,373 - INFO - Fallback enabled: True
+2025-07-01 18:18:17,373 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 18:18:17,373 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 18:18:17,375 - INFO - Advanced indicators initialized successfully
+2025-07-01 18:18:17,375 - INFO - Risk Manager initialized with equity protection: Warning at 2.0%, Risk Reduction at 3.0%, High Alert at 5.0%, Emergency at 8.0%
+2025-07-01 18:18:17,375 - INFO - Hybrid Trading Bot initialized with Enhanced Signal API
+2025-07-01 18:18:17,375 - INFO - API URL: http://localhost:3001/api
+2025-07-01 18:18:17,375 - INFO - API enabled: True
+2025-07-01 18:18:17,375 - INFO - Mode: TEST trading
+2025-07-01 18:18:17,376 - INFO - AI Provider: CoinGecko
+2025-07-01 18:18:17,376 - INFO - Advanced Indicators: Taapi.io
+2025-07-01 18:18:17,377 - INFO - Testing API connections...
+2025-07-01 18:18:17,377 - INFO - Initializing Enhanced Signal API...
+2025-07-01 18:18:17,405 - INFO - API health check passed
+2025-07-01 18:18:17,405 - INFO - Enhanced Signal API initialized successfully
+2025-07-01 18:18:17,405 - INFO - Enhanced Signal API initialized successfully
+2025-07-01 18:18:17,405 - INFO - Using AI-powered signals with on-chain analysis
+2025-07-01 18:18:18,100 - INFO - Binance server time: 2025-07-01 18:18:17.095000
+2025-07-01 18:18:18,357 - INFO - CoinGecko AI connection successful: 0.02113026024626992
+2025-07-01 18:18:18,358 - INFO - Preloading historical data for analysis...
+2025-07-01 18:18:18,358 - INFO - Preloading historical data for analysis...
+2025-07-01 18:18:18,358 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-07-01 18:18:19,304 - INFO - Found trending pairs: HFTUSDT, MAVUSDT, JTOUSDT, SUPERUSDT, SYRUPUSDT...
+2025-07-01 18:18:19,306 - INFO - Preloading data for pairs: SEIUSDT, LPTUSDT, ENAUSDT, SUPERUSDT, ADAUSDT
+2025-07-01 18:18:47,403 - INFO - Preloading data for pairs: BTCUSDT, NEIROUSDT, JUPUSDT, GPSUSDT, INITUSDT
+2025-07-01 18:19:20,523 - INFO - Preloading data for pairs: ORDIUSDT, ETHUSDT, 1000SATSUSDT, SOLUSDT, MAVUSDT
+2025-07-01 18:19:52,672 - INFO - Preloading data for pairs: PENGUUSDT, PROMUSDT, BNBUSDT, JTOUSDT, TRBUSDT
+2025-07-01 18:20:24,330 - INFO - Preloading data for pairs: SYRUPUSDT, ZKUSDT, HFTUSDT, KAITOUSDT
+2025-07-01 18:20:51,523 - INFO - Historical data preloading complete
+2025-07-01 18:20:59,867 - INFO - Updating correlation matrix...
+2025-07-01 18:20:59,869 - INFO - API STRATEGY STATISTICS:
+2025-07-01 18:20:59,869 - INFO -   • Total Analyses: 0
+2025-07-01 18:20:59,869 - INFO -   • API Signals Used: 0 (0.0%)
+2025-07-01 18:20:59,870 - INFO -   • Fallback Used: 0 (0.0%)
+2025-07-01 18:20:59,870 - INFO -   • API Success Rate: 0.0%
+2025-07-01 18:20:59,870 - INFO -   • API Cache Hits: 0
+2025-07-01 18:20:59,870 - INFO -   • API Available: True
+2025-07-01 18:20:59,881 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/5 ($0.00, 0.0% of equity)
+2025-07-01 18:20:59,886 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-07-01 18:20:59,911 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0,
+    "avg_daily_return_pct": 0,
+    "avg_weekly_return_pct": 0
+  },
+  "trades": {
+    "total": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "profit_factor": 0,
+    "avg_profit": 0,
+    "avg_loss": 0,
+    "expected_value": 0,
+    "recent_win_rate_pct": 0
+  },
+  "pairs": {
+    "best_pair": "None",
+    "best_pair_profit": 0,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-07-01 18:20:59"
+}
+2025-07-01 18:24:00,968 - INFO - Successfully gathered price data for 41/41 pairs
+2025-07-01 18:24:01,066 - INFO - Correlation matrix updated for 41 pairs
+2025-07-01 18:24:08,118 - INFO - Market regime changed: NEUTRAL -> BEAR_TRENDING
+2025-07-01 18:24:08,118 - INFO - Market state: Regime=BEAR_TRENDING, Trend=bearish, Volatility=low, Breadth=0.40
+2025-07-01 18:24:08,118 - INFO - Top opportunities found: ['PENGUUSDT', 'BTCUSDT', 'ARBUSDT']
+2025-07-01 18:24:08,118 - INFO - Fetching top 30 trending cryptocurrency pairs
+2025-07-01 18:24:09,068 - INFO - Found trending pairs: HFTUSDT, MAVUSDT, JTOUSDT, GPSUSDT, SUPERUSDT...
+2025-07-01 18:24:10,002 - INFO - Selected optimal assets: PENGUUSDT, PROMUSDT, HBARUSDT, LPTUSDT, ONDOUSDT... (15 total)
+2025-07-01 18:24:10,003 - INFO - High priority opportunities: PENGUUSDT
+2025-07-01 18:24:12,300 - ERROR - API request failed with status 400: {"success":false,"error":"Validation failed","details":["Invalid symbol. Must be one of: BTCUSDT, ETHUSDT, BNBUSDT, ADAUSDT, SOLUSDT, DOTUSDT, LINKUSDT, LTCUSDT, XRPUSDT, MATICUSDT"]}
+2025-07-01 18:24:12,300 - INFO - Using fallback analysis for PENGUUSDT (API unavailable/invalid)
+2025-07-01 18:24:12,300 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 18:24:12,300 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 18:24:12,300 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 18:24:16,264 - ERROR - API request failed with status 400: {"success":false,"error":"Validation failed","details":["Invalid symbol. Must be one of: BTCUSDT, ETHUSDT, BNBUSDT, ADAUSDT, SOLUSDT, DOTUSDT, LINKUSDT, LTCUSDT, XRPUSDT, MATICUSDT"]}
+2025-07-01 18:24:16,264 - INFO - Using fallback analysis for PROMUSDT (API unavailable/invalid)
+2025-07-01 18:24:16,265 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 18:24:16,265 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 18:24:16,265 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 18:24:16,381 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 18:24:16,381 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 18:24:19,327 - ERROR - API request failed with status 400: {"success":false,"error":"Validation failed","details":["Invalid symbol. Must be one of: BTCUSDT, ETHUSDT, BNBUSDT, ADAUSDT, SOLUSDT, DOTUSDT, LINKUSDT, LTCUSDT, XRPUSDT, MATICUSDT"]}
+2025-07-01 18:24:19,327 - INFO - Using fallback analysis for HBARUSDT (API unavailable/invalid)
+2025-07-01 18:24:19,327 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 18:24:19,328 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 18:24:19,328 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 18:24:23,773 - ERROR - API request failed with status 400: {"success":false,"error":"Validation failed","details":["Invalid symbol. Must be one of: BTCUSDT, ETHUSDT, BNBUSDT, ADAUSDT, SOLUSDT, DOTUSDT, LINKUSDT, LTCUSDT, XRPUSDT, MATICUSDT"]}
+2025-07-01 18:24:23,773 - INFO - Using fallback analysis for LPTUSDT (API unavailable/invalid)
+2025-07-01 18:24:23,773 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 18:24:23,773 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 18:24:23,774 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 18:24:27,730 - ERROR - API request failed with status 400: {"success":false,"error":"Validation failed","details":["Invalid symbol. Must be one of: BTCUSDT, ETHUSDT, BNBUSDT, ADAUSDT, SOLUSDT, DOTUSDT, LINKUSDT, LTCUSDT, XRPUSDT, MATICUSDT"]}
+2025-07-01 18:24:27,731 - INFO - Using fallback analysis for ONDOUSDT (API unavailable/invalid)
+2025-07-01 18:24:27,731 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 18:24:27,731 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 18:24:27,731 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 18:24:31,703 - ERROR - API request failed with status 400: {"success":false,"error":"Validation failed","details":["Invalid symbol. Must be one of: BTCUSDT, ETHUSDT, BNBUSDT, ADAUSDT, SOLUSDT, DOTUSDT, LINKUSDT, LTCUSDT, XRPUSDT, MATICUSDT"]}
+2025-07-01 18:24:31,704 - INFO - Using fallback analysis for WBTCUSDT (API unavailable/invalid)
+2025-07-01 18:24:31,705 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 18:24:31,705 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 18:24:31,705 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 18:24:31,756 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 18:24:31,756 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 18:24:31,796 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 18:24:31,796 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 18:24:31,798 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 18:24:31,798 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 18:24:31,822 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 18:24:31,822 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 18:24:35,760 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 18:24:35,760 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 18:24:38,642 - INFO - QUICK MODE: Using 40.0% of equity for signal strength 0.42
+2025-07-01 18:24:38,642 - INFO - API-ENHANCED BUY: PENGUUSDT - Qty: 21548.000000, Value: $320.00, API Confidence: 0%, On-chain Score: 0/100, Whale: None
+2025-07-01 18:24:39,767 - INFO - QUICK MODE: Using 40.0% of equity for signal strength 0.37
+2025-07-01 18:24:39,767 - INFO - Position size adjusted to minimum: $300.00
+2025-07-01 18:24:39,767 - INFO - API-ENHANCED BUY: PROMUSDT - Qty: 37.570000, Value: $240.00, API Confidence: 0%, On-chain Score: 0/100, Whale: None
+2025-07-01 18:24:39,803 - INFO - Trading cycle completed in 219.93 seconds
+2025-07-01 18:24:40,015 - INFO - PENGUUSDT status: +0.00% after 0min [REGULAR] (No API)
+2025-07-01 18:24:40,015 - INFO - PROMUSDT status: +0.00% after 0min [REGULAR] (No API)
+2025-07-01 18:24:54,821 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 2/5 ($560.00, 56.0% of equity)
+2025-07-01 18:24:54,822 - INFO - Active positions: PENGU:+0.0%, PROM:+0.0%
+2025-07-01 18:24:54,823 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-07-01 18:27:19,832 - INFO - Top opportunities found: ['PENGUUSDT', 'BTCUSDT', 'ARBUSDT']
+2025-07-01 18:27:20,799 - INFO - Selected optimal assets: PENGUUSDT, PROMUSDT, HBARUSDT, LPTUSDT, ONDOUSDT... (15 total)
+2025-07-01 18:27:20,801 - INFO - High priority opportunities: PENGUUSDT
+2025-07-01 18:27:21,397 - ERROR - API request failed with status 400: {"success":false,"error":"Validation failed","details":["Invalid symbol. Must be one of: BTCUSDT, ETHUSDT, BNBUSDT, ADAUSDT, SOLUSDT, DOTUSDT, LINKUSDT, LTCUSDT, XRPUSDT, MATICUSDT"]}
+2025-07-01 18:27:21,397 - INFO - Using fallback analysis for PENGUUSDT (API unavailable/invalid)
+2025-07-01 18:27:21,398 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 18:27:21,398 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 18:27:21,398 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 18:27:25,869 - ERROR - API request failed with status 400: {"success":false,"error":"Validation failed","details":["Invalid symbol. Must be one of: BTCUSDT, ETHUSDT, BNBUSDT, ADAUSDT, SOLUSDT, DOTUSDT, LINKUSDT, LTCUSDT, XRPUSDT, MATICUSDT"]}
+2025-07-01 18:27:25,869 - INFO - Using fallback analysis for PROMUSDT (API unavailable/invalid)
+2025-07-01 18:27:25,869 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 18:27:25,869 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 18:27:25,870 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 18:27:25,975 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 18:27:25,975 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 18:27:29,389 - ERROR - API request failed with status 400: {"success":false,"error":"Validation failed","details":["Invalid symbol. Must be one of: BTCUSDT, ETHUSDT, BNBUSDT, ADAUSDT, SOLUSDT, DOTUSDT, LINKUSDT, LTCUSDT, XRPUSDT, MATICUSDT"]}
+2025-07-01 18:27:29,391 - INFO - Using fallback analysis for HBARUSDT (API unavailable/invalid)
+2025-07-01 18:27:29,391 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 18:27:29,392 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 18:27:29,392 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 18:27:29,509 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 18:27:29,510 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 18:27:32,889 - ERROR - API request failed with status 400: {"success":false,"error":"Validation failed","details":["Invalid symbol. Must be one of: BTCUSDT, ETHUSDT, BNBUSDT, ADAUSDT, SOLUSDT, DOTUSDT, LINKUSDT, LTCUSDT, XRPUSDT, MATICUSDT"]}
+2025-07-01 18:27:32,889 - INFO - Using fallback analysis for LPTUSDT (API unavailable/invalid)
+2025-07-01 18:27:32,889 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 18:27:32,890 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 18:27:32,890 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 18:27:37,312 - ERROR - API request failed with status 400: {"success":false,"error":"Validation failed","details":["Invalid symbol. Must be one of: BTCUSDT, ETHUSDT, BNBUSDT, ADAUSDT, SOLUSDT, DOTUSDT, LINKUSDT, LTCUSDT, XRPUSDT, MATICUSDT"]}
+2025-07-01 18:27:37,312 - INFO - Using fallback analysis for ONDOUSDT (API unavailable/invalid)
+2025-07-01 18:27:37,312 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 18:27:37,313 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 18:27:37,313 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 18:27:42,180 - ERROR - API request failed with status 400: {"success":false,"error":"Validation failed","details":["Invalid symbol. Must be one of: BTCUSDT, ETHUSDT, BNBUSDT, ADAUSDT, SOLUSDT, DOTUSDT, LINKUSDT, LTCUSDT, XRPUSDT, MATICUSDT"]}
+2025-07-01 18:27:42,180 - INFO - Using fallback analysis for WBTCUSDT (API unavailable/invalid)
+2025-07-01 18:27:42,180 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 18:27:42,180 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 18:27:42,181 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 18:27:46,643 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 18:27:46,644 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 18:27:46,680 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 18:27:46,681 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 18:27:46,683 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 18:27:46,683 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 18:27:46,688 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 18:27:46,688 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 18:27:48,190 - INFO - Trading cycle completed in 173.37 seconds
+2025-07-01 18:27:51,519 - INFO - Ultra-quick profit exit for PENGUUSDT at 0.64% (5 min)
+2025-07-01 18:27:51,519 - INFO - SELL ORDER: PENGUUSDT - 21548.0 at approx. $0.014945, P/L: $2.05 (0.64%)
+2025-07-01 18:27:51,533 - INFO - Session stats: 1 trades, 100.0% win rate, $2.05 profit
+2025-07-01 18:28:03,209 - INFO - API health check passed
+2025-07-01 18:28:03,209 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 1/5 ($240.00, 24.0% of equity)
+2025-07-01 18:28:03,209 - INFO - Active positions: PROM:+0.0%
+2025-07-01 18:28:03,209 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-07-01 18:30:28,632 - INFO - Top opportunities found: ['PENGUUSDT', 'BTCUSDT', 'GPSUSDT']
+2025-07-01 18:30:30,001 - INFO - Selected optimal assets: PROMUSDT, HBARUSDT, AAVEUSDT, LPTUSDT, ONDOUSDT... (15 total)
+2025-07-01 18:30:30,002 - INFO - High priority opportunities: PENGUUSDT
+2025-07-01 18:30:30,002 - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
+Traceback (most recent call last):
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python312\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\cuhey\AppData\Local\Programs\Python\Python312\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+ConnectionResetError: [WinError 10054] En eksisterende forbindelse blev tvangsafbrudt af en ekstern vært
+2025-07-01 18:30:30,337 - ERROR - API request failed with status 400: {"success":false,"error":"Validation failed","details":["Invalid symbol. Must be one of: BTCUSDT, ETHUSDT, BNBUSDT, ADAUSDT, SOLUSDT, DOTUSDT, LINKUSDT, LTCUSDT, XRPUSDT, MATICUSDT"]}
+2025-07-01 18:30:30,338 - INFO - Using fallback analysis for PENGUUSDT (API unavailable/invalid)
+2025-07-01 18:30:30,338 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 18:30:30,338 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 18:30:30,338 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 18:30:34,755 - ERROR - API request failed with status 400: {"success":false,"error":"Validation failed","details":["Invalid symbol. Must be one of: BTCUSDT, ETHUSDT, BNBUSDT, ADAUSDT, SOLUSDT, DOTUSDT, LINKUSDT, LTCUSDT, XRPUSDT, MATICUSDT"]}
+2025-07-01 18:30:34,755 - INFO - Using fallback analysis for PROMUSDT (API unavailable/invalid)
+2025-07-01 18:30:34,757 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 18:30:34,757 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 18:30:34,757 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 18:30:34,816 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 18:30:34,816 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 18:30:38,278 - ERROR - API request failed with status 400: {"success":false,"error":"Validation failed","details":["Invalid symbol. Must be one of: BTCUSDT, ETHUSDT, BNBUSDT, ADAUSDT, SOLUSDT, DOTUSDT, LINKUSDT, LTCUSDT, XRPUSDT, MATICUSDT"]}
+2025-07-01 18:30:38,278 - INFO - Using fallback analysis for HBARUSDT (API unavailable/invalid)
+2025-07-01 18:30:38,279 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 18:30:38,279 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 18:30:38,279 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 18:30:38,369 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 18:30:38,370 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 18:30:42,696 - ERROR - API request failed with status 400: {"success":false,"error":"Validation failed","details":["Invalid symbol. Must be one of: BTCUSDT, ETHUSDT, BNBUSDT, ADAUSDT, SOLUSDT, DOTUSDT, LINKUSDT, LTCUSDT, XRPUSDT, MATICUSDT"]}
+2025-07-01 18:30:42,696 - INFO - Using fallback analysis for AAVEUSDT (API unavailable/invalid)
+2025-07-01 18:30:42,697 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 18:30:42,697 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 18:30:42,697 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 18:30:42,773 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 18:30:42,774 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 18:30:45,741 - ERROR - API request failed with status 400: {"success":false,"error":"Validation failed","details":["Invalid symbol. Must be one of: BTCUSDT, ETHUSDT, BNBUSDT, ADAUSDT, SOLUSDT, DOTUSDT, LINKUSDT, LTCUSDT, XRPUSDT, MATICUSDT"]}
+2025-07-01 18:30:45,742 - INFO - Using fallback analysis for LPTUSDT (API unavailable/invalid)
+2025-07-01 18:30:45,742 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 18:30:45,742 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 18:30:45,742 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 18:30:49,728 - ERROR - API request failed with status 400: {"success":false,"error":"Validation failed","details":["Invalid symbol. Must be one of: BTCUSDT, ETHUSDT, BNBUSDT, ADAUSDT, SOLUSDT, DOTUSDT, LINKUSDT, LTCUSDT, XRPUSDT, MATICUSDT"]}
+2025-07-01 18:30:49,728 - INFO - Using fallback analysis for ONDOUSDT (API unavailable/invalid)
+2025-07-01 18:30:49,728 - INFO - Taapi.io client initialized (Free tier: 1 request/15s)
+2025-07-01 18:30:49,729 - INFO - Advanced indicators initialized with Taapi.io
+2025-07-01 18:30:49,742 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-01 18:30:54,261 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 18:30:54,261 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 18:30:54,291 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 18:30:54,291 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 18:30:54,309 - ERROR - Taapi.io API error 404: {"errors":["The endpoint (or indicator) you are calling does not exist!"]}
+2025-07-01 18:30:54,309 - WARNING - Taapi.io API error, backing off for 300s: HTTP 404
+2025-07-01 18:30:57,130 - INFO - QUICK MODE: Using 40.0% of equity for signal strength 0.34
+2025-07-01 18:30:57,131 - INFO - Position size adjusted to minimum: $300.00
+2025-07-01 18:30:57,140 - INFO - API-ENHANCED BUY: PENGUUSDT - Qty: 16044.000000, Value: $240.00, API Confidence: 0%, On-chain Score: 0/100, Whale: None
+2025-07-01 18:30:57,149 - INFO - Trading cycle completed in 173.94 seconds
+2025-07-01 18:31:00,542 - INFO - PENGUUSDT status: +0.00% after 0min [REGULAR] (No API)
+2025-07-01 18:31:12,158 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 2/5 ($480.00, 48.0% of equity)
+2025-07-01 18:31:12,159 - INFO - Active positions: PROM:-0.1%, PENGU:+0.0%
+2025-07-01 18:31:12,161 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-07-01 18:32:18,804 - INFO - Bot stopped by user
+2025-07-01 18:32:19,493 - ERROR - Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x0000014EE1255190>

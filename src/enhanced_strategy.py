@@ -4,6 +4,8 @@ import time
 import asyncio
 from typing import Dict, List, Any, Tuple
 import config
+from advanced_indicators import AdvancedIndicators
+
 
 class EnhancedStrategy:
     def __init__(self, binance_client, ai_client, market_analysis, order_book):
@@ -13,6 +15,10 @@ class EnhancedStrategy:
         self.order_book = order_book
         self.cache = {}
         self.cache_expiry = {}
+
+        self.advanced_indicators = AdvancedIndicators()
+        
+        logging.info("Enhanced Strategy initialized with advanced indicators support")
         
     async def analyze_pair(self, pair: str, mtf_analysis=None, order_book_data=None, 
                     correlation_data=None, market_state=None, nebula_signal=None) -> Dict[str, Any]:
@@ -24,7 +30,7 @@ class EnhancedStrategy:
             # Validate MTF analysis
             if not mtf_analysis or mtf_analysis.get('timeframes_analyzed', 0) == 0:
                 logging.warning(f"No timeframe data available for {pair}, using minimal analysis")
-                mtf_analysis = self._get_minimal_analysis(pair)
+                mtf_analysis = await self._get_minimal_analysis(pair)
                 
             # Get order book analysis
             if not order_book_data:
@@ -57,6 +63,19 @@ class EnhancedStrategy:
             else:
                 logging.debug(f"AI client not available for {pair}")
                 ai_insights = self._get_default_ai_insights()
+            
+            # Get advanced indicators signals (NEW)
+            advanced_signals = None
+            try:
+                advanced_task = asyncio.create_task(self.advanced_indicators.get_advanced_signals(pair))
+                advanced_signals = await asyncio.wait_for(advanced_task, timeout=30)  # Longer timeout for multiple API calls
+                logging.debug(f"Advanced signals for {pair}: {advanced_signals['overall_signal']['source'] if advanced_signals else 'none'}")
+            except asyncio.TimeoutError:
+                logging.debug(f"Advanced indicators timed out for {pair}")
+                advanced_signals = None
+            except Exception as e:
+                logging.debug(f"Advanced indicators error for {pair}: {str(e)}")
+                advanced_signals = None
                 
             # Generate initial signals from technical analysis
             technical_signals = self._get_technical_signals(mtf_analysis)
@@ -67,14 +86,15 @@ class EnhancedStrategy:
             # Generate signals from AI insights
             ai_signals = self._get_ai_signals(ai_insights)
             
-            # Combine all signals with appropriate weights
+            # Combine all signals with appropriate weights (UPDATED)
             combined_signals = self._combine_all_signals(
                 technical_signals,
                 orderbook_signals,
                 ai_signals,
                 correlation_data,
                 market_state,
-                nebula_signal  # Keep parameter name for compatibility
+                nebula_signal,
+                advanced_signals  # NEW parameter
             )
             
             return combined_signals
@@ -88,46 +108,9 @@ class EnhancedStrategy:
                 "source": "error",
                 "error": str(e)
             }
-    
-    async def _get_minimal_analysis(self, pair: str):
-        """Get minimal analysis when MTF fails"""
-        try:
-            # Try to get at least some recent price data
-            current_time = int(time.time() * 1000)
-            klines = await self.market_analysis.get_klines(pair, current_time - (60 * 60 * 1000), '5m')  # 1 hour of 5m data
-            
-            if klines and len(klines) >= 3:
-                closes = [float(k[4]) for k in klines]
-                
-                # Simple momentum calculation
-                recent_change = (closes[-1] / closes[0] - 1) if closes[0] > 0 else 0
-                momentum = np.clip(recent_change * 10, -1, 1)  # Scale and clip
-                
-                # Simple trend based on recent price direction
-                if len(closes) >= 3:
-                    trend = 1 if closes[-1] > closes[-3] else -1
-                    trend_strength = abs(recent_change) * 5  # Scale
-                    trend = trend * min(trend_strength, 1)
-                else:
-                    trend = 0
-                
-                return {
-                    "mtf_trend": trend,
-                    "mtf_momentum": momentum,
-                    "mtf_volatility": 0.5,  # Neutral
-                    "mtf_volume": 0.5,  # Neutral
-                    "overall_score": (trend + momentum) / 2,
-                    "timeframes_analyzed": 1,  # Minimal analysis
-                    "data_source": "minimal"
-                }
-            else:
-                logging.warning(f"No price data available for {pair}")
-                return self._get_neutral_analysis()
-                
-        except Exception as e:
-            logging.error(f"Error getting minimal analysis for {pair}: {str(e)}")
-            return self._get_neutral_analysis()
-    
+        
+
+
     def _get_neutral_analysis(self):
         """Return completely neutral analysis"""
         return {
@@ -427,8 +410,9 @@ class EnhancedStrategy:
             }
     
     def _combine_all_signals(self, technical_signals, orderbook_signals, 
-                           ai_signals, correlation_data, market_state, nebula_signal=None):
-        """Combine all signals from different sources with improved logic"""
+                           ai_signals, correlation_data, market_state, nebula_signal=None, 
+                           advanced_signals=None):  # NEW parameter
+        """Combine all signals from different sources with improved logic including advanced indicators"""
         try:
             # Extract signals
             ta_buy = technical_signals.get('buy_signal', False)
@@ -442,6 +426,17 @@ class EnhancedStrategy:
             ai_buy = ai_signals.get('buy_signal', False)
             ai_sell = ai_signals.get('sell_signal', False)
             ai_strength = ai_signals.get('signal_strength', 0)
+            
+            # Extract advanced indicators signals (NEW)
+            adv_buy = False
+            adv_sell = False
+            adv_strength = 0
+            
+            if advanced_signals and advanced_signals.get('overall_signal'):
+                adv_signal = advanced_signals['overall_signal']
+                adv_buy = adv_signal.get('buy_signal', False)
+                adv_sell = adv_signal.get('sell_signal', False)
+                adv_strength = adv_signal.get('signal_strength', 0)
             
             # Add direct signal if available (from nebula_signal parameter for compatibility)
             direct_signal_action = None
@@ -465,28 +460,32 @@ class EnhancedStrategy:
             final_strength = 0
             signal_source = "none"
             
-            # Enhanced weight factors based on market state
-            ta_weight = getattr(config, 'TECHNICAL_WEIGHT', 0.5)  # Default technical weight
-            ob_weight = 0.15  # Default orderbook weight
-            ai_weight = getattr(config, 'ONCHAIN_WEIGHT', 0.35)  # Default AI weight
+            # Enhanced weight factors based on market state (UPDATED)
+            ta_weight = getattr(config, 'TECHNICAL_WEIGHT', 0.4)  # Reduced to make room for advanced
+            ob_weight = getattr(config, 'ORDERBOOK_WEIGHT', 0.15)  
+            ai_weight = getattr(config, 'ONCHAIN_WEIGHT', 0.2)  # Reduced
+            adv_weight = getattr(config, 'TAAPI_OVERALL_WEIGHT', 0.25)  # NEW: Advanced indicators weight
             
             # Adjust weights based on market regime
             regime = market_state.get('regime', 'NEUTRAL') if market_state else 'NEUTRAL'
             
             if regime == "BULL_TRENDING":
-                ta_weight = 0.50
+                ta_weight = 0.40
                 ob_weight = 0.15
-                ai_weight = 0.35
-            elif regime == "BEAR_TRENDING":
-                ta_weight = 0.55
-                ob_weight = 0.25
                 ai_weight = 0.20
-            elif regime in ["BULL_VOLATILE", "BEAR_VOLATILE"]:
+                adv_weight = 0.25
+            elif regime == "BEAR_TRENDING":
                 ta_weight = 0.45
-                ob_weight = 0.30
-                ai_weight = 0.25
+                ob_weight = 0.20
+                ai_weight = 0.15
+                adv_weight = 0.20
+            elif regime in ["BULL_VOLATILE", "BEAR_VOLATILE"]:
+                ta_weight = 0.35
+                ob_weight = 0.25
+                ai_weight = 0.15
+                adv_weight = 0.25
             
-            # More lenient signal combination logic
+            # More lenient signal combination logic (UPDATED)
             
             # BUY SIGNAL LOGIC
             buy_sources = []
@@ -504,6 +503,11 @@ class EnhancedStrategy:
                 buy_sources.append(f"AI:{ai_strength:.2f}")
                 buy_strength += ai_strength * ai_weight
             
+            # NEW: Advanced indicators buy signal
+            if adv_buy and adv_strength > 0.2:
+                buy_sources.append(f"ADV:{adv_strength:.2f}")
+                buy_strength += adv_strength * adv_weight
+            
             # SELL SIGNAL LOGIC
             sell_sources = []
             sell_strength = 0
@@ -520,6 +524,11 @@ class EnhancedStrategy:
                 sell_sources.append(f"AI:{ai_strength:.2f}")
                 sell_strength += ai_strength * ai_weight
             
+            # NEW: Advanced indicators sell signal
+            if adv_sell and adv_strength > 0.2:
+                sell_sources.append(f"ADV:{adv_strength:.2f}")
+                sell_strength += adv_strength * adv_weight
+            
             # DETERMINE FINAL SIGNAL
             
             # If we have both buy and sell signals, use the stronger one
@@ -535,50 +544,61 @@ class EnhancedStrategy:
                     final_strength = sell_strength
                     signal_source = "combined_sell:" + ",".join(sell_sources)
             
-            # If we only have a buy signal
+            # If only buy signals
             elif buy_strength > 0:
                 final_buy = True
+                final_sell = False
                 final_strength = buy_strength
-                signal_source = "combined_buy:" + ",".join(buy_sources)
+                signal_source = "buy:" + ",".join(buy_sources)
             
-            # If we only have a sell signal
+            # If only sell signals
             elif sell_strength > 0:
+                final_buy = False
                 final_sell = True
                 final_strength = sell_strength
-                signal_source = "combined_sell:" + ",".join(sell_sources)
+                signal_source = "sell:" + ",".join(sell_sources)
             
-            # Adjust for correlation (if provided)
-            if final_buy and correlation_data:
-                portfolio_correlation = correlation_data.get('portfolio_correlation', 0)
-                is_diversified = correlation_data.get('is_diversified', True)
-                
-                if not is_diversified:
-                    # Reduce strength for highly correlated assets
-                    final_strength *= 0.8  # Less penalty than before
-                    signal_source += ",correlation_penalty"
-                elif portfolio_correlation < 0.2:
-                    # Boost strength for diversifying assets
-                    final_strength = min(0.95, final_strength * 1.1)  # Smaller boost
-                    signal_source += ",diversity_bonus"
-            
-            # Final check: ensure minimum signal threshold (more lenient)
-            min_threshold = config.MIN_SIGNAL_STRENGTH  # Reduced from 0.3
+            # Ensure minimum signal strength threshold
+            min_threshold = 0.3  # Reduced from higher values
             if final_strength < min_threshold:
                 final_buy = False
                 final_sell = False
                 final_strength = 0
-                signal_source = f"weak_signal_{final_strength:.2f}<{min_threshold}"
+                signal_source = "below_threshold"
             
-            return {
+            # Add advanced indicators details to response (NEW)
+            result = {
                 "buy_signal": final_buy,
                 "sell_signal": final_sell,
-                "signal_strength": final_strength,
+                "signal_strength": min(final_strength, 1.0),  # Cap at 1.0
                 "source": signal_source,
-                "technical": technical_signals.get('details', {}),
-                "orderbook": orderbook_signals.get('details', {}),
-                "ai": ai_signals.get('details', {}),
-                "timestamp": time.time()
+                "component_signals": {
+                    "technical": {"buy": ta_buy, "sell": ta_sell, "strength": ta_strength},
+                    "orderbook": {"buy": ob_buy, "sell": ob_sell, "strength": ob_strength},
+                    "ai": {"buy": ai_buy, "sell": ai_sell, "strength": ai_strength},
+                    "advanced": {"buy": adv_buy, "sell": adv_sell, "strength": adv_strength}  # NEW
+                },
+                "weights": {
+                    "technical": ta_weight,
+                    "orderbook": ob_weight,
+                    "ai": ai_weight,
+                    "advanced": adv_weight  # NEW
+                },
+                "regime": regime
             }
+            
+            # Add advanced indicators breakdown if available (NEW)
+            if advanced_signals:
+                result["advanced_breakdown"] = {
+                    "ichimoku": advanced_signals.get('ichimoku', {}).get('source') if advanced_signals.get('ichimoku') else None,
+                    "supertrend": advanced_signals.get('supertrend', {}).get('source') if advanced_signals.get('supertrend') else None,
+                    "tdsequential": advanced_signals.get('tdsequential', {}).get('source') if advanced_signals.get('tdsequential') else None,
+                    "fisher_transform": advanced_signals.get('fisher_transform', {}).get('source') if advanced_signals.get('fisher_transform') else None,
+                    "choppiness_index": advanced_signals.get('choppiness_index', {}).get('source') if advanced_signals.get('choppiness_index') else None,
+                    "candlestick_patterns": advanced_signals.get('candlestick_patterns', {}).get('source') if advanced_signals.get('candlestick_patterns') else None
+                }
+            
+            return result
             
         except Exception as e:
             logging.error(f"Error combining signals: {str(e)}")
@@ -586,6 +606,8 @@ class EnhancedStrategy:
                 "buy_signal": False,
                 "sell_signal": False,
                 "signal_strength": 0,
-                "source": "error",
-                "error": str(e)
+                "source": f"error:{str(e)}",
+                "component_signals": {},
+                "weights": {},
+                "regime": "ERROR"
             }

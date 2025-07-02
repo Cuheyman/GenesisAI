@@ -22,6 +22,8 @@ from risk_manager import RiskManager
 from performance_tracker import PerformanceTracker
 from opportunity_scanner import OpportunityScanner
 from nebula_integration import NebulaAIIntegration, NebulaEnhancedTradingBot, TradingAdvice
+from enhanced_strategy_api import EnhancedSignalAPIClient
+from api_client import MockAPIClient, APIEnhancedStrategy
 import config
 
 
@@ -107,13 +109,21 @@ class HybridTradingBot:
         # Get initial equity
         self.initial_equity = self.get_total_equity()
         
-        # Initialize strategy
-        self.strategy = EnhancedStrategy(
-            self.binance_client, 
-            self.ai_client,  # Use ai_client instead of nebula
+       # NEW API-ENHANCED STRATEGY INITIALIZATION:
+        self.strategy = APIEnhancedStrategy(
+            self.binance_client,
             self.market_analysis, 
             self.order_book
         )
+        
+        # Initialize API strategy
+        self.api_strategy_initialized = False
+        
+        # API monitoring
+        self.api_health_checks = 0
+        self.api_failures = 0
+        self.last_api_health_check = 0
+        
         
          # Initialize advanced indicators (NEW)
         try:
@@ -155,7 +165,9 @@ class HybridTradingBot:
         self.api_call_tracker = {}
         self.api_semaphore = asyncio.Semaphore(10)  # Limit concurrent API calls
         
-        logging.info(f"Hybrid Trading Bot initialized with {self.initial_equity:.2f} equity")
+        logging.info("Hybrid Trading Bot initialized with Enhanced Signal API")
+        logging.info(f"API URL: {getattr(config, 'SIGNAL_API_URL', 'not configured')}")
+        logging.info(f"API enabled: {getattr(config, 'ENABLE_ENHANCED_API', True)}")
         logging.info(f"Mode: {'TEST' if config.TEST_MODE else 'LIVE'} trading")
         logging.info(f"AI Provider: {'CoinGecko' if config.ENABLE_COINGECKO else 'Disabled'}")
         logging.info(f"Advanced Indicators: {'Taapi.io' if config.ENABLE_TAAPI and self.advanced_indicators else 'Disabled'}")
@@ -233,6 +245,15 @@ class HybridTradingBot:
             # Test API connections
             logging.info("Testing API connections...")
             
+            logging.info("Initializing Enhanced Signal API...")
+            self.api_strategy_initialized = await self.strategy.initialize()
+            
+            if self.api_strategy_initialized:
+                logging.info("Enhanced Signal API initialized successfully")
+                logging.info("Using AI-powered signals with on-chain analysis")
+            else:
+                logging.warning("API initialization failed, using fallback mode")
+
             # Test Binance connection
             server_time = self.binance_client.get_server_time()
             logging.info(f"Binance server time: {datetime.fromtimestamp(server_time['serverTime']/1000)}")
@@ -272,6 +293,107 @@ class HybridTradingBot:
             logging.error(f"Critical error running bot: {str(e)}")
             traceback.print_exc()
             raise
+
+
+    async def _monitor_api_health(self):
+        """Monitor API health and log status"""
+        current_time = time.time()
+        
+        # Check every 5 minutes
+        if current_time - self.last_api_health_check > 300:
+            self.api_health_checks += 1
+            
+            if hasattr(self.strategy, 'api_client'):
+                api_available = await self.strategy.api_client.check_api_health()
+                
+                if not api_available:
+                    self.api_failures += 1
+                    logging.warning(f"API health check failed ({self.api_failures} total failures)")
+                else:
+                    logging.debug("API health check passed")
+            
+            self.last_api_health_check = current_time
+
+    async def _log_api_statistics(self):
+        """Log comprehensive API usage statistics"""
+        try:
+            strategy_stats = self.strategy.get_statistics()
+            
+            logging.info("API STRATEGY STATISTICS:")
+            logging.info(f"  • Total Analyses: {strategy_stats.get('total_analyses', 0)}")
+            logging.info(f"  • API Signals Used: {strategy_stats.get('api_signals_used', 0)} "
+                        f"({strategy_stats.get('api_usage_percent', 0):.1f}%)")
+            logging.info(f"  • Fallback Used: {strategy_stats.get('fallback_signals_used', 0)} "
+                        f"({strategy_stats.get('fallback_usage_percent', 0):.1f}%)")
+            
+            api_client_stats = strategy_stats.get('api_client_stats', {})
+            if api_client_stats:
+                logging.info(f"  • API Success Rate: {api_client_stats.get('success_rate_percent', 0):.1f}%")
+                logging.info(f"  • API Cache Hits: {api_client_stats.get('cache_hits', 0)}")
+                logging.info(f"  • API Available: {api_client_stats.get('api_available', False)}")
+                
+        except Exception as e:
+            logging.error(f"Error logging API statistics: {str(e)}")
+
+    def _get_correlation_data(self, pair: str) -> dict[str, any]:
+        """Get correlation data for pair"""
+        try:
+            active_positions = list(self.active_positions.keys())
+            return {
+                'portfolio_correlation': self.correlation.get_portfolio_correlation(pair, active_positions),
+                'is_diversified': self.correlation.are_pairs_diversified(pair, active_positions)
+            }
+        except Exception as e:
+            logging.debug(f"Error getting correlation data: {str(e)}")
+            return {'portfolio_correlation': 0, 'is_diversified': True}
+
+    async def _set_api_stop_loss(self, pair: str, entry_price: float, stop_loss_price: float):
+        """Set stop loss based on API recommendation"""
+        try:
+            if not hasattr(self, 'api_stop_losses'):
+                self.api_stop_losses = {}
+            
+            self.api_stop_losses[pair] = {
+                'entry_price': entry_price,
+                'stop_loss_price': stop_loss_price,
+                'set_time': time.time(),
+                'source': 'api_recommendation'
+            }
+            
+            logging.info(f"API Stop Loss set for {pair}: ${stop_loss_price:.4f}")
+            
+        except Exception as e:
+            logging.error(f"Error setting API stop loss: {str(e)}")
+
+    async def _set_api_take_profits(self, pair: str, entry_price: float, exit_levels: dict[str, any]):
+        """Set take profit levels based on API recommendations"""
+        try:
+            if not hasattr(self, 'api_take_profits'):
+                self.api_take_profits = {}
+            
+            take_profits = []
+            for i in range(1, 4):
+                tp_key = f'take_profit_{i}'
+                if tp_key in exit_levels and exit_levels[tp_key]:
+                    take_profits.append({
+                        'level': i,
+                        'price': exit_levels[tp_key],
+                        'percentage': 33.33 if i < 3 else 34  # Split position 33/33/34
+                    })
+            
+            if take_profits:
+                self.api_take_profits[pair] = {
+                    'entry_price': entry_price,
+                    'take_profits': take_profits,
+                    'set_time': time.time(),
+                    'source': 'api_recommendation'
+                }
+                
+                tp_prices = [f"${tp['price']:.4f}" for tp in take_profits]
+                logging.info(f"API Take Profits set for {pair}: {', '.join(tp_prices)}")
+                
+        except Exception as e:
+            logging.error(f"Error setting API take profits: {str(e)}")
     
     async def preload_historical_data(self):
         """Preload sufficient historical data for all needed timeframes"""
@@ -420,7 +542,18 @@ class HybridTradingBot:
             while True:
                 try:
                     start_time = time.time()
+                    await self._monitor_api_health()
+
+                     # Log API statistics periodically
+                    if not hasattr(self, 'last_api_stats_log'):
+                        self.last_api_stats_log = 0
                     
+                    if time.time() - self.last_api_stats_log > 1800:  # Every 30 minutes
+                        await self._log_api_statistics()
+                        self.last_api_stats_log = time.time()
+
+
+
                     # FIXED: Safe equity and risk parameter updates
                     try:
                         current_equity = self.get_total_equity()
@@ -740,10 +873,46 @@ class HybridTradingBot:
             return 0, 0
 
 
-
-
     async def analyze_and_trade(self, pair, priority='normal'):
-        """FIXED: Analyze and trade with comprehensive error handling"""
+            
+            try:
+                # Check if we already have a position
+                have_position = pair in self.active_positions
+                
+                # Get API-powered analysis
+                analysis = await self.strategy.analyze_pair(
+                    pair,
+                    correlation_data=self._get_correlation_data(pair),
+                    market_state=self.market_state
+                )
+                
+                # Log API signal details
+                if analysis.get('source') == 'enhanced_api':
+                    api_data = analysis.get('api_data', {})
+                    confidence = api_data.get('confidence', 0)
+                    onchain_score = api_data.get('onchain_score', 0)
+                    whale_influence = api_data.get('whale_influence', 'NEUTRAL')
+                    
+                    logging.info(f"API SIGNAL {pair}: {api_data.get('signal', 'UNKNOWN')} "
+                            f"(Confidence: {confidence}%, On-chain: {onchain_score}/100, "
+                            f"Whale: {whale_influence})")
+                
+                # Enhanced trading decisions with API recommendations
+                if analysis.get('buy_signal', False) and not have_position:
+                    success = await self._execute_api_enhanced_buy(pair, analysis)
+                    if success:
+                        self.risk_manager.add_position(pair, analysis.get('position_value', 0))
+                        
+                elif analysis.get('sell_signal', False) and have_position:
+                    success = await self._execute_api_enhanced_sell(pair, analysis)
+                    if success:
+                        self.risk_manager.remove_position(pair)
+                        
+            except Exception as e:
+                logging.error(f"Error in API-enhanced analysis for {pair}: {str(e)}")
+
+    '''async def analyze_and_trade(self, pair, priority='normal'):
+       
         try:
             # FIXED: Safe cache checking
             cache_key = f"processed_{pair}"
@@ -959,7 +1128,7 @@ class HybridTradingBot:
         except Exception as e:
             logging.error(f"Error analyzing {pair}: {str(e)}")
             import traceback
-            traceback.print_exc()
+            traceback.print_exc()'''
     
     async def get_current_price(self, pair: str) -> float:
         """FIXED: Get current price with comprehensive error handling"""
@@ -1090,93 +1259,107 @@ class HybridTradingBot:
         except Exception as e:
             logging.error(f"Debug error: {str(e)}")
     
-    async def execute_buy(self, pair, position_size, analysis):
-        
+
+
+
+    async def _execute_api_enhanced_buy(self, pair: str, analysis: dict[str, any]) -> bool:
+        """Execute buy order with API-enhanced position sizing and exit levels"""
         try:
-            # Get current price
             current_price = await self.get_current_price(pair)
             if current_price <= 0:
-                logging.error(f"Invalid price for {pair}: {current_price}")
                 return False
             
-            # Get signal strength from analysis
-            signal_strength = analysis.get('signal_strength', 0.5)
+            # Get API position sizing recommendation
+            sizing_rec = await self.strategy.get_position_sizing_recommendation(pair, analysis)
             
-            # Use dynamic position sizing
+            # Calculate position size using API recommendation
+            position_size_pct = sizing_rec.get('position_size_percent', 5)
+            current_equity = self.get_total_equity()
+            position_size = current_equity * (position_size_pct / 100)
+            
+            # Apply risk management constraints
+            max_position = current_equity * 0.15  # Never exceed 15%
+            position_size = min(position_size, max_position)
+            
+            # Calculate quantity
             quantity, actual_position_size = await self.calculate_dynamic_position_size(
-                pair, signal_strength, current_price
+                pair, analysis.get('signal_strength', 0.5), current_price
             )
             
-            if quantity <= 0:
-                logging.error(f"Could not calculate valid quantity for {pair}")
-                return False
+            # Override with API sizing if significantly different
+            api_data = analysis.get('api_data', {})
+            if api_data and abs(actual_position_size - position_size) / position_size > 0.3:
+                # Use API sizing if 30%+ different
+                quantity = position_size / current_price
+                actual_position_size = position_size
+                logging.info(f"Using API position sizing: ${actual_position_size:.2f}")
             
-            # Log the order details
-            log_message = f"DYNAMIC BUY: {pair} - Qty: {quantity}, Price: ${current_price:.4f}, Value: ${actual_position_size:.2f}, Signal: {signal_strength:.2f}"
+            # Get API exit levels
+            exit_levels = await self.strategy.get_exit_levels(pair, current_price, analysis)
+            
+            # Execute the order
+            success = await self._execute_buy_with_levels(
+                pair, quantity, actual_position_size, analysis, exit_levels
+            )
+            
+            return success
+            
+        except Exception as e:
+            logging.error(f"Error in API-enhanced buy execution: {str(e)}")
+            return False
+        
+
+    async def _execute_buy_with_levels(self, pair: str, quantity: float, position_size: float, 
+                                      analysis: dict[str, any], exit_levels: dict[str, any]) -> bool:
+        
+        try:
+            current_price = await self.get_current_price(pair)
+            
+            # Enhanced logging with API data
+            api_data = analysis.get('api_data', {})
+            log_message = (f"API-ENHANCED BUY: {pair} - "
+                          f"Qty: {quantity:.6f}, Value: ${position_size:.2f}, "
+                          f"API Confidence: {api_data.get('confidence', 0)}%, "
+                          f"On-chain Score: {api_data.get('onchain_score', 0)}/100")
+            
+            if api_data.get('whale_influence') != 'NEUTRAL':
+                log_message += f", Whale: {api_data.get('whale_influence')}"
+            
+            if api_data.get('catalysts'):
+                log_message += f", Catalysts: {', '.join(api_data.get('catalysts', [])[:2])}"
+            
             logging.info(log_message)
             self.trade_logger.info(log_message)
             
-            # Generate a trade ID
+            # Execute order (existing logic)
             trade_id = f"{int(time.time())}-{random.randint(1000, 9999)}"
             
             if config.TEST_MODE:
-                # Simulate order in test mode
-                order_id = f"test_{int(time.time())}"
-                
-                # Record the trade in database
-                await self.db_manager.execute_query(
-                    """
-                    INSERT INTO trades
-                    (trade_id, pair, type, price, quantity, value, timestamp)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
-                    """,
-                    (
-                        trade_id, pair, 'buy', current_price, quantity,
-                        actual_position_size, datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                    ),
-                    commit=True
-                )
-                
-                # Record the position
-                position_id = await self.db_manager.execute_query(
-                    """
-                    INSERT INTO positions
-                    (pair, entry_price, quantity, entry_time, status, signal_source, signal_strength)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
-                    """,
-                    (
-                        pair, current_price, quantity,
-                        datetime.now().strftime('%Y-%m-%d %H:%M:%S'), 
-                        'open', analysis.get('source', 'combined'),
-                        signal_strength
-                    ),
-                    commit=True
-                )
-                
-                # Record in active positions dictionary
+                # Record enhanced position data
                 self.active_positions[pair] = {
-                    "id": position_id,
+                    "id": trade_id,
                     "entry_price": current_price,
                     "quantity": quantity,
                     "entry_time": time.time(),
-                    "position_size": actual_position_size,
-                    "order_id": order_id,
-                    "signal_source": analysis.get('source', 'combined'),
-                    "signal_strength": signal_strength
+                    "position_size": position_size,
+                    "signal_source": "enhanced_api",
+                    "signal_strength": analysis.get('signal_strength', 0),
+                    "api_data": api_data,
+                    "exit_levels": exit_levels,
+                    "api_confidence": api_data.get('confidence', 0),
+                    "onchain_score": api_data.get('onchain_score', 0),
+                    "whale_influence": api_data.get('whale_influence', 'NEUTRAL'),
+                    "time_horizon_hours": api_data.get('time_horizon_hours', 24),
+                    "expected_max_drawdown": api_data.get('max_drawdown_percent', 5)
                 }
                 
-                # Initialize stop loss if needed
-                await self.initialize_stop_loss(pair, current_price)
+                # Set API-recommended stop loss and take profits
+                if exit_levels.get('stop_loss'):
+                    await self._set_api_stop_loss(pair, current_price, exit_levels['stop_loss'])
                 
-                # Initialize trailing take profit if enabled
-                if config.ENABLE_TRAILING_TP:
-                    await self.initialize_trailing_take_profit(pair, current_price)
+                if exit_levels.get('take_profit_1'):
+                    await self._set_api_take_profits(pair, current_price, exit_levels)
                 
-                # TILFØJ: Mark pair as recently traded for diversification
-                if hasattr(self, 'asset_selection'):
-                    self.asset_selection.mark_recently_traded(pair)
-                
-                logging.info(f"TEST MODE: Simulated buy for {pair} executed successfully")
                 return True
                 
             else:
@@ -1519,7 +1702,7 @@ class HybridTradingBot:
             return 0
     
     async def monitor_positions(self):
-        """Enhanced position monitoring with ultra-quick profit taking"""
+        """Enhanced position monitoring combining ultra-quick profit taking with API-recommended exit levels"""
         for pair, position in list(self.active_positions.items()):
             try:
                 current_price = await self.get_current_price(pair)
@@ -1533,93 +1716,300 @@ class HybridTradingBot:
                 # Check if this is a momentum trade
                 is_momentum = position.get('momentum_trade', False)
                 
-                # ULTRA-QUICK PROFIT TAKING - Take ANY profit fast
-                if profit_percent >= 0.3 and position_age_minutes < 5:
-                    logging.info(f"Ultra-quick profit exit for {pair} at {profit_percent:.2f}% (5 min)")
+                # Get API data if available
+                api_data = position.get('api_data', {})
+                has_api_data = bool(api_data)
+                
+                # === PRIORITY 1: API-DRIVEN EXITS (if available) ===
+                if has_api_data:
+                    # Check API stop loss first
+                    if await self._check_api_stop_loss(pair, current_price):
+                        logging.info(f"🛡️ API stop loss triggered for {pair} at {profit_percent:.2f}%")
+                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.9})
+                        continue
+                    
+                    # Check API take profits
+                    if await self._check_api_take_profits(pair, current_price, profit_percent):
+                        continue  # Take profit handled in method
+                    
+                    # API time horizon check
+                    time_horizon = api_data.get('time_horizon_hours', 24)
+                    if position_age_minutes > (time_horizon * 60) and profit_percent > 0:
+                        logging.info(f"⏰ API time horizon reached for {pair} ({time_horizon}h), "
+                                f"taking profit at {profit_percent:.2f}%")
+                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.7})
+                        continue
+                    
+                    # API expected drawdown protection
+                    expected_drawdown = api_data.get('max_drawdown_percent', 5)
+                    if profit_percent < -expected_drawdown:
+                        logging.info(f"📉 API expected drawdown exceeded for {pair} "
+                                f"({profit_percent:.2f}% < -{expected_drawdown}%)")
+                        await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.8})
+                        continue
+                
+                # === PRIORITY 2: ULTRA-QUICK PROFIT TAKING (enhanced with API) ===
+                
+                # Get API-enhanced thresholds or use defaults
+                ultra_quick_threshold = 0.3
+                quick_threshold = 0.5
+                
+                if has_api_data:
+                    # Adjust thresholds based on API confidence
+                    api_confidence = api_data.get('confidence', 50)
+                    if api_confidence > 80:
+                        ultra_quick_threshold = 0.2  # More aggressive with high confidence
+                        quick_threshold = 0.4
+                    elif api_confidence < 40:
+                        ultra_quick_threshold = 0.5  # More conservative with low confidence
+                        quick_threshold = 0.8
+                
+                # Ultra-quick exits (enhanced with API data)
+                if profit_percent >= ultra_quick_threshold and position_age_minutes < 5:
+                    exit_reason = "API-enhanced ultra-quick" if has_api_data else "Ultra-quick"
+                    logging.info(f"{exit_reason} profit exit for {pair} at {profit_percent:.2f}% (5 min)")
                     await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.95})
                     continue
                 
-                if profit_percent >= 0.5 and position_age_minutes < 10:
-                    logging.info(f"Quick profit exit for {pair} at {profit_percent:.2f}% (10 min)")
+                if profit_percent >= quick_threshold and position_age_minutes < 10:
+                    exit_reason = "API-enhanced quick" if has_api_data else "Quick"
+                    logging.info(f"{exit_reason} profit exit for {pair} at {profit_percent:.2f}% (10 min)")
                     await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.9})
                     continue
                 
-                # MOMENTUM TRADES - Even quicker exits
+                # === PRIORITY 3: MOMENTUM VS REGULAR TRADE LOGIC ===
+                
                 if is_momentum:
-                    if profit_percent >= 1.0:  # 1% for momentum trades
+                    # Enhanced momentum trade logic with API integration
+                    momentum_target = 1.0
+                    momentum_time_limit = 20
+                    momentum_breakeven_time = 45
+                    momentum_stop_loss = -1.0
+                    
+                    if has_api_data:
+                        # Adjust momentum parameters based on API data
+                        api_strength = api_data.get('strength', 'MODERATE')
+                        if api_strength == 'VERY_STRONG':
+                            momentum_target = 0.8  # Lower target for very strong signals
+                            momentum_time_limit = 30  # More time
+                        elif api_strength == 'WEAK':
+                            momentum_target = 1.2  # Higher target for weak signals
+                            momentum_time_limit = 15  # Less time
+                    
+                    if profit_percent >= momentum_target:
                         logging.info(f"Momentum trade profit target hit for {pair} at {profit_percent:.2f}%")
                         await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.9})
                         continue
-                    elif position_age_minutes > 20 and profit_percent >= 0.5:  # 0.5% after 20 min
+                    elif position_age_minutes > momentum_time_limit and profit_percent >= 0.5:
                         logging.info(f"Momentum trade time-based exit for {pair} at {profit_percent:.2f}%")
                         await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.8})
                         continue
-                    elif position_age_minutes > 45 and profit_percent >= 0:  # Break even after 45 min
+                    elif position_age_minutes > momentum_breakeven_time and profit_percent >= 0:
                         logging.info(f"Momentum trade break-even exit for {pair} at {profit_percent:.2f}%")
                         await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.7})
                         continue
                     
-                    # Tighter stop loss for momentum trades
-                    if profit_percent <= -1.0:  # 1% stop loss
+                    # Momentum stop loss (with API enhancement)
+                    if profit_percent <= momentum_stop_loss:
                         logging.info(f"Momentum trade stop loss for {pair} at {profit_percent:.2f}%")
                         await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.9})
                         continue
                 
-                # REGULAR TRADES - Still quick but slightly more patient
                 else:
-                    # Scaled profit targets based on time
-                    if profit_percent >= 2.0:  # Take 2% anytime
+                    # Enhanced regular trade logic with API integration
+                    main_target = 2.0
+                    time_target_30m = 1.0
+                    time_target_1h = 0.5
+                    time_target_2h = 0.0
+                    time_target_3h = -0.5
+                    regular_stop_loss = -1.5
+                    
+                    if has_api_data:
+                        # Adjust regular trade parameters based on API data
+                        api_confidence = api_data.get('confidence', 50)
+                        if api_confidence > 75:
+                            main_target = 1.5  # Lower targets for high confidence
+                            time_target_30m = 0.8
+                            time_target_1h = 0.4
+                        elif api_confidence < 40:
+                            main_target = 2.5  # Higher targets for low confidence
+                            time_target_30m = 1.2
+                            time_target_1h = 0.6
+                    
+                    # Scaled profit targets based on time (API-enhanced)
+                    if profit_percent >= main_target:
                         logging.info(f"Profit target reached for {pair} at {profit_percent:.2f}%")
                         await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.9})
                         continue
-                    elif position_age_minutes > 30 and profit_percent >= 1.0:  # 1% after 30 min
-                        logging.info(f"Time-based profit taking for {pair} at {profit_percent:.2f}%")
+                    elif position_age_minutes > 30 and profit_percent >= time_target_30m:
+                        logging.info(f"Time-based profit taking for {pair} at {profit_percent:.2f}% (30min)")
                         await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.8})
                         continue
-                    elif position_age_minutes > 60 and profit_percent >= 0.5:  # 0.5% after 1 hour
-                        logging.info(f"Minimum profit exit for {pair} at {profit_percent:.2f}%")
+                    elif position_age_minutes > 60 and profit_percent >= time_target_1h:
+                        logging.info(f"Minimum profit exit for {pair} at {profit_percent:.2f}% (1h)")
                         await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.7})
                         continue
-                    elif position_age_minutes > 120 and profit_percent >= 0:  # Break even after 2 hours
-                        logging.info(f"Break even exit for {pair} at {profit_percent:.2f}%")
+                    elif position_age_minutes > 120 and profit_percent >= time_target_2h:
+                        logging.info(f"Break even exit for {pair} at {profit_percent:.2f}% (2h)")
                         await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.6})
                         continue
-                    elif position_age_minutes > 180 and profit_percent >= -0.5:  # Small loss after 3 hours
-                        logging.info(f"Time stop for {pair} at {profit_percent:.2f}%")
+                    elif position_age_minutes > 180 and profit_percent >= time_target_3h:
+                        logging.info(f"Time stop for {pair} at {profit_percent:.2f}% (3h)")
                         await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.6})
                         continue
                     
-                    # Tighter stop loss
-                    if profit_percent <= -1.5:  # 1.5% stop loss
+                    # Regular stop loss (with API enhancement)
+                    if profit_percent <= regular_stop_loss:
                         logging.info(f"Stop loss triggered for {pair} at {profit_percent:.2f}%")
                         await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.9})
                         continue
                 
-                # TRAILING STOP for positions in profit
-                if profit_percent > 0.5:
-                    # Check if price is dropping from recent high
+                # === PRIORITY 4: ENHANCED TRAILING STOP ===
+                
+                # API-enhanced trailing stop
+                trailing_threshold = 0.5
+                trailing_distance = 0.3
+                
+                if has_api_data:
+                    # Adjust trailing parameters based on volatility rating
+                    volatility = api_data.get('volatility_rating', 'MEDIUM')
+                    if volatility == 'LOW':
+                        trailing_threshold = 0.3
+                        trailing_distance = 0.2
+                    elif volatility == 'HIGH':
+                        trailing_threshold = 0.8
+                        trailing_distance = 0.5
+                
+                if profit_percent > trailing_threshold:
+                    # Initialize or update highest profit
                     if not hasattr(position, 'highest_profit'):
                         position['highest_profit'] = profit_percent
                     elif profit_percent > position['highest_profit']:
                         position['highest_profit'] = profit_percent
                     
-                    # If profit dropped 0.3% from high, exit
-                    if position.get('highest_profit', 0) - profit_percent > 0.3:
-                        logging.info(f"Trailing stop triggered for {pair} at {profit_percent:.2f}% (high was {position['highest_profit']:.2f}%)")
+                    # Check trailing stop
+                    profit_drop = position.get('highest_profit', 0) - profit_percent
+                    if profit_drop > trailing_distance:
+                        logging.info(f"Trailing stop triggered for {pair} at {profit_percent:.2f}% "
+                                f"(high was {position['highest_profit']:.2f}%)")
                         await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.8})
                         continue
                 
+                # === CLEANUP AND MAINTENANCE ===
+                
                 # Clean up momentum trade data if expired
-                if is_momentum and pair in self.momentum_trades:
+                if is_momentum and hasattr(self, 'momentum_trades') and pair in self.momentum_trades:
                     if time.time() - self.momentum_trades[pair]['entry_time'] > 3600:  # 1 hour
                         del self.momentum_trades[pair]
                 
-                # Mark pair as recently traded after selling to prevent immediate rebuy
-                if not hasattr(self, 'recently_traded'):
-                    self.recently_traded = {}
+                # Update position metrics for next iteration
+                position['last_check_time'] = time.time()
+                position['last_profit_percent'] = profit_percent
+                
+                # Log position status every 10 minutes
+                if position_age_minutes > 0 and int(position_age_minutes) % 10 == 0:
+                    api_info = f"(API: {api_data.get('confidence', 'N/A')}% conf)" if has_api_data else "(No API)"
+                    momentum_info = "MOMENTUM" if is_momentum else "REGULAR"
+                    logging.info(f"{pair} status: {profit_percent:+.2f}% after {position_age_minutes:.0f}min "
+                            f"[{momentum_info}] {api_info}")
                 
             except Exception as e:
                 logging.error(f"Error monitoring position {pair}: {str(e)}")
+                import traceback
+                traceback.print_exc()
+
+
+    async def cleanup(self):
+            """Enhanced cleanup with API resources"""
+            try:
+                # Cleanup API strategy
+                if hasattr(self, 'strategy') and hasattr(self.strategy, 'cleanup'):
+                    await self.strategy.cleanup()
+                
+                # Log final API statistics
+                if hasattr(self, 'strategy'):
+                    final_stats = self.strategy.get_statistics()
+                    logging.info("FINAL API STATISTICS:")
+                    logging.info(f"  • Total API requests: {final_stats.get('api_client_stats', {}).get('total_requests', 0)}")
+                    logging.info(f"  • API success rate: {final_stats.get('api_client_stats', {}).get('success_rate_percent', 0):.1f}%")
+                    logging.info(f"  • Signals from API: {final_stats.get('api_signals_used', 0)}")
+                    
+            except Exception as e:
+                logging.error(f"Error in cleanup: {str(e)}")
+
+
+
+    async def _check_api_stop_loss(self, pair: str, current_price: float) -> bool:
+        """Check if API-recommended stop loss should trigger"""
+        if not hasattr(self, 'api_stop_losses') or pair not in self.api_stop_losses:
+            return False
+        
+        stop_data = self.api_stop_losses[pair]
+        stop_price = stop_data['stop_loss_price']
+        
+        # Check if stop loss triggered
+        position = self.active_positions.get(pair, {})
+        is_buy_position = True  # Assuming buy positions for now
+        
+        if is_buy_position and current_price <= stop_price:
+            return True
+        elif not is_buy_position and current_price >= stop_price:
+            return True
+        
+        return False
+
+    async def _check_api_take_profits(self, pair: str, current_price: float, profit_percent: float) -> bool:
+        """Check and execute API-recommended take profits"""
+        if not hasattr(self, 'api_take_profits') or pair not in self.api_take_profits:
+            return False
+        
+        tp_data = self.api_take_profits[pair]
+        take_profits = tp_data['take_profits']
+        
+        for tp in take_profits:
+            if not tp.get('executed', False) and current_price >= tp['price']:
+                # Execute partial take profit
+                percentage = tp['percentage']
+                logging.info(f"API Take Profit {tp['level']} triggered for {pair}: "
+                           f"${tp['price']:.4f} ({percentage}% of position)")
+                
+                # Mark as executed
+                tp['executed'] = True
+                tp['execution_time'] = time.time()
+                tp['execution_price'] = current_price
+                
+                # Execute partial sell (implementation depends on your partial sell logic)
+                if percentage < 100:
+                    await self._execute_partial_sell_api(pair, percentage / 100)
+                else:
+                    await self.execute_sell(pair, {"sell_signal": True, "signal_strength": 0.8})
+                    return True
+        
+        return False
+
+    async def _execute_partial_sell_api(self, pair: str, percentage: float):
+        """Execute partial sell based on API take profit recommendation"""
+        try:
+            if pair not in self.active_positions:
+                return False
+            
+            position = self.active_positions[pair]
+            total_quantity = position['quantity']
+            sell_quantity = total_quantity * percentage
+            
+            # Execute partial sell (simplified - use your existing partial sell logic)
+            logging.info(f"Executing {percentage*100:.1f}% partial sell for {pair}")
+            
+            # Update position quantity
+            remaining_quantity = total_quantity - sell_quantity
+            self.active_positions[pair]['quantity'] = remaining_quantity
+            
+            return True
+            
+        except Exception as e:
+            logging.error(f"Error executing API partial sell: {str(e)}")
+            return False
+        
     async def opportunity_scan_task(self):
         """Dedicated task for continuous opportunity scanning"""
         try:
