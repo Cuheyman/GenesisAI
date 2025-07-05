@@ -22,10 +22,10 @@ logging.basicConfig(
 )
 
 if __name__ == "__main__":
+    bot = None
     try:
         # Initialize the bot
         bot = HybridTradingBot()
-        
         
         # Run the bot
         asyncio.run(bot.run())
@@ -35,3 +35,11 @@ if __name__ == "__main__":
         logging.error(f"Critical error: {str(e)}")
         import traceback
         traceback.print_exc()
+    finally:
+        # Ensure cleanup happens
+        if bot:
+            try:
+                asyncio.run(bot.cleanup())
+                logging.info("Bot cleanup completed")
+            except Exception as e:
+                logging.error(f"Error during cleanup: {str(e)}")

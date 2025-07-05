@@ -218,7 +218,7 @@ class TaapiClient:
     
     async def get_ichimoku(self, symbol: str, interval: str = "4h") -> Optional[Dict]:
         """Get Ichimoku Cloud data"""
-        return await self.get_indicator("ichimokuclouds", symbol, interval)
+        return await self.get_indicator("ichimoku", symbol, interval)
     
     async def get_tdsequential(self, symbol: str, interval: str = "1d") -> Optional[Dict]:
         """Get TD Sequential countdown"""
@@ -230,7 +230,7 @@ class TaapiClient:
     
     async def get_choppiness_index(self, symbol: str, interval: str = "4h", period: int = 14) -> Optional[Dict]:
         """Get Choppiness Index - measures market trendiness vs choppiness"""
-        return await self.get_indicator("ci", symbol, interval, period=period)
+        return await self.get_indicator("chop", symbol, interval, period=period)
     
     async def get_fisher_transform(self, symbol: str, interval: str = "1h", period: int = 9) -> Optional[Dict]:
         """Get Fisher Transform for identifying price reversals"""
@@ -242,8 +242,8 @@ class TaapiClient:
     
     async def get_vortex_indicator(self, symbol: str, interval: str = "1h", period: int = 14) -> Optional[Dict]:
         """Get Vortex Indicator for trend detection"""
-        return await self.get_indicator("vi", symbol, interval, period=period)
-    
+        return await self.get_indicator("vortex", symbol, interval, period=period)
+        
     # Candlestick Pattern Methods
     
     async def get_doji(self, symbol: str, interval: str = "1h") -> Optional[Dict]:
@@ -272,9 +272,7 @@ class TaapiClient:
         """Get Klinger Volume Oscillator"""
         return await self.get_indicator("kvo", symbol, interval)
     
-    async def get_price_volume_trend(self, symbol: str, interval: str = "1h") -> Optional[Dict]:
-        """Get Price Volume Trend"""
-        return await self.get_indicator("pvt", symbol, interval)
+    
     
     # Utility Methods
     
@@ -353,8 +351,7 @@ class DummyTaapiClient:
     async def get_klinger_oscillator(self, *args, **kwargs):
         return None
     
-    async def get_price_volume_trend(self, *args, **kwargs):
-        return None
+    
     
     async def get_multiple_indicators(self, *args, **kwargs):
         return {}

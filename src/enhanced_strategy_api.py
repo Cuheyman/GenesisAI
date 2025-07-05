@@ -18,13 +18,13 @@ class EnhancedSignalAPIClient:
         self.session = None
         self.request_timeout = getattr(config, 'API_REQUEST_TIMEOUT', 30)
         
-        # Rate limiting
+        # Rate limiting - 24 REQUESTS PER HOUR (1 request every 2.5 minutes)
         self.last_request_time = 0
-        self.min_request_interval = getattr(config, 'API_MIN_INTERVAL', 2.0)  # 2 seconds between requests
+        self.min_request_interval = getattr(config, 'API_MIN_INTERVAL', 150.0)  # 150 seconds = 2.5 minutes = 24 requests per hour
         
-        # Cache for recent signals
+        # Cache for recent signals - LONGER CACHE
         self.signal_cache = {}
-        self.cache_duration = getattr(config, 'API_CACHE_DURATION', 60)  # 1 minute cache
+        self.cache_duration = getattr(config, 'API_CACHE_DURATION', 600)  # 600 seconds (10 minutes) cache
         
         # Statistics
         self.total_requests = 0
@@ -35,9 +35,10 @@ class EnhancedSignalAPIClient:
         # API status
         self.api_available = True
         self.last_health_check = 0
-        self.health_check_interval = 300  # 5 minutes
+        self.health_check_interval = getattr(config, 'API_HEALTH_CHECK_INTERVAL', 600)  # INCREASED from 300 to 600 seconds (10 minutes)
         
         logging.info(f"Enhanced Signal API Client initialized: {self.api_url}")
+        logging.info(f"Rate limiting: {self.min_request_interval}s interval, {self.cache_duration}s cache")
     
     async def initialize(self):
         """Initialize the HTTP session and check API health"""
@@ -123,19 +124,35 @@ class EnhancedSignalAPIClient:
         cached_signal = self._get_cached_signal(cache_key)
         if cached_signal:
             self.cache_hits += 1
+            logging.info(f"Using cached signal for {symbol} (cache hit)")
             return cached_signal
+
+        # Check if rate limiting would require a long wait
+        current_time = time.time()
+        time_since_last = current_time - self.last_request_time
         
-        # Rate limiting
-        await self._enforce_rate_limit()
-        
+        if time_since_last < self.min_request_interval:
+            wait_time = self.min_request_interval - time_since_last
+            if wait_time > 60:  # Don't wait more than 60 seconds
+                logging.warning(f"Rate limit requires {wait_time:.0f}s wait for {symbol}, returning cached or None")
+                # Try to return any cached signal, even if slightly expired
+                expired_cache = self._get_cached_signal(cache_key, allow_expired=True)
+                if expired_cache:
+                    logging.info(f"Using expired cached signal for {symbol} due to rate limiting")
+                    return expired_cache
+                return None
+
         # Check API availability
         if not self.api_available:
             await self.check_api_health()
             if not self.api_available:
                 logging.warning("API unavailable, cannot get trading signal")
                 return None
-        
+
         try:
+            # Rate limiting (with reasonable timeout)
+            await self._enforce_rate_limit()
+            
             if not self.session:
                 await self.initialize()
             
@@ -290,14 +307,21 @@ class EnhancedSignalAPIClient:
             self.failed_requests += 1
             return {}
     
-    def _get_cached_signal(self, cache_key: str) -> Optional[Dict[str, Any]]:
-        """Get signal from cache if still valid"""
+    def _get_cached_signal(self, cache_key: str, allow_expired: bool = False) -> Optional[Dict[str, Any]]:
+        """Get signal from cache if still valid or if expired cache is allowed"""
         if cache_key in self.signal_cache:
             cached_data = self.signal_cache[cache_key]
-            if time.time() - cached_data['timestamp'] < self.cache_duration:
+            cache_age = time.time() - cached_data['timestamp']
+            
+            if cache_age < self.cache_duration:
+                # Fresh cache
+                return cached_data['signal']
+            elif allow_expired and cache_age < (self.cache_duration * 2):  # Allow cache up to 2x duration when expired
+                # Expired but still usable in rate-limited situations
+                logging.debug(f"Using expired cache (age: {cache_age:.0f}s) for {cache_key}")
                 return cached_data['signal']
             else:
-                # Remove expired cache entry
+                # Remove very old cache entry
                 del self.signal_cache[cache_key]
         return None
     
@@ -324,7 +348,13 @@ class EnhancedSignalAPIClient:
         
         if time_since_last < self.min_request_interval:
             sleep_time = self.min_request_interval - time_since_last
-            await asyncio.sleep(sleep_time)
+            # Don't sleep for more than 60 seconds to avoid timeouts
+            if sleep_time > 60:
+                logging.warning(f"Rate limit requires {sleep_time:.0f}s wait, skipping API request")
+                raise asyncio.TimeoutError(f"Rate limit wait too long: {sleep_time:.0f}s")
+            else:
+                logging.info(f"Rate limiting: waiting {sleep_time:.1f}s before API request")
+                await asyncio.sleep(sleep_time)
         
         self.last_request_time = time.time()
     

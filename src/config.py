@@ -19,17 +19,17 @@ SIGNAL_API_URL = os.getenv('SIGNAL_API_URL', 'http://localhost:3001/api')
 SIGNAL_API_KEY = os.getenv('SIGNAL_API_KEY', '1234')
 
 # Enable/disable Enhanced Signal API
-ENABLE_ENHANCED_API = os.getenv('ENABLE_ENHANCED_API', 'true').lower() == 'true'
+ENABLE_ENHANCED_API = os.getenv('ENABLE_ENHANCED_API', 'false').lower() == 'true'
 
-# API client settings
-API_REQUEST_TIMEOUT = int(os.getenv('API_REQUEST_TIMEOUT', '30'))  # Seconds
-API_MIN_INTERVAL = float(os.getenv('API_MIN_INTERVAL', '2.0'))     # Seconds between requests
-API_CACHE_DURATION = int(os.getenv('API_CACHE_DURATION', '60'))    # Cache duration in seconds
+# API client settings - 24 REQUESTS PER HOUR (1 request every 2.5 minutes)
+API_REQUEST_TIMEOUT = int(os.getenv('API_REQUEST_TIMEOUT', '30'))  # 30 seconds timeout
+API_MIN_INTERVAL = float(os.getenv('API_MIN_INTERVAL', '150.0'))     # 150 seconds = 2.5 minutes = 24 requests per hour
+API_CACHE_DURATION = int(os.getenv('API_CACHE_DURATION', '600'))    # 10 minutes cache to reduce API calls
 
 # API reliability settings
-API_MAX_RETRIES = int(os.getenv('API_MAX_RETRIES', '3'))
+API_MAX_RETRIES = int(os.getenv('API_MAX_RETRIES', '2'))  # REDUCED from 5 to 2
 API_FALLBACK_ENABLED = os.getenv('API_FALLBACK_ENABLED', 'true').lower() == 'true'
-API_HEALTH_CHECK_INTERVAL = int(os.getenv('API_HEALTH_CHECK_INTERVAL', '300'))  # 5 minutes
+API_HEALTH_CHECK_INTERVAL = int(os.getenv('API_HEALTH_CHECK_INTERVAL', '600'))  # INCREASED from 60 to 600 seconds (10 minutes)
 
 # Signal processing settings
 API_MIN_CONFIDENCE = float(os.getenv('API_MIN_CONFIDENCE', '55'))      # Minimum confidence threshold (55%)
@@ -148,52 +148,39 @@ API_MIN_ONCHAIN_SCORE = float(os.getenv('API_MIN_ONCHAIN_SCORE', '35'))      # M
 
 
 
-# Nebula AI API Configuration
-ENABLE_NEBULA = True  # Set to False to disable Nebula integration
-NEBULA_SECRET_KEY = "S4I2YbrgLJSH6E3OpuFZx156vjC_MiD1EcQvgvrkx40f3bNZNwjtT_3ZIxhb046nZBg2hGKtY9p6JLOGPhSAsA"  # Get from thirdweb dashboard
+# =============================================================================
+# API-ONLY CONFIGURATION (SIMPLIFIED)
+# =============================================================================
 
-# Nebula Integration Settings
-NEBULA_MIN_CONFIDENCE_THRESHOLD = 0.6  # Minimum confidence to act on Nebula advice
-NEBULA_POSITION_SIZE_MULTIPLIER = 1.0  # Adjust Nebula position sizes (0.5 = half size, 2.0 = double)
-NEBULA_TIMEOUT_SECONDS = 5.0  # API timeout
-NEBULA_MAX_RETRIES = 3  # Maximum retry attempts
-NEBULA_RATE_LIMIT_SECONDS = 1.0  # Minimum time between requests
+# Disable all external APIs - using only Enhanced Signal API
+ENABLE_NEBULA = False
+ENABLE_COINGECKO = False
+ENABLE_TAAPI = False
 
-# Integration Strategy
-USE_NEBULA_FOR_ENTRIES = True  # Use Nebula for buy decisions
-USE_NEBULA_FOR_EXITS = True   # Use Nebula for sell decisions
-USE_NEBULA_FOR_RISK_MANAGEMENT = True  # Use Nebula for stop loss/take profit
-NEBULA_OVERRIDE_CONFIDENCE = 0.8  # If Nebula confidence > this, override internal signals
-
-# Fallback Behavior
-NEBULA_FALLBACK_ENABLED = True  # Fall back to internal logic if Nebula fails
-NEBULA_MAX_CONSECUTIVE_FAILURES = 3  # After this many failures, enter cooldown
-NEBULA_COOLDOWN_PERIOD_SECONDS = 300  # 5 minutes cooldown after failures
-
-# Performance Tracking
-ENABLE_NEBULA_PERFORMANCE_LOGGING = True  # Log detailed Nebula performance
-NEBULA_DECISION_LOG_FILE = "logs/nebula_decisions.log"
-
+# Remove API keys for unused services
+NEBULA_SECRET_KEY = None
+COINGECKO_API_KEY = None
+TAAPI_API_SECRET = None
 
 # =============================================================================
 # ULTRA-CONSERVATIVE COINGECKO RATE LIMITING (FIXED)
 # =============================================================================
 
 # Ultra-conservative CoinGecko rate limiting for free tier
-COINGECKO_FREE_TIER_INTERVAL = float(os.getenv('COINGECKO_FREE_TIER_INTERVAL', '15.0'))  # INCREASED from 5.0 to 15.0
-COINGECKO_FREE_TIER_MAX_PER_MINUTE = int(os.getenv('COINGECKO_FREE_TIER_MAX_PER_MINUTE', '3'))  # REDUCED from 10 to 3
+COINGECKO_FREE_TIER_INTERVAL = float(os.getenv('COINGECKO_FREE_TIER_INTERVAL', '30.0'))  # INCREASED from 15.0 to 30.0
+COINGECKO_FREE_TIER_MAX_PER_MINUTE = int(os.getenv('COINGECKO_FREE_TIER_MAX_PER_MINUTE', '2'))  # REDUCED from 3 to 2
 
 # Demo/Pro tier settings (much more conservative)
-COINGECKO_DEMO_TIER_INTERVAL = float(os.getenv('COINGECKO_DEMO_TIER_INTERVAL', '10.0'))  # INCREASED from 2.0 to 10.0
-COINGECKO_DEMO_TIER_MAX_PER_MINUTE = int(os.getenv('COINGECKO_DEMO_TIER_MAX_PER_MINUTE', '5'))  # REDUCED from 25 to 5
+COINGECKO_DEMO_TIER_INTERVAL = float(os.getenv('COINGECKO_DEMO_TIER_INTERVAL', '15.0'))  # INCREASED from 10.0 to 15.0
+COINGECKO_DEMO_TIER_MAX_PER_MINUTE = int(os.getenv('COINGECKO_DEMO_TIER_MAX_PER_MINUTE', '3'))  # REDUCED from 5 to 3
 
 # Rate limit backoff settings (much more aggressive)
-COINGECKO_INITIAL_BACKOFF = int(os.getenv('COINGECKO_INITIAL_BACKOFF', '60'))  # INCREASED from 30 to 60 seconds
-COINGECKO_MAX_BACKOFF_MULTIPLIER = float(os.getenv('COINGECKO_MAX_BACKOFF_MULTIPLIER', '10.0'))  # INCREASED from 5.0 to 10.0
+COINGECKO_INITIAL_BACKOFF = int(os.getenv('COINGECKO_INITIAL_BACKOFF', '120'))  # INCREASED from 60 to 120 seconds
+COINGECKO_MAX_BACKOFF_MULTIPLIER = float(os.getenv('COINGECKO_MAX_BACKOFF_MULTIPLIER', '15.0'))  # INCREASED from 10.0 to 15.0
 
 # Batch processing settings for CoinGecko (much smaller and slower)
-COINGECKO_BATCH_SIZE = int(os.getenv('COINGECKO_BATCH_SIZE', '3'))  # REDUCED from 10 to 3
-COINGECKO_BATCH_DELAY = float(os.getenv('COINGECKO_BATCH_DELAY', '20.0'))  # INCREASED from 8.0 to 20.0 seconds
+COINGECKO_BATCH_SIZE = int(os.getenv('COINGECKO_BATCH_SIZE', '2'))  # REDUCED from 3 to 2
+COINGECKO_BATCH_DELAY = float(os.getenv('COINGECKO_BATCH_DELAY', '45.0'))  # INCREASED from 20.0 to 45.0 seconds
 
 # Auto-disable CoinGecko if too many rate limits
 DISABLE_COINGECKO_ON_LIMITS = os.getenv('DISABLE_COINGECKO_ON_LIMITS', 'true').lower() == 'true'  # CHANGED to true
@@ -234,7 +221,7 @@ MIN_SIGNAL_STRENGTH = float(os.getenv('MIN_SIGNAL_STRENGTH', '0.3'))  # INCREASE
 # Reduce API pressure by caching more aggressively
 CACHE_KLINES_SECONDS = int(os.getenv('CACHE_KLINES_SECONDS', '600'))  # INCREASED from 300 to 600 (10 minutes)
 CACHE_ORDERBOOK_SECONDS = int(os.getenv('CACHE_ORDERBOOK_SECONDS', '60'))  # INCREASED from 30 to 60 seconds
-CACHE_COINGECKO_SECONDS = int(os.getenv('CACHE_COINGECKO_SECONDS', '900'))  # INCREASED from 180 to 900 (15 minutes)
+# CoinGecko cache removed - API-only mode
 CACHE_PRICE_SECONDS = int(os.getenv('CACHE_PRICE_SECONDS', '30'))  # INCREASED from 10 to 30 seconds
 
 # =============================================================================
@@ -281,11 +268,9 @@ DEBUG_POSITION_SIZING = True  # Set to False in production
 # TAAPI.IO CONFIGURATION
 # =============================================================================
 
-# Taapi.io API configuration
-TAAPI_API_SECRET = os.getenv('TAAPI_API_SECRET', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbHVlIjoiNjg1NDFjNDI4MDZmZjE2NTFlNTY4ZGNhIiwiaWF0IjoxNzUwNTg1Njg5LCJleHAiOjMzMjU1MDQ5Njg5fQ.U_dTn5P_jpvqJTpTK639n6XIsxHkGdqUDogS6NDrVKU')
-
-# Enable/Disable Taapi.io advanced indicators
-ENABLE_TAAPI = os.getenv('ENABLE_TAAPI', 'true').lower() == 'true'
+# Disable Taapi.io completely to avoid unnecessary API calls
+ENABLE_TAAPI = False
+TAAPI_API_SECRET = None
 
 # Taapi.io rate limiting (Free tier: 1 request per 15 seconds)
 TAAPI_REQUESTS_PER_WINDOW = int(os.getenv('TAAPI_REQUESTS_PER_WINDOW', '1'))
@@ -331,11 +316,8 @@ BINANCE_API_SECRET = os.getenv('BINANCE_API_SECRET', '9j9ArHrr6f2Pn2Slwdmk6qiZgW
 COINBASE_API_KEY = os.getenv('COINBASE_API_KEY', 'e42ec218-6413-45f9-a99c-6b1e97295885')
 COINBASE_API_SECRET = os.getenv('COINBASE_API_SECRET', 'jNGhqLSyOyT/omCAuG1wJYadF090v2chmoPPnDdroiZoJSHQwEM6RaSF5kjRVjXXnI91P0MJuKiowdkQb8peJg==')
 
-# CoinGecko API key (optional - free tier available without key)
-COINGECKO_API_KEY = os.getenv('COINGECKO_API_KEY', '')
-
-# Enable/Disable CoinGecko AI analysis
-ENABLE_COINGECKO = os.getenv('ENABLE_COINGECKO', 'true').lower() == 'true'
+# CoinGecko disabled - using API-only mode
+ENABLE_COINGECKO = False
 
 # =============================================================================
 # TRADING CONFIGURATION

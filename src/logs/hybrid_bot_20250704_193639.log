@@ -1,0 +1,81 @@
+2025-07-04 19:36:40,611 - INFO - Database initialization complete
+2025-07-04 19:36:40,613 - INFO - Taapi.io client disabled - using dummy client
+2025-07-04 19:36:40,613 - INFO - Advanced indicators disabled - using dummy client
+2025-07-04 19:36:40,613 - INFO - Enhanced Strategy initialized with advanced indicators support
+2025-07-04 19:36:40,614 - INFO - Risk Manager initialized with equity protection: Warning at 2.0%, Risk Reduction at 3.0%, High Alert at 5.0%, Emergency at 8.0%
+2025-07-04 19:36:40,614 - INFO - Hybrid Trading Bot initialized - API-Only Mode
+2025-07-04 19:36:40,614 - INFO - API URL: http://localhost:3001/api
+2025-07-04 19:36:40,614 - INFO - API enabled: True
+2025-07-04 19:36:40,614 - INFO - Mode: TEST trading
+2025-07-04 19:36:40,614 - INFO - External APIs: Disabled (Nebula, CoinGecko, Taapi.io removed)
+2025-07-04 19:36:40,614 - INFO - Signal Source: Enhanced Signal API only
+2025-07-04 19:36:40,614 - INFO - Testing API connections...
+2025-07-04 19:36:40,614 - INFO - Initializing Enhanced Signal API...
+2025-07-04 19:36:40,616 - INFO - Enhanced Signal API Client initialized: http://localhost:3001/api
+2025-07-04 19:36:40,616 - INFO - Rate limiting: 300.0s interval, 600s cache
+2025-07-04 19:36:40,623 - INFO - API health check passed
+2025-07-04 19:36:40,624 - INFO - Enhanced Signal API initialized successfully
+2025-07-04 19:36:40,624 - INFO - Using AI-powered signals with on-chain analysis
+2025-07-04 19:36:40,858 - INFO - Binance server time: 2025-07-04 19:36:40.782000
+2025-07-04 19:36:40,858 - INFO - API-only mode - skipping external API tests
+2025-07-04 19:36:40,859 - INFO - Preloading historical data for analysis...
+2025-07-04 19:36:40,859 - INFO - Preloading historical data for analysis...
+2025-07-04 19:36:40,859 - INFO - Fetching top 20 trending cryptocurrency pairs
+2025-07-04 19:36:43,193 - INFO - Found 20 valid trading pairs
+2025-07-04 19:36:43,193 - INFO - Found trending pairs: UNIUSDT, DOTUSDT...
+2025-07-04 19:36:43,194 - INFO - Preloading data for pairs: ETHUSDT, BNBUSDT, BTCUSDT, DOTUSDT, UNIUSDT
+2025-07-04 19:37:06,780 - INFO - Preloading data for pairs: ADAUSDT, SOLUSDT
+2025-07-04 19:37:22,026 - INFO - Historical data preloading complete
+2025-07-04 19:37:29,514 - WARNING - No valid pairs for market breadth calculation
+2025-07-04 19:37:29,514 - INFO - Updating correlation matrix...
+2025-07-04 19:37:29,514 - INFO - API STRATEGY STATISTICS:
+2025-07-04 19:37:29,515 - INFO -   • Total Analyses: 0
+2025-07-04 19:37:29,515 - INFO -   • API Signals Used: 0 (0.0%)
+2025-07-04 19:37:29,515 - INFO -   • Fallback Used: 0 (0.0%)
+2025-07-04 19:37:29,515 - INFO -   • API Success Rate: 0.0%
+2025-07-04 19:37:29,515 - INFO -   • API Cache Hits: 0
+2025-07-04 19:37:29,516 - INFO -   • API Available: True
+2025-07-04 19:37:29,516 - INFO - Current equity: $1000.00, Daily ROI: 0.00%, Drawdown: 0.00%, Risk level: normal, Positions: 0/5 ($0.00, 0.0% of equity)
+2025-07-04 19:37:29,516 - INFO - Current daily ROI: 0.00% (target: 0.5% - 2.5%)
+2025-07-04 19:37:30,465 - INFO - Cached 20 valid trading pairs
+2025-07-04 19:38:22,197 - INFO - Found 1 opportunities: ['BCHUSDT']
+2025-07-04 19:38:23,145 - INFO - Found 20 valid trading pairs
+2025-07-04 19:38:23,146 - INFO - Fetching top 10 trending cryptocurrency pairs
+2025-07-04 19:38:24,994 - INFO - Found 20 valid trading pairs
+2025-07-04 19:38:24,995 - INFO - Found trending pairs: UNIUSDT...
+2025-07-04 19:38:24,996 - INFO - Selected 3 pairs for trading: ['UNIUSDT', 'BTCUSDT', 'ETHUSDT']
+2025-07-04 19:38:25,011 - INFO - Hourly performance report: {
+  "equity": {
+    "current": 1000.0,
+    "start": 1000.0,
+    "total_return_pct": 0.0,
+    "max_drawdown_pct": 0.0,
+    "avg_daily_return_pct": NaN,
+    "avg_weekly_return_pct": NaN
+  },
+  "trades": {
+    "total": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate_pct": 0,
+    "profit_factor": 0,
+    "avg_profit": 0,
+    "avg_loss": 0,
+    "expected_value": 0,
+    "recent_win_rate_pct": 0
+  },
+  "pairs": {
+    "best_pair": "None",
+    "best_pair_profit": 0,
+    "worst_pair": "None",
+    "worst_pair_profit": 0
+  },
+  "timestamp": "2025-07-04 19:38:25"
+}
+2025-07-04 19:38:53,215 - INFO - Successfully gathered price data for 41/41 pairs
+2025-07-04 19:38:53,281 - INFO - Correlation matrix updated for 41 pairs
+2025-07-04 19:38:59,860 - INFO - Market regime changed: NEUTRAL -> BEAR_TRENDING
+2025-07-04 19:38:59,861 - INFO - Market state: Regime=BEAR_TRENDING, Trend=bearish, Volatility=low, Breadth=0.50
+2025-07-04 19:40:15,558 - INFO - Bot stopped by user
+2025-07-04 19:40:15,560 - INFO - Global API client closed
+2025-07-04 19:40:15,560 - INFO - Bot cleanup completed

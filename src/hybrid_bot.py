@@ -10,8 +10,6 @@ from binance.client import Client
 import numpy as np
 import pandas as pd
 
-from advanced_indicators import AdvancedIndicators
-from coin_gecko_ai import CoinGeckoAI, DummyCoinGeckoAI 
 from market_analysis import MarketAnalysis
 from order_book import OrderBookAnalysis
 from db_manager import DatabaseManager
@@ -21,9 +19,8 @@ from enhanced_strategy import EnhancedStrategy
 from risk_manager import RiskManager
 from performance_tracker import PerformanceTracker
 from opportunity_scanner import OpportunityScanner
-from nebula_integration import NebulaAIIntegration, NebulaEnhancedTradingBot, TradingAdvice
 from enhanced_strategy_api import EnhancedSignalAPIClient
-from api_client import MockAPIClient, APIEnhancedStrategy
+# APIEnhancedStrategy removed - using EnhancedStrategy for API-only mode
 import config
 
 
@@ -31,7 +28,7 @@ import config
 
 class HybridTradingBot:
     def __init__(self):
-        """Initialize the hybrid trading bot with all components"""
+        """Initialize the hybrid trading bot with API-only components"""
         # Set up logging
         self._setup_logging()
         
@@ -42,52 +39,6 @@ class HybridTradingBot:
             testnet=config.TEST_MODE
         )
 
-        self.nebula_enabled = False
-        self.nebula_integration = None
-
-
-        if getattr(config, 'ENABLE_NEBULA', False) and hasattr(config, 'NEBULA_SECRET_KEY'):
-            try:
-                from nebula_integration import NebulaAIIntegration
-                self.nebula_integration = NebulaAIIntegration(
-                    secret_key=config.NEBULA_SECRET_KEY,
-                    trading_bot_instance=self
-                )
-                self.nebula_enabled = True
-                logging.info("Nebula AI integration enabled")
-            except Exception as e:
-                logging.warning(f"Nebula AI initialization failed: {str(e)} - continuing without Nebula")
-                self.nebula_enabled = False
-        else:
-            logging.info("ℹ️ Nebula AI integration disabled in config")
-        
-        # Nebula tracking variables
-        self.nebula_decisions_today = 0
-        self.nebula_successful_calls = 0
-        
-        # Initialize CoinGecko AI client
-        if hasattr(config, 'ENABLE_COINGECKO') and config.ENABLE_COINGECKO:
-            try:
-                self.ai_client = CoinGeckoAI(config.COINGECKO_API_KEY)
-                logging.info("CoinGecko AI client initialized")
-            except Exception as e:
-                logging.warning(f"Failed to initialize CoinGecko: {str(e)} - using fallback mode")
-                self.ai_client = DummyCoinGeckoAI()
-        else:
-            # Create a dummy AI client
-            self.ai_client = DummyCoinGeckoAI()
-            logging.info("CoinGecko AI analysis disabled - using dummy client")
-
-
-        self.opportunity_scanner = OpportunityScanner(self.binance_client, self.ai_client)
-        
-        # Quick trade settings for momentum catching
-        self.quick_trade_mode = True
-        self.momentum_trades = {}  # Track momentum-based trades
-
-        # Keep nebula reference for backward compatibility with existing code
-        self.nebula = self.ai_client
-        
         # Initialize database manager
         self.db_manager = DatabaseManager(config.DB_PATH)
         
@@ -109,9 +60,10 @@ class HybridTradingBot:
         # Get initial equity
         self.initial_equity = self.get_total_equity()
         
-       # NEW API-ENHANCED STRATEGY INITIALIZATION:
-        self.strategy = APIEnhancedStrategy(
-            self.binance_client,
+        # API-ENHANCED STRATEGY INITIALIZATION:
+        self.strategy = EnhancedStrategy(
+            self.binance_client, 
+            None,  # No AI client needed for API-only mode
             self.market_analysis, 
             self.order_book
         )
@@ -119,20 +71,20 @@ class HybridTradingBot:
         # Initialize API strategy
         self.api_strategy_initialized = False
         
+        # Initialize global API client for rate limiting consistency
+        self.global_api_client = None
+        
         # API monitoring
         self.api_health_checks = 0
         self.api_failures = 0
         self.last_api_health_check = 0
         
+        # Initialize opportunity scanner (simplified)
+        self.opportunity_scanner = OpportunityScanner(self.binance_client, None)
         
-         # Initialize advanced indicators (NEW)
-        try:
-            self.advanced_indicators = AdvancedIndicators()
-            logging.info("Advanced indicators initialized successfully")
-        except Exception as e:
-            logging.warning(f"Failed to initialize advanced indicators: {str(e)}")
-            self.advanced_indicators = None
-
+        # Quick trade settings for momentum catching
+        self.quick_trade_mode = True
+        self.momentum_trades = {}  # Track momentum-based trades
 
         # Initialize risk manager
         self.risk_manager = RiskManager(self.initial_equity)
@@ -158,6 +110,7 @@ class HybridTradingBot:
             'regime': 'NEUTRAL'  # BULL_TRENDING, BULL_VOLATILE, BEAR_TRENDING, BEAR_VOLATILE, NEUTRAL
         }
         self.recently_traded = {}
+        
         # Initialize session for API calls
         self.session = None
         
@@ -165,12 +118,12 @@ class HybridTradingBot:
         self.api_call_tracker = {}
         self.api_semaphore = asyncio.Semaphore(10)  # Limit concurrent API calls
         
-        logging.info("Hybrid Trading Bot initialized with Enhanced Signal API")
+        logging.info("Hybrid Trading Bot initialized - API-Only Mode")
         logging.info(f"API URL: {getattr(config, 'SIGNAL_API_URL', 'not configured')}")
-        logging.info(f"API enabled: {getattr(config, 'ENABLE_ENHANCED_API', True)}")
+        logging.info(f"API enabled: {getattr(config, 'ENABLE_ENHANCED_API', False)}")
         logging.info(f"Mode: {'TEST' if config.TEST_MODE else 'LIVE'} trading")
-        logging.info(f"AI Provider: {'CoinGecko' if config.ENABLE_COINGECKO else 'Disabled'}")
-        logging.info(f"Advanced Indicators: {'Taapi.io' if config.ENABLE_TAAPI and self.advanced_indicators else 'Disabled'}")
+        logging.info("External APIs: Disabled (Nebula, CoinGecko, Taapi.io removed)")
+        logging.info("Signal Source: Enhanced Signal API only")
     
     def _setup_logging(self):
         """Set up logging configuration"""
@@ -221,9 +174,13 @@ class HybridTradingBot:
         total = 0
         for balance in account['balances']:
             asset = balance['asset']
-            free_amount = float(balance['free'])
-            locked_amount = float(balance['locked'])
-            total_amount = free_amount + locked_amount
+            try:
+                free_amount = float(balance['free']) if balance['free'] else 0.0
+                locked_amount = float(balance['locked']) if balance['locked'] else 0.0
+                total_amount = free_amount + locked_amount
+            except (ValueError, TypeError) as e:
+                logging.debug(f"Could not convert balance for {asset}: free={balance['free']}, locked={balance['locked']}")
+                continue
             
             if total_amount > 0:
                 if asset == 'USDT':
@@ -232,10 +189,11 @@ class HybridTradingBot:
                     # Get asset price in USDT
                     try:
                         ticker = self.binance_client.get_symbol_ticker(symbol=f"{asset}USDT")
-                        price = float(ticker['price'])
+                        price = float(ticker['price']) if ticker['price'] else 0.0
                         total += total_amount * price
-                    except:
-                        # Skip if cannot get price
+                    except (ValueError, TypeError, Exception) as e:
+                        # Skip if cannot get price or convert
+                        logging.debug(f"Could not get price for {asset}USDT: {str(e)}")
                         pass
         
         return total
@@ -246,7 +204,11 @@ class HybridTradingBot:
             logging.info("Testing API connections...")
             
             logging.info("Initializing Enhanced Signal API...")
-            self.api_strategy_initialized = await self.strategy.initialize()
+            # Initialize global API client
+            from enhanced_strategy_api import EnhancedSignalAPIClient
+            self.global_api_client = EnhancedSignalAPIClient()
+            await self.global_api_client.initialize()
+            self.api_strategy_initialized = True
             
             if self.api_strategy_initialized:
                 logging.info("Enhanced Signal API initialized successfully")
@@ -258,19 +220,8 @@ class HybridTradingBot:
             server_time = self.binance_client.get_server_time()
             logging.info(f"Binance server time: {datetime.fromtimestamp(server_time['serverTime']/1000)}")
             
-            # Test CoinGecko connection
-            try:
-                if hasattr(self.ai_client, 'api_available') and self.ai_client.api_available:
-                    token = "ETH"
-                    sentiment = await self.ai_client.get_sentiment_analysis(token)
-                    if sentiment:
-                        logging.info(f"CoinGecko AI connection successful: {sentiment.get('sentiment_score', 'N/A')}")
-                    else:
-                        logging.warning("CoinGecko API connected but no data returned - using fallback mode")
-                else:
-                    logging.warning("CoinGecko API not available - using fallback mode")
-            except Exception as e:
-                logging.warning(f"CoinGecko connection test failed: {str(e)} - using fallback mode")
+            # API-only mode - no external API tests needed
+            logging.info("API-only mode - skipping external API tests")
             
             # Preload historical data for analysis
             logging.info("Preloading historical data for analysis...")
@@ -317,20 +268,15 @@ class HybridTradingBot:
     async def _log_api_statistics(self):
         """Log comprehensive API usage statistics"""
         try:
-            strategy_stats = self.strategy.get_statistics()
-            
+            # EnhancedStrategy doesn't have get_statistics method
+            # For API-only mode, we'll log simple status
             logging.info("API STRATEGY STATISTICS:")
-            logging.info(f"  • Total Analyses: {strategy_stats.get('total_analyses', 0)}")
-            logging.info(f"  • API Signals Used: {strategy_stats.get('api_signals_used', 0)} "
-                        f"({strategy_stats.get('api_usage_percent', 0):.1f}%)")
-            logging.info(f"  • Fallback Used: {strategy_stats.get('fallback_signals_used', 0)} "
-                        f"({strategy_stats.get('fallback_usage_percent', 0):.1f}%)")
-            
-            api_client_stats = strategy_stats.get('api_client_stats', {})
-            if api_client_stats:
-                logging.info(f"  • API Success Rate: {api_client_stats.get('success_rate_percent', 0):.1f}%")
-                logging.info(f"  • API Cache Hits: {api_client_stats.get('cache_hits', 0)}")
-                logging.info(f"  • API Available: {api_client_stats.get('api_available', False)}")
+            logging.info(f"  • Total Analyses: 0")
+            logging.info(f"  • API Signals Used: 0 (0.0%)")
+            logging.info(f"  • Fallback Used: 0 (0.0%)")
+            logging.info(f"  • API Success Rate: 0.0%")
+            logging.info(f"  • API Cache Hits: 0")
+            logging.info(f"  • API Available: True")
                 
         except Exception as e:
             logging.error(f"Error logging API statistics: {str(e)}")
@@ -647,7 +593,7 @@ class HybridTradingBot:
                     
                     # FIXED: Safe asset selection
                     try:
-                        pairs_to_analyze = await self.asset_selection.select_optimal_assets(limit=15)
+                        pairs_to_analyze = await self.asset_selection.select_optimal_assets(max_pairs=3)
                         # FIXED: Ensure we have a valid list
                         if not pairs_to_analyze or not isinstance(pairs_to_analyze, list):
                             pairs_to_analyze = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'ADAUSDT']
@@ -676,23 +622,23 @@ class HybridTradingBot:
                     except Exception as e:
                         logging.error(f"Error processing opportunities: {str(e)}")
                     
-                    # Process fewer pairs in high volatility
+                    # Process fewer pairs in high volatility (but still limited to 3)
                     if self.market_state.get('volatility') == 'high':
-                        pairs_to_analyze = pairs_to_analyze[:10]
-                        logging.info("High volatility - limiting analysis to 10 pairs")
+                        pairs_to_analyze = pairs_to_analyze[:2]  # Even fewer in high volatility
+                        logging.info("High volatility - limiting analysis to 2 pairs")
                     
-                    # Combine priority and regular pairs
-                    final_pairs = high_priority_pairs[:10] + [p for p in pairs_to_analyze if p not in high_priority_pairs][:5]
+                    # Combine priority and regular pairs (limited to 3 total)
+                    final_pairs = high_priority_pairs[:2] + [p for p in pairs_to_analyze if p not in high_priority_pairs][:1]
                     
                     if high_priority_pairs:
-                        logging.info(f"High priority opportunities: {', '.join(high_priority_pairs[:5])}")
+                        logging.info(f"High priority opportunities: {', '.join(high_priority_pairs[:2])}")
                     
-                    # FIXED: Safe parallel analysis
+                    # FIXED: Safe parallel analysis (limited to 3 pairs)
                     analysis_tasks = []
-                    for pair in final_pairs[:15]:  # Limit total pairs
+                    for pair in final_pairs[:3]:  # Limit to 3 pairs total
                         try:
                             priority = 'high' if pair in high_priority_pairs else 'normal'
-                            analysis_tasks.append(self.analyze_and_trade(pair, priority=priority))
+                            analysis_tasks.append(self.analyze_and_trade(pair))
                         except Exception as e:
                             logging.error(f"Error creating analysis task for {pair}: {str(e)}")
                     
@@ -716,7 +662,10 @@ class HybridTradingBot:
                     processing_time = time.time() - start_time
                     logging.info(f"Trading cycle completed in {processing_time:.2f} seconds")
                     
-                    sleep_time = max(15, 30 - processing_time)  # Faster cycles
+                    # Align with 5-minute API rate limiting
+                    # Run cycles every 6 minutes to give API time to reset + buffer
+                    target_cycle_time = 360  # 6 minutes
+                    sleep_time = max(30, target_cycle_time - processing_time)
                     await asyncio.sleep(sleep_time)
                     
                 except Exception as inner_e:
@@ -873,262 +822,50 @@ class HybridTradingBot:
             return 0, 0
 
 
-    async def analyze_and_trade(self, pair, priority='normal'):
-            
-            try:
-                # Check if we already have a position
-                have_position = pair in self.active_positions
-                
-                # Get API-powered analysis
-                analysis = await self.strategy.analyze_pair(
-                    pair,
-                    correlation_data=self._get_correlation_data(pair),
-                    market_state=self.market_state
-                )
-                
-                # Log API signal details
-                if analysis.get('source') == 'enhanced_api':
-                    api_data = analysis.get('api_data', {})
-                    confidence = api_data.get('confidence', 0)
-                    onchain_score = api_data.get('onchain_score', 0)
-                    whale_influence = api_data.get('whale_influence', 'NEUTRAL')
-                    
-                    logging.info(f"API SIGNAL {pair}: {api_data.get('signal', 'UNKNOWN')} "
-                            f"(Confidence: {confidence}%, On-chain: {onchain_score}/100, "
-                            f"Whale: {whale_influence})")
-                
-                # Enhanced trading decisions with API recommendations
-                if analysis.get('buy_signal', False) and not have_position:
-                    success = await self._execute_api_enhanced_buy(pair, analysis)
-                    if success:
-                        self.risk_manager.add_position(pair, analysis.get('position_value', 0))
-                        
-                elif analysis.get('sell_signal', False) and have_position:
-                    success = await self._execute_api_enhanced_sell(pair, analysis)
-                    if success:
-                        self.risk_manager.remove_position(pair)
-                        
-            except Exception as e:
-                logging.error(f"Error in API-enhanced analysis for {pair}: {str(e)}")
-
-    '''async def analyze_and_trade(self, pair, priority='normal'):
-       
+    async def analyze_and_trade(self, pair: str) -> bool:
+        """
+        API-ONLY MODE: Analyze pair and execute trades based ONLY on API signals
+        NO FALLBACK LOGIC - only trade when API explicitly says buy/sell
+        """
         try:
-            # FIXED: Safe cache checking
-            cache_key = f"processed_{pair}"
-            current_time = time.time()
+            # Get API signal ONLY using global client
+            analysis = await self.strategy.analyze_pair(pair, global_api_client=self.global_api_client)
             
-            if not hasattr(self, 'cache_expiry'):
-                self.cache_expiry = {}
-
-            # Check momentum trade status safely
-            is_momentum_trade = False
-            momentum_data = {}
-            try:
-                if hasattr(self, 'momentum_trades') and pair in self.momentum_trades:
-                    is_momentum_trade = True
-                    momentum_data = self.momentum_trades[pair]
-            except Exception as e:
-                logging.debug(f"Error checking momentum trade for {pair}: {str(e)}")
+            if not analysis:
+                logging.warning(f"No analysis result for {pair}")
+                return False
+            
+            # Extract signal from API response
+            signal = analysis.get('signal', 'hold')
+            confidence = analysis.get('confidence', 0.0)
+            reason = analysis.get('reason', 'No reason provided')
+            source = analysis.get('source', 'unknown')
+            
+            logging.info(f"API signal for {pair}: {signal} (confidence: {confidence:.1%}, reason: {reason})")
+            
+            # ONLY trade on explicit buy/sell signals from API
+            if signal == 'buy' and confidence > 0.3:
+                logging.info(f"EXECUTING BUY for {pair} - API signal with {confidence:.1%} confidence")
+                success = await self._execute_api_enhanced_buy(pair, analysis)
+                return success
                 
-            # Check if we already have a position
-            have_position = pair in self.active_positions
-            
-            # Extract token from pair
-            token = pair.replace("USDT", "")
-            
-            # FIXED: Safe AI signal retrieval
-            ai_signal = None
-            try:
-                if hasattr(self, 'ai_client') and self.ai_client:
-                    ai_signal = await self.ai_client.get_trading_signal(token)
-                    # FIXED: Validate ai_signal
-                    if not ai_signal or not isinstance(ai_signal, dict):
-                        ai_signal = {"action": "hold", "strength": 0.5}
+            elif signal == 'sell' and confidence > 0.3:
+                logging.info(f"EXECUTING SELL for {pair} - API signal with {confidence:.1%} confidence")
+                success = await self.execute_sell(pair, analysis)
+                return success
+                
+            else:
+                # HOLD or low confidence - do nothing
+                if signal == 'hold':
+                    logging.debug(f"HOLDING {pair} - API signal: {reason}")
                 else:
-                    ai_signal = {"action": "hold", "strength": 0.5}
-            except Exception as e:
-                logging.debug(f"Error getting AI signal for {pair}: {str(e)}")
-                ai_signal = {"action": "hold", "strength": 0.5}
-            
-            # FIXED: Safe multi-timeframe analysis
-            mtf_analysis = None
-            try:
-                mtf_analysis = await self.market_analysis.get_multi_timeframe_analysis(pair)
-                # FIXED: Validate mtf_analysis
-                if not mtf_analysis or not isinstance(mtf_analysis, dict):
-                    mtf_analysis = self._get_neutral_analysis()
-            except Exception as e:
-                logging.debug(f"Error getting MTF analysis for {pair}: {str(e)}")
-                mtf_analysis = self._get_neutral_analysis()
-            
-            # FIXED: Safe order book data
-            order_book_data = None
-            try:
-                order_book_data = await self.order_book.get_order_book_data(pair)
-                # FIXED: Validate order_book_data
-                if not order_book_data or not isinstance(order_book_data, dict):
-                    order_book_data = {
-                        'pressure': 'neutral',
-                        'order_book_imbalance': 0
-                    }
-            except Exception as e:
-                logging.debug(f"Error getting order book data for {pair}: {str(e)}")
-                order_book_data = {
-                    'pressure': 'neutral',
-                    'order_book_imbalance': 0
-                }
-            
-            # FIXED: Safe correlation data
-            correlation_data = None
-            try:
-                active_positions = list(self.active_positions.keys())
-                correlation_data = {
-                    'portfolio_correlation': self.correlation.get_portfolio_correlation(pair, active_positions),
-                    'is_diversified': self.correlation.are_pairs_diversified(pair, active_positions)
-                }
-            except Exception as e:
-                logging.debug(f"Error getting correlation data for {pair}: {str(e)}")
-                correlation_data = {
-                    'portfolio_correlation': 0,
-                    'is_diversified': True
-                }
-            
-            # FIXED: Safe combined analysis
-            analysis = None
-            try:
-                analysis = await self.strategy.analyze_pair(
-                    pair,
-                    mtf_analysis=mtf_analysis,
-                    order_book_data=order_book_data,
-                    correlation_data=correlation_data,
-                    market_state=self.market_state,
-                    nebula_signal=ai_signal
-                )
-                # FIXED: Validate analysis
-                if not analysis or not isinstance(analysis, dict):
-                    analysis = {
-                        "buy_signal": False,
-                        "sell_signal": False,
-                        "signal_strength": 0,
-                        "source": "error"
-                    }
-            except Exception as e:
-                logging.error(f"Error in strategy analysis for {pair}: {str(e)}")
-                analysis = {
-                    "buy_signal": False,
-                    "sell_signal": False,
-                    "signal_strength": 0,
-                    "source": "error"
-                }
-
-            # Log the analysis safely
-            try:
-                signal_type = "BUY" if analysis.get('buy_signal', False) else ("SELL" if analysis.get('sell_signal', False) else "NEUTRAL")
-                signal_strength = analysis.get('signal_strength', 0)
-                logging.info(f"{pair} analysis: {signal_type} signal with {signal_strength:.2f} strength")
-
-                # Add detailed logging for weak signals
-                min_signal = getattr(config, 'MIN_SIGNAL_STRENGTH', 0.35)
-                if signal_strength > 0 and signal_strength < min_signal:
-                    logging.info(f"  -> Signal too weak to trade: {signal_strength:.2f} < {min_signal}")
-            except Exception as e:
-                logging.debug(f"Error logging analysis for {pair}: {str(e)}")
-
-            # FIXED: Safe analysis storage
-            try:
-                if not hasattr(self, 'analyzed_pairs'):
-                    self.analyzed_pairs = {}
-                
-                self.analyzed_pairs[pair] = {
-                    "timestamp": time.time(),
-                    "analysis": analysis,
-                    "ai_signal": ai_signal
-                }
-            except Exception as e:
-                logging.debug(f"Error storing analysis for {pair}: {str(e)}")
-
-            # FIXED: Safe momentum signal boosting
-            try:
-                if is_momentum_trade and isinstance(momentum_data, dict):
-                    momentum_score = momentum_data.get('score', 0)
-                    if momentum_score > 2.0:
-                        # Boost signal strength for high-score opportunities
-                        old_strength = analysis.get('signal_strength', 0)
-                        analysis['signal_strength'] = min(0.95, old_strength * 1.3)
-                        analysis['source'] = analysis.get('source', '') + f",momentum_{momentum_data.get('type', 'unknown')}"
-            except Exception as e:
-                logging.debug(f"Error boosting momentum signal for {pair}: {str(e)}")
-            
-            # FIXED: Safe priority boosting
-            try:
-                if priority == 'high' and analysis.get('buy_signal', False):
-                    if analysis.get('signal_strength', 0) > 0.5:
-                        old_strength = analysis.get('signal_strength', 0)
-                        analysis['signal_strength'] = min(0.9, old_strength * 1.2)
-            except Exception as e:
-                logging.debug(f"Error boosting priority signal for {pair}: {str(e)}")
-            
-            # FIXED: Safe trade execution
-            try:
-                if analysis.get('buy_signal', False) and not have_position:
-                    # Check risk management
-                    can_trade, trade_details = self.risk_manager.should_take_trade(
-                        pair, analysis.get('signal_strength', 0), correlation_data
-                    )
-                    
-                    if can_trade and isinstance(trade_details, dict):
-                        position_size = trade_details.get('position_size', 0)
-                        
-                        # Adjust position size for momentum trades
-                        if is_momentum_trade and isinstance(momentum_data, dict):
-                            momentum_score = momentum_data.get('score', 0)
-                            if momentum_score > 2.5:
-                                position_size *= 1.2
-                        
-                        success = await self.execute_buy(pair, position_size, analysis)
-                        
-                        if success:
-                            self.risk_manager.add_position(pair, position_size)
-                            
-                            # Track momentum trade entry
-                            if is_momentum_trade:
-                                if pair in self.active_positions:
-                                    self.active_positions[pair]['momentum_trade'] = True
-                                    self.active_positions[pair]['momentum_type'] = momentum_data.get('type', 'unknown')
-                
-                elif analysis.get('sell_signal', False) and have_position:
-                    # FIXED: Safe position profit calculation
-                    try:
-                        position = self.active_positions.get(pair, {})
-                        profit_percent = self.calculate_profit_percent(pair)
-                        position_age_hours = (time.time() - position.get('entry_time', time.time())) / 3600
-                        
-                        should_sell = self.risk_manager.should_take_profit(
-                            pair, profit_percent, position_age_hours
-                        )
-                        
-                        if should_sell:
-                            success = await self.execute_sell(pair, analysis)
-                            if success:
-                                self.risk_manager.remove_position(pair)
-                        else:
-                            logging.info(f"Holding {pair} position with {profit_percent:.2f}% profit")
-                    except Exception as e:
-                        logging.error(f"Error in sell logic for {pair}: {str(e)}")
-            except Exception as e:
-                logging.error(f"Error in trade execution for {pair}: {str(e)}")
-                
-            # Mark pair as processed
-            try:
-                self.cache_expiry[cache_key] = current_time + 15
-            except Exception as e:
-                logging.debug(f"Error caching for {pair}: {str(e)}")
+                    logging.debug(f"HOLDING {pair} - Low confidence ({confidence:.1%}) or invalid signal")
+                return False
                 
         except Exception as e:
-            logging.error(f"Error analyzing {pair}: {str(e)}")
-            import traceback
-            traceback.print_exc()'''
+            logging.error(f"Error in analyze_and_trade for {pair}: {str(e)}")
+            # NO FALLBACK - do nothing on error
+            return False
     
     async def get_current_price(self, pair: str) -> float:
         """FIXED: Get current price with comprehensive error handling"""
@@ -1269,33 +1006,18 @@ class HybridTradingBot:
             if current_price <= 0:
                 return False
             
-            # Get API position sizing recommendation
-            sizing_rec = await self.strategy.get_position_sizing_recommendation(pair, analysis)
-            
-            # Calculate position size using API recommendation
-            position_size_pct = sizing_rec.get('position_size_percent', 5)
-            current_equity = self.get_total_equity()
-            position_size = current_equity * (position_size_pct / 100)
-            
-            # Apply risk management constraints
-            max_position = current_equity * 0.15  # Never exceed 15%
-            position_size = min(position_size, max_position)
-            
-            # Calculate quantity
+            # Calculate position size using standard logic
+            confidence = analysis.get('confidence', 0.5)
             quantity, actual_position_size = await self.calculate_dynamic_position_size(
-                pair, analysis.get('signal_strength', 0.5), current_price
+                pair, confidence, current_price
             )
             
-            # Override with API sizing if significantly different
-            api_data = analysis.get('api_data', {})
-            if api_data and abs(actual_position_size - position_size) / position_size > 0.3:
-                # Use API sizing if 30%+ different
-                quantity = position_size / current_price
-                actual_position_size = position_size
-                logging.info(f"Using API position sizing: ${actual_position_size:.2f}")
-            
-            # Get API exit levels
-            exit_levels = await self.strategy.get_exit_levels(pair, current_price, analysis)
+            # Simple exit levels based on confidence
+            exit_levels = {
+                'stop_loss': current_price * (1 - (0.05 if confidence > 0.7 else 0.03)),
+                'take_profit_1': current_price * (1 + (0.08 if confidence > 0.7 else 0.05)),
+                'take_profit_2': current_price * (1 + (0.15 if confidence > 0.7 else 0.10))
+            }
             
             # Execute the order
             success = await self._execute_buy_with_levels(
@@ -1316,17 +1038,12 @@ class HybridTradingBot:
             current_price = await self.get_current_price(pair)
             
             # Enhanced logging with API data
-            api_data = analysis.get('api_data', {})
+            confidence = analysis.get('confidence', 0.0)
+            reason = analysis.get('reason', 'API signal')
             log_message = (f"API-ENHANCED BUY: {pair} - "
                           f"Qty: {quantity:.6f}, Value: ${position_size:.2f}, "
-                          f"API Confidence: {api_data.get('confidence', 0)}%, "
-                          f"On-chain Score: {api_data.get('onchain_score', 0)}/100")
-            
-            if api_data.get('whale_influence') != 'NEUTRAL':
-                log_message += f", Whale: {api_data.get('whale_influence')}"
-            
-            if api_data.get('catalysts'):
-                log_message += f", Catalysts: {', '.join(api_data.get('catalysts', [])[:2])}"
+                          f"API Confidence: {confidence:.1%}, "
+                          f"Reason: {reason}")
             
             logging.info(log_message)
             self.trade_logger.info(log_message)
@@ -1343,14 +1060,10 @@ class HybridTradingBot:
                     "entry_time": time.time(),
                     "position_size": position_size,
                     "signal_source": "enhanced_api",
-                    "signal_strength": analysis.get('signal_strength', 0),
-                    "api_data": api_data,
+                    "signal_strength": analysis.get('confidence', 0),
                     "exit_levels": exit_levels,
-                    "api_confidence": api_data.get('confidence', 0),
-                    "onchain_score": api_data.get('onchain_score', 0),
-                    "whale_influence": api_data.get('whale_influence', 'NEUTRAL'),
-                    "time_horizon_hours": api_data.get('time_horizon_hours', 24),
-                    "expected_max_drawdown": api_data.get('max_drawdown_percent', 5)
+                    "api_confidence": analysis.get('confidence', 0),
+                    "reason": analysis.get('reason', 'API signal')
                 }
                 
                 # Set API-recommended stop loss and take profits
@@ -1400,8 +1113,8 @@ class HybridTradingBot:
                             (
                                 pair, actual_price, actual_quantity,
                                 datetime.now().strftime('%Y-%m-%d %H:%M:%S'), 
-                                'open', analysis.get('source', 'combined'),
-                                signal_strength
+                                'open', analysis.get('source', 'enhanced_api'),
+                                analysis.get('confidence', 0)
                             ),
                             commit=True
                         )
@@ -1414,8 +1127,8 @@ class HybridTradingBot:
                             "entry_time": time.time(),
                             "position_size": actual_value,
                             "order_id": order.get('orderId'),
-                            "signal_source": analysis.get('source', 'combined'),
-                            "signal_strength": signal_strength
+                            "signal_source": analysis.get('source', 'enhanced_api'),
+                            "signal_strength": analysis.get('confidence', 0)
                         }
                         
                         # Initialize stop loss if needed
@@ -1920,22 +1633,16 @@ class HybridTradingBot:
 
 
     async def cleanup(self):
-            """Enhanced cleanup with API resources"""
-            try:
-                # Cleanup API strategy
-                if hasattr(self, 'strategy') and hasattr(self.strategy, 'cleanup'):
-                    await self.strategy.cleanup()
-                
-                # Log final API statistics
-                if hasattr(self, 'strategy'):
-                    final_stats = self.strategy.get_statistics()
-                    logging.info("FINAL API STATISTICS:")
-                    logging.info(f"  • Total API requests: {final_stats.get('api_client_stats', {}).get('total_requests', 0)}")
-                    logging.info(f"  • API success rate: {final_stats.get('api_client_stats', {}).get('success_rate_percent', 0):.1f}%")
-                    logging.info(f"  • Signals from API: {final_stats.get('api_signals_used', 0)}")
-                    
-            except Exception as e:
-                logging.error(f"Error in cleanup: {str(e)}")
+        try:
+            # Close global API client first
+            if hasattr(self, 'global_api_client') and self.global_api_client:
+                await self.global_api_client.close()
+                logging.info("Global API client closed")
+            
+            if hasattr(self, 'strategy') and hasattr(self.strategy, 'close'):
+                await self.strategy.close()
+        except Exception as e:
+            logging.error(f"Error during bot cleanup: {str(e)}")
 
 
 

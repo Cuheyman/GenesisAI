@@ -10,49 +10,107 @@ import requests
 import json
 
 class OpportunityScanner:
-    def __init__(self, binance_client, coingecko_client):
+    def __init__(self, binance_client, coingecko_client=None):
         self.binance_client = binance_client
-        self.coingecko_client = coingecko_client
+        self.coingecko_client = coingecko_client  # Optional - can be None
         self.opportunities = {}
         self.last_scan_time = 0
         self.scanned_pairs_cache = {}
         self.cache_duration = 60  # 1 minute cache for scanned pairs
         
-    async def scan_for_opportunities(self) -> List[Dict]:
-        """Scan multiple data sources for trading opportunities"""
-        opportunities = []
+    async def get_valid_symbols(self):
+        """Get valid USDT trading pairs from Binance (cached for 1 hour)"""
+        if hasattr(self, '_valid_symbols') and self._valid_symbols_time > time.time() - 3600:
+            return self._valid_symbols
         
-        # Run all scans in parallel for speed
-        tasks = [
-            self.detect_volume_surges(),
-            self.detect_social_momentum(),
-            self.detect_whale_movements(),
-            self.detect_breakout_patterns(),
-            self.detect_unusual_activity(),
-            self.detect_new_listings(),  # Added: New listings often pump
-            self.detect_momentum_shift()  # Added: Quick momentum changes
-        ]
-        
-        results = await asyncio.gather(*tasks, return_exceptions=True)
-        
-        # Process results
-        for result in results:
-            if isinstance(result, list):
-                opportunities.extend(result)
-            elif isinstance(result, Exception):
-                logging.error(f"Error in opportunity scan: {str(result)}")
-        
-        # Combine and score opportunities
-        all_opps = self._combine_opportunities(opportunities)
-        
-        # Sort by score
-        sorted_opps = sorted(all_opps, key=lambda x: x['score'], reverse=True)
-        
-        # Log top opportunities
-        if sorted_opps:
-            logging.info(f"Top opportunities found: {[opp['symbol'] for opp in sorted_opps[:5]]}")
-        
-        return sorted_opps[:20]  # Return top 20 opportunities
+        try:
+            # Get all USDT pairs from Binance
+            tickers = self.binance_client.get_ticker()
+            usdt_pairs = set([t['symbol'] for t in tickers if t['symbol'].endswith('USDT')])
+            
+            # Filter to only major pairs with good volume
+            major_pairs = {
+                'BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'ADAUSDT', 
+                'XRPUSDT', 'DOTUSDT', 'LINKUSDT', 'AVAXUSDT', 'UNIUSDT',
+                'LTCUSDT', 'BCHUSDT', 'ATOMUSDT', 'ETCUSDT', 'XLMUSDT',
+                'VETUSDT', 'FILUSDT', 'TRXUSDT', 'ICPUSDT', 'NEARUSDT'
+            }
+            
+            # Return intersection of available pairs and major pairs
+            valid_pairs = usdt_pairs.intersection(major_pairs)
+            
+            if not valid_pairs:
+                logging.warning("No major pairs found, using default list")
+                valid_pairs = major_pairs
+            
+            # Cache the result
+            self._valid_symbols = valid_pairs
+            self._valid_symbols_time = time.time()
+            
+            logging.info(f"Cached {len(valid_pairs)} valid trading pairs")
+            return valid_pairs
+            
+        except Exception as e:
+            logging.error(f"Error getting valid symbols: {str(e)}")
+            # Fallback to default major pairs
+            fallback_pairs = {
+                'BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'ADAUSDT',
+                'XRPUSDT', 'DOTUSDT', 'LINKUSDT', 'AVAXUSDT', 'UNIUSDT'
+            }
+            self._valid_symbols = fallback_pairs
+            self._valid_symbols_time = time.time()
+            return fallback_pairs
+
+    async def scan_for_opportunities(self, max_opportunities: int = 3) -> List[Dict[str, Any]]:
+        """
+        Scan for trading opportunities - LIMITED TO TOP 3 OPPORTUNITIES
+        This reduces API requests and focuses on quality trades
+        """
+        try:
+            # Get valid symbols first
+            valid_symbols = await self.get_valid_symbols()
+            if not valid_symbols:
+                logging.warning("No valid symbols available for opportunity scanning")
+                return []
+            
+            opportunities = []
+            
+            # Scan for volume surges (limited)
+            volume_opps = await self.detect_volume_surges()
+            for opp in volume_opps:
+                if opp['symbol'] in valid_symbols:
+                    opportunities.append(opp)
+                    if len(opportunities) >= max_opportunities:
+                        break
+            
+            # If we need more opportunities, scan for momentum shifts
+            if len(opportunities) < max_opportunities:
+                momentum_opps = await self.detect_momentum_shift()
+                for opp in momentum_opps:
+                    if opp['symbol'] in valid_symbols and opp['symbol'] not in [o['symbol'] for o in opportunities]:
+                        opportunities.append(opp)
+                        if len(opportunities) >= max_opportunities:
+                            break
+            
+            # If we still need more, scan for breakout patterns
+            if len(opportunities) < max_opportunities:
+                breakout_opps = await self.detect_breakout_patterns()
+                for opp in breakout_opps:
+                    if opp['symbol'] in valid_symbols and opp['symbol'] not in [o['symbol'] for o in opportunities]:
+                        opportunities.append(opp)
+                        if len(opportunities) >= max_opportunities:
+                            break
+            
+            # Sort by score and return top opportunities
+            opportunities.sort(key=lambda x: x.get('score', 0), reverse=True)
+            top_opportunities = opportunities[:max_opportunities]
+            
+            logging.info(f"Found {len(top_opportunities)} opportunities: {[o['symbol'] for o in top_opportunities]}")
+            return top_opportunities
+            
+        except Exception as e:
+            logging.error(f"Error scanning for opportunities: {str(e)}")
+            return []
     
     async def detect_volume_surges(self) -> List[Dict]:
         """Detect sudden volume increases that often precede price moves"""
@@ -454,43 +512,51 @@ class OpportunityScanner:
         return opportunities
     
     async def detect_social_momentum(self) -> List[Dict]:
-        """Enhanced social momentum detection"""
+        """Enhanced social momentum detection using Binance data only"""
         opportunities = []
         
         try:
-            # Use CoinGecko trending data if available
-            if self.coingecko_client and hasattr(self.coingecko_client, 'api_available') and self.coingecko_client.api_available:
-                trending = await self._get_coingecko_trending()
+            # Use Binance ticker data for momentum detection
+            tickers = self.binance_client.get_ticker()
+            
+            # Filter for active pairs with good volume
+            active_pairs = [t for t in tickers if float(t['quoteVolume']) > 500000 and t['symbol'].endswith('USDT')]
+            
+            # Sort by price change to find trending pairs
+            trending_pairs = sorted(active_pairs, key=lambda x: float(x['priceChangePercent']), reverse=True)[:20]
+            
+            for ticker in trending_pairs:
+                symbol = ticker['symbol']
                 
-                for coin in trending:
-                    symbol = f"{coin['symbol'].upper()}USDT"
+                # Skip if recently scanned
+                if self._is_recently_scanned(symbol):
+                    continue
+                
+                try:
+                    price_change = float(ticker['priceChangePercent'])
+                    volume = float(ticker['quoteVolume'])
+                    trade_count = float(ticker['count'])
                     
-                    # Verify it's tradeable on Binance
-                    try:
-                        ticker = self.binance_client.get_symbol_ticker(symbol=symbol)
-                        if ticker:
-                            # Get recent price action
-                            ticker_24h = next((t for t in self.binance_client.get_ticker() if t['symbol'] == symbol), None)
-                            
-                            if ticker_24h:
-                                price_change = float(ticker_24h['priceChangePercent'])
-                                volume = float(ticker_24h['quoteVolume'])
-                                
-                                # Look for trending coins that haven't pumped too much yet
-                                if -2 < price_change < 10 and volume > 100000:
-                                    opportunities.append({
-                                        'symbol': symbol,
-                                        'type': 'social_momentum',
-                                        'score': coin.get('score', 1.5),
-                                        'data': {
-                                            'source': 'coingecko_trending',
-                                            'rank': coin.get('rank', 0),
-                                            'price_change_24h': price_change,
-                                            'volume_24h': volume
-                                        }
-                                    })
-                    except:
-                        continue
+                    # Look for positive momentum with good volume
+                    if 0.5 < price_change < 8 and volume > 1000000:  # Sweet spot for momentum
+                        # Calculate momentum score based on price change and volume
+                        momentum_score = min(price_change * (volume / 1000000) / 10, 2.5)
+                        
+                        opportunities.append({
+                            'symbol': symbol,
+                            'type': 'social_momentum',
+                            'score': momentum_score,
+                            'data': {
+                                'source': 'binance_momentum',
+                                'price_change_24h': price_change,
+                                'volume_24h': volume,
+                                'trade_count': trade_count
+                            }
+                        })
+                        
+                except Exception as e:
+                    logging.debug(f"Error processing {symbol} for social momentum: {str(e)}")
+                    continue
                         
         except Exception as e:
             logging.error(f"Error detecting social momentum: {str(e)}")
@@ -610,25 +676,3 @@ class OpportunityScanner:
             s: t for s, t in self.scanned_pairs_cache.items() 
             if current_time - t < self.cache_duration
         }
-    
-    async def _get_coingecko_trending(self):
-        """Get trending coins from CoinGecko"""
-        try:
-            # Make actual API call to CoinGecko trending endpoint
-            result = await self.coingecko_client._make_api_request("search/trending")
-            
-            if result and 'coins' in result:
-                trending = []
-                for i, coin in enumerate(result['coins'][:10]):
-                    item = coin.get('item', {})
-                    trending.append({
-                        'symbol': item.get('symbol', ''),
-                        'rank': i + 1,
-                        'score': 2.0 - (i * 0.1)  # Higher score for higher rank
-                    })
-                return trending
-                
-        except Exception as e:
-            logging.error(f"Error getting CoinGecko trending: {str(e)}")
-            
-        return []

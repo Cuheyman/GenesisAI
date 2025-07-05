@@ -21,95 +21,112 @@ class EnhancedStrategy:
         logging.info("Enhanced Strategy initialized with advanced indicators support")
         
     async def analyze_pair(self, pair: str, mtf_analysis=None, order_book_data=None, 
-                    correlation_data=None, market_state=None, nebula_signal=None) -> Dict[str, Any]:
+                    correlation_data=None, market_state=None, nebula_signal=None, 
+                    global_api_client=None) -> Dict[str, Any]:
+        """
+        API-ONLY MODE: Only use Enhanced Signal API for all trading decisions
+        NO FALLBACK LOGIC - if API fails or returns hold, do nothing
+        """
         try:
-            # Get technical analysis from multi-timeframe data
-            if not mtf_analysis:
-                mtf_analysis = await self.market_analysis.get_multi_timeframe_analysis(pair)
-                
-            # Validate MTF analysis
-            if not mtf_analysis or mtf_analysis.get('timeframes_analyzed', 0) == 0:
-                logging.warning(f"No timeframe data available for {pair}, using minimal analysis")
-                mtf_analysis = await self._get_minimal_analysis(pair)
-                
-            # Get order book analysis
-            if not order_book_data:
-                order_book_data = await self.order_book.get_order_book_data(pair)
-                
-            # Extract token from pair (removing USDT)
-            token = pair.replace("USDT", "")
-            
-            # Get AI insights with improved error handling
-            ai_insights = None
-            
-            # Check if AI client is available before attempting to use it
-            if hasattr(self.ai_client, 'api_available') and self.ai_client.api_available:
-                try:
-                    # Create a timeout for the AI call
-                    ai_task = asyncio.create_task(self.ai_client.get_consolidated_insights(token))
-                    ai_insights = await asyncio.wait_for(ai_task, timeout=10)  # Reduced timeout
-                    
-                    # Verify we got valid data
-                    if not ai_insights or not isinstance(ai_insights, dict) or 'metrics' not in ai_insights:
-                        logging.debug(f"Invalid AI insights for {pair}, using defaults")
-                        ai_insights = self._get_default_ai_insights()
-                        
-                except asyncio.TimeoutError:
-                    logging.debug(f"AI insights timed out for {pair}")
-                    ai_insights = self._get_default_ai_insights()
-                except Exception as e:
-                    logging.debug(f"AI insights error for {pair}: {str(e)}")
-                    ai_insights = self._get_default_ai_insights()
-            else:
-                logging.debug(f"AI client not available for {pair}")
-                ai_insights = self._get_default_ai_insights()
-            
-            # Get advanced indicators signals (NEW)
-            advanced_signals = None
+            # Use the full symbol (e.g., BTCUSDT)
+            api_signal = None
             try:
-                advanced_task = asyncio.create_task(self.advanced_indicators.get_advanced_signals(pair))
-                advanced_signals = await asyncio.wait_for(advanced_task, timeout=30)  # Longer timeout for multiple API calls
-                logging.debug(f"Advanced signals for {pair}: {advanced_signals['overall_signal']['source'] if advanced_signals else 'none'}")
-            except asyncio.TimeoutError:
-                logging.debug(f"Advanced indicators timed out for {pair}")
-                advanced_signals = None
-            except Exception as e:
-                logging.debug(f"Advanced indicators error for {pair}: {str(e)}")
-                advanced_signals = None
+                if global_api_client:
+                    # Use provided global client
+                    api_client = global_api_client
+                    # Get signal from API ONLY
+                    api_signal = await api_client.get_trading_signal(pair)
+                    # Don't close global client - it's managed elsewhere
+                else:
+                    # Fallback to creating new client (not recommended)
+                    from enhanced_strategy_api import EnhancedSignalAPIClient
+                    api_client = EnhancedSignalAPIClient()
+                    await api_client.initialize()
+                    
+                    # Get signal from API ONLY
+                    api_signal = await api_client.get_trading_signal(pair)
+                    await api_client.close()
                 
-            # Generate initial signals from technical analysis
-            technical_signals = self._get_technical_signals(mtf_analysis)
+                logging.info(f"API signal for {pair}: {api_signal}")
+                
+            except asyncio.TimeoutError as e:
+                # Rate limit timeout - return hold signal instead of fallback
+                logging.warning(f"API rate limit timeout for {pair}: {str(e)}")
+                return {
+                    'signal': 'hold',
+                    'confidence': 0.0,
+                    'reason': f'Rate limit timeout',
+                    'source': 'api_rate_limit'
+                }
+            except Exception as e:
+                logging.error(f"API request failed for {pair}: {str(e)}")
+                # NO FALLBACK - return hold signal
+                return {
+                    'signal': 'hold',
+                    'confidence': 0.0,
+                    'reason': f'API error: {str(e)}',
+                    'source': 'api_error'
+                }
             
-            # Generate order book signals
-            orderbook_signals = self._get_orderbook_signals(order_book_data)
+            # Process API signal ONLY
+            if not api_signal:
+                logging.warning(f"No API signal received for {pair}")
+                return {
+                    'signal': 'hold',
+                    'confidence': 0.0,
+                    'reason': 'No API signal received',
+                    'source': 'api_no_signal'
+                }
             
-            # Generate signals from AI insights
-            ai_signals = self._get_ai_signals(ai_insights)
+            # Extract signal data
+            signal_type = api_signal.get('signal', 'hold').lower()  # Convert to lowercase
+            confidence_raw = api_signal.get('confidence', 0.0)
+            # Convert percentage to decimal (43.35% -> 0.4335)
+            confidence = confidence_raw / 100.0 if confidence_raw > 1.0 else confidence_raw
+            confidence = min(confidence, 1.0)  # Cap at 100%
+            reason = api_signal.get('reason', 'API signal')
             
-            # Combine all signals with appropriate weights (UPDATED)
-            combined_signals = self._combine_all_signals(
-                technical_signals,
-                orderbook_signals,
-                ai_signals,
-                correlation_data,
-                market_state,
-                nebula_signal,
-                advanced_signals  # NEW parameter
-            )
+            # Validate signal type
+            if signal_type not in ['buy', 'sell', 'hold']:
+                logging.warning(f"Invalid signal type from API for {pair}: {signal_type}")
+                return {
+                    'signal': 'hold',
+                    'confidence': 0.0,
+                    'reason': f'Invalid signal type: {signal_type}',
+                    'source': 'api_invalid_signal'
+                }
             
-            return combined_signals
+            # Return API signal ONLY - NO FALLBACK
+            return {
+                'signal': signal_type,
+                'confidence': confidence,
+                'reason': reason,
+                'source': 'enhanced_api'
+            }
             
         except Exception as e:
-            logging.error(f"Error analyzing {pair}: {str(e)}")
+            logging.error(f"Error in analyze_pair for {pair}: {str(e)}")
+            # NO FALLBACK - return hold on any error
             return {
-                "buy_signal": False,
-                "sell_signal": False,
-                "signal_strength": 0,
-                "source": "error",
-                "error": str(e)
+                'signal': 'hold',
+                'confidence': 0.0,
+                'reason': f'Analysis error: {str(e)}',
+                'source': 'analysis_error'
             }
-        
 
+    async def close(self):
+        """Close any API client sessions if needed (for global cleanup)"""
+        try:
+            if hasattr(self, 'api_client') and self.api_client:
+                await self.api_client.close()
+            # Close any other potential sessions
+            if hasattr(self, 'session') and self.session:
+                await self.session.close()
+            # Close any aiohttp sessions that might be open
+            if hasattr(self, '_temp_session') and self._temp_session:
+                await self._temp_session.close()
+        except Exception as e:
+            logging.error(f"Error closing EnhancedStrategy API client: {str(e)}")
 
     def _get_neutral_analysis(self):
         """Return completely neutral analysis"""

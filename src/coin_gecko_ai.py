@@ -13,22 +13,22 @@ class CoinGeckoAI:
     """CoinGecko API integration for crypto trading signals and analysis"""
     
     def __init__(self, api_key=None):
-        """RETTET: Initialisering med hurtigere rate limits som før"""
+        """ULTRA-CONSERVATIVE: Initialisering med meget langsommere rate limits"""
         self.api_key = api_key or getattr(config, 'COINGECKO_API_KEY', '')
         self.base_url = "https://api.coingecko.com/api/v3"
         self.pro_url = "https://pro-api.coingecko.com/api/v3"
         self.cache = {}
         self.cache_expiry = {}
         
-        # HURTIGERE rate limiting som før - IKKE ultra-konservativ
+        # ULTRA-KONSERVATIVE rate limiting - meget langsommere
         if not self.api_key or not self.api_key.startswith('CG-'):
-            self.min_request_interval = 2.0  # TILBAGE til 2 sekunder (fra 15)
-            self.max_requests_per_minute = 20  # TILBAGE til 20 (fra 3)
-            logging.info("CoinGecko initialiseret - Gratis tier")
+            self.min_request_interval = config.COINGECKO_FREE_TIER_INTERVAL  # 30 sekunder (fra config)
+            self.max_requests_per_minute = config.COINGECKO_FREE_TIER_MAX_PER_MINUTE  # 2 requests per minut (fra config)
+            logging.info(f"CoinGecko initialiseret - Gratis tier ({self.min_request_interval}s interval, {self.max_requests_per_minute}/min)")
         else:
-            self.min_request_interval = 1.0   # Hurtig for pro
-            self.max_requests_per_minute = 40  # Mere for pro
-            logging.info("CoinGecko initialiseret - Pro tier")
+            self.min_request_interval = config.COINGECKO_DEMO_TIER_INTERVAL  # 15 sekunder (fra config)
+            self.max_requests_per_minute = config.COINGECKO_DEMO_TIER_MAX_PER_MINUTE  # 3 requests per minut (fra config)
+            logging.info(f"CoinGecko initialiseret - Pro tier ({self.min_request_interval}s interval, {self.max_requests_per_minute}/min)")
         
         # Track requests
         self.request_history = []
@@ -98,7 +98,7 @@ class CoinGeckoAI:
         return headers
     
     def _check_rate_limit(self):
-        """FIXED: More conservative rate limit checking"""
+        """ULTRA-CONSERVATIVE: Much more conservative rate limit checking"""
         current_time = time.time()
         
         # Check global cooldown first
@@ -112,7 +112,7 @@ class CoinGeckoAI:
         # Check if we're hitting the per-minute limit
         if len(self.request_history) >= self.max_requests_per_minute:
             oldest_request = min(self.request_history)
-            wait_time = 60 - (current_time - oldest_request) + 5  # INCREASED buffer from 2 to 5 seconds
+            wait_time = 60 - (current_time - oldest_request) + 10  # INCREASED buffer from 5 to 10 seconds
             return wait_time
         
         return 0
@@ -168,10 +168,22 @@ class CoinGeckoAI:
                 return data
                 
             elif response.status_code == 429:
-                # Håndter rate limit STILLE
+                # Håndter rate limit AGGRESSIVT
                 self.consecutive_rate_limits += 1
-                self.backoff_multiplier = min(10.0, self.backoff_multiplier * 2.0)
+                self.backoff_multiplier = min(config.COINGECKO_MAX_BACKOFF_MULTIPLIER, self.backoff_multiplier * 2.0)
                 
+                # Set global cooldown if too many consecutive rate limits
+                if self.consecutive_rate_limits >= 3:
+                    cooldown_time = config.COINGECKO_INITIAL_BACKOFF * self.backoff_multiplier
+                    self.global_cooldown_until = current_time + cooldown_time
+                    logging.warning(f"CoinGecko rate limit exceeded {self.consecutive_rate_limits} times - global cooldown for {cooldown_time:.0f}s")
+                
+                # Auto-disable if configured
+                if config.DISABLE_COINGECKO_ON_LIMITS and self.consecutive_rate_limits >= 5:
+                    logging.error("CoinGecko disabled due to excessive rate limits")
+                    self.api_available = False
+                
+                return None
                 
             elif response.status_code == 403:
                 if not hasattr(self, '_403_logged'):
