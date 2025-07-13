@@ -114,6 +114,55 @@ class EnhancedStrategy:
                 'source': 'analysis_error'
             }
 
+    async def get_api_signal(self, pair: str, global_api_client=None) -> Dict[str, Any]:
+        """
+        Get API signal directly from Enhanced Signal API
+        This is a simplified version of analyze_pair that only uses the API
+        """
+        try:
+            # Use provided global client or create new one
+            if global_api_client:
+                api_client = global_api_client
+                should_close = False
+            else:
+                # Fallback to creating new client (not recommended)
+                from enhanced_strategy_api import EnhancedSignalAPIClient
+                api_client = EnhancedSignalAPIClient()
+                await api_client.initialize()
+                should_close = True
+            
+            # Get signal from API
+            api_signal = await api_client.get_trading_signal(pair)
+            
+            # Only close if we created the client
+            if should_close:
+                await api_client.close()
+            
+            if not api_signal:
+                logging.debug(f"No API signal received for {pair}")
+                return None
+            
+            # Extract and validate signal data
+            signal_type = api_signal.get('signal', 'hold').upper()
+            confidence = api_signal.get('confidence', 0.0)
+            reason = api_signal.get('reason', 'API signal')
+            
+            # Validate signal type
+            if signal_type not in ['BUY', 'SELL', 'HOLD']:
+                logging.warning(f"Invalid signal type from API for {pair}: {signal_type}")
+                return None
+            
+            return {
+                'signal': signal_type,
+                'confidence': confidence,
+                'reasoning': reason,
+                'source': 'enhanced_api'
+            }
+            
+        except Exception as e:
+            logging.error(f"Error getting API signal for {pair}: {str(e)}")
+            return None
+
     async def close(self):
         """Close any API client sessions if needed (for global cleanup)"""
         try:

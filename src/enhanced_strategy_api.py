@@ -16,15 +16,15 @@ class EnhancedSignalAPIClient:
         self.api_url = api_url or getattr(config, 'SIGNAL_API_URL', 'http://localhost:3000/api')
         self.api_key = api_key or getattr(config, 'SIGNAL_API_KEY', '')
         self.session = None
-        self.request_timeout = getattr(config, 'API_REQUEST_TIMEOUT', 30)
+        self.request_timeout = getattr(config, 'API_REQUEST_TIMEOUT', 15)
         
-        # Rate limiting - 24 REQUESTS PER HOUR (1 request every 2.5 minutes)
+        # Rate limiting - 120 REQUESTS PER HOUR (1 request every 30 seconds)
         self.last_request_time = 0
-        self.min_request_interval = getattr(config, 'API_MIN_INTERVAL', 150.0)  # 150 seconds = 2.5 minutes = 24 requests per hour
+        self.min_request_interval = getattr(config, 'API_MIN_INTERVAL', 30.0)  # 30 seconds = 120 requests per hour
         
-        # Cache for recent signals - LONGER CACHE
+        # Cache for recent signals - SHORTER CACHE FOR MORE OPPORTUNITIES
         self.signal_cache = {}
-        self.cache_duration = getattr(config, 'API_CACHE_DURATION', 600)  # 600 seconds (10 minutes) cache
+        self.cache_duration = getattr(config, 'API_CACHE_DURATION', 120)  # 120 seconds (2 minutes) cache
         
         # Statistics
         self.total_requests = 0
@@ -106,7 +106,7 @@ class EnhancedSignalAPIClient:
                                 risk_level: str = 'moderate',
                                 wallet_address: str = None) -> Optional[Dict[str, Any]]:
         """
-        Get enhanced trading signal from the API
+        Get enhanced trading signal from the API with market phase analysis
         
         Args:
             symbol: Trading pair (e.g., 'BTCUSDT')
@@ -116,7 +116,7 @@ class EnhancedSignalAPIClient:
             wallet_address: Optional wallet address for personalized analysis
             
         Returns:
-            Dictionary containing enhanced trading signal or None if failed
+            Dictionary containing enhanced trading signal with market phase analysis or None if failed
         """
         
         # Check cache first
@@ -133,7 +133,7 @@ class EnhancedSignalAPIClient:
         
         if time_since_last < self.min_request_interval:
             wait_time = self.min_request_interval - time_since_last
-            if wait_time > 60:  # Don't wait more than 60 seconds
+            if wait_time > 15:  # Don't wait more than 15 seconds
                 logging.warning(f"Rate limit requires {wait_time:.0f}s wait for {symbol}, returning cached or None")
                 # Try to return any cached signal, even if slightly expired
                 expired_cache = self._get_cached_signal(cache_key, allow_expired=True)
@@ -172,7 +172,7 @@ class EnhancedSignalAPIClient:
             start_time = time.time()
             
             async with self.session.post(
-                f"{self.api_url}/v1/signals/generate",
+                f"{self.api_url}/v1/signal",
                 json=payload
             ) as response:
                 
@@ -181,25 +181,30 @@ class EnhancedSignalAPIClient:
                 if response.status == 200:
                     data = await response.json()
                     
+                    # Check if it's the expected format with 'success' field
                     if data.get('success'):
                         signal_data = data['data']
-                        self.successful_requests += 1
-                        
-                        # Cache the signal
-                        self._cache_signal(cache_key, signal_data)
-                        
-                        # Log successful request
-                        logging.info(f"API signal received for {symbol}: "
-                                   f"{signal_data.get('signal', 'UNKNOWN')} "
-                                   f"(confidence: {signal_data.get('confidence', 0)}%, "
-                                   f"request_time: {request_time:.2f}s)")
-                        
-                        return signal_data
+                    # Handle direct signal response format (your API's actual format)
+                    elif 'signal' in data or 'confidence' in data:
+                        signal_data = data
                     else:
-                        logging.error(f"API request failed: {data.get('error', 'Unknown error')}")
+                        logging.error(f"API request failed: {data.get('error', 'Unknown response format')}")
                         self.failed_requests += 1
                         return None
-                        
+                    
+                    self.successful_requests += 1
+                    
+                    # Cache the signal
+                    self._cache_signal(cache_key, signal_data)
+                    
+                    # Log successful request
+                    logging.info(f"API signal received for {symbol}: "
+                               f"{signal_data.get('signal', 'UNKNOWN')} "
+                               f"(confidence: {signal_data.get('confidence', 0)}%, "
+                               f"request_time: {request_time:.2f}s)")
+                    
+                    return signal_data
+                    
                 elif response.status == 429:
                     # Rate limited
                     logging.warning("API rate limit exceeded")
@@ -233,7 +238,8 @@ class EnhancedSignalAPIClient:
                                analysis_depth: str = 'advanced',
                                risk_level: str = 'moderate') -> Dict[str, Any]:
         """
-        Get trading signals for multiple symbols in a single request
+        Get trading signals for multiple symbols using individual requests
+        (since the API doesn't have a batch endpoint)
         
         Args:
             symbols: List of trading pairs (max 10)
@@ -249,63 +255,43 @@ class EnhancedSignalAPIClient:
             logging.warning("Too many symbols for batch request, limiting to 10")
             symbols = symbols[:10]
         
-        # Rate limiting
-        await self._enforce_rate_limit()
+        results = {}
         
-        if not self.api_available:
-            await self.check_api_health()
-            if not self.api_available:
-                return {}
-        
-        try:
-            if not self.session:
-                await self.initialize()
-            
-            payload = {
-                'symbols': symbols,
-                'timeframe': timeframe,
-                'analysis_depth': analysis_depth,
-                'risk_level': risk_level
-            }
-            
-            self.total_requests += 1
-            
-            async with self.session.post(
-                f"{self.api_url}/v1/signals/batch",
-                json=payload
-            ) as response:
+        # Process each symbol individually
+        for symbol in symbols:
+            try:
+                signal = await self.get_trading_signal(
+                    symbol=symbol,
+                    timeframe=timeframe,
+                    analysis_depth=analysis_depth,
+                    risk_level=risk_level
+                )
                 
-                if response.status == 200:
-                    data = await response.json()
-                    
-                    if data.get('success'):
-                        results = {}
-                        for result in data.get('results', []):
-                            symbol = result.get('symbol')
-                            if result.get('success') and symbol:
-                                results[symbol] = result
-                                
-                                # Cache individual signals
-                                cache_key = f"{symbol}_{timeframe}_{analysis_depth}_{risk_level}"
-                                self._cache_signal(cache_key, result)
-                        
-                        self.successful_requests += 1
-                        logging.info(f"Batch signals received for {len(results)}/{len(symbols)} symbols")
-                        return results
-                    else:
-                        logging.error(f"Batch API request failed: {data.get('error')}")
-                        self.failed_requests += 1
-                        return {}
+                if signal:
+                    results[symbol] = {
+                        'symbol': symbol,
+                        'success': True,
+                        **signal
+                    }
                 else:
-                    error_text = await response.text()
-                    logging.error(f"Batch API request failed with status {response.status}: {error_text}")
-                    self.failed_requests += 1
-                    return {}
+                    results[symbol] = {
+                        'symbol': symbol,
+                        'success': False,
+                        'error': 'Failed to get signal'
+                    }
                     
-        except Exception as e:
-            logging.error(f"Batch API request error: {str(e)}")
-            self.failed_requests += 1
-            return {}
+            except Exception as e:
+                logging.error(f"Failed to get signal for {symbol}: {str(e)}")
+                results[symbol] = {
+                    'symbol': symbol,
+                    'success': False,
+                    'error': str(e)
+                }
+        
+        successful_count = sum(1 for r in results.values() if r.get('success'))
+        logging.info(f"Batch signals completed: {successful_count}/{len(symbols)} successful")
+        
+        return results
     
     def _get_cached_signal(self, cache_key: str, allow_expired: bool = False) -> Optional[Dict[str, Any]]:
         """Get signal from cache if still valid or if expired cache is allowed"""
@@ -348,8 +334,8 @@ class EnhancedSignalAPIClient:
         
         if time_since_last < self.min_request_interval:
             sleep_time = self.min_request_interval - time_since_last
-            # Don't sleep for more than 60 seconds to avoid timeouts
-            if sleep_time > 60:
+            # Don't sleep for more than 15 seconds to avoid timeouts
+            if sleep_time > 15:
                 logging.warning(f"Rate limit requires {sleep_time:.0f}s wait, skipping API request")
                 raise asyncio.TimeoutError(f"Rate limit wait too long: {sleep_time:.0f}s")
             else:
@@ -357,6 +343,98 @@ class EnhancedSignalAPIClient:
                 await asyncio.sleep(sleep_time)
         
         self.last_request_time = time.time()
+
+    async def get_bot_instructions(self, symbol: str, bot_type: str = 'python', 
+                                  risk_level: str = 'moderate') -> Optional[Dict[str, Any]]:
+        """
+        Get detailed bot execution instructions from the enhanced API
+        
+        Args:
+            symbol: Trading pair (e.g., 'BTCUSDT')
+            bot_type: Type of bot ('python', 'ninjatrader', 'metatrader')
+            risk_level: Risk tolerance ('conservative', 'moderate', 'aggressive')
+            
+        Returns:
+            Dictionary containing detailed execution instructions or None if failed
+        """
+        try:
+            if not self.session:
+                await self.initialize()
+            
+            payload = {
+                'symbol': symbol,
+                'bot_type': bot_type,
+                'risk_level': risk_level
+            }
+            
+            async with self.session.post(
+                f"{self.api_url}/v1/bot-instructions",
+                json=payload
+            ) as response:
+                
+                if response.status == 200:
+                    data = await response.json()
+                    
+                    if data.get('success'):
+                        instructions = data['data']
+                        logging.info(f"Bot instructions received for {symbol}")
+                        return instructions
+                    else:
+                        logging.error(f"Bot instructions request failed: {data.get('error', 'Unknown error')}")
+                        return None
+                else:
+                    logging.error(f"Bot instructions request failed with status {response.status}")
+                    return None
+                    
+        except Exception as e:
+            logging.error(f"Error getting bot instructions for {symbol}: {str(e)}")
+            return None
+
+    async def validate_strategy(self, signal: Dict[str, Any], risk_params: Dict[str, Any], 
+                               account_balance: float) -> Optional[Dict[str, Any]]:
+        """
+        Validate strategy before execution using the enhanced API
+        
+        Args:
+            signal: Trading signal to validate
+            risk_params: Risk management parameters
+            account_balance: Current account balance
+            
+        Returns:
+            Dictionary containing validation results or None if failed
+        """
+        try:
+            if not self.session:
+                await self.initialize()
+            
+            payload = {
+                'signal': signal,
+                'risk_params': risk_params,
+                'account_balance': account_balance
+            }
+            
+            async with self.session.post(
+                f"{self.api_url}/v1/validate-strategy",
+                json=payload
+            ) as response:
+                
+                if response.status == 200:
+                    data = await response.json()
+                    
+                    if data.get('success'):
+                        validation = data['data']
+                        logging.info(f"Strategy validation completed: {validation.get('valid', False)}")
+                        return validation
+                    else:
+                        logging.error(f"Strategy validation failed: {data.get('error', 'Unknown error')}")
+                        return None
+                else:
+                    logging.error(f"Strategy validation request failed with status {response.status}")
+                    return None
+                    
+        except Exception as e:
+            logging.error(f"Error validating strategy: {str(e)}")
+            return None
     
     def convert_to_internal_format(self, api_signal: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -392,6 +470,12 @@ class EnhancedSignalAPIClient:
             risk_factors = api_signal.get('risk_factors', [])
             catalysts = api_signal.get('catalysts', [])
             
+            # Extract market context data
+            market_context = api_signal.get('market_context', {})
+            market_regime = market_context.get('market_regime', {})
+            risk_environment = market_context.get('risk_environment', {})
+            risk_management = api_signal.get('risk_management', {})
+            
             return {
                 "buy_signal": buy_signal,
                 "sell_signal": sell_signal,
@@ -401,12 +485,30 @@ class EnhancedSignalAPIClient:
                     "signal": signal_action,
                     "confidence": api_signal.get('confidence', 50),
                     "strength": api_signal.get('strength', 'MODERATE'),
-                    "timeframe": api_signal.get('timeframe', 'SWING'),
                     "entry_price": entry_price,
                     "stop_loss": stop_loss,
-                    "take_profits": [take_profit_1, take_profit_2, take_profit_3],
+                    "take_profit_1": take_profit_1,
+                    "take_profit_2": take_profit_2,
+                    "take_profit_3": take_profit_3,
                     "position_size_percent": position_size_pct,
                     "risk_reward_ratio": api_signal.get('risk_reward_ratio', 2.0),
+                    
+                    # Enhanced market phase analysis
+                    "market_phase": market_regime.get('market_phase', 'CONSOLIDATION'),
+                    "primary_trend": market_regime.get('primary_trend', 'NEUTRAL'),
+                    "volatility_regime": market_regime.get('volatility_regime', 'NORMAL_VOLATILITY'),
+                    "strategy_type": market_context.get('strategy_type', 'Standard Entry'),
+                    
+                    # Risk environment
+                    "risk_score": risk_environment.get('risk_score', 50),
+                    "risk_environment": risk_environment.get('risk_environment', 'MODERATE'),
+                    
+                    # Risk management
+                    "risk_level": risk_management.get('risk_level', 'moderate'),
+                    "max_position_size": risk_management.get('position_sizing', {}).get('max_allowed', 5.0),
+                    
+                    # Legacy fields for backward compatibility
+                    "timeframe": api_signal.get('timeframe', 'SWING'),
                     "market_sentiment": api_signal.get('market_sentiment', 'NEUTRAL'),
                     "volatility_rating": api_signal.get('volatility_rating', 'MEDIUM'),
                     "onchain_score": onchain_score,

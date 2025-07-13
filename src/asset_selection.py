@@ -5,150 +5,413 @@ import time
 import asyncio
 from typing import List, Dict, Any, Tuple
 import config
-from datetime import datetime
+from datetime import datetime, timedelta
+import statistics
 
-class AssetSelection:
+class DynamicAssetSelection:
     def __init__(self, binance_client, market_analysis):
         self.binance_client = binance_client
         self.market_analysis = market_analysis
         self.cache = {}
         self.cache_expiry = {}
+        self.excluded_pairs = set()  # Pairs to temporarily exclude
+        self.performance_history = {}  # Track pair performance
         
-    async def select_optimal_assets(self, max_pairs: int = 3) -> List[str]:
+    async def get_optimal_trading_pairs(self, max_pairs: int = 15) -> List[str]:
         """
-        Select optimal trading pairs - LIMITED TO TOP 3 PAIRS
-        This reduces API requests and focuses on quality trades
+        FULLY DYNAMIC: Scan ALL available pairs and select best opportunities
+        No hardcoded lists - pure market-driven selection
         """
         try:
-            # Get valid symbols first
-            valid_symbols = await self.get_valid_symbols()
-            if not valid_symbols:
-                logging.warning("No valid symbols available, using fallback list")
-                return ["BTCUSDT", "ETHUSDT", "BNBUSDT"][:max_pairs]
+            logging.info("Scanning ALL available pairs for optimal opportunities...")
             
-            # Get trending cryptos (limited selection)
-            trending = await self.get_trending_cryptos()
-            if not trending:
-                logging.warning("No trending cryptos available")
-                return list(valid_symbols)[:max_pairs]
+            # Get ALL available USDT pairs from Binance
+            all_pairs = await self._get_all_usdt_pairs()
+            if not all_pairs:
+                return self._get_emergency_fallback()
             
-            # Filter to only valid symbols and limit to max_pairs
-            valid_trending = []
-            for symbol in trending:
-                if symbol in valid_symbols:
-                    valid_trending.append(symbol)
-                    if len(valid_trending) >= max_pairs:
-                        break
+            logging.info(f"Found {len(all_pairs)} total USDT pairs available")
             
-            # If we don't have enough trending, add some major pairs
-            if len(valid_trending) < max_pairs:
-                major_pairs = ["BTCUSDT", "ETHUSDT", "BNBUSDT", "ADAUSDT", "SOLUSDT"]
-                for pair in major_pairs:
-                    if pair in valid_symbols and pair not in valid_trending:
-                        valid_trending.append(pair)
-                        if len(valid_trending) >= max_pairs:
-                            break
+            # Apply realistic baseline filters
+            filtered_pairs = await self._apply_baseline_filters(all_pairs)
+            logging.info(f"After baseline filtering: {len(filtered_pairs)} pairs remain")
             
-            logging.info(f"Selected {len(valid_trending)} pairs for trading: {valid_trending}")
-            return valid_trending[:max_pairs]
+            # SAFETY: Validate symbols for live trading safety
+            if hasattr(self, 'validate_symbols') and self.validate_symbols:
+                safe_pairs = await self._validate_symbols_for_trading(filtered_pairs)
+                logging.info(f"After symbol validation: {len(safe_pairs)} pairs remain")
+                filtered_pairs = safe_pairs
+            
+            if len(filtered_pairs) < max_pairs:
+                logging.warning(f"Only {len(filtered_pairs)} pairs passed filters, using all")
+                return filtered_pairs
+            
+            # Score each pair based on multiple market factors
+            scored_pairs = await self._score_market_opportunities(filtered_pairs)
+            
+            # Select diverse, high-scoring pairs
+            selected_pairs = await self._select_diverse_opportunities(scored_pairs, max_pairs)
+            
+            # Cache the scored pairs data for later retrieval of scores
+            self.cached_scores = {}
+            self.cached_scores_time = time.time()
+            for pair_data in scored_pairs:
+                self.cached_scores[pair_data['symbol']] = pair_data['total_score']
+            
+            # Log selection results
+            logging.info(f"Selected {len(selected_pairs)} optimal pairs:")
+            for i, pair_data in enumerate(selected_pairs[:5]):
+                logging.info(f"  #{i+1}: {pair_data['symbol']} (Score: {pair_data['total_score']:.2f})")
+            
+            return [pair['symbol'] for pair in selected_pairs]
             
         except Exception as e:
-            logging.error(f"Error in select_optimal_assets: {str(e)}")
-            # Fallback to major pairs only
-            return ["BTCUSDT", "ETHUSDT", "BNBUSDT"][:max_pairs]
-
-    def mark_recently_traded(self, pair):
-        """Mark a pair as recently traded to avoid immediate re-trading"""
-        if not hasattr(self, 'recently_traded'):
-            self.recently_traded = {}
-        
-        self.recently_traded[pair] = time.time()
-        
-        # Clean up old entries (older than 1 hour)
-        current_time = time.time()
-        self.recently_traded = {
-            p: t for p, t in self.recently_traded.items() 
-            if current_time - t < 3600  # Keep for 1 hour
-        }
-
-    async def get_available_pairs(self):
-        """Get available trading pairs from Binance"""
+            logging.error(f"Error in dynamic pair selection: {str(e)}")
+            return self._get_emergency_fallback()
+    
+    async def _get_all_usdt_pairs(self) -> List[str]:
+        """Get ALL USDT trading pairs from Binance exchange"""
         try:
-            # Define a whitelist of top cryptocurrencies
-            # In asset_selection.py, update the WHITELISTED_CRYPTOS list
-            WHITELISTED_CRYPTOS = [
-                'BTC', 'ETH', 'XRP', 'SOL', 'BNB', 'DOGE', 'ADA', 'TRX', 'LINK',
-                'AVAX', 'SUI', 'XLM', 'TON', 'SHIB', 'HBAR', 'DOT', 
-                'LTC', 'BCH', 'OM', 'UNI', 'PEPE', 'NEAR', 'APT', 'ETC',
-                'ICP', 'VET', 'POL', 'ALGO',
-                'RENDER', 'FIL', 'ARB', 'FET', 'ATOM', 'THETA', 'BONK',
-                'XTZ', 'IOTA', 'NEO', 'EGLD', 'ZEC', 'LAYER'
+            # Get all tickers
+            tickers = self.binance_client.get_ticker()
+            
+            # Filter to USDT pairs only
+            usdt_pairs = []
+            for ticker in tickers:
+                symbol = ticker['symbol']
+                if symbol.endswith('USDT'):
+                    usdt_pairs.append(symbol)
+            
+            # Remove known problematic patterns (leveraged tokens, etc)
+            excluded_patterns = [
+                'BEAR', 'BULL', 'DOWN', 'UP', 'LONG', 'SHORT',  # Leveraged tokens
+                '3L', '3S', '5L', '5S',  # Leveraged tokens
+                'FDUSD', 'TUSD', 'BUSD',  # Other stablecoins as base
             ]
-
-            # Create trading pairs by adding USDT suffix
-            whitelisted_pairs = [f"{crypto}USDT" for crypto in WHITELISTED_CRYPTOS]
             
-            return whitelisted_pairs
+            filtered_pairs = []
+            for pair in usdt_pairs:
+                if not any(pattern in pair for pattern in excluded_patterns):
+                    filtered_pairs.append(pair)
+            
+            return filtered_pairs
             
         except Exception as e:
-            logging.error(f"Error getting available pairs: {str(e)}")
-            # Return default pairs on error
-            return ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'ADAUSDT']
+            logging.error(f"Error getting all USDT pairs: {str(e)}")
+            return []
+    
+    async def _apply_baseline_filters(self, pairs: List[str]) -> List[str]:
+        """Apply realistic baseline filters for safety and liquidity"""
+        try:
+            # Get 24h ticker data for all pairs
+            tickers = self.binance_client.get_ticker()
+            ticker_dict = {t['symbol']: t for t in tickers}
+            
+            filtered_pairs = []
+            
+            for pair in pairs:
+                ticker = ticker_dict.get(pair)
+                if not ticker:
+                    continue
+                
+                try:
+                    # Extract key metrics
+                    volume_usdt = float(ticker['quoteVolume'])
+                    price = float(ticker['lastPrice'])
+                    price_change_pct = float(ticker['priceChangePercent'])
+                    trade_count = int(ticker['count']) if 'count' in ticker else 0
+                    
+                    # REALISTIC LIQUIDITY FILTERS:
+                    
+                    # 1. Minimum volume (realistic threshold)
+                    if volume_usdt < 500000:  # $500K daily volume minimum
+                        continue
+                    
+                    # 2. Minimum price (avoid dust tokens)
+                    if price < 0.000001:  # Must be > 0.000001 USDT
+                        continue
+                    
+                    # 3. Minimum trade activity 
+                    if trade_count < 1000:  # At least 1000 trades in 24h
+                        continue
+                    
+                    # 4. Exclude extreme movers (likely manipulation)
+                    if abs(price_change_pct) > 50:  # No more than 50% daily move
+                        continue
+                    
+                    # 5. Must have some volatility (not completely dead)
+                    if abs(price_change_pct) < 0.1:  # At least 0.1% movement
+                        continue
+                    
+                    filtered_pairs.append(pair)
+                    
+                except (ValueError, TypeError) as e:
+                    logging.debug(f"Error processing {pair}: {str(e)}")
+                    continue
+            
+            return filtered_pairs
+            
+        except Exception as e:
+            logging.error(f"Error applying baseline filters: {str(e)}")
+            return pairs  # Return unfiltered if error
+    
+    async def _validate_symbols_for_trading(self, pairs: List[str]) -> List[str]:
+        """Validate multiple symbols for live trading safety"""
+        try:
+            # Skip validation if not configured
+            if config.TEST_MODE and not getattr(config, 'VALIDATE_SYMBOLS_IN_TEST', False):
+                return pairs
+            
+            api_key = getattr(config, 'API_KEY', '')
+            if not api_key:
+                logging.info("No API key configured, skipping symbol validation")
+                return pairs
+            
+            # Validate symbols in batches for efficiency
+            validated_pairs = []
+            batch_size = 10  # Process 10 symbols at a time
+            
+            import aiohttp
+            import asyncio
+            
+            api_base_url = getattr(config, 'API_BASE_URL', 'http://localhost:3001')
+            
+            async def validate_single_symbol(session, symbol):
+                try:
+                    url = f"{api_base_url}/api/v1/validate-symbol/{symbol}"
+                    headers = {
+                        'Authorization': f'Bearer {api_key}',
+                        'Content-Type': 'application/json'
+                    }
+                    
+                    async with session.get(url, headers=headers) as response:
+                        if response.status == 200:
+                            data = await response.json()
+                            is_safe = data.get('safe_for_live_trading', False)
+                            return symbol if is_safe else None
+                        else:
+                            logging.debug(f"Validation failed for {symbol}: HTTP {response.status}")
+                            return None  # Exclude invalid symbols
+                            
+                except Exception as e:
+                    logging.debug(f"Error validating {symbol}: {str(e)}")
+                    return symbol  # Include on error (fail safe)
+            
+            # Process in batches to avoid overwhelming the API
+            timeout = aiohttp.ClientTimeout(total=30)
+            async with aiohttp.ClientSession(timeout=timeout) as session:
+                for i in range(0, len(pairs), batch_size):
+                    batch = pairs[i:i + batch_size]
+                    
+                    # Create tasks for this batch
+                    tasks = [validate_single_symbol(session, symbol) for symbol in batch]
+                    
+                    # Wait for batch to complete
+                    results = await asyncio.gather(*tasks, return_exceptions=True)
+                    
+                    # Collect valid symbols
+                    for result in results:
+                        if isinstance(result, str):  # Valid symbol
+                            validated_pairs.append(result)
+                        elif result is None:  # Invalid symbol
+                            continue
+                        else:  # Exception occurred
+                            logging.debug(f"Exception in symbol validation: {result}")
+                    
+                    # Small delay between batches
+                    if i + batch_size < len(pairs):
+                        await asyncio.sleep(0.5)
+            
+            logging.info(f"Symbol validation: {len(validated_pairs)}/{len(pairs)} symbols passed safety checks")
+            return validated_pairs
+            
+        except Exception as e:
+            logging.error(f"Error in bulk symbol validation: {str(e)}")
+            return pairs  # Return all pairs on error
+    
+    async def _score_market_opportunities(self, pairs: List[str]) -> List[Dict]:
+        """Score pairs based on multiple market factors"""
+        try:
+            # Get ticker data
+            tickers = self.binance_client.get_ticker()
+            ticker_dict = {t['symbol']: t for t in tickers}
+            
+            scored_pairs = []
+            
+            for pair in pairs:
+                ticker = ticker_dict.get(pair)
+                if not ticker:
+                    continue
+                
+                try:
+                    # Extract metrics
+                    volume_usdt = float(ticker['quoteVolume'])
+                    price_change_pct = float(ticker['priceChangePercent'])
+                    price = float(ticker['lastPrice'])
+                    high_24h = float(ticker['highPrice'])
+                    low_24h = float(ticker['lowPrice'])
+                    
+                    # SCORING FACTORS:
+                    
+                    # 1. Volume Score (higher = better liquidity)
+                    volume_score = min(volume_usdt / 10_000_000, 10)  # Cap at 10M
+                    
+                    # 2. Volatility Score (moderate volatility preferred)
+                    volatility = abs(price_change_pct)
+                    if volatility < 1:
+                        volatility_score = volatility * 2  # Reward small moves
+                    elif volatility < 5:
+                        volatility_score = 5  # Optimal range
+                    elif volatility < 15:
+                        volatility_score = 15 - volatility  # Declining reward
+                    else:
+                        volatility_score = 0  # Too volatile
+                    
+                    # 3. Momentum Score (trending up gets bonus)
+                    momentum_score = max(0, price_change_pct / 5)  # +1 for every 5%
+                    momentum_score = min(momentum_score, 3)  # Cap at +3
+                    
+                    # 4. Range Position Score (where in 24h range)
+                    if high_24h > low_24h:
+                        range_position = (price - low_24h) / (high_24h - low_24h)
+                        # Prefer pairs in middle of range or breaking out
+                        if range_position > 0.8:
+                            range_score = 3  # Near highs (breakout)
+                        elif range_position < 0.2:
+                            range_score = 2  # Near lows (reversal opportunity)
+                        else:
+                            range_score = 1  # Middle range
+                    else:
+                        range_score = 1
+                    
+                    # 5. Market Cap Category Bonus (estimate based on price)
+                    if price > 100:  # High-price coins (likely large cap)
+                        mcap_bonus = 2
+                    elif price > 1:  # Mid-price coins
+                        mcap_bonus = 1.5
+                    elif price > 0.01:  # Lower-price coins
+                        mcap_bonus = 1
+                    else:  # Very low price (high risk)
+                        mcap_bonus = 0.5
+                    
+                    # Calculate total score
+                    total_score = (
+                        volume_score * 0.3 +     # 30% weight to liquidity
+                        volatility_score * 0.25 + # 25% weight to volatility
+                        momentum_score * 0.2 +    # 20% weight to momentum
+                        range_score * 0.15 +      # 15% weight to range position
+                        mcap_bonus * 0.1          # 10% weight to market cap
+                    )
+                    
+                    scored_pairs.append({
+                        'symbol': pair,
+                        'total_score': total_score,
+                        'volume_usdt': volume_usdt,
+                        'price_change_pct': price_change_pct,
+                        'volatility': volatility,
+                        'price': price,
+                        'volume_score': volume_score,
+                        'volatility_score': volatility_score,
+                        'momentum_score': momentum_score,
+                        'range_score': range_score,
+                        'mcap_bonus': mcap_bonus
+                    })
+                    
+                except (ValueError, TypeError) as e:
+                    logging.debug(f"Error scoring {pair}: {str(e)}")
+                    continue
+            
+            # Sort by total score
+            scored_pairs.sort(key=lambda x: x['total_score'], reverse=True)
+            
+            return scored_pairs
+            
+        except Exception as e:
+            logging.error(f"Error scoring opportunities: {str(e)}")
+            return []
+    
+    async def _select_diverse_opportunities(self, scored_pairs: List[Dict], max_pairs: int) -> List[Dict]:
+        """Select diverse opportunities avoiding over-concentration"""
+        try:
+            if len(scored_pairs) <= max_pairs:
+                return scored_pairs
+            
+            selected = []
+            used_base_assets = set()
+            
+            # Always include top 3 scoring pairs
+            for pair_data in scored_pairs[:3]:
+                selected.append(pair_data)
+                base_asset = pair_data['symbol'].replace('USDT', '')
+                used_base_assets.add(base_asset)
+            
+            # Fill remaining slots with diverse selections
+            for pair_data in scored_pairs[3:]:
+                if len(selected) >= max_pairs:
+                    break
+                
+                symbol = pair_data['symbol']
+                base_asset = symbol.replace('USDT', '')
+                
+                # Avoid similar assets (basic diversification)
+                similar_assets = {
+                    'BTC': {'WBTC', 'BTCB'},
+                    'ETH': {'WETH', 'BETH', 'ETH2'},
+                    'BNB': {'WBNB'},
+                    'DOGE': {'SHIB', 'FLOKI', 'PEPE'},  # Meme coins
+                    'USDC': {'BUSD', 'TUSD', 'USDD'},  # Stablecoins
+                }
+                
+                # Check for conflicts
+                conflict = False
+                for used_asset in used_base_assets:
+                    if (used_asset == base_asset or 
+                        any(base_asset in group and used_asset in group for group in similar_assets.values())):
+                        conflict = True
+                        break
+                
+                if not conflict:
+                    selected.append(pair_data)
+                    used_base_assets.add(base_asset)
+            
+            # If we still need more pairs, add highest scoring regardless of diversity
+            while len(selected) < max_pairs and len(selected) < len(scored_pairs):
+                remaining = [p for p in scored_pairs if p not in selected]
+                if remaining:
+                    selected.append(remaining[0])
+                else:
+                    break
+            
+            return selected
+            
+        except Exception as e:
+            logging.error(f"Error selecting diverse opportunities: {str(e)}")
+            return scored_pairs[:max_pairs]
+    
+    def _get_emergency_fallback(self) -> List[str]:
+        """Emergency fallback to major pairs if all else fails"""
+        return [
+            'BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'XRPUSDT',
+            'ADAUSDT', 'DOGEUSDT', 'AVAXUSDT', 'LINKUSDT', 'UNIUSDT'
+        ]
+    
+    # Legacy methods for backward compatibility
+    async def get_available_pairs(self):
+        """Legacy method - now redirects to dynamic selection"""
+        return await self.get_optimal_trading_pairs(max_pairs=20)
+    
+    async def get_trending_cryptos(self, limit=10):
+        """Legacy method - now redirects to dynamic selection"""
+        pairs = await self.get_optimal_trading_pairs(max_pairs=limit)
+        return pairs[:limit]
     
     async def get_valid_symbols(self):
-        """Get valid USDT trading pairs from Binance (API symbols endpoint not available)"""
-        try:
-            # Get all USDT pairs from Binance
-            tickers = self.binance_client.get_ticker()
-            usdt_pairs = set([t['symbol'] for t in tickers if t['symbol'].endswith('USDT')])
-            
-            # Filter to only major pairs with good volume
-            major_pairs = {
-                'BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'ADAUSDT', 
-                'XRPUSDT', 'DOTUSDT', 'LINKUSDT', 'AVAXUSDT', 'UNIUSDT',
-                'LTCUSDT', 'BCHUSDT', 'ATOMUSDT', 'ETCUSDT', 'XLMUSDT',
-                'VETUSDT', 'FILUSDT', 'TRXUSDT', 'ICPUSDT', 'NEARUSDT'
-            }
-            
-            # Return intersection of available pairs and major pairs
-            valid_pairs = usdt_pairs.intersection(major_pairs)
-            
-            if not valid_pairs:
-                logging.warning("No major pairs found, using default list")
-                return major_pairs
-            
-            logging.info(f"Found {len(valid_pairs)} valid trading pairs")
-            return valid_pairs
-            
-        except Exception as e:
-            logging.error(f"Error getting valid symbols: {str(e)}")
-            # Fallback to default major pairs
-            return {
-                'BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'ADAUSDT',
-                'XRPUSDT', 'DOTUSDT', 'LINKUSDT', 'AVAXUSDT', 'UNIUSDT'
-            }
+        """Legacy method - now returns all viable pairs"""
+        return set(await self.get_optimal_trading_pairs(max_pairs=50))
+    
+    async def select_optimal_assets(self, max_pairs: int = 15) -> List[str]:
+        """Legacy method - redirects to new dynamic selection"""
+        return await self.get_optimal_trading_pairs(max_pairs)
 
-    async def get_trending_cryptos(self, limit=10):
-        """Get the top trending cryptocurrency pairs based on volume and price change, filtered by valid symbols"""
-        try:
-            cache_key = f"trending_cryptos_{limit}"
-            current_time = time.time()
-            if cache_key in self.cache and self.cache_expiry.get(cache_key, 0) > current_time:
-                return self.cache[cache_key]
-            logging.info(f"Fetching top {limit} trending cryptocurrency pairs")
-            tickers = self.binance_client.get_ticker()
-            usdt_pairs = [ticker for ticker in tickers if ticker['symbol'].endswith('USDT')]
-            by_volume = sorted(usdt_pairs, key=lambda x: float(x['quoteVolume']), reverse=True)[:50]
-            trending = sorted(by_volume, key=lambda x: abs(float(x['priceChangePercent'])), reverse=True)
-            result = [ticker['symbol'] for ticker in trending[:limit]]
-            # Filter by valid symbols
-            valid_symbols = await self.get_valid_symbols()
-            filtered = [s for s in result if s in valid_symbols]
-            self.cache[cache_key] = filtered
-            self.cache_expiry[cache_key] = current_time + 3600
-            logging.info(f"Found trending pairs: {', '.join(filtered[:5])}...")
-            return filtered
-        except Exception as e:
-            logging.error(f"Error getting trending cryptocurrencies: {str(e)}")
-            default_pairs = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'ADAUSDT']
-            return default_pairs[:limit]
+# For backward compatibility
+AssetSelection = DynamicAssetSelection

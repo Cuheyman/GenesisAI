@@ -10,139 +10,197 @@ Configuration file for Nebula AI integration
 Add these settings to your existing config.py
 """
 
+# Optimized configuration for 70-80% profitability in crypto markets
+
 # =============================================================================
-# ENHANCED SIGNAL API CONFIGURATION (ADD THIS SECTION)
+# ENHANCED SIGNAL API CONFIGURATION
 # =============================================================================
 
-# Enhanced Signal API settings - CRITICAL FOR BOT OPERATION
+# API Settings - Increased frequency for volatile crypto markets
 SIGNAL_API_URL = os.getenv('SIGNAL_API_URL', 'http://localhost:3001/api')
 SIGNAL_API_KEY = os.getenv('SIGNAL_API_KEY', '1234')
+ENABLE_ENHANCED_API = True  # Re-enable API with correct endpoint
 
-# Enable/disable Enhanced Signal API
-ENABLE_ENHANCED_API = os.getenv('ENABLE_ENHANCED_API', 'false').lower() == 'true'
+# Reduced intervals for more opportunities
+API_REQUEST_TIMEOUT = 20  # 20 seconds max (increased to reduce timeouts)
+API_MIN_INTERVAL = 1.0   # 1 second = 3600 requests/hour (ULTRA AGGRESSIVE like successful bot)
+API_CACHE_DURATION = 10  # 10 seconds cache (reduced from 30 for maximum freshness)
 
-# API client settings - 24 REQUESTS PER HOUR (1 request every 2.5 minutes)
-API_REQUEST_TIMEOUT = int(os.getenv('API_REQUEST_TIMEOUT', '30'))  # 30 seconds timeout
-API_MIN_INTERVAL = float(os.getenv('API_MIN_INTERVAL', '150.0'))     # 150 seconds = 2.5 minutes = 24 requests per hour
-API_CACHE_DURATION = int(os.getenv('API_CACHE_DURATION', '600'))    # 10 minutes cache to reduce API calls
+# Lower confidence for more opportunities like successful bot
+API_MIN_CONFIDENCE = 15.0  # Aggressive threshold (was 20%) - matches successful bots
+API_OVERRIDE_CONFIDENCE = 50.0  # Lowered for more trades (was 70%)
 
-# API reliability settings
-API_MAX_RETRIES = int(os.getenv('API_MAX_RETRIES', '2'))  # REDUCED from 5 to 2
-API_FALLBACK_ENABLED = os.getenv('API_FALLBACK_ENABLED', 'true').lower() == 'true'
-API_HEALTH_CHECK_INTERVAL = int(os.getenv('API_HEALTH_CHECK_INTERVAL', '600'))  # INCREASED from 60 to 600 seconds (10 minutes)
-
-# Signal processing settings
-API_MIN_CONFIDENCE = float(os.getenv('API_MIN_CONFIDENCE', '55'))      # Minimum confidence threshold (55%)
-API_OVERRIDE_CONFIDENCE = float(os.getenv('API_OVERRIDE_CONFIDENCE', '85'))  # High confidence override (85%)
-
-# API feature usage
-USE_API_POSITION_SIZING = os.getenv('USE_API_POSITION_SIZING', 'true').lower() == 'true'
-USE_API_STOP_LOSS = os.getenv('USE_API_STOP_LOSS', 'true').lower() == 'true'
-USE_API_TAKE_PROFIT = os.getenv('USE_API_TAKE_PROFIT', 'true').lower() == 'true'
-USE_API_TIME_HORIZONS = os.getenv('USE_API_TIME_HORIZONS', 'true').lower() == 'true'
-
-# Signal weighting (when combining API with internal signals)
-API_SIGNAL_WEIGHT = float(os.getenv('API_SIGNAL_WEIGHT', '0.85'))      # 85% weight to API signals
-INTERNAL_SIGNAL_WEIGHT = float(os.getenv('INTERNAL_SIGNAL_WEIGHT', '0.15'))  # 15% weight to internal
+# API feature usage (optimized)
+USE_API_POSITION_SIZING = True
+USE_API_STOP_LOSS = True
+USE_API_TAKE_PROFIT = True
+API_FALLBACK_ENABLED = True
 
 # =============================================================================
-# API ANALYSIS PARAMETERS (CUSTOMIZE THESE)
+# TRADING PARAMETERS - AGGRESSIVE FOR CRYPTO
 # =============================================================================
 
-# Default analysis parameters for API calls
-DEFAULT_API_TIMEFRAME = os.getenv('DEFAULT_API_TIMEFRAME', '1h')
-DEFAULT_API_ANALYSIS_DEPTH = os.getenv('DEFAULT_API_ANALYSIS_DEPTH', 'comprehensive')
-DEFAULT_API_RISK_LEVEL = os.getenv('DEFAULT_API_RISK_LEVEL', 'moderate')
+# Enable all trading modes
+TEST_MODE = True  # Set to True for testing first
+MOMENTUM_TRADE_ENABLED = True
+QUICK_PROFIT_MODE = True
+ENABLE_OPPORTUNITY_SCANNER = True
 
-# Market condition based parameters
-API_VOLATILE_TIMEFRAME = os.getenv('API_VOLATILE_TIMEFRAME', '15m')
-API_STABLE_TIMEFRAME = os.getenv('API_STABLE_TIMEFRAME', '4h')
-API_TRENDING_ANALYSIS = os.getenv('API_TRENDING_ANALYSIS', 'comprehensive')
-API_RANGING_ANALYSIS = os.getenv('API_RANGING_ANALYSIS', 'advanced')
+# Position Management (AGGRESSIVE)
+MAX_POSITIONS = int(os.getenv('MAX_POSITIONS', '5'))  # Reduced from 10 to 5 positions max
+MIN_POSITION_SIZE_USD = 20.0  # $20 minimum position size  
+# Position sizing per trade - CONSERVATIVE APPROACH
+MIN_POSITION_SIZE_PCT = 0.18  # Min 18% of account per position (slightly below max)
+MAX_POSITION_SIZE_PCT = 0.20  # Max 20% of account per position (5 × 20% = 100%)
+
+# Pair Selection - Focus on volatile, liquid pairs
+PRIORITY_CRYPTO_LIST = [
+    'BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'BNBUSDT', 'XRPUSDT',
+    'ADAUSDT', 'DOGEUSDT', 'MATICUSDT', 'DOTUSDT', 'AVAXUSDT',
+    'LINKUSDT', 'UNIUSDT', 'ATOMUSDT', 'LTCUSDT', 'NEARUSDT',
+    'INJUSDT', 'SUIUSDT', 'SEIUSDT', 'ARBUSDT', 'OPUSDT'
+]
+
+# Volume and Liquidity Filters
+MIN_VOLUME_USD = 1000000    # $1M daily volume (lowered from $50M!)
+MIN_VOLATILITY_PCT = 0.5    # 0.5% daily volatility minimum (lowered from 1.5%)
+MAX_SPREAD_PCT = 0.25       # Max 0.25% spread (increased tolerance)
 
 # =============================================================================
-# ENHANCED POSITION MANAGEMENT WITH API
+# PROFIT TARGETS - REALISTIC FOR CRYPTO
 # =============================================================================
 
-# API-based position sizing
-API_MAX_POSITION_SIZE_PCT = float(os.getenv('API_MAX_POSITION_SIZE_PCT', '12'))   # Max 12% per position with API
-API_MIN_POSITION_SIZE_PCT = float(os.getenv('API_MIN_POSITION_SIZE_PCT', '2'))    # Min 2% per position
+# Quick scalping targets (REALISTIC)
+MOMENTUM_TAKE_PROFIT = [
+    {"minutes": 5, "profit_pct": 0.5},   # 0.5% in 5 min (was 2%)
+    {"minutes": 15, "profit_pct": 0.4},  # 0.4% in 15 min (was 1.5%)
+    {"minutes": 30, "profit_pct": 0.3},  # 0.3% in 30 min (was 1%)
+    {"minutes": 60, "profit_pct": 0.2},  # 0.2% in 1 hour (was 0.8%)
+]
 
-# API confidence based sizing multipliers
-API_CONFIDENCE_MULTIPLIERS = {
-    'very_high': float(os.getenv('API_VERY_HIGH_CONFIDENCE_MULT', '1.3')),  # 85%+ confidence
-    'high': float(os.getenv('API_HIGH_CONFIDENCE_MULT', '1.1')),            # 70-84% confidence  
-    'medium': float(os.getenv('API_MEDIUM_CONFIDENCE_MULT', '1.0')),        # 55-69% confidence
-    'low': float(os.getenv('API_LOW_CONFIDENCE_MULT', '0.7'))               # 55-60% confidence
+# Regular position targets (REALISTIC)
+REGULAR_TAKE_PROFIT = [
+    {"minutes": 10, "profit_pct": 0.4},  # 0.4% in 10 min (new quick target)
+    {"minutes": 30, "profit_pct": 0.3},  # 0.3% in 30 min (was 3%)
+    {"minutes": 60, "profit_pct": 0.25}, # 0.25% in 1 hour (was 2.5%)
+    {"minutes": 120, "profit_pct": 0.2}, # 0.2% in 2 hours (was 2%)
+    {"minutes": 180, "profit_pct": 0.15}, # 0.15% in 3 hours (was 1.5%)
+]
+
+# Partial profit taking (MUCH MORE AGGRESSIVE)
+ENABLE_PARTIAL_PROFITS = True
+PARTIAL_PROFIT_LEVELS = [
+    {"profit_pct": 0.15, "sell_pct": 0.33},  # Sell 33% at 0.15% (was 0.3%)
+    {"profit_pct": 0.25, "sell_pct": 0.33},  # Sell 33% at 0.25% (was 0.6%)
+    {"profit_pct": 0.4, "sell_pct": 0.34},   # Sell 34% at 0.4% (was 1.0%)
+]
+
+# =============================================================================
+# RISK MANAGEMENT - ADAPTED FOR CRYPTO
+# =============================================================================
+
+# Stop losses - TIGHT for quick exits
+MOMENTUM_STOP_LOSS = -1.0   # 1% stop for momentum (tightened from 2%)
+QUICK_STOP_LOSS = -1.5      # 1.5% for regular trades (tightened from 2.5%)
+MAX_STOP_LOSS = -2.0        # Never exceed 2% loss (tightened from 3%)
+
+# Dynamic stop adjustment
+ENABLE_TRAILING_STOPS = True
+TRAILING_ACTIVATION_THRESHOLD = 0.01  # Activate at 1% profit
+TRAILING_STOP_PERCENTAGE = 0.01       # Trail by 1%
+
+# Breakeven stops
+ENABLE_BREAKEVEN_STOP = True
+BREAKEVEN_TRIGGER_PCT = 0.5  # Move to breakeven at 0.5%
+
+# Daily targets (ULTRA-AGGRESSIVE for 70-80% daily)
+TARGET_DAILY_ROI_MIN = 0.50     # 50% minimum daily target
+TARGET_DAILY_ROI_OPTIMAL = 0.70  # 70% optimal daily target
+TARGET_DAILY_ROI_MAX = 0.80      # 80% maximum daily target
+
+# Drawdown protection - MUCH LESS AGGRESSIVE (like successful bots)
+CONSERVATIVE_THRESHOLDS_ENABLED = False  # Keep disabled
+DRAWDOWN_THRESHOLDS = {
+    'warning': 0.15,      # 15% (was 5% - much more lenient)
+    'reduce_risk': 0.25,  # 25% (was 8% - much more lenient) 
+    'high_alert': 0.35,   # 35% (was 10% - much more lenient)
+    'emergency': 0.50     # 50% (was 15% - much more lenient)
 }
 
-# On-chain score based adjustments
-API_ONCHAIN_SCORE_MULTIPLIERS = {
-    'excellent': float(os.getenv('API_ONCHAIN_EXCELLENT_MULT', '1.2')),     # 80+ on-chain score
-    'good': float(os.getenv('API_ONCHAIN_GOOD_MULT', '1.1')),              # 60-79 on-chain score
-    'fair': float(os.getenv('API_ONCHAIN_FAIR_MULT', '1.0')),              # 40-59 on-chain score
-    'poor': float(os.getenv('API_ONCHAIN_POOR_MULT', '0.8'))               # <40 on-chain score
+# =============================================================================
+# MARKET ANALYSIS SETTINGS
+# =============================================================================
+
+# Scanning frequency
+OPPORTUNITY_SCAN_INTERVAL = 30  # Every 30 seconds
+MARKET_UPDATE_INTERVAL = 60     # Market state every minute
+
+# Timeframes for analysis
+ANALYSIS_TIMEFRAMES = ['5m', '15m', '1h']  # Multiple timeframes
+DEFAULT_API_TIMEFRAME = '15m'  # Best for crypto scalping
+
+# Signal combination weights
+API_SIGNAL_WEIGHT = 0.70       # 70% weight to API
+INTERNAL_SIGNAL_WEIGHT = 0.30  # 30% internal
+
+# =============================================================================
+# ADVANCED FEATURES
+# =============================================================================
+
+# Correlation limits
+MAX_CORRELATION = 0.6  # Don't trade highly correlated pairs
+MIN_PAIRS_FOR_CORRELATION = 3
+
+# Market regime adjustments
+BULL_MARKET_POSITION_MULTIPLIER = 1.2
+BEAR_MARKET_POSITION_MULTIPLIER = 0.8
+HIGH_VOLATILITY_POSITION_REDUCTION = 0.7
+
+# Time-based adjustments
+WEEKEND_POSITION_REDUCTION = 0.8
+LOW_VOLUME_HOUR_REDUCTION = 0.9
+
+# Anti-manipulation
+MAX_SINGLE_CANDLE_MOVEMENT = 0.10  # Skip if >10% in one candle
+MIN_TRADE_COUNT_FILTER = 1000      # Minimum trades per period
+
+# =============================================================================
+# API STRATEGY PARAMETERS
+# =============================================================================
+
+# Signal quality filters
+MIN_API_TECHNICAL_SCORE = 40   # Lowered from 45
+MIN_API_MOMENTUM_SCORE = 35     # Lowered from 40
+MIN_API_ONCHAIN_SCORE = 30      # Lowered from 35
+
+# Time horizons
+RESPECT_API_TIME_HORIZONS = True
+API_MAX_HOLD_TIME_HOURS = 24    # Max 24 hours
+API_MIN_HOLD_TIME_MINUTES = 3   # Min 3 minutes
+
+# Dynamic adjustments
+ENABLE_SIGNAL_STRENGTH_SCALING = True
+SIGNAL_STRENGTH_POSITION_MULTIPLIER = {
+    'STRONG': 1.5,
+    'MODERATE': 1.0,
+    'WEAK': 0.7
 }
 
-# Whale influence adjustments
-API_WHALE_INFLUENCE_MULTIPLIERS = {
-    'POSITIVE': float(os.getenv('API_WHALE_POSITIVE_MULT', '1.15')),        # Whale accumulation
-    'NEUTRAL': float(os.getenv('API_WHALE_NEUTRAL_MULT', '1.0')),          # No whale activity
-    'NEGATIVE': float(os.getenv('API_WHALE_NEGATIVE_MULT', '0.85'))         # Whale distribution
-}
-
 # =============================================================================
-# API RISK MANAGEMENT OVERRIDES
+# PERFORMANCE TRACKING
 # =============================================================================
 
-# Override risk management with API recommendations
-USE_API_RISK_MANAGEMENT = os.getenv('USE_API_RISK_MANAGEMENT', 'true').lower() == 'true'
+# Metrics to monitor
+TRACK_SLIPPAGE = True
+TRACK_API_LATENCY = True
+TRACK_WIN_RATE_BY_HOUR = True
 
-# API-based stop loss settings
-API_DYNAMIC_STOP_LOSS = os.getenv('API_DYNAMIC_STOP_LOSS', 'true').lower() == 'true'
-API_MAX_STOP_LOSS_PCT = float(os.getenv('API_MAX_STOP_LOSS_PCT', '3.0'))    # Max 3% stop loss
-API_MIN_STOP_LOSS_PCT = float(os.getenv('API_MIN_STOP_LOSS_PCT', '1.0'))    # Min 1% stop loss
+# Alert thresholds
+MIN_HOURLY_WIN_RATE = 0.45  # Alert if <45%
+MAX_CONSECUTIVE_LOSSES = 5   # Alert after 5 losses
+MAX_DAILY_API_ERRORS = 10    # Alert on API issues
 
-# API-based take profit settings  
-API_DYNAMIC_TAKE_PROFIT = os.getenv('API_DYNAMIC_TAKE_PROFIT', 'true').lower() == 'true'
-API_PARTIAL_PROFIT_ENABLED = os.getenv('API_PARTIAL_PROFIT_ENABLED', 'true').lower() == 'true'
-API_MAX_TAKE_PROFIT_PCT = float(os.getenv('API_MAX_TAKE_PROFIT_PCT', '15.0'))  # Max 15% take profit
 
-# API time horizon respect
-RESPECT_API_TIME_HORIZONS = os.getenv('RESPECT_API_TIME_HORIZONS', 'true').lower() == 'true'
-API_MAX_HOLD_TIME_HOURS = int(os.getenv('API_MAX_HOLD_TIME_HOURS', '48'))     # Max 48 hours
-API_MIN_HOLD_TIME_MINUTES = int(os.getenv('API_MIN_HOLD_TIME_MINUTES', '5'))  # Min 5 minutes
-
-# =============================================================================
-# API MONITORING AND ALERTING
-# =============================================================================
-
-# API performance monitoring
-ENABLE_API_PERFORMANCE_MONITORING = os.getenv('ENABLE_API_PERFORMANCE_MONITORING', 'true').lower() == 'true'
-API_STATS_LOG_INTERVAL = int(os.getenv('API_STATS_LOG_INTERVAL', '1800'))  # Log every 30 minutes
-API_HEALTH_LOG_INTERVAL = int(os.getenv('API_HEALTH_LOG_INTERVAL', '300'))  # Check every 5 minutes
-
-# API failure handling
-API_MAX_CONSECUTIVE_FAILURES = int(os.getenv('API_MAX_CONSECUTIVE_FAILURES', '5'))
-API_FAILURE_COOLDOWN_MINUTES = int(os.getenv('API_FAILURE_COOLDOWN_MINUTES', '15'))
-API_AUTO_FALLBACK_THRESHOLD = float(os.getenv('API_AUTO_FALLBACK_THRESHOLD', '0.6'))  # <60% success rate
-
-# =============================================================================
-# SIGNAL VALIDATION AND FILTERING  
-# =============================================================================
-
-# API signal validation
-VALIDATE_API_SIGNALS = os.getenv('VALIDATE_API_SIGNALS', 'true').lower() == 'true'
-API_SIGNAL_CONSISTENCY_CHECK = os.getenv('API_SIGNAL_CONSISTENCY_CHECK', 'true').lower() == 'true'
-
-# Signal filtering based on market conditions
-FILTER_API_SIGNALS_BY_REGIME = os.getenv('FILTER_API_SIGNALS_BY_REGIME', 'true').lower() == 'true'
-API_AVOID_VOLATILE_MARKETS = os.getenv('API_AVOID_VOLATILE_MARKETS', 'false').lower() == 'true'
-
-# Minimum signal requirements
-API_MIN_TECHNICAL_SCORE = float(os.getenv('API_MIN_TECHNICAL_SCORE', '45'))   # Min technical score
-API_MIN_MOMENTUM_SCORE = float(os.getenv('API_MIN_MOMENTUM_SCORE', '40'))     # Min momentum score  
-API_MIN_ONCHAIN_SCORE = float(os.getenv('API_MIN_ONCHAIN_SCORE', '35'))      # Min on-chain score
 
 
 
@@ -209,7 +267,7 @@ CORRELATION_UPDATE_INTERVAL = int(os.getenv('CORRELATION_UPDATE_INTERVAL', '1440
 API_CALL_DELAY = float(os.getenv('API_CALL_DELAY', '3.0'))  # INCREASED from 1.0 to 3.0 seconds
 
 # MUCH less aggressive opportunity scanning
-OPPORTUNITY_SCAN_INTERVAL = int(os.getenv('OPPORTUNITY_SCAN_INTERVAL', '120'))  # INCREASED from 60 to 120 seconds
+OPPORTUNITY_SCAN_INTERVAL = 30  # Every 30 seconds (optimized)
 
 # =============================================================================
 # CONSERVATIVE SIGNAL THRESHOLDS (UPDATED)
@@ -323,14 +381,13 @@ ENABLE_COINGECKO = False
 # TRADING CONFIGURATION
 # =============================================================================
 
-# Trading mode
-TEST_MODE = os.getenv('TEST_MODE', 'true').lower() == 'true'
+# Trading mode (REMOVED - now defined at top of file)
+# TEST_MODE = False  # Set to False for live trading (optimized)
 
 # Database path
 DB_PATH = os.getenv('DB_PATH', 'trading_bot.db')
 
-# Maximum number of concurrent positions
-MAX_POSITIONS = int(os.getenv('MAX_POSITIONS', '10'))
+# Maximum number of concurrent positions - defined above in POSITION MANAGEMENT section
 
 # =============================================================================
 # ENHANCED TRADING PARAMETERS
@@ -351,21 +408,21 @@ MOMENTUM_TIMEFRAME = os.getenv('MOMENTUM_TIMEFRAME', '5m')  # Quick momentum det
 # RISK MANAGEMENT
 # =============================================================================
 
-# Daily ROI targets
-TARGET_DAILY_ROI_MIN = float(os.getenv('TARGET_DAILY_ROI_MIN', '0.005'))  # 0.5%
-TARGET_DAILY_ROI_OPTIMAL = float(os.getenv('TARGET_DAILY_ROI_OPTIMAL', '0.015'))  # 1.5%
-TARGET_DAILY_ROI_MAX = float(os.getenv('TARGET_DAILY_ROI_MAX', '0.025'))  # 2.5%
+# Daily ROI targets (optimized)
+TARGET_DAILY_ROI_MIN = 0.01     # 1% minimum (optimized)
+TARGET_DAILY_ROI_OPTIMAL = 0.02  # 2% target (optimized)
+TARGET_DAILY_ROI_MAX = 0.03      # 3% maximum (optimized)
 
-# Drawdown protection thresholds
+# Drawdown protection thresholds (optimized)
 DRAWDOWN_THRESHOLDS = {
-    'warning': float(os.getenv('DRAWDOWN_WARNING', '0.03')),      # 3%
-    'reduce_risk': float(os.getenv('DRAWDOWN_REDUCE_RISK', '0.05')),  # 5%
-    'high_alert': float(os.getenv('DRAWDOWN_HIGH_ALERT', '0.08')),    # 8%
-    'emergency': float(os.getenv('DRAWDOWN_EMERGENCY', '0.12'))       # 12%
+    'warning': 0.05,      # 5%
+    'reduce_risk': 0.08,  # 8%
+    'high_alert': 0.10,   # 10%
+    'emergency': 0.15     # 15%
 }
 
-# Conservative thresholds for new users - ENABLED BY DEFAULT NOW
-CONSERVATIVE_THRESHOLDS_ENABLED = os.getenv('CONSERVATIVE_MODE', 'true').lower() == 'true'  # CHANGED to true
+# Conservative thresholds for new users - DISABLED FOR OPTIMIZATION
+CONSERVATIVE_THRESHOLDS_ENABLED = False  # Critical change! (optimized)
 CONSERVATIVE_THRESHOLDS = {
     'warning': 0.02,      # 2%
     'reduce_risk': 0.03,  # 3%
@@ -377,34 +434,35 @@ CONSERVATIVE_THRESHOLDS = {
 RECOVERY_PROFIT_TARGET = float(os.getenv('RECOVERY_PROFIT_TARGET', '0.03'))  # 3% recovery needed
 RECOVERY_TIMEOUT_DAYS = int(os.getenv('RECOVERY_TIMEOUT_DAYS', '14'))
 
-# Position sizing
-MAX_POSITION_SIZE_PCT = float(os.getenv('MAX_POSITION_SIZE_PCT', '0.15'))  # Max 15% of account per position
+# Position sizing (CONSERVATIVE for safe trading)
+MIN_POSITION_SIZE_PCT = 0.18  # Min 18% of account per position (slightly below max)
+MAX_POSITION_SIZE_PCT = 0.20  # Max 20% of account per position (5 × 20% = 100%)
 
 # =============================================================================
 # ENHANCED POSITION MANAGEMENT
 # =============================================================================
 
-# Dynamic profit targets for momentum trades
+# Dynamic profit targets for momentum trades (optimized)
 MOMENTUM_TAKE_PROFIT = [
-    {"minutes": 5, "profit_pct": 1.0},    # 1% in 5 minutes
-    {"minutes": 15, "profit_pct": 0.8},   # 0.8% in 15 minutes
-    {"minutes": 30, "profit_pct": 0.6},   # 0.6% in 30 minutes
-    {"minutes": 60, "profit_pct": 0.4},   # 0.4% in 1 hour
+    {"minutes": 5, "profit_pct": 0.4},   # 0.4% in 5 min
+    {"minutes": 15, "profit_pct": 0.3},  # 0.3% in 15 min
+    {"minutes": 30, "profit_pct": 0.25}, # 0.25% in 30 min
+    {"minutes": 60, "profit_pct": 0.2},  # 0.2% in 1 hour
 ]
 
 REGULAR_TAKE_PROFIT = [
-    {"minutes": 30, "profit_pct": 1.5},   # 1.5% in 30 min
-    {"minutes": 60, "profit_pct": 1.0},   # 1% in 1 hour
-    {"minutes": 120, "profit_pct": 0.8},  # 0.8% in 2 hours
-    {"minutes": 180, "profit_pct": 0.5},  # 0.5% in 3 hours
+    {"minutes": 30, "profit_pct": 0.8},  # 0.8% in 30 min
+    {"minutes": 60, "profit_pct": 0.6},  # 0.6% in 1 hour
+    {"minutes": 120, "profit_pct": 0.5}, # 0.5% in 2 hours
+    {"minutes": 180, "profit_pct": 0.4}, # 0.4% in 3 hours
 ]
 
 # Quick profit targets
 QUICK_PROFIT_TARGETS = [0.5, 1.0, 1.5, 2.0, 3.0, 5.0]  # Multiple targets in %
 
-# Stop loss settings
-MOMENTUM_STOP_LOSS = float(os.getenv('MOMENTUM_STOP_LOSS', '-1.0'))  # 1% stop loss for momentum trades
-QUICK_STOP_LOSS = float(os.getenv('QUICK_STOP_LOSS', '-1.5'))     # 1.5% for regular quick trades
+# Stop loss settings (optimized)
+MOMENTUM_STOP_LOSS = -2.0   # 2% stop for momentum (optimized)
+QUICK_STOP_LOSS = -2.5      # 2.5% for regular trades (optimized)
 
 # Trailing stop loss settings
 ENABLE_TRAILING_STOPS = os.getenv('ENABLE_TRAILING_STOPS', 'true').lower() == 'true'
@@ -462,14 +520,14 @@ OPPORTUNITY_WEIGHTS = {
 # AGGRESSIVE QUICK MODE CONFIGURATION
 # =============================================================================
 
-# Quick mode position sizing - 40% of equity per position
-QUICK_MODE_POSITION_SIZE = float(os.getenv('QUICK_MODE_POSITION_SIZE', '0.40'))  # 40% of equity
+# Quick mode position sizing - 20% of equity per position
+QUICK_MODE_POSITION_SIZE = float(os.getenv('QUICK_MODE_POSITION_SIZE', '0.20'))  # 20% of equity
 
 # Quick mode max positions - only 2 positions at once
-QUICK_MODE_MAX_POSITIONS = int(os.getenv('QUICK_MODE_MAX_POSITIONS', '5'))  # Max 2 positions
+QUICK_MODE_MAX_POSITIONS = int(os.getenv('QUICK_MODE_MAX_POSITIONS', '5'))  # Max 5 positions in quick mode
 
-# Normal mode settings (existing behavior)
-NORMAL_MODE_MAX_POSITIONS = int(os.getenv('NORMAL_MODE_MAX_POSITIONS', '10'))  # Normal max
+# Normal mode settings - MATCHED TO GLOBAL LIMITS
+NORMAL_MODE_MAX_POSITIONS = int(os.getenv('NORMAL_MODE_MAX_POSITIONS', '5'))  # Reduced from 10 to 5
 
 # Minimum position sizes for different modes
 QUICK_MODE_MIN_POSITION = float(os.getenv('QUICK_MODE_MIN_POSITION', '300'))   # $300 minimum in quick mode
@@ -478,16 +536,8 @@ NORMAL_MODE_MIN_POSITION = float(os.getenv('NORMAL_MODE_MIN_POSITION', '50'))  #
 # Signal strength requirements for big positions
 QUICK_MODE_MIN_SIGNAL = float(os.getenv('QUICK_MODE_MIN_SIGNAL', '0.3'))  
 
-# Dynamic MAX_POSITIONS based on mode
-def get_max_positions():
-    """Get max positions based on current trading mode"""
-    if QUICK_PROFIT_MODE == True:
-        return QUICK_MODE_MAX_POSITIONS  # 5 positions
-    else:
-        return NORMAL_MODE_MAX_POSITIONS  # 10 positions
-
-# Update MAX_POSITIONS dynamically
-MAX_POSITIONS = get_max_positions()
+# Note: MAX_POSITIONS is defined above in POSITION MANAGEMENT section
+# Dynamic max positions are handled by the risk manager based on mode
 
 # =============================================================================
 # ASSET SELECTION (ENHANCED)
@@ -647,27 +697,24 @@ def validate_api_config():
     if abs(total_weight - 1.0) > 0.01:
         errors.append(f"API signal weights must sum to 1.0, got {total_weight}")
     
-    # Validate position sizing
-    if API_MAX_POSITION_SIZE_PCT <= API_MIN_POSITION_SIZE_PCT:
-        errors.append("API_MAX_POSITION_SIZE_PCT must be greater than API_MIN_POSITION_SIZE_PCT")
+    # Validate position sizing (updated for optimized config)
+    if MAX_POSITION_SIZE_PCT <= MIN_POSITION_SIZE_PCT:
+        errors.append("MAX_POSITION_SIZE_PCT must be greater than MIN_POSITION_SIZE_PCT")
     
-    if API_MAX_POSITION_SIZE_PCT > 25:
-        errors.append("API_MAX_POSITION_SIZE_PCT should not exceed 25% for safety")
+    if MAX_POSITION_SIZE_PCT > 0.50:
+        errors.append("MAX_POSITION_SIZE_PCT should not exceed 50% for safety (AGGRESSIVE MODE)")
     
-    # Validate timeframes
+    # Validate timeframes (updated for optimized config)
     valid_timeframes = ['1m', '5m', '15m', '30m', '1h', '2h', '4h', '6h', '12h', '1d']
     if DEFAULT_API_TIMEFRAME not in valid_timeframes:
         errors.append(f"DEFAULT_API_TIMEFRAME must be one of {valid_timeframes}")
     
-    # Validate analysis depths
-    valid_depths = ['basic', 'advanced', 'comprehensive']
-    if DEFAULT_API_ANALYSIS_DEPTH not in valid_depths:
-        errors.append(f"DEFAULT_API_ANALYSIS_DEPTH must be one of {valid_depths}")
+    # Validate API intervals (Updated for ultra-aggressive trading)
+    if API_MIN_INTERVAL < 1:
+        errors.append("API_MIN_INTERVAL should be at least 1 second for maximum performance")
     
-    # Validate risk levels
-    valid_risk_levels = ['conservative', 'moderate', 'aggressive']
-    if DEFAULT_API_RISK_LEVEL not in valid_risk_levels:
-        errors.append(f"DEFAULT_API_RISK_LEVEL must be one of {valid_risk_levels}")
+    if API_REQUEST_TIMEOUT < 5:
+        errors.append("API_REQUEST_TIMEOUT should be at least 5 seconds")
     
     if errors:
         raise ValueError("Enhanced Signal API configuration validation failed:\n" + 
@@ -767,13 +814,13 @@ def validate_config():
         if not 0 <= value <= 1:
             errors.append(f"{name} should be between 0 and 1 (as decimal), got {value}")
     
-    # Validate scanner intervals
-    if OPPORTUNITY_SCAN_INTERVAL < 60:
-        errors.append("OPPORTUNITY_SCAN_INTERVAL should be at least 60 seconds to avoid rate limits")
+    # Validate scanner intervals (updated for optimized config)
+    if OPPORTUNITY_SCAN_INTERVAL < 15:
+        errors.append("OPPORTUNITY_SCAN_INTERVAL should be at least 15 seconds to avoid overwhelming the system")
     
-    # Validate crypto list
-    if len(EXPANDED_CRYPTO_LIST) < 20:
-        errors.append("EXPANDED_CRYPTO_LIST should contain at least 20 cryptocurrencies")
+    # Validate crypto list (updated for optimized config)
+    if len(PRIORITY_CRYPTO_LIST) < 10:
+        errors.append("PRIORITY_CRYPTO_LIST should contain at least 10 cryptocurrencies")
     
     # Validate Taapi.io config
     taapi_errors = validate_taapi_config()
@@ -814,7 +861,7 @@ if __name__ == "__main__":
         print(f"- Quick Profit Mode: {'ENABLED' if QUICK_PROFIT_MODE else 'DISABLED'}")
         print(f"- Trading Mode: {'TEST' if TEST_MODE else 'LIVE'}")
         print(f"- Max Positions: {MAX_POSITIONS}")
-        print(f"- Crypto Pairs Available: {len(EXPANDED_CRYPTO_LIST)}")
+        print(f"- Crypto Pairs Available: {len(PRIORITY_CRYPTO_LIST)}")
         print(f"- Conservative Mode: {'ENABLED' if CONSERVATIVE_THRESHOLDS_ENABLED else 'DISABLED'}")
         print(f"- CoinGecko Rate Limit: {COINGECKO_FREE_TIER_INTERVAL}s interval, {COINGECKO_FREE_TIER_MAX_PER_MINUTE} requests/min")
     except ValueError as e:
@@ -824,3 +871,37 @@ else:
     if not os.getenv('SKIP_CONFIG_VALIDATION'):
         validate_config()
         validate_api_config()
+
+# Signal confidence filtering - LOWERED THRESHOLD
+MIN_SIGNAL_CONFIDENCE = float(os.getenv('MIN_SIGNAL_CONFIDENCE', '15'))  # Lowered from 20% to 15%
+CONFIDENCE_BOOST_THRESHOLD = 30  # Boost position size above this confidence
+
+# Confidence blending for improved signal quality
+USE_REGIME_CONFIDENCE_BOOST = True  # Boost confidence when market regime is strong
+REGIME_CONFIDENCE_WEIGHT = 0.3  # 30% weight for market regime confidence
+ML_CONFIDENCE_WEIGHT = 0.7  # 70% weight for ML confidence
+
+# Symbol validation for live trading safety
+VALIDATE_SYMBOLS_IN_TEST = bool(os.getenv('VALIDATE_SYMBOLS_IN_TEST', 'False').lower() == 'true')  # Whether to validate symbols in test mode
+SYMBOL_VALIDATION_ENABLED = bool(os.getenv('SYMBOL_VALIDATION_ENABLED', 'True').lower() == 'true')  # Enable symbol validation
+SYMBOL_VALIDATION_CACHE_HOURS = int(os.getenv('SYMBOL_VALIDATION_CACHE_HOURS', '24'))  # How long to cache validation results
+
+# =============================================================================
+# TRADING MODE - SPOT ONLY (NO LEVERAGE)
+# =============================================================================
+
+# CRITICAL: Only use spot trading with available cash
+TRADING_MODE = "SPOT_ONLY"  # Never use margin or futures
+ENABLE_MARGIN_TRADING = False
+ENABLE_FUTURES_TRADING = False
+ENABLE_LEVERAGE = False
+MAX_LEVERAGE = 1.0  # No leverage allowed
+
+# Position allocation - STRICT LIMITS
+POSITION_COUNT_LIMIT = 5  # Maximum 5 positions
+POSITION_SIZE_FIXED = 0.20  # Fixed 20% per position
+TOTAL_ALLOCATION_LIMIT = 1.00  # Never exceed 100% of cash
+
+# =============================================================================
+# POSITION MANAGEMENT - CONSERVATIVE APPROACH  
+# =============================================================================

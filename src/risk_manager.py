@@ -85,78 +85,38 @@ class RiskManager:
         else:
             self.risk_level = "normal"
 
-
-
     def should_take_trade(self, pair, signal_strength, correlation_data=None):
-        """FIXED: Enhanced trade approval with comprehensive error handling"""
+        """Enhanced trade decision with strict position limits"""
         try:
-            # Check if we're in quick profit mode
-            is_quick_mode = getattr(config, 'QUICK_PROFIT_MODE', False)
+            # CRITICAL: Check if we've reached maximum allocation (5 positions × 20% = 100%)
+            if self.position_count >= 5:
+                return False, f"Maximum allocation reached (5 positions × 20% = 100% of available cash)"
             
-            if is_quick_mode:
-                # Quick mode: stricter position limits
-                max_positions = getattr(config, 'QUICK_MODE_MAX_POSITIONS', 2)
-                min_signal = getattr(config, 'QUICK_MODE_MIN_SIGNAL', 0.5)
-                
-                # Check signal strength requirement
-                if signal_strength < min_signal:
-                    return False, f"Quick mode requires signal strength >= {min_signal}, got {signal_strength:.2f}"
-                
-                # Check position count
-                if self.position_count >= max_positions:
-                    return False, f"Quick mode maximum positions reached ({max_positions})"
-                    
-            else:
-                # Normal mode: existing logic
-                max_positions = getattr(config, 'NORMAL_MODE_MAX_POSITIONS', 10)
-                if self.position_count >= max_positions:
-                    return False, f"Normal mode maximum positions reached ({max_positions})"
+            # Check if we already have this position
+            if pair in self.position_values:
+                return False, f"Already have position in {pair}"
             
-            # Continue with existing risk checks
+            # Calculate total allocated percentage
+            total_allocated = self.position_count * 20  # Each position is 20%
+            remaining_allocation = 100 - total_allocated
+            
+            if remaining_allocation < 20:
+                return False, f"Insufficient allocation remaining ({remaining_allocation}% < 20% required)"
+            
+            logging.info(f"Position check passed: {self.position_count}/5 positions, {total_allocated}% allocated, {remaining_allocation}% remaining")
+            
+            # Proceed with original checks
             if self.severe_recovery_mode:
-                return False, "Severe recovery mode active - no new positions"
-                
-            # Check if we're in recovery mode with moderate restrictions
-            if self.recovery_mode and self.position_count >= (5 * self.max_positions_multiplier):
-                return False, "Maximum positions reached for recovery mode"
-                
-            # Check risk level based on drawdown
-            if self.risk_level == "minimal" and self.position_count >= 3:
-                return False, "Maximum positions reached for minimal risk level"
-                
-            if self.risk_level == "reduced" and self.position_count >= (7 * self.max_positions_multiplier):
-                return False, "Maximum positions reached for reduced risk level"
-                
-            # FIXED: Safe correlation data handling
-            is_diversified = True
-            if correlation_data and isinstance(correlation_data, dict):
-                is_diversified = correlation_data.get('is_diversified', True)
-                
-            # Skip highly correlated assets in high-risk conditions
-            if not is_diversified and (self.recovery_mode or self.risk_level != "normal"):
-                return False, "Avoiding correlated assets during elevated risk conditions"
-                
-            # Calculate position size based on mode and risk level
-            position_size = self._calculate_position_size(signal_strength)
+                return False, "Severe recovery mode active - no new trades"
             
-            # FIXED: Ensure minimum position size
-            if position_size < 10:  # Minimum viable trade
-                return False, f"Position size too small: ${position_size:.2f}"
-            
-            mode_info = "QUICK" if is_quick_mode else "NORMAL"
-            logging.info(f"{mode_info} MODE: Approved position for {pair} - Size: ${position_size:.2f}, Signal: {signal_strength:.2f}")
-            
-            return True, {
-                "approved": True,
-                "position_size": position_size,
-                "risk_level": self.risk_level,
-                "recovery_mode": self.recovery_mode,
-                "trading_mode": mode_info
-            }
+            if signal_strength < 0.3:
+                return False, f"Signal strength too low: {signal_strength:.2f}"
+                
+            return True, "Trade approved"
             
         except Exception as e:
-            logging.error(f"Error in should_take_trade: {str(e)}")
-            return False, f"Error in trade approval: {str(e)}"        
+            logging.error(f"Error in trade decision: {str(e)}")
+            return False, f"Error: {str(e)}"
 
     def can_open_position(self, pair=None, signal_strength=0.5, correlation_data=None):
         """Enhanced position approval with quick mode considerations"""
@@ -221,77 +181,42 @@ class RiskManager:
             "trading_mode": mode_info
         }
     
-    def _calculate_position_size(self, signal_strength):
-        """Calculate position size based on risk level, signal strength, and trading mode"""
+    def _calculate_position_size(self, signal_strength, confidence=None, market_regime=None):
+        """Calculate position size based on STRICT 20% rule - NO LEVERAGE"""
         
-        # Check if we're in quick profit mode
-        is_quick_mode = getattr(config, 'QUICK_PROFIT_MODE', False)
+        # FIXED SIZE: Each position is exactly 20% of available cash (base equity)
+        # This prevents leverage and ensures bot only trades with available cash
+        base_percent = 0.20  # Fixed 20% per position
+        base_size = self.total_equity * base_percent
         
-        if is_quick_mode:
-            # QUICK MODE: Use 40% of equity for strong signals
-            quick_mode_size = getattr(config, 'QUICK_MODE_POSITION_SIZE', 0.40)  # 40% default
-            min_signal_for_quick = getattr(config, 'QUICK_MODE_MIN_SIGNAL', 0.5)
-            
-            if signal_strength >= min_signal_for_quick:
-                # Strong signal in quick mode - use 40% allocation
-                base_percent = quick_mode_size  # 40% of equity
-                logging.info(f"QUICK MODE: Using {base_percent*100}% of equity for signal strength {signal_strength:.2f}")
-            else:
-                # Weak signal in quick mode - use smaller allocation but still substantial
-                base_percent = quick_mode_size * 0.6  # 24% of equity for weaker signals
-                logging.info(f"QUICK MODE (weak signal): Using {base_percent*100}% of equity for signal strength {signal_strength:.2f}")
-                
-            # Calculate base position size
-            base_size = self.total_equity * base_percent
-            
-            # Apply signal strength multiplier (but keep it aggressive)
-            if signal_strength > 0.8:
-                multiplier = 1.0  # Use full allocation for very strong signals
-            elif signal_strength > 0.6:
-                multiplier = 0.9  # 90% for strong signals
-            elif signal_strength > 0.4:
-                multiplier = 0.8  # 80% for moderate signals
-            else:
-                multiplier = 0.6  # 60% for weak signals
-                
-        else:
-            # NORMAL MODE: Use conservative sizing (existing logic)
-            if signal_strength > 0.8:  # Very strong signal
-                base_percent = 0.10  # 10% of equity
-            elif signal_strength > 0.6:  # Strong signal
-                base_percent = 0.08  # 8% of equity
-            elif signal_strength > 0.4:  # Moderate signal
-                base_percent = 0.06  # 6% of equity
-            else:  # Weaker signal
-                base_percent = 0.05  # 5% of equity
-                
-            base_size = self.total_equity * base_percent
-            multiplier = 1.0
+        # CRITICAL FIX: Apply drawdown protection multiplier (was missing!)
+        # If bot is in risk reduction mode, reduce position sizes accordingly
+        base_size = base_size * self.position_size_multiplier
         
-        # Apply drawdown-based position size multiplier
-        position_size = base_size * multiplier * self.position_size_multiplier
+        logging.info(f"STRICT SIZING: Using 20% of base equity (${self.total_equity:.2f}) × {self.position_size_multiplier:.1f} multiplier = ${base_size:.2f} per position")
         
-        # Ensure minimum viable trade size
-        if is_quick_mode:
-            min_trade = getattr(config, 'QUICK_MODE_MIN_POSITION', 300.0)  # $300 minimum in quick mode
-        else:
-            min_trade = getattr(config, 'NORMAL_MODE_MIN_POSITION', 50.0)  # $50 minimum in normal mode
+        # Apply confidence filter - reject if too low
+        if confidence is not None:
+            confidence_decimal = confidence / 100 if confidence > 1 else confidence
+            min_threshold = getattr(config, 'MIN_SIGNAL_CONFIDENCE', 20) / 100
             
-        if position_size < min_trade:
-            position_size = min_trade
-            logging.info(f"Position size adjusted to minimum: ${position_size:.2f}")
+            if confidence_decimal < min_threshold:
+                logging.info(f"Rejecting signal - confidence {confidence_decimal:.1%} below {min_threshold:.1%} threshold")
+                return 0
+        
+        # Ensure minimum viable trade size even with multipliers
+        min_trade = 50.0  # $50 minimum
+        if base_size < min_trade:
+            base_size = min_trade
+            logging.info(f"Position size adjusted to minimum: ${base_size:.2f} (overriding multiplier for viability)")
             
-        # Cap at maximum position size
-        if is_quick_mode:
-            max_position = self.total_equity * 0.50  # Max 50% in quick mode
-        else:
-            max_position = self.total_equity * 0.15  # Max 15% in normal mode
+        # Ensure maximum position size doesn't exceed 20% of original equity (before multiplier)
+        max_position = self.total_equity * 0.20  # Strict 20% limit on original equity
+        if base_size > max_position:
+            base_size = max_position
+            logging.info(f"Position size capped at 20% limit: ${base_size:.2f}")
             
-        if position_size > max_position:
-            position_size = max_position
-            logging.info(f"Position size capped at maximum: ${position_size:.2f}")
-            
-        return position_size
+        return base_size
     
     def add_position(self, pair, position_size):
         """Track a new position"""
@@ -491,6 +416,15 @@ class RiskManager:
                 
         except Exception as e:
             logging.error(f"Error in recovery mode exit check: {str(e)}")
+    
+    def reset_to_normal_trading(self):
+        """Reset risk manager to normal trading mode (like successful bot)"""
+        self.position_size_multiplier = 1.0
+        self.max_positions_multiplier = 1.0
+        self.recovery_mode = False
+        self.severe_recovery_mode = False
+        self.drawdown_actions_taken.clear()
+        logging.info("RESET: Risk manager reset to normal trading mode - full $200 positions enabled")
     
     def reset_daily_targets(self):
         """Reset daily tracking for new day"""
