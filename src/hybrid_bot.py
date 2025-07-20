@@ -331,19 +331,28 @@ class HybridTradingBot:
                     fallback_value = position['quantity'] * position['entry_price']
                     total_position_value += fallback_value
             
-            # Real-time equity = base equity + unrealized P&L
-            # Note: In test mode, base_equity includes cash, position values are additional
+            # Real-time equity calculation
             if config.TEST_MODE:
-                # In test mode, we need to be more careful about double counting
-                # The base equity from database should already account for position costs
-                real_time_equity = base_equity + total_unrealized_pnl
+                # In test mode: base_equity ($1000) is the starting cash
+                # We need to subtract position costs from base equity and add current position values
+                position_costs = sum(pos.get('position_value', 0) for pos in self.active_positions.values())
+                available_cash = base_equity - position_costs
+                real_time_equity = available_cash + total_position_value
             else:
-                # In live mode, base equity is account balance, add position values
+                # In live mode: base equity is account balance, add unrealized P&L
                 real_time_equity = base_equity + total_unrealized_pnl
             
-            logging.info(f"Real-time equity: ${real_time_equity:.2f} "
-                        f"(Base: ${base_equity:.2f}, Position Value: ${total_position_value:.2f}, "
-                        f"Unrealized P&L: ${total_unrealized_pnl:+.2f})")
+            if config.TEST_MODE:
+                position_costs = sum(pos.get('position_value', 0) for pos in self.active_positions.values())
+                available_cash = base_equity - position_costs
+                logging.info(f"Real-time equity: ${real_time_equity:.2f} "
+                            f"(Base: ${base_equity:.2f}, Available Cash: ${available_cash:.2f}, "
+                            f"Position Value: ${total_position_value:.2f}, "
+                            f"Unrealized P&L: ${total_unrealized_pnl:+.2f})")
+            else:
+                logging.info(f"Real-time equity: ${real_time_equity:.2f} "
+                            f"(Base: ${base_equity:.2f}, Position Value: ${total_position_value:.2f}, "
+                            f"Unrealized P&L: ${total_unrealized_pnl:+.2f})")
             
             return real_time_equity
             
@@ -907,11 +916,16 @@ class HybridTradingBot:
                     profit_summary = self.get_profit_summary()
                     
                     # Log current status with realized profit focus
+                    actual_position_count = self._validate_position_sync()
                     logging.info(f"REALIZED PROFITS: ${profit_summary['realized_profits']:.2f} | "
                                f"ROI: {profit_summary['realized_roi_pct']:.2f}% | "
                                f"Trades: {profit_summary['total_trades']} ({profit_summary['win_rate_pct']:.1f}% win rate) | "
-                               f"Positions: {self.risk_manager.position_count}/{config.MAX_POSITIONS} | "
+                               f"Positions: {actual_position_count}/{config.MAX_POSITIONS} | "
                                f"Unrealized: ${profit_summary['unrealized_pnl']:+.2f}")
+                    
+                    # Additional position limit warning (less frequent)
+                    if actual_position_count >= 5:
+                        logging.warning(f"POSITION LIMIT REACHED: {actual_position_count}/5 positions - No new positions allowed")
                     
                     # Get high-priority opportunities from scanner
                     high_priority_pairs = []
@@ -1051,7 +1065,7 @@ class HybridTradingBot:
     
 
 
-    async def calculate_dynamic_position_size(self, pair, signal_strength, current_price, confidence=None):
+    async def calculate_dynamic_position_size(self, pair, signal_strength, current_price, confidence=None, analysis=None):
         """
         Calculate dynamic position size that ensures minimum order requirements are met
         """
@@ -1085,8 +1099,15 @@ class HybridTradingBot:
             else:
                 base_equity = self.risk_manager.equity
             
-            # Use config.POSITION_SIZE_FIXED (20%)
-            position_size = base_equity * config.POSITION_SIZE_FIXED
+            # Use tier-based position sizing from analysis (ignore API position sizing)
+            if analysis and 'position_size_pct' in analysis:
+                position_size_pct = analysis['position_size_pct'] / 100  # Convert from percentage
+                position_size = base_equity * position_size_pct
+                logging.info(f"Using tier position size: {analysis['position_size_pct']}% = ${position_size:.2f}")
+            else:
+                # Fallback to config.POSITION_SIZE_FIXED (20%)
+                position_size = base_equity * config.POSITION_SIZE_FIXED
+                logging.info(f"Using fallback position size: 20% = ${position_size:.2f}")
             
             # Return 0 if confidence filtering rejected the signal
             if position_size == 0:
@@ -1146,7 +1167,7 @@ class HybridTradingBot:
 
 
     async def analyze_and_trade(self, pair: str, analysis: dict = None) -> bool:
-        
+    
         try:
             # Skip if already have position
             if pair in self.active_positions:
@@ -1155,14 +1176,14 @@ class HybridTradingBot:
             # CRITICAL: Validate position sync and enforce strict limits
             actual_position_count = self._validate_position_sync()
             
-            # ENFORCE STRICT 5-POSITION LIMIT (like successful trading bot)
+            # ENFORCE STRICT 5-POSITION LIMIT - DO NOT CLOSE POSITIONS
             if actual_position_count >= 5:
-                logging.debug(f"Skipping {pair} - STRICT LIMIT: {actual_position_count}/5 positions (100% allocation)")
+                logging.info(f"POSITION LIMIT REACHED: {actual_position_count}/5 positions - Skipping {pair} (no forced closures)")
                 return False
             
             # Double-check with config limit (redundant safety)
             if actual_position_count >= config.MAX_POSITIONS:
-                logging.debug(f"Skipping {pair} - config limit: {actual_position_count}/{config.MAX_POSITIONS}")
+                logging.info(f"Config position limit reached: {actual_position_count}/{config.MAX_POSITIONS} - Skipping {pair}")
                 return False
             
             # Track that we're analyzing this pair
@@ -1185,9 +1206,25 @@ class HybridTradingBot:
             signal_type = signal.get('signal', 'HOLD').upper()
             reason = signal.get('reasoning', 'unknown')
             
+            # ===== FIX: CONVERT HIGH CONFIDENCE HOLD TO BUY =====
+            # Convert high confidence HOLD signals to BUY signals
+            original_signal_type = signal_type  # Store original for logging
+            if signal_type == 'HOLD' and confidence >= 0.55:  # 55%+ HOLD becomes BUY
+                signal_type = 'BUY'
+                reason = f"High confidence HOLD converted to BUY (confidence: {confidence:.1%})"
+                logging.info(f"CONVERTED HOLD to BUY for {pair} - Confidence: {confidence:.1%}")
+                
+                # Update the signal data to reflect the conversion
+                signal['signal'] = 'BUY'
+                signal['reasoning'] = reason
+                signal['converted_from_hold'] = True
+            
             # ===== ENHANCED: BLEND CONFIDENCE WITH ASSET SCORES =====
             # Get asset selection score for this pair
             asset_score = await self._get_asset_score(pair)
+            
+            # Calculate blended confidence
+            blended_confidence = self._calculate_blended_confidence(confidence, asset_score, signal)
             
             # SAFETY: Validate symbol for live trading
             is_safe_for_trading = await self._validate_symbol_for_trading(pair)
@@ -1195,12 +1232,8 @@ class HybridTradingBot:
                 logging.warning(f"Skipping {pair} - failed live trading safety validation")
                 return False
             
-            # AGGRESSIVE DUAL-TIER SYSTEM: Use tier-based thresholds instead of single 60% threshold
-            # Tier 1: 80%+ = 20% position size (Ultra-selective)
-            # Tier 2: 65%+ = 10% position size (Moderate)  
-            # Tier 3: 55%+ = 8% position size (Conservative)
-            # Below 55% = no trade
-            
+            # ===== TIER SYSTEM: 20%, 15%, 10% (IGNORE API POSITION SIZE) =====
+            # Always use bot's tier system based on confidence (ignore API position sizing)
             tier1_threshold = 0.80  # 80% for Tier 1 (Ultra-selective)
             tier2_threshold = 0.65  # 65% for Tier 2 (Moderate)
             tier3_threshold = 0.55  # 55% for Tier 3 (Conservative)
@@ -1208,64 +1241,60 @@ class HybridTradingBot:
             # Determine tier based on API confidence
             if confidence >= tier1_threshold:
                 tier = "TIER 1 (Ultra-selective)"
+                tier_number = 1
                 position_size_pct = 20  # 20% position size
-                logging.info(f"{tier} SIGNAL for {pair}: {signal_type} (API: {confidence:.1%} >= {tier1_threshold:.1%}) - 20% POSITION!")
+                logging.info(f"TIER 1 SIGNAL for {pair}: {signal_type} (API: {confidence:.1%} >= {tier1_threshold:.1%}) - 20% POSITION")
             elif confidence >= tier2_threshold:
                 tier = "TIER 2 (Moderate)"
-                position_size_pct = 10  # 10% position size
-                logging.info(f"{tier} SIGNAL for {pair}: {signal_type} (API: {confidence:.1%} >= {tier2_threshold:.1%}) - 10% POSITION!")
+                tier_number = 2
+                position_size_pct = 15  # 15% position size
+                logging.info(f"TIER 2 SIGNAL for {pair}: {signal_type} (API: {confidence:.1%} >= {tier2_threshold:.1%}) - 15% POSITION")
             elif confidence >= tier3_threshold:
                 tier = "TIER 3 (Conservative)"
-                position_size_pct = 8   # 8% position size
-                logging.info(f"{tier} SIGNAL for {pair}: {signal_type} (API: {confidence:.1%} >= {tier3_threshold:.1%}) - 8% POSITION!")
+                tier_number = 3
+                position_size_pct = 10  # 10% position size
+                logging.info(f"TIER 3 SIGNAL for {pair}: {signal_type} (API: {confidence:.1%} >= {tier3_threshold:.1%}) - 10% POSITION")
             else:
                 # Below Tier 3 threshold - no trade
                 logging.info(f"Ignoring {pair} signal - API confidence {confidence:.1%} below {tier3_threshold:.1%} Tier 3 threshold")
                 return False
             
-            # Use API confidence directly (no blending needed for dual-tier system)
+            # Use API confidence directly
             strategy_confidence = confidence
             
-            # ===== ENHANCED: USE MARKET PHASE STRATEGY =====
-            if signal_type == 'BUY' and strategy_confidence > 0.15:  # Use blended confidence
-                logging.info(f"EXECUTING MARKET PHASE STRATEGY for {pair} - Blended confidence {strategy_confidence:.1%}")
+            # ===== ENHANCED EXECUTION: BUY SIGNALS ONLY (NO SELL) =====
+            # API generates BUY/HOLD only - SELL handled by lock mechanism
+            if signal_type == 'BUY' and strategy_confidence > 0.15:
+                logging.info(f"EXECUTING {tier} BUY STRATEGY for {pair} - Confidence: {strategy_confidence:.1%} - TIER {tier_number}")
                 
                 # Convert API signal to analysis format with enhanced data
                 analysis = {
                     'buy_signal': True,
-                    'signal_strength': strategy_confidence,  # Use blended confidence
+                    'signal_strength': strategy_confidence,
                     'confidence': blended_confidence * 100,  # Convert back to percentage for consistency
-                    'asset_score': asset_score,  # Include asset score
+                    'asset_score': asset_score,
                     'api_data': signal,
-                    'source': 'enhanced_api_signal'
+                    'source': 'enhanced_api_signal',
+                    'tier': tier_number,  # ADD: Tier number for logging
+                    'tier_name': tier,    # ADD: Tier name for logging
+                    'position_size_pct': position_size_pct  # ADD: Position size for logging
                 }
                 
                 # Use market phase strategy handler
                 success = await self.phase_strategy.execute_phase_strategy(pair, analysis)
-                return success
                 
-            elif signal_type == 'SELL' and strategy_confidence > 0.15:  # Use blended confidence
-                # Check if we actually have a position to sell
-                if pair not in self.active_positions:
-                    logging.debug(f"SELL signal for {pair} ignored - no active position")
-                    return False
-                    
-                logging.info(f"EXECUTING MARKET PHASE SELL STRATEGY for {pair} - Blended confidence {strategy_confidence:.1%}")
+                # Enhanced logging with tier info
+                if success:
+                    logging.info(f"BUY EXECUTED - {tier} for {pair} - Size: {position_size_pct}% - Confidence: {confidence:.1%} - TIER {tier_number}")
+                else:
+                    logging.error(f"BUY FAILED - {tier} for {pair} - Size: {position_size_pct}% - Confidence: {confidence:.1%} - TIER {tier_number}")
                 
-                analysis = {
-                    'sell_signal': True,
-                    'signal_strength': strategy_confidence,  # Use blended confidence
-                    'asset_score': asset_score,  # Include asset score
-                    'api_data': signal,
-                    'source': 'enhanced_api_signal'
-                }
-                
-                # Use market phase strategy handler for sell signals too
-                success = await self.phase_strategy.execute_phase_strategy(pair, analysis)
                 return success
                 
             else:
-                logging.debug(f"HOLDING {pair} - {reason} (blended confidence {strategy_confidence:.1%} too low)")
+                # API should only generate BUY or HOLD signals
+                # SELL operations are handled by bot's lock mechanism with 0.5% increments
+                logging.debug(f"HOLDING {pair} - {reason} (confidence {strategy_confidence:.1%} insufficient for BUY)")
                 return False
                 
         except Exception as e:
@@ -1553,6 +1582,19 @@ class HybridTradingBot:
     async def _execute_api_enhanced_buy(self, pair: str, analysis: dict) -> bool:
         """Execute buy order with API-enhanced parameters"""
         try:
+            # CRITICAL: Check position limits before executing
+            actual_position_count = self._validate_position_sync()
+            
+            # ENFORCE STRICT 5-POSITION LIMIT
+            if actual_position_count >= 5:
+                logging.warning(f"POSITION LIMIT REACHED: {actual_position_count}/5 positions - Skipping {pair}")
+                return False
+            
+            # Double-check with config limit (redundant safety)
+            if actual_position_count >= config.MAX_POSITIONS:
+                logging.warning(f"CONFIG LIMIT REACHED: {actual_position_count}/{config.MAX_POSITIONS} positions - Skipping {pair}")
+                return False
+            
             # Get API data
             api_data = analysis.get('api_data', {})
             
@@ -1694,6 +1736,19 @@ class HybridTradingBot:
                                       analysis: dict[str, any], exit_levels: dict[str, any]) -> bool:
         
         try:
+            # CRITICAL: Check position limits before executing
+            actual_position_count = self._validate_position_sync()
+            
+            # ENFORCE STRICT 5-POSITION LIMIT
+            if actual_position_count >= 5:
+                logging.warning(f"POSITION LIMIT REACHED: {actual_position_count}/5 positions - Skipping {pair}")
+                return False
+            
+            # Double-check with config limit (redundant safety)
+            if actual_position_count >= config.MAX_POSITIONS:
+                logging.warning(f"CONFIG LIMIT REACHED: {actual_position_count}/{config.MAX_POSITIONS} positions - Skipping {pair}")
+                return False
+            
             current_price = await self.get_current_price(pair)
             
             # Enhanced logging with API data
@@ -1904,7 +1959,7 @@ class HybridTradingBot:
                 if profit_loss > 0:
                     self.winning_trades_count += 1
                 
-                logging.info(f"💰 Realized P&L: ${profit_loss:.2f} | Total Realized: ${self.realized_profits:.2f} | "
+                logging.info(f"Realized P&L: ${profit_loss:.2f} | Total Realized: ${self.realized_profits:.2f} | "
                            f"Trade #{self.total_trades_count} | Win Rate: {(self.winning_trades_count/self.total_trades_count)*100:.1f}%")
                 
                 # Clean up trailing stops and take profit data
@@ -2143,7 +2198,7 @@ class HybridTradingBot:
                     # Check dynamic stop loss based on asset type and market conditions
                     dynamic_stop_loss = await self._calculate_dynamic_stop_loss(pair, entry_price)
                     if profit_percent <= dynamic_stop_loss:
-                        logging.info(f"🛑 Dynamic stop loss triggered for {pair} at {profit_percent:.2f}% (threshold: {dynamic_stop_loss:.2f}%)")
+                        logging.info(f"Dynamic stop loss triggered for {pair} at {profit_percent:.2f}% (threshold: {dynamic_stop_loss:.2f}%)")
                         positions_to_close.append((pair, {"sell_signal": True, "signal_strength": 0.95, "reason": "dynamic_stop_loss"}))
                         continue
                     
@@ -2199,11 +2254,11 @@ class HybridTradingBot:
                     lock_data['fallback_threshold'] = new_lock_level - 0.07
                     self.position_profit_locks[pair] = lock_data
                     
-                    logging.info(f"🔒 PROFIT LOCKED: {pair} at {new_lock_level:.2f}% - fallback threshold: {lock_data['fallback_threshold']:.2f}%")
+                    logging.info(f"PROFIT LOCKED: {pair} at {new_lock_level:.2f}% - fallback threshold: {lock_data['fallback_threshold']:.2f}%")
             
             # Check if we should trigger the fallback sell
             if lock_data['locked_level'] > 0 and profit_percent <= lock_data['fallback_threshold']:
-                logging.info(f"📉 PROFIT LOCK TRIGGERED: {pair} fell below {lock_data['fallback_threshold']:.2f}% "
+                logging.info(f"PROFIT LOCK TRIGGERED: {pair} fell below {lock_data['fallback_threshold']:.2f}% "
                            f"(locked at {lock_data['locked_level']:.2f}%, now {profit_percent:.2f}%) - SELLING ALL")
                 positions_to_close.append((pair, {
                     "sell_signal": True, 
@@ -2280,7 +2335,7 @@ class HybridTradingBot:
             # Apply limits (never tighter than -1.5%, never wider than -5%)
             final_stop = max(-5.0, min(-1.5, adjusted_stop))
             
-            logging.info(f"💡 Dynamic stop loss for {pair} ({asset_category}): {final_stop:.2f}% "
+            logging.info(f"Dynamic stop loss for {pair} ({asset_category}): {final_stop:.2f}% "
                         f"(base: {base_stop:.2f}%, volatility: {volatility:.2f}%, market: {market_volatility})")
             
             return final_stop
@@ -3094,6 +3149,10 @@ class HybridTradingBot:
             # Log for debugging
             logging.info(f"SYNC: Added position {pair}, Active: {len(self.active_positions)}, Risk Manager: {self.risk_manager.position_count}")
             
+            # Additional position limit warning
+            if len(self.active_positions) >= 5:
+                logging.warning(f"⚠️ POSITION LIMIT APPROACHING: {len(self.active_positions)}/5 positions - Consider closing some positions")
+            
         except Exception as e:
             # If any error occurs, ensure both systems stay consistent
             logging.error(f"Error adding position {pair}: {str(e)}")
@@ -3132,155 +3191,16 @@ class HybridTradingBot:
                 for pair, pos in self.active_positions.items()
             }
             logging.info(f"FORCED SYNC: Both systems now at {active_count} positions")
+        
+        # Log if we exceed the limit but DO NOT force close positions
+        if active_count > 5:
+            logging.error(f"🚨 CRITICAL: {active_count} positions exceed limit of 5! Manual intervention may be required.")
             
         return active_count
 
 
 
-    async def _execute_api_enhanced_buy(self, pair: str, analysis: dict) -> bool:
-        """Execute buy order with API-enhanced parameters"""
-        try:
-            # Get API data
-            api_data = analysis.get('api_data', {})
-            
-            # Get current price
-            current_price = await self.get_current_price(pair)
-            if not current_price:
-                return False
-            
-            # ===== CHANGE 5: USE DYNAMIC POSITION SIZING =====
-            # Extract signal strength from analysis
-            signal_strength = analysis.get('signal_strength', 0.5)
-            
-            # Extract confidence for enhanced position sizing
-            confidence = analysis.get('confidence', api_data.get('confidence', 50))
-            
-            # Call with correct parameters: pair, signal_strength, current_price, confidence
-            quantity, position_value = await self.calculate_dynamic_position_size(
-                pair, signal_strength, current_price, confidence=confidence
-            )
-            
-            if quantity <= 0 or position_value <= 0:
-                logging.info(f"Position size 0 for {pair} (qty: {quantity}, value: {position_value}), skipping trade")
-                return False
-            
-            # Enhanced logging with all confidence factors
-            api_confidence = api_data.get('confidence', 50)
-            blended_confidence = analysis.get('confidence', 50)
-            asset_score = analysis.get('asset_score', 3.0)
-            api_reason = api_data.get('reasoning', 'technical_analysis')
-            
-            # Log the enhanced trade setup
-            logging.info(f"ENHANCED BUY: {pair} - Qty: {quantity:.6f}, Value: ${position_value:.2f}, "
-                        f"API: {api_confidence:.1f}%, Blended: {blended_confidence:.1f}%, "
-                        f"Asset Score: {asset_score:.2f}, Reason: {api_reason}")
-            
-            # Execute the order (test mode or live)
-            if config.TEST_MODE:
-                # Simulate successful order
-                order_id = f"test_{int(time.time())}"
-                
-                # Record position using synchronized method
-                position_data = {
-                    'entry_price': current_price,
-                    'quantity': quantity,
-                    'entry_time': time.time(),
-                    'position_value': position_value,  # Use consistent key name
-                    'signal_source': 'api_enhanced',
-                    'signal_strength': analysis.get('signal_strength', 0),
-                    'api_data': api_data,
-                    'order_id': order_id,
-                    'momentum_trade': analysis.get('momentum_trade', False)
-                }
-                
-                # Use synchronized position management to prevent 6/5 position bugs
-                self._add_position_synchronized(pair, position_data)
-                
-                # Update risk manager
-                self.risk_manager.add_position(pair, position_value)
-                
-                # Update equity in database to reflect position cost
-                if config.TEST_MODE:
-                    current_equity = await self.get_real_time_equity()
-                    await self.update_equity_in_db(current_equity)
-                
-                # ===== CHANGE 6: SET SMART TRAILING STOP =====
-                await self.set_smart_trailing_stop(pair, current_price)
-                
-                # Set API-based stop loss and take profits if available
-                if api_data:
-                    # Calculate stop loss price (1.5% below entry)
-                    stop_loss_price = current_price * (1 + config.QUICK_STOP_LOSS / 100)
-                    await self._set_api_stop_loss(pair, current_price, stop_loss_price)
-                    
-                    # Set take profits if API provides exit levels
-                    if isinstance(api_data, dict) and 'exit_levels' in api_data:
-                        await self._set_api_take_profits(pair, current_price, api_data['exit_levels'])
-                    else:
-                        # Set default take profit levels
-                        default_exit_levels = {
-                            'take_profit_1': current_price * 1.015,  # 1.5% profit
-                            'take_profit_2': current_price * 1.025,  # 2.5% profit
-                            'take_profit_3': current_price * 1.035   # 3.5% profit
-                        }
-                        await self._set_api_take_profits(pair, current_price, default_exit_levels)
-                
-                logging.info(f"TEST: Buy order for {pair} simulated successfully")
-                return True
-                
-            else:
-                # Execute real order
-                try:
-                    order = await self.binance_client.create_order(
-                        symbol=pair,
-                        side='BUY',
-                        type='MARKET',
-                        quantity=quantity
-                    )
-                    
-                    if order and order.get('status') == 'FILLED':
-                        # Get actual fill price
-                        fill_price = float(order.get('fills', [{}])[0].get('price', current_price))
-                        
-                        # Record position using synchronized method
-                        position_data = {
-                            'entry_price': fill_price,
-                            'quantity': float(order['executedQty']),
-                            'entry_time': time.time(),
-                            'position_value': float(order['cummulativeQuoteQty']),
-                            'signal_source': 'api_enhanced',
-                            'signal_strength': analysis.get('signal_strength', 0),
-                            'api_data': api_data,
-                            'order_id': order['orderId'],
-                            'momentum_trade': analysis.get('momentum_trade', False)
-                        }
-                        
-                        # Use synchronized position management to prevent 6/5 position bugs
-                        self._add_position_synchronized(pair, position_data)
-                        
-                        # Update risk manager
-                        self.risk_manager.add_position(pair, float(order['cummulativeQuoteQty']))
-                        
-                        # Update equity in database to reflect position cost
-                        if config.TEST_MODE:
-                            current_equity = await self.get_real_time_equity()
-                            await self.update_equity_in_db(current_equity)
-                        
-                        # ===== CHANGE 7: SET SMART TRAILING STOP =====
-                        await self.set_smart_trailing_stop(pair, fill_price)
-                        
-                        logging.info(f"LIVE: Buy order for {pair} executed successfully")
-                        return True
-                    else:
-                        logging.error(f"Buy order failed: {order}")
-                        return False
-                except Exception as e:
-                    logging.error(f"Error executing buy order: {str(e)}")
-                    return False
-        
-        except Exception as e:
-            logging.error(f"Error executing API-enhanced buy for {pair}: {str(e)}")
-            return False
+
 
 
     def calculate_daily_roi(self):

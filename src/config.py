@@ -88,14 +88,14 @@ TIER1_MAX_POSITIONS = 5         # Max 5 positions
 TIER1_MAX_EXPOSURE = 1.00       # 5 × 20% = 100% max exposure
 
 # TIER 2 - MODERATE (Good signals)  
-TIER2_POSITION_SIZE = 0.10      # 10% per trade (AGGRESSIVE)
+TIER2_POSITION_SIZE = 0.15      # 15% per trade (AGGRESSIVE)
 TIER2_MAX_POSITIONS = 8         # Max 8 positions
-TIER2_MAX_EXPOSURE = 0.80       # 8 × 10% = 80% max exposure
+TIER2_MAX_EXPOSURE = 1.20       # 8 × 15% = 120% max exposure
 
 # TIER 3 - FAIR (Fair signals)
-TIER3_POSITION_SIZE = 0.08      # 8% per trade
+TIER3_POSITION_SIZE = 0.10      # 10% per trade
 TIER3_MAX_POSITIONS = 10        # Max 10 positions  
-TIER3_MAX_EXPOSURE = 0.80       # 10 × 8% = 80% max exposure
+TIER3_MAX_EXPOSURE = 1.00       # 10 × 10% = 100% max exposure
 
 # AGGRESSIVE SYSTEM LIMITS
 MAX_TOTAL_EXPOSURE = 1.00       # 100% total exposure (FULL EQUITY)
@@ -448,8 +448,8 @@ else:
 if DUAL_TIER_ENABLED:
     # Dual-tier system validation
     assert TIER1_POSITION_SIZE == 0.20, f"Tier 1 position size must be exactly 20%, got {TIER1_POSITION_SIZE*100}%"
-    assert TIER2_POSITION_SIZE == 0.10, f"Tier 2 position size must be exactly 10%, got {TIER2_POSITION_SIZE*100}%"
-    assert TIER3_POSITION_SIZE == 0.08, f"Tier 3 position size must be exactly 8%, got {TIER3_POSITION_SIZE*100}%"
+    assert TIER2_POSITION_SIZE == 0.15, f"Tier 2 position size must be exactly 15%, got {TIER2_POSITION_SIZE*100}%"
+    assert TIER3_POSITION_SIZE == 0.10, f"Tier 3 position size must be exactly 10%, got {TIER3_POSITION_SIZE*100}%"
     assert MAX_TOTAL_EXPOSURE == 1.00, f"Max total exposure must be 100% for aggressive strategy, got {MAX_TOTAL_EXPOSURE*100}%"
     assert TIER1_MAX_POSITIONS == 5, f"Tier 1 must allow 5 positions for 100% exposure, got {TIER1_MAX_POSITIONS}"
     
