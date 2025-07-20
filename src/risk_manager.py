@@ -118,8 +118,8 @@ class RiskManager:
             logging.error(f"Error in trade decision: {str(e)}")
             return False, f"Error: {str(e)}"
 
-    def can_open_position(self, pair=None, signal_strength=0.5, correlation_data=None):
-        """Enhanced position approval with quick mode considerations"""
+    def can_open_position(self, pair=None, signal_strength=0.5, correlation_data=None, entry_quality=None):
+        """Enhanced position approval with quick mode considerations and dual-tier sizing"""
         
         # Check if we're in quick profit mode
         is_quick_mode = getattr(config, 'QUICK_PROFIT_MODE', False)
@@ -167,33 +167,65 @@ class RiskManager:
         if not is_diversified and (self.recovery_mode or self.risk_level != "normal"):
             return False, "Avoiding correlated assets during elevated risk conditions"
             
-        # Calculate position size based on mode and risk level
-        position_size = self._calculate_position_size(signal_strength)
+        # Calculate position size based on mode, risk level, and entry quality (DUAL-TIER)
+        position_size = self._calculate_position_size(signal_strength, entry_quality=entry_quality)
         
         mode_info = "QUICK" if is_quick_mode else "NORMAL"
-        logging.info(f"{mode_info} MODE: Approved position for {pair} - Size: ${position_size:.2f}, Signal: {signal_strength:.2f}")
+        tier_info = f"Entry Quality: {entry_quality or 'SIGNAL-BASED'}"
+        logging.info(f"{mode_info} MODE: Approved position for {pair} - Size: ${position_size:.2f}, Signal: {signal_strength:.2f}, {tier_info}")
         
         return True, {
             "approved": True,
             "position_size": position_size,
             "risk_level": self.risk_level,
             "recovery_mode": self.recovery_mode,
-            "trading_mode": mode_info
+            "trading_mode": mode_info,
+            "entry_quality": entry_quality
         }
     
-    def _calculate_position_size(self, signal_strength, confidence=None, market_regime=None):
-        """Calculate position size based on STRICT 20% rule - NO LEVERAGE"""
+    def _calculate_position_size(self, signal_strength, confidence=None, market_regime=None, entry_quality=None):
+        """Calculate position size based on AGGRESSIVE DUAL-TIER system"""
         
-        # FIXED SIZE: Each position is exactly 20% of available cash (base equity)
-        # This prevents leverage and ensures bot only trades with available cash
-        base_percent = 0.20  # Fixed 20% per position
+        # 🚀 AGGRESSIVE DUAL-TIER POSITION SIZING
+        # Tier 1: 20% per trade (excellent signals)
+        # Tier 2: 10% per trade (good signals)  
+        # Tier 3: 8% per trade (fair signals)
+        
+        # Determine tier based on entry quality (from API or signal strength)
+        if entry_quality:
+            # Use API-provided entry quality
+            if entry_quality.lower() in ['excellent', 'ultra_selective']:
+                base_percent = config.TIER1_POSITION_SIZE  # 20%
+                tier_name = "TIER 1 (EXCELLENT)"
+            elif entry_quality.lower() in ['good', 'moderate']:
+                base_percent = config.TIER2_POSITION_SIZE  # 10%
+                tier_name = "TIER 2 (GOOD)"
+            elif entry_quality.lower() in ['fair', 'basic']:
+                base_percent = config.TIER3_POSITION_SIZE  # 8%
+                tier_name = "TIER 3 (FAIR)"
+            else:
+                # Fallback to Tier 3 for unknown quality
+                base_percent = config.TIER3_POSITION_SIZE  # 8%
+                tier_name = "TIER 3 (FALLBACK)"
+        else:
+            # Fallback: Use signal strength to determine tier
+            if signal_strength >= 80:
+                base_percent = config.TIER1_POSITION_SIZE  # 20%
+                tier_name = "TIER 1 (HIGH SIGNAL)"
+            elif signal_strength >= 65:
+                base_percent = config.TIER2_POSITION_SIZE  # 10%
+                tier_name = "TIER 2 (MEDIUM SIGNAL)"
+            else:
+                base_percent = config.TIER3_POSITION_SIZE  # 8%
+                tier_name = "TIER 3 (LOW SIGNAL)"
+        
+        # Calculate base position size
         base_size = self.total_equity * base_percent
         
-        # CRITICAL FIX: Apply drawdown protection multiplier (was missing!)
-        # If bot is in risk reduction mode, reduce position sizes accordingly
+        # Apply drawdown protection multiplier
         base_size = base_size * self.position_size_multiplier
         
-        logging.info(f"STRICT SIZING: Using 20% of base equity (${self.total_equity:.2f}) × {self.position_size_multiplier:.1f} multiplier = ${base_size:.2f} per position")
+        logging.info(f"AGGRESSIVE DUAL-TIER: {tier_name} - Using {base_percent*100:.0f}% of equity (${self.total_equity:.2f}) × {self.position_size_multiplier:.1f} multiplier = ${base_size:.2f}")
         
         # Apply confidence filter - reject if too low
         if confidence is not None:
@@ -210,11 +242,11 @@ class RiskManager:
             base_size = min_trade
             logging.info(f"Position size adjusted to minimum: ${base_size:.2f} (overriding multiplier for viability)")
             
-        # Ensure maximum position size doesn't exceed 20% of original equity (before multiplier)
-        max_position = self.total_equity * 0.20  # Strict 20% limit on original equity
+        # Ensure maximum position size doesn't exceed tier limits
+        max_position = self.total_equity * base_percent  # Respect tier limits
         if base_size > max_position:
             base_size = max_position
-            logging.info(f"Position size capped at 20% limit: ${base_size:.2f}")
+            logging.info(f"Position size capped at {tier_name} limit: ${base_size:.2f}")
             
         return base_size
     

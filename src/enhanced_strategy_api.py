@@ -16,11 +16,11 @@ class EnhancedSignalAPIClient:
         self.api_url = api_url or getattr(config, 'SIGNAL_API_URL', 'http://localhost:3001/api')
         self.api_key = api_key or getattr(config, 'SIGNAL_API_KEY', '')
         self.session = None
-        self.request_timeout = getattr(config, 'API_REQUEST_TIMEOUT', 15)
+        self.request_timeout = getattr(config, 'API_REQUEST_TIMEOUT', 10.0)  # Updated to use config timeout
         
-        # Rate limiting - 120 REQUESTS PER HOUR (1 request every 30 seconds)
+        # Rate limiting - TAAPI PRO: Much higher limits 
         self.last_request_time = 0
-        self.min_request_interval = getattr(config, 'API_MIN_INTERVAL', 30.0)  # 30 seconds = 120 requests per hour
+        self.min_request_interval = getattr(config, 'API_MIN_INTERVAL', 0.1)  # 0.1 seconds for pro plan
         
         # Cache for recent signals - SHORTER CACHE FOR MORE OPPORTUNITIES
         self.signal_cache = {}
@@ -43,8 +43,12 @@ class EnhancedSignalAPIClient:
         self.quality_filtered = 0
         
         logging.info(f"Enhanced Signal API Client initialized: {self.api_url}")
-        logging.info(f"Rate limiting: {self.min_request_interval}s interval, {self.cache_duration}s cache")
-        logging.info("Enhanced features: Taapi integration, Entry avoidance, Signal quality scoring")
+        logging.info(f"Taapi Pro plan: {self.min_request_interval}s interval, {self.cache_duration}s cache")
+        logging.info("Enhanced features: Taapi Pro integration, Entry avoidance, Signal quality scoring")
+        
+        # CLEAR OLD CACHE - Force fresh API calls after endpoint change
+        self.clear_cache()
+        logging.warning("CACHE CLEARED - All old signals purged, forcing fresh API calls")
     
     async def initialize(self):
         """Initialize the HTTP session and check API health"""
@@ -165,27 +169,20 @@ class EnhancedSignalAPIClient:
             Dictionary containing enhanced trading signal with Taapi analysis or None if failed
         """
         
-        # Check cache first
-        cache_key = f"{symbol}_{timeframe}_{analysis_depth}_{risk_level}_{use_taapi}_{avoid_bad_entries}"
-        cached_signal = self._get_cached_signal(cache_key)
-        if cached_signal:
-            self.cache_hits += 1
-            logging.info(f"Using cached enhanced signal for {symbol} (cache hit)")
-            return cached_signal
+        # CACHE INVALIDATED - Force fresh API calls after endpoint change
+        cache_key = f"v1_momentum_{symbol}_{timeframe}_{analysis_depth}_{risk_level}_{use_taapi}_{avoid_bad_entries}"
+        # TEMPORARY: Skip cache to force fresh API calls
+        logging.info(f"FORCING FRESH API CALL for {symbol} (cache bypassed after endpoint update)")
 
-        # Check if rate limiting would require a long wait
+        # Minimal rate limiting for Pro plan - no spam logging
         current_time = time.time()
         time_since_last = current_time - self.last_request_time
         
         if time_since_last < self.min_request_interval:
             wait_time = self.min_request_interval - time_since_last
-            if wait_time > 15:  # Don't wait more than 15 seconds
-                logging.warning(f"Rate limit requires {wait_time:.0f}s wait for {symbol}, returning cached or None")
-                # Try to return any cached signal, even if slightly expired
-                expired_cache = self._get_cached_signal(cache_key, allow_expired=True)
-                if expired_cache:
-                    logging.info(f"Using expired cached signal for {symbol} due to rate limiting")
-                    return expired_cache
+            if wait_time > 5:  # Pro plan: Don't wait more than 5 seconds
+                # NO CACHE FALLBACK - Force fresh API calls only
+                logging.warning(f"Rate limit wait too long ({wait_time:.1f}s) for {symbol}, skipping")
                 return None
 
         # Check API availability
@@ -218,12 +215,16 @@ class EnhancedSignalAPIClient:
             if wallet_address:
                 payload['wallet_address'] = wallet_address
             
-            # Make API request to ENHANCED endpoint
+            # Make API request to MOMENTUM endpoint  
             self.total_requests += 1
             start_time = time.time()
             
+            # LOG THE ACTUAL API CALL
+            api_endpoint = f"{self.api_url}/v1/momentum-signal"
+            logging.warning(f"MAKING FRESH API CALL: POST {api_endpoint} for {symbol}")
+            
             async with self.session.post(
-                f"{self.api_url}/v1/enhanced-signal",  # ← CHANGED FROM /v1/signal
+                api_endpoint,  # ← NEW MOMENTUM ENDPOINT
                 json=payload
             ) as response:
                 
@@ -232,13 +233,42 @@ class EnhancedSignalAPIClient:
                 if response.status == 200:
                     data = await response.json()
                     
-                    # Handle enhanced signal response format
-                    if data.get('success'):
-                        signal_data = data['data']
-                    elif 'signal' in data or 'confidence' in data:
+                    # API response received successfully
+                    # Handle DIRECT momentum signal response format (your API format)
+                    if 'signal' in data and 'confidence' in data:
+                        # Direct format - use as-is (your API returns this format)
                         signal_data = data
+                        logging.debug(f"Using direct API response format for {symbol}")
+                        
+                    elif data.get('success') and 'data' in data:
+                        # Nested format: extract from nested structure (YOUR API FORMAT)
+                        raw_data = data['data']
+                        
+                        # Extract confidence directly from raw_data (not from momentum_analysis)
+                        confidence = raw_data.get('confidence', 0)
+                        signal = raw_data.get('signal', 'HOLD').upper()
+                        
+                        signal_data = {
+                            'signal': signal,
+                            'confidence': confidence,  # This should now get the correct value
+                            'reasoning': raw_data.get('reasoning', f"API signal: {confidence}% confidence"),
+                            'entry_price': raw_data.get('entry_price'),
+                            'stop_loss': raw_data.get('stop_loss'),
+                            'take_profit_1': raw_data.get('take_profit_1'),
+                            'volume_confirmed': raw_data.get('volume_confirmed', False),
+                            'breakout_confirmed': raw_data.get('breakout_confirmed', False),
+                            'quality': raw_data.get('quality', 'unknown'),
+                            'strategy_type': raw_data.get('enhanced_by', 'Enhanced Strategy'),
+                            'metadata': raw_data.get('metadata', {}),
+                            'momentum_analysis': {},  # Keep for compatibility
+                            'market_data': {},
+                            'technical_indicators': {}
+                        }
+                        logging.debug(f"Using nested API response format for {symbol} - confidence: {confidence}%")
+                        
                     else:
                         logging.error(f"Enhanced API request failed: {data.get('error', 'Unknown response format')}")
+                        logging.error(f"Response data keys: {list(data.keys()) if isinstance(data, dict) else 'Not a dict'}")
                         self.failed_requests += 1
                         return None
                     
@@ -279,17 +309,26 @@ class EnhancedSignalAPIClient:
                         score = signal_data['signal_quality'].get('overall_score', 0)
                         quality_info = f", Quality: {grade} ({score})"
                     
-                    logging.info(f"Enhanced API signal received for {symbol}: "
+                    # Process the signal data
+                    confidence_pct = signal_data.get('confidence', 0)
+                    logging.warning(f"FRESH API RESPONSE for {symbol}: "
                                f"{signal_data.get('signal', 'UNKNOWN')} "
-                               f"(confidence: {signal_data.get('confidence', 0)}%"
+                               f"(confidence: {confidence_pct}%"
                                f"{taapi_info}{quality_info}, "
                                f"request_time: {request_time:.2f}s)")
+                    
+                    # HIGHLIGHT CONFIDENCE LEVEL
+                    if confidence_pct >= 70:
+                        logging.info(f"HIGH CONFIDENCE {confidence_pct}% for {symbol} - meets Danish Pure Mode threshold")
+                    elif confidence_pct > 0:
+                        logging.info(f"CONFIDENCE {confidence_pct}% for {symbol}")
+                    else:
+                        logging.warning(f"LOW/NO CONFIDENCE {confidence_pct}% for {symbol}")
                     
                     return signal_data
                     
                 elif response.status == 429:
-                    # Rate limited
-                    logging.warning("Enhanced API rate limit exceeded")
+                    # Rate limited - silent for pro plan 
                     self.failed_requests += 1
                     return None
                     
@@ -465,19 +504,24 @@ class EnhancedSignalAPIClient:
         for key in expired_keys:
             del self.signal_cache[key]
     
+    def clear_cache(self):
+        """Clear all cached signals - used after endpoint changes"""
+        cache_size = len(self.signal_cache)
+        self.signal_cache.clear()
+        logging.info(f"Cleared {cache_size} cached signals")
+    
     async def _enforce_rate_limit(self):
-        """Enforce minimum interval between API requests"""
+        """Minimal rate limiting for Pro plan - no spam logging"""
         current_time = time.time()
         time_since_last = current_time - self.last_request_time
         
         if time_since_last < self.min_request_interval:
             sleep_time = self.min_request_interval - time_since_last
-            # Don't sleep for more than 15 seconds to avoid timeouts
-            if sleep_time > 15:
-                logging.warning(f"Rate limit requires {sleep_time:.0f}s wait, skipping API request")
+            # Pro plan: Very short waits only
+            if sleep_time > 2:
                 raise asyncio.TimeoutError(f"Rate limit wait too long: {sleep_time:.0f}s")
             else:
-                logging.info(f"Rate limiting: waiting {sleep_time:.1f}s before enhanced API request")
+                # Silent wait for pro plan
                 await asyncio.sleep(sleep_time)
         
         self.last_request_time = time.time()
