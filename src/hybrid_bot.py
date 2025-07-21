@@ -22,7 +22,6 @@ from performance_tracker import PerformanceTracker
 from opportunity_scanner import OpportunityScanner
 from enhanced_strategy_api import EnhancedSignalAPIClient
 from market_phase_strategy import MarketPhaseStrategyHandler
-# APIEnhancedStrategy removed - using EnhancedStrategy for API-only mode
 import config
 
 
@@ -177,12 +176,18 @@ class HybridTradingBot:
         }
         
         # Initialize realized profit tracking for accurate ROI
-        self.realized_profits = 0.0  # Track only closed trades
+        self.realized_profits = 0.0
         self.total_trades_count = 0
         self.winning_trades_count = 0
         
+        # NEW: Enhanced profit tracking with 24-hour reinvestment delay
+        self.profit_history = []  # [{amount: float, timestamp: float, available_at: float}]
+        self.pending_profits = 0.0  # Profits not yet available for reinvestment
+        self.available_profits = 0.0  # Profits available for reinvestment (>24h old)
+        
         # Load existing profit data from database if available
         self._load_realized_profits_from_db()
+        self._load_profit_history_from_db()
         
         logging.info("Hybrid Trading Bot initialized - API-Only Mode")
         logging.info(f"TEST_MODE: {config.TEST_MODE}")
@@ -214,12 +219,8 @@ class HybridTradingBot:
         log_file = os.path.join(log_dir, f'hybrid_bot_{datetime.now().strftime("%Y%m%d_%H%M%S")}.log')
         
         logging.basicConfig(
-            level=logging.INFO,
-            format='%(asctime)s - %(levelname)s - %(message)s',
-            handlers=[
-                logging.FileHandler(log_file),
-                logging.StreamHandler()
-            ]
+            level=logging.DEBUG,  # Temporarily enable debug logging
+            format='%(asctime)s - %(levelname)s - %(message)s'
         )
         
         # Create separate trade signal logger
@@ -290,76 +291,75 @@ class HybridTradingBot:
                 return total
 
     async def get_real_time_equity(self):
-        """Get real-time equity including current position values and unrealized P&L"""
+        """Get real-time equity including current position values"""
         try:
-            # Start with base equity (cash + non-position assets)
-            if config.TEST_MODE:
-                # In test mode, base equity is always 1000.0
-                base_equity = 1000.0
-            else:
-                base_equity = self.get_total_equity()
+            # Get base equity from database
+            base_equity = self.get_total_equity()
             
-            if not self.active_positions:
-                return base_equity
+            # Get realized profits
+            realized_profits = getattr(self, 'realized_profits', 0.0)
             
-            # Calculate current value of all positions
+            # Calculate current position values and costs
             total_position_value = 0
+            total_position_cost = 0
             total_unrealized_pnl = 0
             
             for pair, position in self.active_positions.items():
                 try:
-                    # Get current price
                     current_price = await self.get_current_price(pair)
-                    if not current_price:
-                        logging.warning(f"Could not get current price for {pair}, using entry price")
-                        current_price = position['entry_price']
-                    
-                    # Calculate current position value
-                    current_value = position['quantity'] * current_price
-                    initial_value = position['quantity'] * position['entry_price']
-                    unrealized_pnl = current_value - initial_value
-                    
-                    total_position_value += current_value
-                    total_unrealized_pnl += unrealized_pnl
-                    
-                    logging.debug(f"{pair}: Current value ${current_value:.2f}, "
-                                f"Initial ${initial_value:.2f}, P&L ${unrealized_pnl:.2f}")
-                    
+                    if current_price:
+                        quantity = position['quantity']
+                        entry_price = position['entry_price']
+                        
+                        # Calculate current value and unrealized P&L
+                        current_value = quantity * current_price
+                        initial_value = quantity * entry_price
+                        unrealized_pnl = current_value - initial_value
+                        
+                        total_position_value += current_value
+                        total_position_cost += initial_value
+                        total_unrealized_pnl += unrealized_pnl
+                        
+                        logging.debug(f"{pair}: Current value ${current_value:.2f}, "
+                                   f"Initial cost ${initial_value:.2f}, P&L ${unrealized_pnl:+.2f}")
+                    else:
+                        # Fallback to entry price if current price unavailable
+                        fallback_value = position['quantity'] * position['entry_price']
+                        total_position_value += fallback_value
+                        total_position_cost += fallback_value
+                        
                 except Exception as e:
                     logging.error(f"Error calculating position value for {pair}: {str(e)}")
-                    # Fallback to entry price if current price unavailable
+                    # Use entry price as fallback
                     fallback_value = position['quantity'] * position['entry_price']
                     total_position_value += fallback_value
+                    total_position_cost += fallback_value
             
-            # Real-time equity calculation
+            # FIXED: Proper equity calculation
             if config.TEST_MODE:
-                # In test mode: base_equity ($1000) is the starting cash
-                # We need to subtract position costs from base equity and add current position values
-                position_costs = sum(pos.get('position_value', 0) for pos in self.active_positions.values())
-                available_cash = base_equity - position_costs
+                # In test mode: base_equity is starting cash, add realized profits
+                total_available = base_equity + realized_profits
+                available_cash = total_available - total_position_cost
                 real_time_equity = available_cash + total_position_value
+                
+                logging.info(f"Real-time equity: ${real_time_equity:.2f} "
+                           f"(Base: ${base_equity:.2f}, Realized: ${realized_profits:.2f}, "
+                           f"Available Cash: ${available_cash:.2f}, "
+                           f"Position Value: ${total_position_value:.2f}, "
+                           f"Unrealized P&L: ${total_unrealized_pnl:+.2f})")
             else:
                 # In live mode: base equity is account balance, add unrealized P&L
                 real_time_equity = base_equity + total_unrealized_pnl
-            
-            if config.TEST_MODE:
-                position_costs = sum(pos.get('position_value', 0) for pos in self.active_positions.values())
-                available_cash = base_equity - position_costs
                 logging.info(f"Real-time equity: ${real_time_equity:.2f} "
-                            f"(Base: ${base_equity:.2f}, Available Cash: ${available_cash:.2f}, "
-                            f"Position Value: ${total_position_value:.2f}, "
-                            f"Unrealized P&L: ${total_unrealized_pnl:+.2f})")
-            else:
-                logging.info(f"Real-time equity: ${real_time_equity:.2f} "
-                            f"(Base: ${base_equity:.2f}, Position Value: ${total_position_value:.2f}, "
-                            f"Unrealized P&L: ${total_unrealized_pnl:+.2f})")
+                           f"(Base: ${base_equity:.2f}, Position Value: ${total_position_value:.2f}, "
+                           f"Unrealized P&L: ${total_unrealized_pnl:+.2f})")
             
             return real_time_equity
             
         except Exception as e:
             logging.error(f"Error calculating real-time equity: {str(e)}")
-            # Fallback to base equity
-            return self.get_total_equity()
+            return base_equity
+
 
     async def update_equity_in_db(self, new_equity):
         """Update equity in database for test mode"""
@@ -370,7 +370,7 @@ class HybridTradingBot:
                     (new_equity, datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
                     commit=True
                 )
-                logging.debug(f"Updated equity in database: ${new_equity:.2f}")
+                logging.info(f"Updated database equity to ${new_equity:.2f}")
             except Exception as e:
                 logging.error(f"Error updating equity in database: {str(e)}")
 
@@ -923,9 +923,7 @@ class HybridTradingBot:
                                f"Positions: {actual_position_count}/{config.MAX_POSITIONS} | "
                                f"Unrealized: ${profit_summary['unrealized_pnl']:+.2f}")
                     
-                    # Additional position limit warning (less frequent)
-                    if actual_position_count >= 5:
-                        logging.warning(f"POSITION LIMIT REACHED: {actual_position_count}/5 positions - No new positions allowed")
+                    # Position limit warnings moved to position blocking logic only
                     
                     # Get high-priority opportunities from scanner
                     high_priority_pairs = []
@@ -974,13 +972,14 @@ class HybridTradingBot:
                         except Exception as e:
                             logging.error(f"Error in analysis tasks: {str(e)}")
                     
-                    # Check if we've reached daily goal
-                    if risk_status and risk_status.get('daily_roi', 0) >= config.TARGET_DAILY_ROI_MIN * 100:
-                        logging.info("Daily ROI target achieved! Securing profits...")
+                    # Check if we've reached daily goal - FIXED: Use realized profits only
+                    daily_roi_realized = self.calculate_daily_roi()  # This uses realized profits only
+                    if daily_roi_realized >= config.TARGET_DAILY_ROI_MIN * 100:
+                        logging.info(f"Daily ROI target achieved! {daily_roi_realized:.2f}% >= {config.TARGET_DAILY_ROI_MIN*100}% - Securing profits...")
                         await self.secure_profits()
                     
-                    # Log current daily ROI vs target
-                    logging.info(f"Current daily ROI: {risk_status.get('daily_roi', 0):.2f}% "
+                    # Log current daily ROI vs target - FIXED: Use consistent calculation
+                    logging.info(f"Current daily ROI: {daily_roi_realized:.2f}% "
                             f"(target: {config.TARGET_DAILY_ROI_MIN*100}% - {config.TARGET_DAILY_ROI_MAX*100}%)")
                     
                     # Log detailed profit summary every 10 cycles (approximately every 3-4 minutes)
@@ -991,9 +990,9 @@ class HybridTradingBot:
                     if self.trading_cycle_count % 10 == 0:  # Every 10 cycles
                         await self.log_profit_taken_summary()
                     
-                    # Calculate sleep time (AGGRESSIVE)
+                    # Calculate sleep time - FIXED: 5 second cycles for aggressive scanning
                     processing_time = time.time() - start_time
-                    sleep_time = max(10, 20 - processing_time)  # Run every 20 seconds for high-frequency
+                    sleep_time = max(1, 5 - processing_time)  # Run every 5 seconds (was 20)
                     await asyncio.sleep(sleep_time)
                     
                 except Exception as inner_e:
@@ -1016,8 +1015,8 @@ class HybridTradingBot:
                 except Exception as inner_e:
                     logging.error(f"Error in position monitoring cycle: {str(inner_e)}")
                 
-                # Wait before next check (30 seconds)
-                await asyncio.sleep(30)
+                # Wait before next check (5 seconds for faster monitoring)
+                await asyncio.sleep(5)
                 
         except Exception as e:
             logging.error(f"Error in position monitor task: {str(e)}")
@@ -1093,37 +1092,39 @@ class HybridTradingBot:
             # Get current market regime for enhanced position sizing
             market_regime = self.market_state.get('regime', 'NEUTRAL')
             
-            # Always use $1000 as base equity in test mode
-            if config.TEST_MODE:
-                base_equity = 1000.0
-            else:
-                base_equity = self.risk_manager.equity
+            # UPDATED: Use available equity (base + available profits, excluding pending profits)
+            available_equity = self.get_available_equity()
             
             # Use tier-based position sizing from analysis (ignore API position sizing)
             if analysis and 'position_size_pct' in analysis:
                 position_size_pct = analysis['position_size_pct'] / 100  # Convert from percentage
-                position_size = base_equity * position_size_pct
+                position_size = available_equity * position_size_pct
                 logging.info(f"Using tier position size: {analysis['position_size_pct']}% = ${position_size:.2f}")
+                # Apply dynamic adjustments based on signal strength for tier-based sizing
+                if signal_strength > 0.8:
+                    multiplier = 1.5  # 50% larger for very strong signals
+                elif signal_strength > 0.6:
+                    multiplier = 1.2  # 20% larger for strong signals  
+                elif signal_strength > 0.4:
+                    multiplier = 1.0  # Normal size
+                else:
+                    multiplier = 0.8  # 20% smaller for weak signals
+                adjusted_position_size = position_size * multiplier
             else:
-                # Fallback to config.POSITION_SIZE_FIXED (20%)
-                position_size = base_equity * config.POSITION_SIZE_FIXED
-                logging.info(f"Using fallback position size: 20% = ${position_size:.2f}")
+                # UPDATED: 20% of CURRENT AVAILABLE EQUITY - NO MULTIPLIERS
+                position_size_pct = 0.20  # Always 20% per position
+                adjusted_position_size = available_equity * position_size_pct
+                logging.info(f"Using FIXED 20% of available equity = ${adjusted_position_size:.2f} "
+                           f"(Available equity: ${available_equity:.2f})")
             
-            # Return 0 if confidence filtering rejected the signal
-            if position_size == 0:
+            # NEW: Check if we can afford this position
+            if not self.can_afford_new_position(adjusted_position_size):
+                logging.warning(f"Cannot afford position of ${adjusted_position_size:.2f} - insufficient available equity")
                 return 0, 0
             
-            # Apply dynamic adjustments based on signal strength
-            if signal_strength > 0.8:
-                multiplier = 1.5  # 50% larger for very strong signals
-            elif signal_strength > 0.6:
-                multiplier = 1.2  # 20% larger for strong signals  
-            elif signal_strength > 0.4:
-                multiplier = 1.0  # Normal size
-            else:
-                multiplier = 0.8  # 20% smaller for weak signals
-            
-            adjusted_position_size = position_size * multiplier
+            # Return 0 if confidence filtering rejected the signal
+            if adjusted_position_size == 0:
+                return 0, 0
             
             # CRITICAL: Ensure minimum notional value is met with buffer
             min_required = min_notional * 1.2
@@ -1232,31 +1233,19 @@ class HybridTradingBot:
                 logging.warning(f"Skipping {pair} - failed live trading safety validation")
                 return False
             
-            # ===== TIER SYSTEM: 20%, 15%, 10% (IGNORE API POSITION SIZE) =====
-            # Always use bot's tier system based on confidence (ignore API position sizing)
-            tier1_threshold = 0.80  # 80% for Tier 1 (Ultra-selective)
-            tier2_threshold = 0.65  # 65% for Tier 2 (Moderate)
-            tier3_threshold = 0.55  # 55% for Tier 3 (Conservative)
+            # ===== FIXED: ALWAYS 20% POSITION SIZE =====
+            # Use 20% for ALL trades regardless of confidence or tier
+            tier3_threshold = 0.55  # 55% minimum threshold to trade
             
-            # Determine tier based on API confidence
-            if confidence >= tier1_threshold:
-                tier = "TIER 1 (Ultra-selective)"
-                tier_number = 1
-                position_size_pct = 20  # 20% position size
-                logging.info(f"TIER 1 SIGNAL for {pair}: {signal_type} (API: {confidence:.1%} >= {tier1_threshold:.1%}) - 20% POSITION")
-            elif confidence >= tier2_threshold:
-                tier = "TIER 2 (Moderate)"
-                tier_number = 2
-                position_size_pct = 15  # 15% position size
-                logging.info(f"TIER 2 SIGNAL for {pair}: {signal_type} (API: {confidence:.1%} >= {tier2_threshold:.1%}) - 15% POSITION")
-            elif confidence >= tier3_threshold:
-                tier = "TIER 3 (Conservative)"
-                tier_number = 3
-                position_size_pct = 10  # 10% position size
-                logging.info(f"TIER 3 SIGNAL for {pair}: {signal_type} (API: {confidence:.1%} >= {tier3_threshold:.1%}) - 10% POSITION")
+            # Check if confidence meets minimum threshold
+            if confidence >= tier3_threshold:
+                tier = "FIXED 20% SIZE"
+                tier_number = 1  # All treated as tier 1
+                position_size_pct = 20  # ALWAYS 20% position size
+                logging.info(f"SIGNAL for {pair}: {signal_type} (API: {confidence:.1%} >= {tier3_threshold:.1%}) - FIXED 20% POSITION")
             else:
-                # Below Tier 3 threshold - no trade
-                logging.info(f"Ignoring {pair} signal - API confidence {confidence:.1%} below {tier3_threshold:.1%} Tier 3 threshold")
+                # Below minimum threshold - no trade
+                logging.info(f"Ignoring {pair} signal - API confidence {confidence:.1%} below {tier3_threshold:.1%} minimum threshold")
                 return False
             
             # Use API confidence directly
@@ -1277,7 +1266,7 @@ class HybridTradingBot:
                     'source': 'enhanced_api_signal',
                     'tier': tier_number,  # ADD: Tier number for logging
                     'tier_name': tier,    # ADD: Tier name for logging
-                    'position_size_pct': position_size_pct  # ADD: Position size for logging
+                    'position_size_pct': 20  # FIXED: Always 20% position size
                 }
                 
                 # Use market phase strategy handler
@@ -1625,10 +1614,17 @@ class HybridTradingBot:
             asset_score = analysis.get('asset_score', 3.0)
             api_reason = api_data.get('reasoning', 'technical_analysis')
             
-            # Log the enhanced trade setup
-            logging.info(f"ENHANCED BUY: {pair} - Qty: {quantity:.6f}, Value: ${position_value:.2f}, "
-                        f"API: {api_confidence:.1f}%, Blended: {blended_confidence:.1f}%, "
-                        f"Asset Score: {asset_score:.2f}, Reason: {api_reason}")
+            # Get portfolio composition for logging
+            current_assets_count = len(self.active_positions)
+            
+            # Enhanced buy logging with precise details
+            logging.info(f"BUY EXECUTED: {pair}")
+            logging.info(f"   Price: ${current_price:.6f} per {pair.replace('USDT', '')}")
+            logging.info(f"   Quantity: {quantity:.6f} {pair.replace('USDT', '')} tokens")
+            logging.info(f"   Total Cost: ${position_value:.2f}")
+            logging.info(f"   Portfolio: {current_assets_count + 1} different assets (adding {pair})")
+            logging.info(f"   Confidence: API {api_confidence:.1f}% | Blended {blended_confidence:.1f}% | Score {asset_score:.2f}")
+            logging.info(f"   Reason: {api_reason}")
             
             # Execute the order (test mode or live)
             if config.TEST_MODE:
@@ -1958,9 +1954,24 @@ class HybridTradingBot:
                 self.total_trades_count += 1
                 if profit_loss > 0:
                     self.winning_trades_count += 1
+                    # NEW: Record profit with 24-hour delay for reinvestment
+                    self._record_new_profit(profit_loss, pair)
                 
-                logging.info(f"Realized P&L: ${profit_loss:.2f} | Total Realized: ${self.realized_profits:.2f} | "
-                           f"Trade #{self.total_trades_count} | Win Rate: {(self.winning_trades_count/self.total_trades_count)*100:.1f}%")
+                # Enhanced sell logging with precise details
+                price_change_per_token = current_price - entry_price
+                total_entry_value = quantity * entry_price
+                total_exit_value = quantity * current_price
+                value_change = total_exit_value - total_entry_value
+                remaining_assets_count = len(self.active_positions) - 1  # -1 because we're about to remove this position
+                
+                logging.info(f"SELL EXECUTED: {pair}")
+                logging.info(f"   Entry Price: ${entry_price:.6f} -> Exit Price: ${current_price:.6f}")
+                logging.info(f"   Price Change: ${price_change_per_token:+.6f} per {pair.replace('USDT', '')} ({profit_percent:+.2f}%)")
+                logging.info(f"   Quantity Sold: {quantity:.6f} {pair.replace('USDT', '')} tokens")
+                logging.info(f"   Value: ${total_entry_value:.2f} -> ${total_exit_value:.2f} (Change: ${value_change:+.2f})")
+                logging.info(f"   Portfolio: {remaining_assets_count} assets remaining (removed {pair})")
+                logging.info(f"   P&L: ${profit_loss:+.2f} | Total Realized: ${self.realized_profits:.2f}")
+                logging.info(f"   Stats: Trade #{self.total_trades_count} | Win Rate: {(self.winning_trades_count/self.total_trades_count)*100:.1f}%")
                 
                 # Clean up trailing stops and take profit data
                 if pair in self.trailing_stops:
@@ -2054,8 +2065,10 @@ class HybridTradingBot:
                         self.total_trades_count += 1
                         if actual_profit_loss > 0:
                             self.winning_trades_count += 1
+                            # NEW: Record profit with 24-hour delay for reinvestment
+                            self._record_new_profit(actual_profit_loss, pair)
                         
-                        logging.info(f"💰 Realized P&L: ${actual_profit_loss:.2f} | Total Realized: ${self.realized_profits:.2f} | "
+                        logging.info(f"Realized P&L: ${actual_profit_loss:.2f} | Total Realized: ${self.realized_profits:.2f} | "
                                    f"Trade #{self.total_trades_count} | Win Rate: {(self.winning_trades_count/self.total_trades_count)*100:.1f}%")
                         
                         # Clean up trailing stops and take profit data
@@ -2157,114 +2170,113 @@ class HybridTradingBot:
             return 0
     
     async def monitor_positions(self):
-        """Monitor and manage open positions with enhanced logic"""
-        if not self.active_positions:
-            return
-        
+        """Monitor open positions for stop loss, take profit, and profit locks"""
         try:
             positions_to_close = []
             
             for pair, position in self.active_positions.items():
                 try:
-                    # Get current price
                     current_price = await self.get_current_price(pair)
                     if not current_price:
                         continue
                     
-                    # Calculate metrics
                     entry_price = position['entry_price']
-                    profit_loss = (current_price - entry_price) * position['quantity']
                     profit_percent = ((current_price - entry_price) / entry_price) * 100
-                    position_age_minutes = (time.time() - position['entry_time']) / 60
-                    
-                    # Get position info
-                    has_api_data = 'api_data' in position and position['api_data']
-                    is_momentum = position.get('momentum_trade', False)
                     
                     # Log position status
-                    position_type = "MOMENTUM" if is_momentum else "REGULAR"
-                    api_status = "API" if has_api_data else "No API"
+                    hold_time = (time.time() - position.get('entry_time', time.time())) / 60  # minutes
+                    logging.info(f"{pair} status: {profit_percent:+.1f}% after {hold_time:.0f}min [REGULAR] (API)")
                     
-                    logging.info(f"{pair} status: {profit_percent:+.1f}% after {position_age_minutes:.0f}min "
-                            f"[{position_type}] ({api_status})")
+                    # Check profit locks first (highest priority)
+                    await self._update_profit_locks(pair, profit_percent, positions_to_close)
                     
-                    # ===== CHANGE 3: USE NEW PROFIT TAKING LOGIC =====
-                    should_sell = await self.should_take_profit(pair, position, current_price)
-                    
-                    if should_sell:
-                        positions_to_close.append((pair, {"sell_signal": True, "signal_strength": 0.9}))
+                    # If profit lock triggered, skip other checks
+                    if any(p[0] == pair for p in positions_to_close):
                         continue
                     
-                    # Check dynamic stop loss based on asset type and market conditions
+                    # Check dynamic stop loss
                     dynamic_stop_loss = await self._calculate_dynamic_stop_loss(pair, entry_price)
                     if profit_percent <= dynamic_stop_loss:
                         logging.info(f"Dynamic stop loss triggered for {pair} at {profit_percent:.2f}% (threshold: {dynamic_stop_loss:.2f}%)")
                         positions_to_close.append((pair, {"sell_signal": True, "signal_strength": 0.95, "reason": "dynamic_stop_loss"}))
                         continue
                     
-                    # ===== CHANGE 4: UPDATE TRAILING STOPS =====
-                    if config.ENABLE_TRAILING_STOPS and pair in self.trailing_stops:
-                        trail_data = self.trailing_stops[pair]
-                        
-                        # Update highest price
-                        if current_price > trail_data['highest_price']:
-                            trail_data['highest_price'] = current_price
-                            # Update stop price
-                            trail_data['stop_price'] = current_price * (1 - trail_data['trailing_pct']/100)
-                            logging.debug(f"Updated trailing stop for {pair}: ${trail_data['stop_price']:.4f}")
-                        
-                        # Check if trailing stop hit
-                        if current_price <= trail_data['stop_price'] and current_price > trail_data['activation_price']:
-                            logging.info(f"Trailing stop hit for {pair} at {profit_percent:.2f}%")
-                            positions_to_close.append((pair, {"sell_signal": True, "signal_strength": 0.9}))
-                    
-                    # --- ENHANCED PROFIT LOCK MECHANISM (Every 0.5% with 0.07% fallback) ---
-                    await self._update_profit_locks(pair, profit_percent, positions_to_close)
+                    # Check take profit levels (if not using profit locks)
+                    if profit_percent >= 2.0:  # 2% take profit
+                        logging.info(f"Take profit triggered for {pair} at {profit_percent:.2f}%")
+                        positions_to_close.append((pair, {"sell_signal": True, "signal_strength": 0.9, "reason": "take_profit"}))
+                        continue
                     
                 except Exception as e:
                     logging.error(f"Error monitoring position {pair}: {str(e)}")
             
-            # Execute all closes
-            for pair, analysis in positions_to_close:
+            # Execute sells for positions that need to be closed
+            for pair, sell_data in positions_to_close:
                 try:
-                    await self.execute_sell(pair, analysis)
-                    # Remove lock after selling
-                    if pair in self.position_profit_locks:
-                        del self.position_profit_locks[pair]
+                    if sell_data.get('reason') == 'profit_lock_fallback':
+                        # Use special profit lock sell function
+                        await self._execute_profit_lock_sell(pair, sell_data['reason'])
+                    else:
+                        # Use regular sell function
+                        await self.execute_sell(pair, sell_data)
                 except Exception as e:
-                    logging.error(f"Error closing position {pair}: {str(e)}")
-            
+                    logging.error(f"Error executing sell for {pair}: {str(e)}")
+                    
         except Exception as e:
             logging.error(f"Error in position monitoring: {str(e)}")
 
     async def _update_profit_locks(self, pair: str, profit_percent: float, positions_to_close: list):
-        """Enhanced profit locking system - locks every 0.5% profit with 0.07% fallback"""
+        """Update profit locks with increment mechanism"""
         try:
-            # Get current lock data or initialize
-            lock_data = self.position_profit_locks.get(pair, {'locked_level': 0.0, 'fallback_threshold': 0.0})
+            # DEBUG: Log every call to see if function is being called
+            logging.debug(f"DEBUG: Checking profit locks for {pair} at {profit_percent:.1f}%")
             
-            # Calculate the current lock level (rounded down to nearest 0.5%)
-            if profit_percent >= 0.5:
-                new_lock_level = (profit_percent // 0.5) * 0.5
+            if pair not in self.position_profit_locks:
+                # Initialize profit lock for new position
+                self.position_profit_locks[pair] = {
+                    'locked_level': 0.0,
+                    'fallback_threshold': 0.0,
+                    'highest_reached': 0.0,
+                    'increment_levels': [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0]  # 0.5% increments
+                }
+                logging.info(f"INITIALIZED profit lock tracking for {pair}")
+            
+            lock_data = self.position_profit_locks[pair]
+            current_level = lock_data['locked_level']
+            highest_reached = lock_data['highest_reached']
+            
+            # Update highest reached level
+            if profit_percent > highest_reached:
+                lock_data['highest_reached'] = profit_percent
+                logging.debug(f"DEBUG: {pair} new high: {profit_percent:.1f}% (previous: {highest_reached:.1f}%)")
+            
+            # Check if we've hit a new increment level
+            new_lock_level = None
+            for level in lock_data['increment_levels']:
+                if profit_percent >= level and level > current_level:
+                    new_lock_level = level
+                    break
+            
+            if new_lock_level:
+                # Lock in profit at new level
+                lock_data['locked_level'] = new_lock_level
+                lock_data['fallback_threshold'] = new_lock_level - 0.1  # 0.1% buffer below locked level
                 
-                # If this is a new higher lock level
-                if new_lock_level > lock_data['locked_level']:
-                    # Set the new lock and calculate fallback threshold (0.07% below the lock)
-                    lock_data['locked_level'] = new_lock_level
-                    lock_data['fallback_threshold'] = new_lock_level - 0.07
-                    self.position_profit_locks[pair] = lock_data
-                    
-                    logging.info(f"PROFIT LOCKED: {pair} at {new_lock_level:.2f}% - fallback threshold: {lock_data['fallback_threshold']:.2f}%")
+                logging.info(f"INCREMENT LOCK: {pair} locked at {new_lock_level:.1f}% (profit: {profit_percent:.1f}%)")
+                logging.info(f"   Fallback threshold: {lock_data['fallback_threshold']:.1f}% - will sell if falls below this")
             
             # Check if we should trigger the fallback sell
             if lock_data['locked_level'] > 0 and profit_percent <= lock_data['fallback_threshold']:
-                logging.info(f"PROFIT LOCK TRIGGERED: {pair} fell below {lock_data['fallback_threshold']:.2f}% "
-                           f"(locked at {lock_data['locked_level']:.2f}%, now {profit_percent:.2f}%) - SELLING ALL")
+                logging.info(f"LOCK TRIGGERED: {pair} fell to {profit_percent:.1f}% (below {lock_data['fallback_threshold']:.1f}%)")
+                logging.info(f"   Locked level was {lock_data['locked_level']:.1f}% - SELLING 100%")
                 positions_to_close.append((pair, {
                     "sell_signal": True, 
-                    "signal_strength": 1.0, 
-                    "reason": f"profit_lock_fallback_{lock_data['locked_level']:.2f}%"
+                    "signal_strength": 0.95, 
+                    "reason": "profit_lock_fallback"
                 }))
+                
+                # Clear the lock data after selling
+                del self.position_profit_locks[pair]
                 
         except Exception as e:
             logging.error(f"Error updating profit locks for {pair}: {str(e)}")
@@ -2367,34 +2379,55 @@ class HybridTradingBot:
             return 0.0
 
     def get_profit_summary(self) -> dict:
-        """Get comprehensive profit summary including realized vs unrealized"""
+        """Get comprehensive profit summary"""
         try:
-            realized_roi = self.calculate_realized_roi()
+            # FIXED: Use consistent calculations
+            realized_profits = getattr(self, 'realized_profits', 0.0)
+            total_trades = getattr(self, 'total_trades_count', 0)
+            winning_trades = getattr(self, 'winning_trades_count', 0)
             
-            # Calculate unrealized P&L from current positions
+            # Calculate win rate
+            win_rate_pct = (winning_trades / total_trades * 100) if total_trades > 0 else 0.0
+            
+            # FIXED: Use same ROI calculation as calculate_daily_roi
+            base_equity = 1000.0 if config.TEST_MODE else self.risk_manager.equity
+            realized_roi_pct = (realized_profits / base_equity * 100) if base_equity > 0 else 0.0
+            
+            # Get unrealized P&L
             unrealized_pnl = 0.0
             for pair, position in self.active_positions.items():
                 try:
                     current_price = self.get_current_price_sync(pair)
                     if current_price:
-                        position_pnl = (current_price - position['entry_price']) * position['quantity']
-                        unrealized_pnl += position_pnl
-                except:
-                    pass
+                        quantity = position['quantity']
+                        entry_price = position['entry_price']
+                        current_value = quantity * current_price
+                        initial_value = quantity * entry_price
+                        unrealized_pnl += current_value - initial_value
+                except Exception as e:
+                    logging.error(f"Error calculating unrealized P&L for {pair}: {str(e)}")
             
             return {
-                'realized_profits': round(self.realized_profits, 2),
-                'realized_roi_pct': round(realized_roi, 2),
-                'total_trades': self.total_trades_count,
-                'winning_trades': self.winning_trades_count,
-                'win_rate_pct': round((self.winning_trades_count / self.total_trades_count * 100), 1) if self.total_trades_count > 0 else 0,
-                'unrealized_pnl': round(unrealized_pnl, 2),
-                'current_positions': len(self.active_positions)
+                'realized_profits': realized_profits,
+                'realized_roi_pct': realized_roi_pct,
+                'total_trades': total_trades,
+                'winning_trades': winning_trades,
+                'win_rate_pct': win_rate_pct,
+                'unrealized_pnl': unrealized_pnl,
+                'open_positions': len(self.active_positions)
             }
             
         except Exception as e:
-            logging.error(f"Error generating profit summary: {str(e)}")
-            return {}
+            logging.error(f"Error getting profit summary: {str(e)}")
+            return {
+                'realized_profits': 0.0,
+                'realized_roi_pct': 0.0,
+                'total_trades': 0,
+                'winning_trades': 0,
+                'win_rate_pct': 0.0,
+                'unrealized_pnl': 0.0,
+                'open_positions': 0
+            }
 
     def get_current_price_sync(self, pair: str) -> float:
         """Synchronous version of get_current_price for profit calculations"""
@@ -2420,7 +2453,7 @@ class HybridTradingBot:
                 f"Total Trades Completed: {profit_summary['total_trades']}",
                 f"Winning Trades: {profit_summary['winning_trades']}",
                 f"Win Rate: {profit_summary['win_rate_pct']:.1f}%",
-                f"Current Open Positions: {profit_summary['current_positions']}",
+                f"Current Open Positions: {profit_summary['open_positions']}",
                 f"Unrealized P&L: ${profit_summary['unrealized_pnl']:+.2f}",
                 "=" * 60
             ]
@@ -3149,9 +3182,11 @@ class HybridTradingBot:
             # Log for debugging
             logging.info(f"SYNC: Added position {pair}, Active: {len(self.active_positions)}, Risk Manager: {self.risk_manager.position_count}")
             
-            # Additional position limit warning
-            if len(self.active_positions) >= 5:
-                logging.warning(f"⚠️ POSITION LIMIT APPROACHING: {len(self.active_positions)}/5 positions - Consider closing some positions")
+            # Only warn when approaching limit, not every cycle
+            if len(self.active_positions) == 4:
+                logging.warning(f"POSITION LIMIT APPROACHING: {len(self.active_positions)}/5 positions - 1 more allowed")
+            elif len(self.active_positions) == 5:
+                logging.warning(f"POSITION LIMIT REACHED: {len(self.active_positions)}/5 positions - No new positions allowed")
             
         except Exception as e:
             # If any error occurs, ensure both systems stay consistent
@@ -3204,13 +3239,253 @@ class HybridTradingBot:
 
 
     def calculate_daily_roi(self):
-        # Always use $1000 as base in test mode
-        if config.TEST_MODE:
-            base = 1000.0
-        else:
-            base = self.initial_equity if hasattr(self, 'initial_equity') else 1000.0
-        current = self.get_total_equity()
-        return ((current - base) / base) * 100
+        """Calculate daily ROI based on realized profits"""
+        try:
+            # FIXED: Use consistent realized profits calculation
+            realized_profits = getattr(self, 'realized_profits', 0.0)
+            base_equity = 1000.0 if config.TEST_MODE else self.risk_manager.equity
+            
+            if base_equity > 0:
+                daily_roi = (realized_profits / base_equity) * 100
+                return daily_roi
+            else:
+                return 0.0
+        except Exception as e:
+            logging.error(f"Error calculating daily ROI: {str(e)}")
+            return 0.0
+
+    async def _execute_profit_lock_sell(self, pair: str, reason: str):
+        """Execute sell order when profit lock is triggered"""
+        try:
+            if pair not in self.active_positions:
+                logging.warning(f"Cannot sell {pair} - position not found")
+                return False
+            
+            position = self.active_positions[pair]
+            quantity = position['quantity']
+            
+            # Execute sell order
+            try:
+                order = self.binance_client.order_market_sell(
+                    symbol=pair,
+                    quantity=quantity
+                )
+                
+                if order and order.get('status') == 'FILLED':
+                    # Calculate realized profit
+                    entry_price = position['entry_price']
+                    exit_price = float(order['fills'][0]['price']) if order.get('fills') else entry_price
+                    profit_loss = (exit_price - entry_price) * quantity
+                    
+                    # Update realized profits
+                    self.realized_profits += profit_loss
+                    self.total_trades_count += 1
+                    if profit_loss > 0:
+                        self.winning_trades_count += 1
+                        # NEW: Record profit with 24-hour delay for reinvestment
+                        self._record_new_profit(profit_loss, pair)
+                    
+                    # Remove position from tracking
+                    self._remove_position_synchronized(pair)
+                    
+                    logging.info(f"PROFIT LOCK SELL EXECUTED: {pair} - {reason}")
+                    logging.info(f"Realized P&L: ${profit_loss:.2f} | Total Realized: ${self.realized_profits:.2f}")
+                    
+                    return True
+                else:
+                    logging.error(f"Failed to execute profit lock sell for {pair}: {order}")
+                    return False
+                    
+            except Exception as e:
+                logging.error(f"Error executing profit lock sell for {pair}: {str(e)}")
+                return False
+                
+        except Exception as e:
+            logging.error(f"Error in profit lock sell for {pair}: {str(e)}")
+            return False
+
+    def _load_profit_history_from_db(self):
+        """Load profit history with timestamps from database"""
+        try:
+            import json
+            conn = sqlite3.connect(self.db_manager.db_path)
+            cursor = conn.cursor()
+            
+            # Try to load profit history (create table if doesn't exist)
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS profit_history (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    profit_amount REAL NOT NULL,
+                    realized_timestamp REAL NOT NULL,
+                    available_timestamp REAL NOT NULL,
+                    pair TEXT,
+                    is_available INTEGER DEFAULT 0
+                )
+            ''')
+            
+            # Load existing profit history
+            cursor.execute('''
+                SELECT profit_amount, realized_timestamp, available_timestamp, is_available
+                FROM profit_history 
+                ORDER BY realized_timestamp ASC
+            ''')
+            
+            profits = cursor.fetchall()
+            conn.close()
+            
+            current_time = time.time()
+            pending_profits = 0.0
+            available_profits = 0.0
+            
+            for profit_amount, realized_time, available_time, is_available in profits:
+                profit_entry = {
+                    'amount': profit_amount,
+                    'timestamp': realized_time,
+                    'available_at': available_time
+                }
+                self.profit_history.append(profit_entry)
+                
+                # Check if profit is now available for reinvestment
+                if current_time >= available_time:
+                    available_profits += profit_amount
+                else:
+                    pending_profits += profit_amount
+            
+            self.pending_profits = pending_profits
+            self.available_profits = available_profits
+            
+            if self.profit_history:
+                logging.info(f"Loaded profit history: {len(self.profit_history)} entries, "
+                           f"${available_profits:.2f} available, ${pending_profits:.2f} pending")
+            
+        except Exception as e:
+            logging.warning(f"Could not load profit history: {str(e)} - starting fresh")
+            self.profit_history = []
+            self.pending_profits = 0.0
+            self.available_profits = 0.0
+
+    def _update_available_profits(self):
+        """Update available vs pending profits based on 24-hour rule"""
+        try:
+            current_time = time.time()
+            pending_profits = 0.0
+            available_profits = 0.0
+            
+            for profit_entry in self.profit_history:
+                if current_time >= profit_entry['available_at']:
+                    available_profits += profit_entry['amount']
+                else:
+                    pending_profits += profit_entry['amount']
+            
+            # Update tracking variables
+            old_available = self.available_profits
+            self.available_profits = available_profits
+            self.pending_profits = pending_profits
+            
+            # Log if new profits became available
+            if available_profits > old_available:
+                newly_available = available_profits - old_available
+                logging.info(f"NEW PROFITS AVAILABLE: ${newly_available:.2f} "
+                           f"(Total available: ${available_profits:.2f}, Pending: ${pending_profits:.2f})")
+            
+        except Exception as e:
+            logging.error(f"Error updating available profits: {str(e)}")
+
+    def get_available_equity(self):
+        """Get equity available for position sizing (base + available profits only)"""
+        try:
+            # Update profits availability first
+            self._update_available_profits()
+            
+            if config.TEST_MODE:
+                base_equity = 1000.0  # Initial test balance
+            else:
+                base_equity = self.get_total_equity()
+            
+            # Available equity = base + profits that are >24h old
+            available_equity = base_equity + self.available_profits
+            
+            logging.info(f"Available equity: ${available_equity:.2f} "
+                       f"(Base: ${base_equity:.2f}, Available profits: ${self.available_profits:.2f}, "
+                       f"Pending profits: ${self.pending_profits:.2f})")
+            
+            return available_equity
+            
+        except Exception as e:
+            logging.error(f"Error calculating available equity: {str(e)}")
+            return 1000.0 if config.TEST_MODE else self.get_total_equity()
+
+    def _record_new_profit(self, profit_amount, pair):
+        """Record new profit with 24-hour delay before availability"""
+        try:
+            current_time = time.time()
+            available_time = current_time + (24 * 3600)  # 24 hours from now
+            
+            profit_entry = {
+                'amount': profit_amount,
+                'timestamp': current_time,
+                'available_at': available_time
+            }
+            
+            self.profit_history.append(profit_entry)
+            self.pending_profits += profit_amount
+            
+            # Save to database
+            conn = sqlite3.connect(self.db_manager.db_path)
+            cursor = conn.cursor()
+            
+            cursor.execute('''
+                INSERT INTO profit_history 
+                (profit_amount, realized_timestamp, available_timestamp, pair, is_available)
+                VALUES (?, ?, ?, ?, ?)
+            ''', (profit_amount, current_time, available_time, pair, 0))
+            
+            conn.commit()
+            conn.close()
+            
+            # Log the profit with availability time
+            available_datetime = datetime.fromtimestamp(available_time).strftime('%Y-%m-%d %H:%M:%S')
+            logging.info(f"PROFIT RECORDED: ${profit_amount:.2f} from {pair} - "
+                       f"Available for reinvestment at {available_datetime} (24h delay)")
+            
+        except Exception as e:
+            logging.error(f"Error recording new profit: {str(e)}")
+
+    def get_current_position_cost(self):
+        """Calculate total cost of current open positions"""
+        try:
+            total_cost = 0.0
+            for pair, position in self.active_positions.items():
+                position_cost = position.get('position_value', 0)
+                total_cost += position_cost
+                
+            return total_cost
+            
+        except Exception as e:
+            logging.error(f"Error calculating position cost: {str(e)}")
+            return 0.0
+
+    def can_afford_new_position(self, position_size):
+        """Check if we have enough available equity for a new position"""
+        try:
+            available_equity = self.get_available_equity()
+            current_position_cost = self.get_current_position_cost()
+            
+            # Check if we have enough available cash
+            available_cash = available_equity - current_position_cost
+            
+            if available_cash >= position_size:
+                logging.info(f"CAN AFFORD: Position ${position_size:.2f} - "
+                           f"Available cash: ${available_cash:.2f}")
+                return True
+            else:
+                logging.warning(f"INSUFFICIENT FUNDS: Position ${position_size:.2f} needs "
+                              f"${position_size:.2f}, but only ${available_cash:.2f} available")
+                return False
+                
+        except Exception as e:
+            logging.error(f"Error checking affordability: {str(e)}")
+            return False
 
 
 
