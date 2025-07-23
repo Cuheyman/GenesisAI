@@ -219,13 +219,14 @@ class RiskManager:
                 base_percent = config.TIER3_POSITION_SIZE  # 8%
                 tier_name = "TIER 3 (LOW SIGNAL)"
         
-        # Calculate base position size
-        base_size = self.total_equity * base_percent
+        # CRITICAL FIX: Use initial equity for position sizing (no reinvestment of profits)
+        initial_equity = self.initial_equity
+        base_size = initial_equity * base_percent
         
         # Apply drawdown protection multiplier
         base_size = base_size * self.position_size_multiplier
         
-        logging.info(f"AGGRESSIVE DUAL-TIER: {tier_name} - Using {base_percent*100:.0f}% of equity (${self.total_equity:.2f}) × {self.position_size_multiplier:.1f} multiplier = ${base_size:.2f}")
+        logging.info(f"AGGRESSIVE DUAL-TIER: {tier_name} - Using {base_percent*100:.0f}% of initial equity (${initial_equity:.2f}) × {self.position_size_multiplier:.1f} multiplier = ${base_size:.2f}")
         
         # Apply confidence filter - reject if too low
         if confidence is not None:
@@ -243,7 +244,7 @@ class RiskManager:
             logging.info(f"Position size adjusted to minimum: ${base_size:.2f} (overriding multiplier for viability)")
             
         # Ensure maximum position size doesn't exceed tier limits
-        max_position = self.total_equity * base_percent  # Respect tier limits
+        max_position = initial_equity * base_percent  # Respect tier limits
         if base_size > max_position:
             base_size = max_position
             logging.info(f"Position size capped at {tier_name} limit: ${base_size:.2f}")

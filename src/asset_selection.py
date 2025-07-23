@@ -16,8 +16,9 @@ class DynamicAssetSelection:
         self.cache_expiry = {}
         self.excluded_pairs = set()  # Pairs to temporarily exclude
         self.performance_history = {}  # Track pair performance
+        self.recently_traded = {}
         
-    async def get_optimal_trading_pairs(self, max_pairs: int = 15) -> List[str]:
+    async def get_optimal_trading_pairs(self, max_pairs: int = 15, exclude_traded_pairs: set = None) -> List[str]:
         """
         FULLY DYNAMIC: Scan ALL available pairs and select best opportunities
         No hardcoded lists - pure market-driven selection
@@ -35,6 +36,14 @@ class DynamicAssetSelection:
             # Apply realistic baseline filters
             filtered_pairs = await self._apply_baseline_filters(all_pairs)
             logging.info(f"After baseline filtering: {len(filtered_pairs)} pairs remain")
+            
+            # CRITICAL FIX: Filter out already traded pairs
+            if exclude_traded_pairs:
+                original_count = len(filtered_pairs)
+                filtered_pairs = [pair for pair in filtered_pairs if pair not in exclude_traded_pairs]
+                excluded_count = original_count - len(filtered_pairs)
+                if excluded_count > 0:
+                    logging.info(f"Excluded {excluded_count} already traded pairs: {list(exclude_traded_pairs)[:5]}...")
             
             # SAFETY: Validate symbols for live trading safety
             if hasattr(self, 'validate_symbols') and self.validate_symbols:
@@ -60,13 +69,15 @@ class DynamicAssetSelection:
             
             # Log selection results
             logging.info(f"Selected {len(selected_pairs)} optimal pairs:")
-            for i, pair_data in enumerate(selected_pairs[:5]):
-                logging.info(f"  #{i+1}: {pair_data['symbol']} (Score: {pair_data['total_score']:.2f})")
+            for i, pair_data in enumerate(selected_pairs[:10]):  # Log top 10
+                logging.info(f"  {i+1}. {pair_data['symbol']} (Score: {pair_data['total_score']:.2f}, "
+                           f"Volume: ${pair_data['volume_usdt']:,.0f}, Change: {pair_data['price_change_pct']:+.2f}%)")
             
-            return [pair['symbol'] for pair in selected_pairs]
+            # Return just the symbols
+            return [pair_data['symbol'] for pair_data in selected_pairs]
             
         except Exception as e:
-            logging.error(f"Error in dynamic pair selection: {str(e)}")
+            logging.error(f"Error in dynamic asset selection: {str(e)}")
             return self._get_emergency_fallback()
     
     async def _get_all_usdt_pairs(self) -> List[str]:
@@ -388,6 +399,12 @@ class DynamicAssetSelection:
             logging.error(f"Error selecting diverse opportunities: {str(e)}")
             return scored_pairs[:max_pairs]
     
+    def mark_recently_traded(self, pair: str):
+        if not hasattr(self, 'recently_traded'):
+            self.recently_traded = {}
+        self.recently_traded[pair] = time.time()
+        logging.info(f"Marked {pair} as recently traded")
+    
     def _get_emergency_fallback(self) -> List[str]:
         """Emergency fallback to major pairs if all else fails"""
         return [
@@ -396,22 +413,22 @@ class DynamicAssetSelection:
         ]
     
     # Legacy methods for backward compatibility
-    async def get_available_pairs(self):
+    async def get_available_pairs(self, exclude_traded_pairs: set = None):
         """Legacy method - now redirects to dynamic selection"""
-        return await self.get_optimal_trading_pairs(max_pairs=20)
+        return await self.get_optimal_trading_pairs(max_pairs=20, exclude_traded_pairs=exclude_traded_pairs)
     
-    async def get_trending_cryptos(self, limit=10):
+    async def get_trending_cryptos(self, limit=10, exclude_traded_pairs: set = None):
         """Legacy method - now redirects to dynamic selection"""
-        pairs = await self.get_optimal_trading_pairs(max_pairs=limit)
+        pairs = await self.get_optimal_trading_pairs(max_pairs=limit, exclude_traded_pairs=exclude_traded_pairs)
         return pairs[:limit]
     
-    async def get_valid_symbols(self):
+    async def get_valid_symbols(self, exclude_traded_pairs: set = None):
         """Legacy method - now returns all viable pairs"""
-        return set(await self.get_optimal_trading_pairs(max_pairs=50))
+        return set(await self.get_optimal_trading_pairs(max_pairs=50, exclude_traded_pairs=exclude_traded_pairs))
     
-    async def select_optimal_assets(self, max_pairs: int = 15) -> List[str]:
+    async def select_optimal_assets(self, max_pairs: int = 15, exclude_traded_pairs: set = None) -> List[str]:
         """Legacy method - redirects to new dynamic selection"""
-        return await self.get_optimal_trading_pairs(max_pairs)
+        return await self.get_optimal_trading_pairs(max_pairs, exclude_traded_pairs)
 
 # For backward compatibility
 AssetSelection = DynamicAssetSelection

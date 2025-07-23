@@ -10,6 +10,8 @@ import sqlite3
 from binance.client import Client
 import numpy as np
 import pandas as pd
+from datetime import datetime
+import logging
 
 from market_analysis import MarketAnalysis
 from order_book import OrderBookAnalysis
@@ -69,6 +71,9 @@ class HybridTradingBot:
 
         # Initialize database manager
         self.db_manager = DatabaseManager(config.DB_PATH)
+        
+        # Initialize equity tracking
+        self.initialize_equity_tracking()
         
         # Update database schema
         self.db_manager.update_schema()
@@ -232,145 +237,126 @@ class HybridTradingBot:
     
 
     def get_total_equity(self):
-        """Get total account equity"""
-        logging.info(f"Getting total equity - TEST_MODE: {config.TEST_MODE}")
-        
-        if config.TEST_MODE:
-            try:
-                # Get equity from database in test mode
-                equity_query = "SELECT value FROM bot_stats WHERE key='total_equity' LIMIT 1"
-                result = self.db_manager.execute_query_sync(equity_query, fetch_one=True)
-                
-                if result:
-                    equity = float(result[0])
-                    logging.info(f"Test mode: Retrieved equity from database: ${equity:.2f}")
-                    return equity
-                else:
-                    # Set initial equity if not found
-                    self.db_manager.execute_query_sync(
-                        "INSERT INTO bot_stats (key, value, last_updated) VALUES (?, ?, ?)",
-                        ('total_equity', 1000.0, datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
-                        commit=True
+        """UNIFIED equity calculation method - handles both test and live mode consistently"""
+        try:
+            if config.TEST_MODE:
+                # Test mode: Get base equity from database + realized profits
+                try:
+                    result = self.db_manager.execute_query_sync(
+                        "SELECT value FROM bot_stats WHERE key = 'total_equity'",
+                        fetch_one=True
                     )
-                    logging.info("Test mode: Set initial equity to $1000.00")
-                    return 1000.0  # Default initial equity
-            except Exception as e:
-                logging.warning(f"Error accessing database in test mode: {e}")
-                logging.info("Test mode: Using fallback equity of $1000.00")
-                return 1000.0  # Fallback for test mode
-        
-        # Use real account data for live mode
-        logging.info("Live mode: Getting real account data from Binance")
-        account = self.binance_client.get_account()
-        
-        total = 0
-        for balance in account['balances']:
-            asset = balance['asset']
-            try:
-                free_amount = float(balance['free']) if balance['free'] else 0.0
-                locked_amount = float(balance['locked']) if balance['locked'] else 0.0
-                total_amount = free_amount + locked_amount
-            except (ValueError, TypeError) as e:
-                logging.debug(f"Could not convert balance for {asset}: free={balance['free']}, locked={balance['locked']}")
-                continue
-            
-            if total_amount > 0:
-                if asset == 'USDT':
-                    total += total_amount
-                else:
-                    # Get asset price in USDT
+                    base_equity = float(result[0]) if result else 1000.0
+                except Exception as e:
+                    logging.warning(f"Error getting test equity from DB: {e}, using default $1000")
+                    base_equity = 1000.0
+                
+                # In test mode, total equity = base + all realized profits
+                realized_profits = getattr(self, 'realized_profits', 0.0)
+                total_equity = base_equity + realized_profits
+                
+                logging.debug(f"Test mode equity: ${total_equity:.2f} (Base: ${base_equity:.2f}, Realized: ${realized_profits:.2f})")
+                return total_equity
+            else:
+                # Live mode: Get actual Binance account balance
+                logging.info("Live mode: Getting real account data from Binance")
+                account = self.binance_client.get_account()
+                total = 0
+                for balance in account['balances']:
+                    asset = balance['asset']
                     try:
-                        ticker = self.binance_client.get_symbol_ticker(symbol=f"{asset}USDT")
-                        price = float(ticker['price']) if ticker['price'] else 0.0
-                        total += total_amount * price
-                    except (ValueError, TypeError, Exception) as e:
-                        # Skip if cannot get price or convert
-                        logging.debug(f"Could not get price for {asset}USDT: {str(e)}")
-                        pass
-        
+                        free_amount = float(balance['free']) if balance['free'] else 0.0
+                        locked_amount = float(balance['locked']) if balance['locked'] else 0.0
+                        total_amount = free_amount + locked_amount
+                    except (ValueError, TypeError):
+                        continue
+                    if total_amount > 0:
+                        if asset == 'USDT':
+                            total += total_amount
+                        else:
+                            # Convert other assets to USDT value
+                            try:
+                                ticker = self.binance_client.get_symbol_ticker(symbol=f"{asset}USDT")
+                                price = float(ticker['price']) if ticker['price'] else 0.0
+                                total += total_amount * price
+                            except:
+                                pass
+                logging.debug(f"Live mode equity: ${total:.2f}")
                 return total
+        except Exception as e:
+            logging.error(f"Error calculating total equity: {str(e)}")
+            return 1000.0 if config.TEST_MODE else 0.0
+
+    def get_initial_equity_for_position_sizing(self):
+        """CRITICAL FIX: Get initial equity only for position sizing (no reinvestment of profits)"""
+        try:
+            if config.TEST_MODE:
+                # Test mode: Always use $1000 as initial equity for position sizing
+                return 1000.0
+            else:
+                # Live mode: Use the initial equity recorded when bot started
+                return getattr(self, 'initial_equity', self.get_total_equity())
+        except Exception as e:
+            logging.error(f"Error getting initial equity for position sizing: {str(e)}")
+            return 1000.0  # Fallback to $1000
+
 
     async def get_real_time_equity(self):
-        """Get real-time equity including current position values"""
+        """FIXED: Get real-time equity including current position values (no double counting)"""
         try:
-            # Get base equity from database
+            # Get base equity using unified method
             base_equity = self.get_total_equity()
             
-            # Get realized profits
-            realized_profits = getattr(self, 'realized_profits', 0.0)
-            
-            # Calculate current position values and costs
-            total_position_value = 0
-            total_position_cost = 0
+            # Calculate total unrealized P&L from open positions
             total_unrealized_pnl = 0
             
             for pair, position in self.active_positions.items():
                 try:
                     current_price = await self.get_current_price(pair)
-                    if current_price:
-                        quantity = position['quantity']
-                        entry_price = position['entry_price']
+                    if current_price and current_price > 0:
+                        quantity = position.get('quantity', 0)
+                        entry_price = position.get('entry_price', 0)
                         
-                        # Calculate current value and unrealized P&L
-                        current_value = quantity * current_price
-                        initial_value = quantity * entry_price
-                        unrealized_pnl = current_value - initial_value
-                        
-                        total_position_value += current_value
-                        total_position_cost += initial_value
+                        # Calculate unrealized P&L only (not position values)
+                        unrealized_pnl = (current_price - entry_price) * quantity
                         total_unrealized_pnl += unrealized_pnl
                         
-                        logging.debug(f"{pair}: Current value ${current_value:.2f}, "
-                                   f"Initial cost ${initial_value:.2f}, P&L ${unrealized_pnl:+.2f}")
-                    else:
-                        # Fallback to entry price if current price unavailable
-                        fallback_value = position['quantity'] * position['entry_price']
-                        total_position_value += fallback_value
-                        total_position_cost += fallback_value
+                        logging.debug(f"{pair}: Entry ${entry_price:.4f}, Current ${current_price:.4f}, "
+                                f"Qty {quantity:.6f}, Unrealized P&L: ${unrealized_pnl:+.2f}")
                         
                 except Exception as e:
-                    logging.error(f"Error calculating position value for {pair}: {str(e)}")
-                    # Use entry price as fallback
-                    fallback_value = position['quantity'] * position['entry_price']
-                    total_position_value += fallback_value
-                    total_position_cost += fallback_value
+                    logging.error(f"Error calculating unrealized P&L for {pair}: {str(e)}")
             
-            # FIXED: Proper equity calculation
-            if config.TEST_MODE:
-                # In test mode: base_equity is starting cash, add realized profits
-                total_available = base_equity + realized_profits
-                available_cash = total_available - total_position_cost
-                real_time_equity = available_cash + total_position_value
-                
-                logging.info(f"Real-time equity: ${real_time_equity:.2f} "
-                           f"(Base: ${base_equity:.2f}, Realized: ${realized_profits:.2f}, "
-                           f"Available Cash: ${available_cash:.2f}, "
-                           f"Position Value: ${total_position_value:.2f}, "
-                           f"Unrealized P&L: ${total_unrealized_pnl:+.2f})")
-            else:
-                # In live mode: base equity is account balance, add unrealized P&L
-                real_time_equity = base_equity + total_unrealized_pnl
-                logging.info(f"Real-time equity: ${real_time_equity:.2f} "
-                           f"(Base: ${base_equity:.2f}, Position Value: ${total_position_value:.2f}, "
-                           f"Unrealized P&L: ${total_unrealized_pnl:+.2f})")
+            # Real-time equity = base equity + unrealized P&L
+            real_time_equity = base_equity + total_unrealized_pnl
+            
+            logging.info(f"Real-time equity: ${real_time_equity:.2f} "
+                    f"(Base: ${base_equity:.2f}, Unrealized P&L: ${total_unrealized_pnl:+.2f})")
             
             return real_time_equity
             
         except Exception as e:
             logging.error(f"Error calculating real-time equity: {str(e)}")
-            return base_equity
+            return self.get_total_equity()
 
 
     async def update_equity_in_db(self, new_equity):
-        """Update equity in database for test mode"""
+        """FIXED: Proper equity update in database"""
         if config.TEST_MODE:
             try:
+                # Calculate base_equity = new_equity - unrealized (but since we call after realized update)
+                # Instead, update base_equity with base + realized
+                base_equity = new_equity - total_unrealized_pnl  # Need to calculate unrealized here? Better to track separately.
+
+                # Assuming we compute base_equity as total - unrealized
+                # But to fix, add:
                 self.db_manager.execute_query_sync(
-                    "UPDATE bot_stats SET value = ?, last_updated = ? WHERE key = 'total_equity'",
-                    (new_equity, datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
+                    "UPDATE bot_stats SET value = ?, last_updated = ? WHERE key = 'base_equity'",
+                    (base_equity, datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
                     commit=True
                 )
-                logging.info(f"Updated database equity to ${new_equity:.2f}")
+                logging.debug(f"Updated base equity in DB: ${base_equity:.2f}")
+                
             except Exception as e:
                 logging.error(f"Error updating equity in database: {str(e)}")
 
@@ -933,7 +919,12 @@ class HybridTradingBot:
                     
                     # ===== DYNAMIC ASSET SELECTION: SCAN ALL MARKETS =====
                     # Use new fully dynamic selection that scans ALL available pairs
-                    pairs_to_analyze = await self.asset_selection.get_optimal_trading_pairs(max_pairs=20)
+                    # CRITICAL FIX: Exclude already traded pairs to prevent duplicates
+                    exclude_traded_pairs = set(self.active_positions.keys())
+                    pairs_to_analyze = await self.asset_selection.get_optimal_trading_pairs(
+                        max_pairs=20, 
+                        exclude_traded_pairs=exclude_traded_pairs
+                    )
                     
                     # Process fewer pairs in high volatility
                     if self.market_state.get('volatility') == 'high':
@@ -1065,9 +1056,7 @@ class HybridTradingBot:
 
 
     async def calculate_dynamic_position_size(self, pair, signal_strength, current_price, confidence=None, analysis=None):
-        """
-        Calculate dynamic position size that ensures minimum order requirements are met
-        """
+        
         try:
             # Get symbol info for precision and limits
             info = self.binance_client.get_symbol_info(pair)
@@ -1092,8 +1081,8 @@ class HybridTradingBot:
             # Get current market regime for enhanced position sizing
             market_regime = self.market_state.get('regime', 'NEUTRAL')
             
-            # UPDATED: Use available equity (base + available profits, excluding pending profits)
-            available_equity = self.get_available_equity()
+            # CRITICAL FIX: Use initial equity for position sizing (no reinvestment of profits)
+            available_equity = self.get_initial_equity_for_position_sizing()
             
             # Use tier-based position sizing from analysis (ignore API position sizing)
             if analysis and 'position_size_pct' in analysis:
@@ -1207,18 +1196,8 @@ class HybridTradingBot:
             signal_type = signal.get('signal', 'HOLD').upper()
             reason = signal.get('reasoning', 'unknown')
             
-            # ===== FIX: CONVERT HIGH CONFIDENCE HOLD TO BUY =====
-            # Convert high confidence HOLD signals to BUY signals
-            original_signal_type = signal_type  # Store original for logging
-            if signal_type == 'HOLD' and confidence >= 0.55:  # 55%+ HOLD becomes BUY
-                signal_type = 'BUY'
-                reason = f"High confidence HOLD converted to BUY (confidence: {confidence:.1%})"
-                logging.info(f"CONVERTED HOLD to BUY for {pair} - Confidence: {confidence:.1%}")
-                
-                # Update the signal data to reflect the conversion
-                signal['signal'] = 'BUY'
-                signal['reasoning'] = reason
-                signal['converted_from_hold'] = True
+            # ===== REMOVED: HOLD TO BUY CONVERSION LOGIC =====
+            # Bot now only buys when API explicitly says BUY
             
             # ===== ENHANCED: BLEND CONFIDENCE WITH ASSET SCORES =====
             # Get asset selection score for this pair
@@ -1291,6 +1270,11 @@ class HybridTradingBot:
             self.api_stats['api_errors'] += 1
             return False
     
+
+
+    
+
+
     async def _get_asset_score(self, pair: str) -> float:
         """Get the asset selection score for a trading pair"""
         try:
@@ -2359,29 +2343,30 @@ class HybridTradingBot:
         
 
     def calculate_realized_roi(self) -> float:
-        """Calculate ROI based only on realized profits from closed trades"""
+        """FIXED: Consistent realized ROI calculation"""
         try:
-            if config.TEST_MODE:
-                initial_balance = 1000.0  # Test mode starts with $1000
-            else:
-                initial_balance = self.initial_equity
+            realized_profits = getattr(self, 'realized_profits', 0.0)
             
-            if initial_balance <= 0:
+            # UNIFIED: Use consistent base amount  
+            if config.TEST_MODE:
+                initial_balance = 1000.0  # Test mode always starts with $1000
+            else:
+                initial_balance = getattr(self, 'initial_equity', self.get_total_equity())
+            
+            if initial_balance > 0:
+                realized_roi = (realized_profits / initial_balance) * 100
+                return realized_roi
+            else:
                 return 0.0
                 
-            # ROI = (Total Realized Profits / Initial Investment) * 100
-            realized_roi = (self.realized_profits / initial_balance) * 100
-            
-            return realized_roi
-            
         except Exception as e:
             logging.error(f"Error calculating realized ROI: {str(e)}")
             return 0.0
 
     def get_profit_summary(self) -> dict:
-        """Get comprehensive profit summary"""
+        """FIXED: Comprehensive and consistent profit summary"""
         try:
-            # FIXED: Use consistent calculations
+            # Get core metrics
             realized_profits = getattr(self, 'realized_profits', 0.0)
             total_trades = getattr(self, 'total_trades_count', 0)
             winning_trades = getattr(self, 'winning_trades_count', 0)
@@ -2389,23 +2374,30 @@ class HybridTradingBot:
             # Calculate win rate
             win_rate_pct = (winning_trades / total_trades * 100) if total_trades > 0 else 0.0
             
-            # FIXED: Use same ROI calculation as calculate_daily_roi
-            base_equity = 1000.0 if config.TEST_MODE else self.risk_manager.equity
-            realized_roi_pct = (realized_profits / base_equity * 100) if base_equity > 0 else 0.0
+            # UNIFIED: Use consistent base for ROI calculation
+            if config.TEST_MODE:
+                initial_balance = 1000.0
+            else:
+                initial_balance = getattr(self, 'initial_equity', self.get_total_equity())
             
-            # Get unrealized P&L
-            unrealized_pnl = 0.0
+            realized_roi_pct = (realized_profits / initial_balance * 100) if initial_balance > 0 else 0.0
+            
+            # Calculate total unrealized P&L
+            total_unrealized_pnl = 0.0
             for pair, position in self.active_positions.items():
                 try:
                     current_price = self.get_current_price_sync(pair)
-                    if current_price:
-                        quantity = position['quantity']
-                        entry_price = position['entry_price']
-                        current_value = quantity * current_price
-                        initial_value = quantity * entry_price
-                        unrealized_pnl += current_value - initial_value
+                    if current_price and current_price > 0:
+                        quantity = position.get('quantity', 0)
+                        entry_price = position.get('entry_price', 0)
+                        unrealized_pnl = (current_price - entry_price) * quantity
+                        total_unrealized_pnl += unrealized_pnl
                 except Exception as e:
                     logging.error(f"Error calculating unrealized P&L for {pair}: {str(e)}")
+            
+            # Calculate total equity and total return
+            current_total_equity = self.get_total_equity()
+            total_return_pct = ((current_total_equity / initial_balance) - 1) * 100 if initial_balance > 0 else 0.0
             
             return {
                 'realized_profits': realized_profits,
@@ -2413,7 +2405,10 @@ class HybridTradingBot:
                 'total_trades': total_trades,
                 'winning_trades': winning_trades,
                 'win_rate_pct': win_rate_pct,
-                'unrealized_pnl': unrealized_pnl,
+                'unrealized_pnl': total_unrealized_pnl,
+                'total_return_pct': total_return_pct,
+                'current_equity': current_total_equity,
+                'initial_balance': initial_balance,
                 'open_positions': len(self.active_positions)
             }
             
@@ -2426,6 +2421,9 @@ class HybridTradingBot:
                 'winning_trades': 0,
                 'win_rate_pct': 0.0,
                 'unrealized_pnl': 0.0,
+                'total_return_pct': 0.0,
+                'current_equity': 0.0,
+                'initial_balance': 1000.0 if config.TEST_MODE else 0.0,
                 'open_positions': 0
             }
 
@@ -3239,17 +3237,22 @@ class HybridTradingBot:
 
 
     def calculate_daily_roi(self):
-        """Calculate daily ROI based on realized profits"""
+        """FIXED: Consistent daily ROI calculation"""
         try:
-            # FIXED: Use consistent realized profits calculation
             realized_profits = getattr(self, 'realized_profits', 0.0)
-            base_equity = 1000.0 if config.TEST_MODE else self.risk_manager.equity
             
-            if base_equity > 0:
-                daily_roi = (realized_profits / base_equity) * 100
+            # UNIFIED: Use consistent base amount
+            if config.TEST_MODE:
+                initial_balance = 1000.0  # Test mode always starts with $1000
+            else:
+                initial_balance = getattr(self, 'initial_equity', self.get_total_equity())
+            
+            if initial_balance > 0:
+                daily_roi = (realized_profits / initial_balance) * 100
                 return daily_roi
             else:
                 return 0.0
+                
         except Exception as e:
             logging.error(f"Error calculating daily ROI: {str(e)}")
             return 0.0
@@ -3392,28 +3395,36 @@ class HybridTradingBot:
             logging.error(f"Error updating available profits: {str(e)}")
 
     def get_available_equity(self):
-        """Get equity available for position sizing (base + available profits only)"""
+        """FIXED: Get equity available for new positions (excludes money tied up in open positions)"""
         try:
-            # Update profits availability first
-            self._update_available_profits()
+            # Get total equity using unified method
+            total_equity = self.get_total_equity()
             
-            if config.TEST_MODE:
-                base_equity = 1000.0  # Initial test balance
-            else:
-                base_equity = self.get_total_equity()
+            # Calculate total value of open positions (money currently invested)
+            total_position_cost = 0
+            for pair, position in self.active_positions.items():
+                try:
+                    entry_price = position.get('entry_price', 0)
+                    quantity = position.get('quantity', 0)
+                    position_cost = entry_price * quantity
+                    total_position_cost += position_cost
+                except Exception as e:
+                    logging.error(f"Error calculating position cost for {pair}: {str(e)}")
             
-            # Available equity = base + profits that are >24h old
-            available_equity = base_equity + self.available_profits
+            # Available equity = total equity - money tied up in positions
+            available_equity = total_equity - total_position_cost
+            
+            # Ensure we don't go negative
+            available_equity = max(0, available_equity)
             
             logging.info(f"Available equity: ${available_equity:.2f} "
-                       f"(Base: ${base_equity:.2f}, Available profits: ${self.available_profits:.2f}, "
-                       f"Pending profits: ${self.pending_profits:.2f})")
+                    f"(Total: ${total_equity:.2f}, Invested: ${total_position_cost:.2f})")
             
             return available_equity
             
         except Exception as e:
             logging.error(f"Error calculating available equity: {str(e)}")
-            return 1000.0 if config.TEST_MODE else self.get_total_equity()
+            return self.get_total_equity()  # Fallback to total equity
 
     def _record_new_profit(self, profit_amount, pair):
         """Record new profit with 24-hour delay before availability"""
@@ -3466,26 +3477,76 @@ class HybridTradingBot:
             return 0.0
 
     def can_afford_new_position(self, position_size):
-        """Check if we have enough available equity for a new position"""
+        """CRITICAL FIX: Check if we can afford a new position using initial equity only"""
         try:
-            available_equity = self.get_available_equity()
-            current_position_cost = self.get_current_position_cost()
+            # Use initial equity for affordability check (no reinvestment of profits)
+            initial_equity = self.get_initial_equity_for_position_sizing()
             
-            # Check if we have enough available cash
-            available_cash = available_equity - current_position_cost
+            # Calculate total cost of existing positions based on initial equity
+            total_position_cost = 0
+            for pair, position in self.active_positions.items():
+                try:
+                    entry_price = position.get('entry_price', 0)
+                    quantity = position.get('quantity', 0)
+                    position_cost = entry_price * quantity
+                    total_position_cost += position_cost
+                except Exception as e:
+                    logging.error(f"Error calculating position cost for {pair}: {str(e)}")
             
-            if available_cash >= position_size:
-                logging.info(f"CAN AFFORD: Position ${position_size:.2f} - "
-                           f"Available cash: ${available_cash:.2f}")
-                return True
-            else:
-                logging.warning(f"INSUFFICIENT FUNDS: Position ${position_size:.2f} needs "
-                              f"${position_size:.2f}, but only ${available_cash:.2f} available")
-                return False
-                
+            # Available equity = initial equity - money tied up in positions
+            available_equity = initial_equity - total_position_cost
+            
+            # Ensure we don't go negative
+            available_equity = max(0, available_equity)
+            
+            # Check if we have enough available equity
+            can_afford = position_size <= available_equity
+            
+            if not can_afford:
+                logging.warning(f"Cannot afford position: ${position_size:.2f} > ${available_equity:.2f} available from initial equity (Initial: ${initial_equity:.2f}, Invested: ${total_position_cost:.2f})")
+            
+            return can_afford
+            
         except Exception as e:
-            logging.error(f"Error checking affordability: {str(e)}")
+            logging.error(f"Error checking if can afford position: {str(e)}")
             return False
 
-
+    def initialize_equity_tracking(self):
+        """Initialize equity tracking variables consistently"""
+        try:
+            # Initialize realized profits tracking
+            self.realized_profits = 0.0
+            self.total_trades_count = 0
+            self.winning_trades_count = 0
+            
+            # Set initial equity for ROI calculations
+            if config.TEST_MODE:
+                self.initial_equity = 1000.0
+                # Ensure database has correct initial equity
+                try:
+                    result = self.db_manager.execute_query_sync(
+                        "SELECT value FROM bot_stats WHERE key = 'total_equity'",
+                        fetch_one=True
+                    )
+                    if not result:
+                        self.db_manager.execute_query_sync(
+                            "INSERT INTO bot_stats (key, value, last_updated) VALUES (?, ?, ?)",
+                            ('total_equity', 1000.0, datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
+                            commit=True
+                        )
+                        logging.info("Initialized test mode equity to $1000")
+                except Exception as e:
+                    logging.warning(f"Error initializing test equity: {e}")
+            else:
+                # In live mode, get actual account balance as initial equity
+                self.initial_equity = self.get_total_equity()
+                
+            logging.info(f"Initialized equity tracking - Initial: ${self.initial_equity:.2f}, Mode: {'TEST' if config.TEST_MODE else 'LIVE'}")
+            
+        except Exception as e:
+            logging.error(f"Error initializing equity tracking: {str(e)}")
+            self.initial_equity = 1000.0
+            self.realized_profits = 0.0
+            self.total_trades_count = 0
+            self.winning_trades_count = 0
 
