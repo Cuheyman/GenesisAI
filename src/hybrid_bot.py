@@ -132,6 +132,10 @@ class HybridTradingBot:
         # Initialize risk manager
         self.risk_manager = RiskManager(self.initial_equity)
         
+        # Initialize logging throttle to prevent duplicate messages
+        self.last_status_log = {}  # Track last status log time per pair
+        self.status_log_interval = 30  # Log status every 30 seconds per pair
+        
         # CRITICAL: Reset to normal trading mode (like successful bot)
         self.risk_manager.reset_to_normal_trading()
         
@@ -346,12 +350,22 @@ class HybridTradingBot:
         """FIXED: Proper equity update in database"""
         if config.TEST_MODE:
             try:
-                # Calculate base_equity = new_equity - unrealized (but since we call after realized update)
-                # Instead, update base_equity with base + realized
-                base_equity = new_equity - total_unrealized_pnl  # Need to calculate unrealized here? Better to track separately.
+                # Calculate unrealized P&L from current positions
+                total_unrealized_pnl = 0.0
+                for pair, position in self.active_positions.items():
+                    try:
+                        current_price = self.get_current_price_sync(pair)
+                        if current_price and current_price > 0:
+                            quantity = position.get('quantity', 0)
+                            entry_price = position.get('entry_price', 0)
+                            unrealized_pnl = (current_price - entry_price) * quantity
+                            total_unrealized_pnl += unrealized_pnl
+                    except Exception as e:
+                        logging.debug(f"Error calculating unrealized P&L for {pair}: {str(e)}")
+                
+                # Calculate base equity = new_equity - unrealized P&L
+                base_equity = new_equity - total_unrealized_pnl
 
-                # Assuming we compute base_equity as total - unrealized
-                # But to fix, add:
                 self.db_manager.execute_query_sync(
                     "UPDATE bot_stats SET value = ?, last_updated = ? WHERE key = 'base_equity'",
                     (base_equity, datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
@@ -1220,10 +1234,21 @@ class HybridTradingBot:
             
             # Check if confidence meets minimum threshold
             if confidence >= tier3_threshold:
-                tier = "FIXED 20% SIZE"
-                tier_number = 1  # All treated as tier 1
-                position_size_pct = 20  # ALWAYS 20% position size
-                logging.info(f"SIGNAL for {pair}: {signal_type} (API: {confidence:.1%} >= {tier3_threshold:.1%}) - FIXED 20% POSITION")
+                # Determine tier and position size based on confidence
+                if confidence >= 0.50:  # 50%+ confidence = Tier 1
+                    tier = "TIER 1 (15%)"
+                    tier_number = 1
+                    position_size_pct = config.TIER1_POSITION_SIZE * 100  # 15%
+                elif confidence >= 0.35:  # 35-49% confidence = Tier 2
+                    tier = "TIER 2 (12%)"
+                    tier_number = 2
+                    position_size_pct = config.TIER2_POSITION_SIZE * 100  # 12%
+                else:  # 25-34% confidence = Tier 3
+                    tier = "TIER 3 (8%)"
+                    tier_number = 3
+                    position_size_pct = config.TIER3_POSITION_SIZE * 100  # 8%
+                
+                logging.info(f"SIGNAL for {pair}: {signal_type} (API: {confidence:.1%} >= {tier3_threshold:.1%}) - {tier}")
             else:
                 # Below minimum threshold - no trade
                 logging.info(f"Ignoring {pair} signal - API confidence {confidence:.1%} below {tier3_threshold:.1%} minimum threshold")
@@ -1247,7 +1272,7 @@ class HybridTradingBot:
                     'source': 'enhanced_api_signal',
                     'tier': tier_number,  # ADD: Tier number for logging
                     'tier_name': tier,    # ADD: Tier name for logging
-                    'position_size_pct': 20  # FIXED: Always 20% position size
+                    'position_size_pct': position_size_pct  # TIER-BASED: 15%, 12%, or 8%
                 }
                 
                 # Use market phase strategy handler
@@ -1973,6 +1998,10 @@ class HybridTradingBot:
                 # Remove the position
                 del self.active_positions[pair]
                 
+                # Clean up logging throttle
+                if pair in self.last_status_log:
+                    del self.last_status_log[pair]
+                
                 # Update risk manager
                 self.risk_manager.remove_position(pair)
                 
@@ -2169,9 +2198,15 @@ class HybridTradingBot:
                     entry_price = position['entry_price']
                     profit_percent = ((current_price - entry_price) / entry_price) * 100
                     
-                    # Log position status
+                    # Log position status with throttle to prevent duplicates
                     hold_time = (time.time() - position.get('entry_time', time.time())) / 60  # minutes
-                    logging.info(f"{pair} status: {profit_percent:+.1f}% after {hold_time:.0f}min [REGULAR] (API)")
+                    current_time = time.time()
+                    
+                    # Only log if enough time has passed since last log for this pair
+                    if (pair not in self.last_status_log or 
+                        current_time - self.last_status_log[pair] >= self.status_log_interval):
+                        logging.info(f"{pair} status: {profit_percent:+.1f}% after {hold_time:.0f}min [REGULAR] (API)")
+                        self.last_status_log[pair] = current_time
                     
                     # Check profit locks first (highest priority)
                     await self._update_profit_locks(pair, profit_percent, positions_to_close)
@@ -3583,7 +3618,21 @@ class HybridTradingBot:
                             logging.info(f"Candidates found - Tier1: {t1}, Tier2: {t2}, Tier3: {t3}")
                             if t1 > 0:
                                 for c in candidates['tier1_candidates'][:3]:
-                                    logging.info(f"  {c['symbol']}: {c['confidence']:.1f}% conf, Vol: ${c['metrics']['volume_24h']/1e6:.1f}M, Mom: {c['metrics']['price_momentum_4h']:.2f}%")
+                                    # Handle different possible response formats
+                                    volume_info = ""
+                                    momentum_info = ""
+                                    
+                                    if 'metrics' in c and 'volume_24h' in c['metrics']:
+                                        volume_info = f"Vol: ${c['metrics']['volume_24h']/1e6:.1f}M"
+                                    elif 'volume_24h' in c:
+                                        volume_info = f"Vol: ${c['volume_24h']/1e6:.1f}M"
+                                    
+                                    if 'metrics' in c and 'price_momentum_4h' in c['metrics']:
+                                        momentum_info = f"Mom: {c['metrics']['price_momentum_4h']:.2f}%"
+                                    elif 'price_momentum_4h' in c:
+                                        momentum_info = f"Mom: {c['price_momentum_4h']:.2f}%"
+                                    
+                                    logging.info(f"  {c['symbol']}: {c['confidence']:.1f}% conf, {volume_info}, {momentum_info}")
                             return candidates
                         else:
                             logging.error(f"Guide endpoint returned success=false: {data}")
@@ -3638,10 +3687,32 @@ class HybridTradingBot:
                     logging.info(f"Skipping {symbol} - already have position")
                     continue
                 min_conf = getattr(config, f'TIER_GUIDE_MIN_CONFIDENCE_{tier_name.upper()}', 70 if tier==1 else 65 if tier==2 else 60)
-                logging.info(f"Processing {symbol} (Tier {tier}) - Pre-screen: {candidate['confidence']:.1f}%, Vol: ${candidate['metrics']['volume_24h']/1e6:.1f}M, Mom: {candidate['metrics']['price_momentum_4h']:.2f}%")
+                # Handle different possible response formats for logging
+                volume_info = ""
+                momentum_info = ""
+                
+                if 'metrics' in candidate and 'volume_24h' in candidate['metrics']:
+                    volume_info = f"Vol: ${candidate['metrics']['volume_24h']/1e6:.1f}M"
+                elif 'volume_24h' in candidate:
+                    volume_info = f"Vol: ${candidate['volume_24h']/1e6:.1f}M"
+                
+                if 'metrics' in candidate and 'price_momentum_4h' in candidate['metrics']:
+                    momentum_info = f"Mom: {candidate['metrics']['price_momentum_4h']:.2f}%"
+                elif 'price_momentum_4h' in candidate:
+                    momentum_info = f"Mom: {candidate['price_momentum_4h']:.2f}%"
+                
+                logging.info(f"Processing {symbol} (Tier {tier}) - Pre-screen: {candidate['confidence']:.1f}%, {volume_info}, {momentum_info}")
                 # Get detailed signal using your existing API client/strategy
                 signal = await self.strategy.get_api_signal(symbol, self.global_api_client)
                 if signal and signal.get('confidence', 0) >= min_conf:
+                    # Use tier-based position sizing
+                    if tier == 1:
+                        position_size_pct = config.TIER1_POSITION_SIZE * 100  # 15%
+                    elif tier == 2:
+                        position_size_pct = config.TIER2_POSITION_SIZE * 100  # 12%
+                    else:
+                        position_size_pct = config.TIER3_POSITION_SIZE * 100  # 8%
+                    
                     # Use your existing analyze_and_trade logic, but pass tier info
                     analysis = {
                         'buy_signal': True,
@@ -3652,7 +3723,7 @@ class HybridTradingBot:
                         'source': 'enhanced_api_signal',
                         'tier': tier,
                         'tier_name': tier_name,
-                        'position_size_pct': 20
+                        'position_size_pct': position_size_pct
                     }
                     success = await self.phase_strategy.execute_phase_strategy(symbol, analysis)
                     if success:

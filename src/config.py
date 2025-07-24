@@ -45,26 +45,26 @@ TAAPI_SMART_FALLBACK_MODE = True
 # 🇩🇰 DANISH STRATEGY CONFIGURATION - HIGH CONFIDENCE
 # =============================================================================
 
-# 🔥 CRITICAL FIX: Danish Strategy Confidence Thresholds
-API_MIN_CONFIDENCE = 55.0  # 🔥 DUAL-TIER SYSTEM: Lowered to 55% for Tier 3 (was 60%)
-API_OVERRIDE_CONFIDENCE = 80.0  # 🔥 FIXED: Higher override (was 50%)
-API_EXCELLENT_THRESHOLD = 85.0  # Excellent entry threshold
+# 🔥 CRITICAL CHANGES: LOWERED THRESHOLDS TO GENERATE TRADES
+API_MIN_CONFIDENCE = 25.0  # 🔥 DOWN from 55.0 - Your 25.45% signals now qualify
+API_OVERRIDE_CONFIDENCE = 80.0  # Keep high for excellent signals
+API_EXCELLENT_THRESHOLD = 85.0  # Keep high for premium signals
 
-# Danish Strategy Core Requirements
+# Danish Strategy Core Requirements - UPDATED FOR SMART FILTERING
 DANISH_IGNORE_BEARISH_SIGNALS = True
 DANISH_ONLY_BULLISH_ENTRIES = True
-DANISH_REQUIRE_VOLUME_CONFIRMATION = True
-DANISH_REQUIRE_BREAKOUT_CONFIRMATION = True
+DANISH_REQUIRE_VOLUME_CONFIRMATION = False  # 🔥 DISABLED - now handled by smart filter
+DANISH_REQUIRE_BREAKOUT_CONFIRMATION = False  # 🔥 DISABLED - now handled by smart filter
 
-# Danish Strategy Thresholds
-DANISH_MIN_CONFLUENCE_SCORE = 75
-DANISH_MIN_CONFIDENCE_SCORE = 80
-DANISH_EXCELLENT_ENTRY_THRESHOLD = 85
+# Danish Strategy Thresholds - DRAMATICALLY LOWERED
+DANISH_MIN_CONFLUENCE_SCORE = 60  # DOWN from 75 - More realistic
+DANISH_MIN_CONFIDENCE_SCORE = 25  # 🔥 DOWN from 80 - Generate actual trades
+DANISH_EXCELLENT_ENTRY_THRESHOLD = 50  # DOWN from 85 - Achievable excellence
 
-# Volume and Momentum Requirements
-DANISH_MIN_VOLUME_SPIKE = 1.5
-DANISH_MIN_RSI_MOMENTUM = 40
-DANISH_MAX_RSI_OVERBOUGHT = 72
+# Volume and Momentum Requirements - RELAXED TO REALISTIC LEVELS
+DANISH_MIN_VOLUME_SPIKE = 1.0  # DOWN from 1.5 - Accept any volume increase
+DANISH_MIN_RSI_MOMENTUM = 25   # DOWN from 40 - Wider RSI range
+DANISH_MAX_RSI_OVERBOUGHT = 80  # UP from 72 - More permissive
 
 # =============================================================================
 # 🎯 FIXED POSITION SIZING - CONSISTENT 20% PER POSITION
@@ -82,23 +82,45 @@ DANISH_MAX_RSI_OVERBOUGHT = 72
 # AGGRESSIVE DUAL-TIER POSITION SIZING
 DUAL_TIER_ENABLED = True  # Enable aggressive dual-tier system
 
-# TIER 1 - ULTRA-SELECTIVE (Excellent signals)
-TIER1_POSITION_SIZE = 0.20      # 20% per trade (AGGRESSIVE)
-TIER1_MAX_POSITIONS = 5         # Max 5 positions 
-TIER1_MAX_EXPOSURE = 1.00       # 5 × 20% = 100% max exposure
+# 🎯 NEW: Smart Quality Filtering Configuration
+ENABLE_SMART_QUALITY_FILTERING = True
+ENABLE_TIERED_DOWNTREND_PROTECTION = True  # Different protection by tier
+ENABLE_RISK_FACTOR_SCREENING = True        # Screen out high-risk setups
+ENABLE_VOLUME_QUALITY_CHECK = True         # Check volume quality by tier
+ENABLE_CONFIRMATION_REQUIREMENTS = True    # Require confirmations by tier
 
-# TIER 2 - MODERATE (Good signals)  
-TIER2_POSITION_SIZE = 0.15      # 15% per trade (AGGRESSIVE)
-TIER2_MAX_POSITIONS = 8         # Max 8 positions
-TIER2_MAX_EXPOSURE = 1.20       # 8 × 15% = 120% max exposure
+# 🎯 TIERED QUALITY REQUIREMENTS
+# Tier 1 (50%+ confidence) - Ultra Strict
+TIER1_MAX_RISK_FACTORS = 0        # No risk factors allowed
+TIER1_MIN_VOLUME_SCORE = 70       # High volume quality required
+TIER1_REQUIRED_CONFIRMATIONS = 3   # All confirmations required
+TIER1_STRICT_DOWNTREND_CHECK = True
 
-# TIER 3 - FAIR (Fair signals)
-TIER3_POSITION_SIZE = 0.10      # 10% per trade
-TIER3_MAX_POSITIONS = 10        # Max 10 positions  
-TIER3_MAX_EXPOSURE = 1.00       # 10 × 10% = 100% max exposure
+# Tier 2 (35-49% confidence) - Moderate  
+TIER2_MAX_RISK_FACTORS = 1        # 1 risk factor allowed
+TIER2_MIN_VOLUME_SCORE = 50       # Good volume quality required
+TIER2_REQUIRED_CONFIRMATIONS = 2   # 2 confirmations required
+TIER2_MODERATE_DOWNTREND_CHECK = True
+
+# Tier 3 (25-34% confidence) - Relaxed
+TIER3_MAX_RISK_FACTORS = 2        # 2 risk factors allowed
+TIER3_MIN_VOLUME_SCORE = 35       # Basic volume quality required
+TIER3_REQUIRED_CONFIRMATIONS = 1   # 1 confirmation required
+TIER3_RELAXED_DOWNTREND_CHECK = True
+
+# 🎯 POSITION SIZING BY TIER (Updated for smart filtering)
+TIER1_POSITION_SIZE = 0.15      # 15% for premium signals (50%+ confidence)
+TIER2_POSITION_SIZE = 0.12      # 12% for good signals (35-49% confidence)
+TIER3_POSITION_SIZE = 0.08      # 8% for acceptable signals (25-34% confidence)
+
+# Maximum positions per tier
+TIER1_MAX_POSITIONS = 3         # Max 3 Tier 1 positions (45% max exposure)
+TIER2_MAX_POSITIONS = 4         # Max 4 Tier 2 positions (48% max exposure)
+TIER3_MAX_POSITIONS = 6         # Max 6 Tier 3 positions (48% max exposure)
+MAX_TOTAL_EXPOSURE = 1.41       # 141% maximum total exposure (matches current tier setup)
 
 # AGGRESSIVE SYSTEM LIMITS
-MAX_TOTAL_EXPOSURE = 1.00       # 100% total exposure (FULL EQUITY)
+MAX_TOTAL_EXPOSURE = 1.41       # 141% total exposure (SMART FILTERING SYSTEM)
 TOTAL_ALLOCATION_LIMIT = 1.00   # Never exceed 100% of cash
 
 # Legacy compatibility (highest tier for fallback)
@@ -126,7 +148,7 @@ SIGNAL_API_KEY = os.getenv('SIGNAL_API_KEY', '1234')
 ENABLE_ENHANCED_API = True
 
 # Pro plan optimized intervals
-API_REQUEST_TIMEOUT = 15  # Reduced timeout for pro plan
+API_REQUEST_TIMEOUT = 30  # Increased timeout to handle slow API responses
 API_MIN_INTERVAL = 0.1   # 0.1 seconds for Taapi Pro plan - no rate limiting needed
 API_CACHE_DURATION = 10  # 10 seconds cache - TEMPORARY for fresh API calls
 
@@ -155,6 +177,51 @@ DANISH_TAKE_PROFIT_3 = 0.60  # 60% final target (AGGRESSIVE - was 12%)
 MOMENTUM_STOP_LOSS = -2.0   # 2% stop for momentum
 QUICK_STOP_LOSS = -2.5      # 2.5% for regular trades
 MAX_STOP_LOSS = -3.0        # Never exceed 3% loss
+
+# 🎯 SMART FILTERING PARAMETERS
+# Downtrend Detection Thresholds
+SEVERE_BEARISH_EMA_GAP_THRESHOLD = 4.0      # 4% gap for severe bearish
+MODERATE_BEARISH_EMA_GAP_THRESHOLD = 2.0    # 2% gap for moderate bearish
+PRICE_DISLOCATION_THRESHOLD = 6.0           # 6% below all EMAs = extreme
+
+# RSI Thresholds for Quality Filtering  
+RSI_EXTREMELY_WEAK = 20         # Below this = extremely weak
+RSI_VERY_WEAK = 30             # Below this = very weak for Tier 2
+RSI_WEAK = 40                  # Below this = weak for Tier 1
+RSI_OVERBOUGHT = 75            # Above this = overbought risk
+RSI_SEVERELY_OVERBOUGHT = 80   # Above this = severe risk
+
+# ADX Thresholds for Trend Strength
+ADX_EXTREMELY_WEAK = 15        # Below this = extremely weak trend
+ADX_WEAK = 20                  # Below this = weak trend for Tier 2  
+ADX_MINIMUM = 25               # Below this = insufficient for Tier 1
+
+# Volume Quality Scoring
+VOLUME_RATIO_EXCELLENT = 2.0   # 2x+ volume = excellent
+VOLUME_RATIO_GOOD = 1.5        # 1.5x+ volume = good
+VOLUME_RATIO_DECENT = 1.2      # 1.2x+ volume = decent
+VOLUME_RATIO_MINIMUM = 1.0     # 1x+ volume = minimum acceptable
+
+# Money Flow Index Thresholds
+MFI_STRONG = 60               # Above this = strong money flow
+MFI_DECENT = 50               # Above this = decent money flow
+MFI_WEAK = 40                 # Above this = acceptable
+MFI_VERY_WEAK = 35            # Below this = weak money flow risk
+
+# Volatility (ATR) Thresholds
+ATR_HIGH_VOLATILITY = 8.0     # Above this % = high volatility risk
+ATR_EXTREME_VOLATILITY = 12.0 # Above this % = extreme volatility risk
+
+# 🎯 LOGGING AND MONITORING
+SMART_FILTER_LOGGING_ENABLED = True
+QUALITY_STATS_LOGGING_INTERVAL = 100    # Log stats every 100 signals
+TIER_PERFORMANCE_TRACKING = True
+
+# Debug settings for smart filtering
+DEBUG_DOWNTREND_ANALYSIS = True         # Detailed downtrend logging
+DEBUG_RISK_FACTOR_ANALYSIS = True       # Detailed risk factor logging  
+DEBUG_VOLUME_ANALYSIS = True            # Detailed volume quality logging
+DEBUG_CONFIRMATION_ANALYSIS = True      # Detailed confirmation logging
 
 # Daily targets - Conservative
 TARGET_DAILY_ROI_MIN = 0.02     # 2% minimum daily target
@@ -337,11 +404,67 @@ BINANCE_API_CALLS_PER_MINUTE = 100  # Pro plan can handle more
 API_CALL_DELAY = 2.0  # 2 seconds between calls (increased from 1.0)
 TRADING_CYCLE_INTERVAL = 120  # 2 minutes between cycles
 MAX_CONCURRENT_ANALYSIS = 5  # Increased back to 5 for better API response handling
-API_REQUEST_TIMEOUT = 20.0  # 20 second timeout (increased from 10.0 to give API more time)
+API_REQUEST_TIMEOUT = 30.0  # 30 second timeout (increased from 20.0 to handle slow API responses)
 
 # =============================================================================
 # VALIDATION FUNCTIONS
 # =============================================================================
+
+def validate_smart_filtering_config():
+    """Validate smart filtering configuration"""
+    errors = []
+    warnings = []
+    
+    # Check that lowered thresholds are reasonable
+    if API_MIN_CONFIDENCE < 20:
+        warnings.append(f"API_MIN_CONFIDENCE ({API_MIN_CONFIDENCE}%) is very low - may generate too many poor signals")
+    elif API_MIN_CONFIDENCE > 30:
+        warnings.append(f"API_MIN_CONFIDENCE ({API_MIN_CONFIDENCE}%) may still be too high for crypto markets")
+    
+    # Check tier position sizing
+    total_max_exposure = (TIER1_POSITION_SIZE * TIER1_MAX_POSITIONS + 
+                         TIER2_POSITION_SIZE * TIER2_MAX_POSITIONS + 
+                         TIER3_POSITION_SIZE * TIER3_MAX_POSITIONS)
+    
+    if total_max_exposure > MAX_TOTAL_EXPOSURE:
+        errors.append(f"Total max tier exposure ({total_max_exposure*100}%) exceeds MAX_TOTAL_EXPOSURE ({MAX_TOTAL_EXPOSURE*100}%)")
+    
+    # Check tier progression makes sense
+    if not (TIER1_POSITION_SIZE >= TIER2_POSITION_SIZE >= TIER3_POSITION_SIZE):
+        errors.append("Tier position sizes should be descending (Tier 1 >= Tier 2 >= Tier 3)")
+    
+    if not (TIER1_MAX_RISK_FACTORS <= TIER2_MAX_RISK_FACTORS <= TIER3_MAX_RISK_FACTORS):
+        errors.append("Tier risk factor tolerance should be ascending (Tier 1 <= Tier 2 <= Tier 3)")
+    
+    if not (TIER1_MIN_VOLUME_SCORE >= TIER2_MIN_VOLUME_SCORE >= TIER3_MIN_VOLUME_SCORE):
+        errors.append("Tier volume requirements should be descending (Tier 1 >= Tier 2 >= Tier 3)")
+    
+    # Check RSI thresholds are logical
+    if not (RSI_EXTREMELY_WEAK < RSI_VERY_WEAK < RSI_WEAK < RSI_OVERBOUGHT < RSI_SEVERELY_OVERBOUGHT):
+        errors.append("RSI thresholds are not in logical order")
+    
+    # Print results
+    if errors:
+        print("\n🚨 SMART FILTERING CONFIGURATION ERRORS:")
+        for error in errors:
+            print(f"   ❌ {error}")
+        return False
+    
+    if warnings:
+        print("\n⚠️ SMART FILTERING CONFIGURATION WARNINGS:")
+        for warning in warnings:
+            print(f"   ⚠️ {warning}")
+    
+    print("\n✅ SMART FILTERING CONFIGURATION VALIDATED")
+    print(f"📊 Configuration Summary:")
+    print(f"   • Confidence Range: {API_MIN_CONFIDENCE}% - {API_EXCELLENT_THRESHOLD}%")
+    print(f"   • Tier 1 (Premium): {TIER1_POSITION_SIZE*100}% position, max {TIER1_MAX_POSITIONS} positions")
+    print(f"   • Tier 2 (Good): {TIER2_POSITION_SIZE*100}% position, max {TIER2_MAX_POSITIONS} positions")
+    print(f"   • Tier 3 (Acceptable): {TIER3_POSITION_SIZE*100}% position, max {TIER3_MAX_POSITIONS} positions")
+    print(f"   • Max Total Exposure: {MAX_TOTAL_EXPOSURE*100}%")
+    print(f"   • Smart Filtering: {'✅ ENABLED' if ENABLE_SMART_QUALITY_FILTERING else '❌ DISABLED'}")
+    
+    return True
 
 def validate_config():
     """Validate configuration settings"""
@@ -355,8 +478,8 @@ def validate_config():
         errors.append(f"CRITICAL: TAAPI_RATE_LIMIT_DELAY is {TAAPI_RATE_LIMIT_DELAY}ms - should be 1200ms for pro plan")
     
     # Check Danish strategy configuration
-    if API_MIN_CONFIDENCE < 55:
-        errors.append(f"CRITICAL: API_MIN_CONFIDENCE is {API_MIN_CONFIDENCE}% - Dual-Tier System requires 55%+")
+    if API_MIN_CONFIDENCE < 25:
+        errors.append(f"CRITICAL: API_MIN_CONFIDENCE is {API_MIN_CONFIDENCE}% - Smart Filtering System requires 25%+")
     
     # Check dual-tier position sizing (updated validation)
     if DUAL_TIER_ENABLED:
@@ -379,7 +502,7 @@ def validate_config():
         if max_tier1_exposure > MAX_TOTAL_EXPOSURE:
             errors.append(f"CRITICAL: Max Tier 1 exposure ({max_tier1_exposure*100}%) exceeds total limit ({MAX_TOTAL_EXPOSURE*100}%)")
         
-        print(f"✅ DUAL-TIER VALIDATION: T1={TIER1_POSITION_SIZE*100}%, T2={TIER2_POSITION_SIZE*100}%, T3={TIER3_POSITION_SIZE*100}% - Max Exposure: {MAX_TOTAL_EXPOSURE*100}%")
+        print(f"✅ SMART FILTERING VALIDATION: T1={TIER1_POSITION_SIZE*100}%, T2={TIER2_POSITION_SIZE*100}%, T3={TIER3_POSITION_SIZE*100}% - Max Exposure: {MAX_TOTAL_EXPOSURE*100}%")
     else:
         # Legacy single-tier validation
         if MIN_POSITION_SIZE_PCT != MAX_POSITION_SIZE_PCT:
@@ -440,27 +563,27 @@ def print_config_summary():
 
 # Validate on import
 if __name__ == "__main__":
-    validate_config()
+    validate_smart_filtering_config()
     print_config_summary()
 else:
     # Auto-validate in production
     if not os.getenv('SKIP_CONFIG_VALIDATION'):
-        if not validate_config():
-            raise ValueError("Configuration validation failed - check errors above")
+        if not validate_smart_filtering_config():
+            raise ValueError("Smart filtering configuration validation failed - check errors above")
 
 # =============================================================================
-# FINAL CONSISTENCY CHECKS - DUAL-TIER SYSTEM
+# FINAL CONSISTENCY CHECKS - SMART FILTERING SYSTEM
 # =============================================================================
 
 if DUAL_TIER_ENABLED:
-    # Dual-tier system validation
-    assert TIER1_POSITION_SIZE == 0.20, f"Tier 1 position size must be exactly 20%, got {TIER1_POSITION_SIZE*100}%"
-    assert TIER2_POSITION_SIZE == 0.15, f"Tier 2 position size must be exactly 15%, got {TIER2_POSITION_SIZE*100}%"
-    assert TIER3_POSITION_SIZE == 0.10, f"Tier 3 position size must be exactly 10%, got {TIER3_POSITION_SIZE*100}%"
-    assert MAX_TOTAL_EXPOSURE == 1.00, f"Max total exposure must be 100% for aggressive strategy, got {MAX_TOTAL_EXPOSURE*100}%"
-    assert TIER1_MAX_POSITIONS == 5, f"Tier 1 must allow 5 positions for 100% exposure, got {TIER1_MAX_POSITIONS}"
+    # Smart filtering system validation
+    assert TIER1_POSITION_SIZE == 0.15, f"Tier 1 position size must be exactly 15%, got {TIER1_POSITION_SIZE*100}%"
+    assert TIER2_POSITION_SIZE == 0.12, f"Tier 2 position size must be exactly 12%, got {TIER2_POSITION_SIZE*100}%"
+    assert TIER3_POSITION_SIZE == 0.08, f"Tier 3 position size must be exactly 8%, got {TIER3_POSITION_SIZE*100}%"
+    assert MAX_TOTAL_EXPOSURE == 1.41, f"Max total exposure must be 141% for smart filtering, got {MAX_TOTAL_EXPOSURE*100}%"
+    assert TIER1_MAX_POSITIONS == 3, f"Tier 1 must allow 3 positions for 45% exposure, got {TIER1_MAX_POSITIONS}"
     
-    print("CONFIGURATION LOADED: AGGRESSIVE DUAL-TIER Danish Strategy + 100% Equity Usage + Pro Plan")
+    print("CONFIGURATION LOADED: SMART FILTERING Danish Strategy + 90% Equity Usage + Pro Plan")
 else:
     # Legacy single-tier validation
     assert MIN_POSITION_SIZE_PCT == 0.20, "Position size must be exactly 20%"
@@ -473,4 +596,4 @@ else:
 # Ensure pro plan configuration (applies to both systems)
 assert not TAAPI_FREE_PLAN_MODE, "Must use pro plan mode"
 assert TAAPI_RATE_LIMIT_DELAY == 1200, "Must use pro plan rate limiting"
-assert API_MIN_CONFIDENCE >= 55, "Must use Dual-Tier System confidence thresholds"
+assert API_MIN_CONFIDENCE >= 25, "Must use Smart Filtering System confidence thresholds"

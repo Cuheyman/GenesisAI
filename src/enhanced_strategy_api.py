@@ -346,7 +346,8 @@ class EnhancedSignalAPIClient:
                     return None
                     
         except asyncio.TimeoutError:
-            logging.error(f"Enhanced API request timeout for {symbol}")
+            logging.error(f"Enhanced API request timeout for {symbol} (timeout: {self.request_timeout}s)")
+            logging.warning(f"API may be slow - consider increasing API_REQUEST_TIMEOUT in config.py")
             self.failed_requests += 1
             return None
             
