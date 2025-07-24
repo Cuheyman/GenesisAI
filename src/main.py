@@ -4,6 +4,7 @@ import os
 import sys
 from datetime import datetime
 from hybrid_bot import HybridTradingBot
+import config
 
 # Setup logging directory
 log_dir = 'logs'
@@ -26,9 +27,11 @@ if __name__ == "__main__":
     try:
         # Initialize the bot
         bot = HybridTradingBot()
-        
-        # Run the bot
-        asyncio.run(bot.run())
+        # Run the bot with mode selection
+        if getattr(config, "USE_TIERED_GUIDE_MODE", False):
+            asyncio.run(bot.tiered_trading_task())
+        else:
+            asyncio.run(bot.run())
     except KeyboardInterrupt:
         logging.info("Bot stopped by user")
     except Exception as e:

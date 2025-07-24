@@ -12,6 +12,8 @@ import numpy as np
 import pandas as pd
 from datetime import datetime
 import logging
+import aiohttp
+from typing import Optional, Dict
 
 from market_analysis import MarketAnalysis
 from order_book import OrderBookAnalysis
@@ -3549,4 +3551,139 @@ class HybridTradingBot:
             self.realized_profits = 0.0
             self.total_trades_count = 0
             self.winning_trades_count = 0
+
+    async def get_tier_candidate_assets(self) -> Optional[Dict]:
+        """Get assets recommended by the API guide with exact tier criteria"""
+        try:
+            api_url = getattr(config, 'SIGNAL_API_URL', None)
+            api_key = getattr(config, 'API_KEY', None)
+            min_volume = getattr(config, 'TIER_GUIDE_MIN_VOLUME', 5000000)
+            exclude_stablecoins = getattr(config, 'TIER_GUIDE_EXCLUDE_STABLECOINS', True)
+            if not api_url or not api_key:
+                logging.warning("Tier guide API URL or key not configured.")
+                return None
+            url = f"{api_url}/v1/tier-matched-assets"
+            params = {
+                'min_volume': min_volume,
+                'exclude_stablecoins': str(exclude_stablecoins).lower()
+            }
+            headers = {'Authorization': f'Bearer {api_key}'}
+            logging.info(f"Requesting {url} with headers: {headers}")
+            timeout = aiohttp.ClientTimeout(total=15)
+            async with aiohttp.ClientSession(headers=headers, timeout=timeout) as session:
+                async with session.get(url, params=params) as response:
+                    if response.status == 200:
+                        data = await response.json()
+                        if data.get('success'):
+                            candidates = data['candidates']
+                            logging.info(f"Tiered asset screening: {data.get('total_assets_screened', 0)}/{data.get('total_assets_available', 0)} assets, {data.get('processing_time_ms', 0)}ms")
+                            t1 = len(candidates.get('tier1_candidates', []))
+                            t2 = len(candidates.get('tier2_candidates', []))
+                            t3 = len(candidates.get('tier3_candidates', []))
+                            logging.info(f"Candidates found - Tier1: {t1}, Tier2: {t2}, Tier3: {t3}")
+                            if t1 > 0:
+                                for c in candidates['tier1_candidates'][:3]:
+                                    logging.info(f"  {c['symbol']}: {c['confidence']:.1f}% conf, Vol: ${c['metrics']['volume_24h']/1e6:.1f}M, Mom: {c['metrics']['price_momentum_4h']:.2f}%")
+                            return candidates
+                        else:
+                            logging.error(f"Guide endpoint returned success=false: {data}")
+                            return None
+                    else:
+                        logging.error(f"Guide endpoint returned status {response.status}")
+                        return None
+        except Exception as e:
+            logging.error(f"Error getting candidate assets: {e}", exc_info=True)
+            return None
+
+    async def process_tiered_candidates(self, candidates: Dict, available_slots: int):
+        """Process recommended assets with tier-based selection strategy"""
+        # Count positions by tier
+        tier_positions = {'tier1': 0, 'tier2': 0, 'tier3': 0}
+        for position in self.active_positions.values():
+            tier = position.get('tier', 'tier3')
+            tier_positions[tier] += 1
+        # Build priority list based on tier limits
+        priority_list = []
+        # Configurable limits
+        max_tier1 = getattr(config, 'TIER_GUIDE_MAX_TIER1', 2)
+        max_tier2 = getattr(config, 'TIER_GUIDE_MAX_TIER2', 1)
+        max_tier3 = getattr(config, 'TIER_GUIDE_MAX_TIER3', 0)
+        # Process Tier 1
+        t1 = candidates.get('tier1_candidates', [])
+        t1_avail = max_tier1 - tier_positions['tier1']
+        for c in t1[:t1_avail]:
+            priority_list.append({'tier': 1, 'tier_name': 'tier1', **c})
+        # Tier 2
+        if len(priority_list) < available_slots:
+            t2 = candidates.get('tier2_candidates', [])
+            t2_avail = max_tier2 - tier_positions['tier2']
+            for c in t2[:t2_avail]:
+                priority_list.append({'tier': 2, 'tier_name': 'tier2', **c})
+        # Tier 3
+        if len(priority_list) < available_slots and max_tier3 > 0:
+            t3 = candidates.get('tier3_candidates', [])
+            t3_avail = max_tier3 - tier_positions['tier3']
+            for c in t3[:t3_avail]:
+                priority_list.append({'tier': 3, 'tier_name': 'tier3', **c})
+        logging.info(f"Processing {len(priority_list)} candidates for {available_slots} slots")
+        positions_opened = 0
+        for candidate in priority_list:
+            if positions_opened >= available_slots:
+                break
+            try:
+                symbol = candidate['symbol']
+                tier = candidate['tier']
+                tier_name = candidate['tier_name']
+                if symbol in self.active_positions:
+                    logging.info(f"Skipping {symbol} - already have position")
+                    continue
+                min_conf = getattr(config, f'TIER_GUIDE_MIN_CONFIDENCE_{tier_name.upper()}', 70 if tier==1 else 65 if tier==2 else 60)
+                logging.info(f"Processing {symbol} (Tier {tier}) - Pre-screen: {candidate['confidence']:.1f}%, Vol: ${candidate['metrics']['volume_24h']/1e6:.1f}M, Mom: {candidate['metrics']['price_momentum_4h']:.2f}%")
+                # Get detailed signal using your existing API client/strategy
+                signal = await self.strategy.get_api_signal(symbol, self.global_api_client)
+                if signal and signal.get('confidence', 0) >= min_conf:
+                    # Use your existing analyze_and_trade logic, but pass tier info
+                    analysis = {
+                        'buy_signal': True,
+                        'signal_strength': signal.get('confidence', 0)/100,
+                        'confidence': signal.get('confidence', 0),
+                        'asset_score': candidate.get('score', 3.0),
+                        'api_data': signal,
+                        'source': 'enhanced_api_signal',
+                        'tier': tier,
+                        'tier_name': tier_name,
+                        'position_size_pct': 20
+                    }
+                    success = await self.phase_strategy.execute_phase_strategy(symbol, analysis)
+                    if success:
+                        positions_opened += 1
+                        logging.info(f"OPENED POSITION: {symbol} (Tier {tier}) - Confidence: {signal['confidence']}%, Entry: ${signal.get('entry_price', 0):.4f}, Positions: {positions_opened}/{available_slots}")
+                else:
+                    conf = signal.get('confidence', 0) if signal else 0
+                    logging.info(f"Skipping {symbol} - Final confidence {conf}% below tier minimum {min_conf}%")
+            except Exception as e:
+                logging.error(f"Error processing candidate {candidate.get('symbol', '?')}: {e}")
+                continue
+
+    async def tiered_trading_task(self):
+        """Trading task using tiered guide endpoint for asset selection"""
+        logging.info("Starting enhanced trading bot with hybrid tiered guide approach")
+        while True:
+            try:
+                candidates = await self.get_tier_candidate_assets()
+                if not candidates:
+                    logging.warning("No candidate assets returned from guide endpoint")
+                    await asyncio.sleep(60)
+                    continue
+                available_slots = config.MAX_POSITIONS - len(self.active_positions)
+                logging.info(f"Available position slots: {available_slots}")
+                if available_slots > 0:
+                    await self.process_tiered_candidates(candidates, available_slots)
+                else:
+                    logging.info("No available slots, managing existing positions")
+                    await self.position_monitor_task()
+                await asyncio.sleep(60)
+            except Exception as e:
+                logging.error(f"Tiered trading task error: {e}", exc_info=True)
+                await asyncio.sleep(30)
 

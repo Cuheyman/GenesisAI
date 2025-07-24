@@ -311,6 +311,13 @@ ORDERBOOK_WEIGHT = 0.25
 # LOGGING AND MONITORING
 # =============================================================================
 
+USE_TIERED_GUIDE_MODE = True
+SIGNAL_API_URL = 'http://localhost:3001/api'
+SIGNAL_API_KEY = '1234'
+API_KEY = '1234'
+
+
+
 LOG_LEVEL = 'INFO'
 ENABLE_TRADE_LOGGING = True
 ENABLE_PERFORMANCE_MONITORING = True
