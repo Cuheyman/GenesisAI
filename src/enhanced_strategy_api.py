@@ -169,10 +169,17 @@ class EnhancedSignalAPIClient:
             Dictionary containing enhanced trading signal with Taapi analysis or None if failed
         """
         
-        # CACHE INVALIDATED - Force fresh API calls after endpoint change
+        # 🔥 ENABLED: Use caching to reduce API load
         cache_key = f"v1_momentum_{symbol}_{timeframe}_{analysis_depth}_{risk_level}_{use_taapi}_{avoid_bad_entries}"
-        # TEMPORARY: Skip cache to force fresh API calls
-        logging.info(f"FORCING FRESH API CALL for {symbol} (cache bypassed after endpoint update)")
+        
+        # Check cache first (enabled to reduce API load)
+        cached_signal = self._get_cached_signal(cache_key)
+        if cached_signal:
+            self.cache_hits += 1
+            logging.info(f"Using cached signal for {symbol}: {cached_signal.get('signal', 'HOLD')} ({cached_signal.get('confidence', 0)}% confidence)")
+            return cached_signal
+        
+        logging.info(f"Making fresh API call for {symbol} (no cache hit)")
 
         # Minimal rate limiting for Pro plan - no spam logging
         current_time = time.time()
@@ -181,16 +188,46 @@ class EnhancedSignalAPIClient:
         if time_since_last < self.min_request_interval:
             wait_time = self.min_request_interval - time_since_last
             if wait_time > 5:  # Pro plan: Don't wait more than 5 seconds
-                # NO CACHE FALLBACK - Force fresh API calls only
-                logging.warning(f"Rate limit wait too long ({wait_time:.1f}s) for {symbol}, skipping")
-                return None
+                # Return fallback signal instead of None
+                logging.warning(f"Rate limit wait too long ({wait_time:.1f}s) for {symbol}, using fallback")
+                fallback_signal = {
+                    'signal': 'HOLD',
+                    'confidence': 25.0,
+                    'reasoning': f'Rate limit wait too long ({wait_time:.1f}s) - using fallback signal',
+                    'source': 'rate_limit_wait_fallback',
+                    'timestamp': time.time(),
+                    'symbol': symbol,
+                    'timeframe': timeframe,
+                    'risk_level': risk_level,
+                    'analysis_depth': analysis_depth,
+                    'use_taapi': use_taapi,
+                    'avoid_bad_entries': avoid_bad_entries,
+                    'include_reasoning': include_reasoning,
+                    'is_fallback': True
+                }
+                return fallback_signal
 
         # Check API availability
         if not self.api_available:
             await self.check_api_health()
             if not self.api_available:
-                logging.warning("API unavailable, cannot get trading signal")
-                return None
+                logging.warning("API unavailable, using fallback signal")
+                fallback_signal = {
+                    'signal': 'HOLD',
+                    'confidence': 25.0,
+                    'reasoning': 'API unavailable - using fallback signal',
+                    'source': 'api_unavailable_fallback',
+                    'timestamp': time.time(),
+                    'symbol': symbol,
+                    'timeframe': timeframe,
+                    'risk_level': risk_level,
+                    'analysis_depth': analysis_depth,
+                    'use_taapi': use_taapi,
+                    'avoid_bad_entries': avoid_bad_entries,
+                    'include_reasoning': include_reasoning,
+                    'is_fallback': True
+                }
+                return fallback_signal
 
         try:
             # Rate limiting (with reasonable timeout)
@@ -270,7 +307,24 @@ class EnhancedSignalAPIClient:
                         logging.error(f"Enhanced API request failed: {data.get('error', 'Unknown response format')}")
                         logging.error(f"Response data keys: {list(data.keys()) if isinstance(data, dict) else 'Not a dict'}")
                         self.failed_requests += 1
-                        return None
+                        
+                        # Return fallback signal instead of None
+                        fallback_signal = {
+                            'signal': 'HOLD',
+                            'confidence': 25.0,
+                            'reasoning': f'Unknown API response format - using fallback signal',
+                            'source': 'api_format_error_fallback',
+                            'timestamp': time.time(),
+                            'symbol': symbol,
+                            'timeframe': timeframe,
+                            'risk_level': risk_level,
+                            'analysis_depth': analysis_depth,
+                            'use_taapi': use_taapi,
+                            'avoid_bad_entries': avoid_bad_entries,
+                            'include_reasoning': include_reasoning,
+                            'is_fallback': True
+                        }
+                        return fallback_signal
                     
                     self.successful_requests += 1
                     
@@ -328,33 +382,120 @@ class EnhancedSignalAPIClient:
                     return signal_data
                     
                 elif response.status == 429:
-                    # Rate limited - silent for pro plan 
+                    # Rate limited - return fallback signal
+                    logging.warning(f"API rate limited for {symbol} - using fallback signal")
                     self.failed_requests += 1
-                    return None
+                    
+                    fallback_signal = {
+                        'signal': 'HOLD',
+                        'confidence': 25.0,
+                        'reasoning': 'API rate limited - using fallback signal',
+                        'source': 'api_rate_limit_fallback',
+                        'timestamp': time.time(),
+                        'symbol': symbol,
+                        'timeframe': timeframe,
+                        'risk_level': risk_level,
+                        'analysis_depth': analysis_depth,
+                        'use_taapi': use_taapi,
+                        'avoid_bad_entries': avoid_bad_entries,
+                        'include_reasoning': include_reasoning,
+                        'is_fallback': True
+                    }
+                    return fallback_signal
                     
                 elif response.status == 401:
                     # Authentication failed
                     logging.error("Enhanced API authentication failed - check API key")
                     self.api_available = False
                     self.failed_requests += 1
-                    return None
+                    
+                    fallback_signal = {
+                        'signal': 'HOLD',
+                        'confidence': 25.0,
+                        'reasoning': 'API authentication failed - using fallback signal',
+                        'source': 'api_auth_fallback',
+                        'timestamp': time.time(),
+                        'symbol': symbol,
+                        'timeframe': timeframe,
+                        'risk_level': risk_level,
+                        'analysis_depth': analysis_depth,
+                        'use_taapi': use_taapi,
+                        'avoid_bad_entries': avoid_bad_entries,
+                        'include_reasoning': include_reasoning,
+                        'is_fallback': True
+                    }
+                    return fallback_signal
                     
                 else:
                     error_text = await response.text()
                     logging.error(f"Enhanced API request failed with status {response.status}: {error_text}")
                     self.failed_requests += 1
-                    return None
+                    
+                    fallback_signal = {
+                        'signal': 'HOLD',
+                        'confidence': 25.0,
+                        'reasoning': f'API error {response.status}: {error_text[:100]} - using fallback signal',
+                        'source': 'api_http_error_fallback',
+                        'timestamp': time.time(),
+                        'symbol': symbol,
+                        'timeframe': timeframe,
+                        'risk_level': risk_level,
+                        'analysis_depth': analysis_depth,
+                        'use_taapi': use_taapi,
+                        'avoid_bad_entries': avoid_bad_entries,
+                        'include_reasoning': include_reasoning,
+                        'is_fallback': True
+                    }
+                    return fallback_signal
                     
         except asyncio.TimeoutError:
             logging.error(f"Enhanced API request timeout for {symbol} (timeout: {self.request_timeout}s)")
             logging.warning(f"API may be slow - consider increasing API_REQUEST_TIMEOUT in config.py")
             self.failed_requests += 1
-            return None
+            
+            # 🔥 IMPROVED: Return a fallback signal instead of None to prevent 0% confidence
+            fallback_signal = {
+                'signal': 'HOLD',
+                'confidence': 25.0,  # Minimum confidence to pass tier checks
+                'reasoning': f'API timeout after {self.request_timeout}s - using fallback signal',
+                'source': 'api_timeout_fallback',
+                'timestamp': time.time(),
+                'symbol': symbol,
+                'timeframe': timeframe,
+                'risk_level': risk_level,
+                'analysis_depth': analysis_depth,
+                'use_taapi': use_taapi,
+                'avoid_bad_entries': avoid_bad_entries,
+                'include_reasoning': include_reasoning,
+                'is_fallback': True  # Mark as fallback signal
+            }
+            
+            logging.info(f"Returning fallback signal for {symbol}: HOLD (25% confidence) due to API timeout")
+            return fallback_signal
             
         except Exception as e:
             logging.error(f"Enhanced API request error for {symbol}: {str(e)}")
             self.failed_requests += 1
-            return None
+            
+            # 🔥 IMPROVED: Return a fallback signal instead of None to prevent 0% confidence
+            fallback_signal = {
+                'signal': 'HOLD',
+                'confidence': 25.0,  # Minimum confidence to pass tier checks
+                'reasoning': f'API error: {str(e)} - using fallback signal',
+                'source': 'api_error_fallback',
+                'timestamp': time.time(),
+                'symbol': symbol,
+                'timeframe': timeframe,
+                'risk_level': risk_level,
+                'analysis_depth': analysis_depth,
+                'use_taapi': use_taapi,
+                'avoid_bad_entries': avoid_bad_entries,
+                'include_reasoning': include_reasoning,
+                'is_fallback': True  # Mark as fallback signal
+            }
+            
+            logging.info(f"Returning fallback signal for {symbol}: HOLD (25% confidence) due to API error")
+            return fallback_signal
 
     def _log_enhanced_features(self, symbol: str, signal_data: Dict[str, Any]):
         """Log enhanced features from the signal"""

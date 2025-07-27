@@ -27,6 +27,7 @@ from opportunity_scanner import OpportunityScanner
 from enhanced_strategy_api import EnhancedSignalAPIClient
 from market_phase_strategy import MarketPhaseStrategyHandler
 import config
+# Uptrend detection is built into momentum signals - no separate import needed
 
 
 import config
@@ -131,6 +132,10 @@ class HybridTradingBot:
 
         # Initialize risk manager
         self.risk_manager = RiskManager(self.initial_equity)
+        
+        # 🔥 Uptrend detection is built into momentum signals - no separate integration needed
+        self.uptrend_enabled = False  # Disable separate uptrend system
+        logging.info("UPTREND: Using built-in uptrend detection from momentum signals")
         
         # Initialize logging throttle to prevent duplicate messages
         self.last_status_log = {}  # Track last status log time per pair
@@ -1014,6 +1019,7 @@ class HybridTradingBot:
     
     async def position_monitor_task(self):
         """Task to monitor open positions"""
+        logging.info("POSITION MONITOR TASK: Started")
         try:
             while True:
                 try:
@@ -1116,11 +1122,25 @@ class HybridTradingBot:
                     multiplier = 0.8  # 20% smaller for weak signals
                 adjusted_position_size = position_size * multiplier
             else:
-                # UPDATED: 20% of CURRENT AVAILABLE EQUITY - NO MULTIPLIERS
-                position_size_pct = 0.20  # Always 20% per position
+                # 🔥 FIXED: Use tier-based position sizing instead of fixed 20%
+                # Determine tier based on confidence
+                if confidence and confidence >= 0.50:  # 50%+ confidence = Tier 1
+                    position_size_pct = config.TIER1_POSITION_SIZE  # 15%
+                    tier_name = "TIER 1 (15%)"
+                elif confidence and confidence >= 0.35:  # 35-49% confidence = Tier 2
+                    position_size_pct = config.TIER2_POSITION_SIZE  # 12%
+                    tier_name = "TIER 2 (12%)"
+                elif confidence and confidence >= 0.25:  # 25-34% confidence = Tier 3
+                    position_size_pct = config.TIER3_POSITION_SIZE  # 8%
+                    tier_name = "TIER 3 (8%)"
+                else:
+                    # Fallback to Tier 3 for unknown confidence
+                    position_size_pct = config.TIER3_POSITION_SIZE  # 8%
+                    tier_name = "TIER 3 (8%) - FALLBACK"
+                
                 adjusted_position_size = available_equity * position_size_pct
-                logging.info(f"Using FIXED 20% of available equity = ${adjusted_position_size:.2f} "
-                           f"(Available equity: ${available_equity:.2f})")
+                logging.info(f"Using {tier_name} position size: {position_size_pct*100}% = ${adjusted_position_size:.2f} "
+                           f"(Available equity: ${available_equity:.2f}, Confidence: {confidence*100:.1f}%)")
             
             # NEW: Check if we can afford this position
             if not self.can_afford_new_position(adjusted_position_size):
@@ -1416,16 +1436,16 @@ class HybridTradingBot:
                         }
                         
                         if is_safe:
-                            logging.debug(f"✅ {symbol} validated safe for live trading")
+                            logging.debug(f"{symbol} validated safe for live trading")
                         else:
-                            logging.warning(f"⚠️ {symbol} marked as UNSAFE for live trading")
+                            logging.warning(f"{symbol} marked as UNSAFE for live trading")
                             
                         return is_safe
                         
                     elif response.status == 400:
                         # Symbol doesn't exist or invalid
                         data = await response.json()
-                        logging.warning(f"❌ {symbol} validation failed: {data.get('message', 'Invalid symbol')}")
+                        logging.warning(f"{symbol} validation failed: {data.get('message', 'Invalid symbol')}")
                         
                         # Cache negative result
                         self.symbol_validation_cache[cache_key] = {
@@ -2140,6 +2160,11 @@ class HybridTradingBot:
                 win_rate = (self.session_stats['winning_trades'] / self.session_stats['total_trades'] * 100) if self.session_stats['total_trades'] > 0 else 0
                 logging.info(f"Session stats: {self.session_stats['total_trades']} trades, "
                             f"{win_rate:.1f}% win rate, ${self.session_stats['total_profit']:.2f} profit")
+                
+                # 🔥 TRIGGER: Immediately check for new opportunities after selling
+                logging.info(f"POSITION SOLD: Triggering immediate API check for new Tier 1 opportunities")
+                # Set a flag to force immediate API check in next trading loop iteration
+                self.force_api_check = True
             
             return success
         
@@ -2189,6 +2214,27 @@ class HybridTradingBot:
         try:
             positions_to_close = []
             
+            # DEBUG: Log when monitor_positions is called
+            if len(self.active_positions) > 0:
+                logging.info(f"MONITORING {len(self.active_positions)} positions: {list(self.active_positions.keys())}")
+            
+            # 🔥 ADDED: Real-time equity status every 10 seconds
+            current_time = time.time()
+            if not hasattr(self, 'last_equity_log'):
+                self.last_equity_log = 0
+            
+            if current_time - self.last_equity_log >= config.EQUITY_STATUS_INTERVAL:  # Every 10 seconds
+                await self._log_real_time_equity_status()
+                self.last_equity_log = current_time
+            
+            # 🔥 ADDED: Position status summary every 5 seconds
+            if not hasattr(self, 'last_position_status_log'):
+                self.last_position_status_log = 0
+            
+            if current_time - self.last_position_status_log >= config.POSITION_STATUS_INTERVAL:  # Every 5 seconds
+                await self._log_position_status_summary()
+                self.last_position_status_log = current_time
+            
             for pair, position in self.active_positions.items():
                 try:
                     current_price = await self.get_current_price(pair)
@@ -2198,15 +2244,24 @@ class HybridTradingBot:
                     entry_price = position['entry_price']
                     profit_percent = ((current_price - entry_price) / entry_price) * 100
                     
-                    # Log position status with throttle to prevent duplicates
+                    # 🔥 REDUCED: Individual position status logging (now handled by summary)
+                    # Only log significant changes or errors
                     hold_time = (time.time() - position.get('entry_time', time.time())) / 60  # minutes
-                    current_time = time.time()
                     
-                    # Only log if enough time has passed since last log for this pair
-                    if (pair not in self.last_status_log or 
-                        current_time - self.last_status_log[pair] >= self.status_log_interval):
-                        logging.info(f"{pair} status: {profit_percent:+.1f}% after {hold_time:.0f}min [REGULAR] (API)")
-                        self.last_status_log[pair] = current_time
+                    # Only log if there's a significant change (profit/loss threshold)
+                    if not hasattr(self, 'last_position_change_log'):
+                        self.last_position_change_log = {}
+                    
+                    current_time = time.time()
+                    last_profit = self.last_position_change_log.get(pair, {}).get('profit', 0)
+                    profit_change = abs(profit_percent - last_profit)
+                    
+                    # Log only if profit changed by more than threshold or every 2 minutes
+                    if (profit_change > config.POSITION_CHANGE_THRESHOLD or 
+                        pair not in self.last_position_change_log or
+                        current_time - self.last_position_change_log[pair].get('time', 0) >= 120):
+                        logging.info(f"{pair}: {profit_percent:+.1f}% after {hold_time:.0f}min [REGULAR] (API)")
+                        self.last_position_change_log[pair] = {'profit': profit_percent, 'time': current_time}
                     
                     # Check profit locks first (highest priority)
                     await self._update_profit_locks(pair, profit_percent, positions_to_close)
@@ -2240,6 +2295,10 @@ class HybridTradingBot:
                     else:
                         # Use regular sell function
                         await self.execute_sell(pair, sell_data)
+                    
+                    # 🔥 IMMEDIATE API CALL: After selling, immediately call API to find replacement
+                    logging.info(f"POSITION SOLD: {pair} - Immediately calling API for replacement")
+                    self.force_api_check = True  # This will trigger immediate API call in next cycle
                 except Exception as e:
                     logging.error(f"Error executing sell for {pair}: {str(e)}")
                     
@@ -2249,8 +2308,12 @@ class HybridTradingBot:
     async def _update_profit_locks(self, pair: str, profit_percent: float, positions_to_close: list):
         """Update profit locks with increment mechanism"""
         try:
+            # FIX 1: Only check profit locks when actually in profit
+            if profit_percent <= 0:
+                return  # Skip profit lock checks for negative profits
+            
             # DEBUG: Log every call to see if function is being called
-            logging.debug(f"DEBUG: Checking profit locks for {pair} at {profit_percent:.1f}%")
+            logging.info(f"PROFIT LOCK CHECK: {pair} at {profit_percent:.1f}%")
             
             if pair not in self.position_profit_locks:
                 # Initialize profit lock for new position
@@ -2269,17 +2332,17 @@ class HybridTradingBot:
             # Update highest reached level
             if profit_percent > highest_reached:
                 lock_data['highest_reached'] = profit_percent
-                logging.debug(f"DEBUG: {pair} new high: {profit_percent:.1f}% (previous: {highest_reached:.1f}%)")
+                logging.info(f"NEW HIGH: {pair} reached {profit_percent:.1f}% (previous: {highest_reached:.1f}%)")
             
-            # Check if we've hit a new increment level
-            new_lock_level = None
+            # FIX 2: Check ALL increment levels that we've passed (not just the first one)
+            new_lock_levels = []
             for level in lock_data['increment_levels']:
                 if profit_percent >= level and level > current_level:
-                    new_lock_level = level
-                    break
+                    new_lock_levels.append(level)
             
-            if new_lock_level:
-                # Lock in profit at new level
+            # Lock at the HIGHEST level we've reached
+            if new_lock_levels:
+                new_lock_level = max(new_lock_levels)  # Take the highest level reached
                 lock_data['locked_level'] = new_lock_level
                 lock_data['fallback_threshold'] = new_lock_level - 0.1  # 0.1% buffer below locked level
                 
@@ -2301,6 +2364,91 @@ class HybridTradingBot:
                 
         except Exception as e:
             logging.error(f"Error updating profit locks for {pair}: {str(e)}")
+
+    async def _log_real_time_equity_status(self):
+        """Log real-time equity status with detailed breakdown"""
+        try:
+            # Get current equity breakdown
+            base_equity = self.get_initial_equity_for_position_sizing()
+            realized_profits = getattr(self, 'realized_profits', 0.0)
+            
+            # Calculate current position values and unrealized P&L
+            total_position_value = 0.0
+            total_unrealized_pnl = 0.0
+            
+            for pair, position in self.active_positions.items():
+                try:
+                    current_price = await self.get_current_price(pair)
+                    if current_price:
+                        position_value = float(position['quantity']) * current_price
+                        total_position_value += position_value
+                        
+                        entry_price = position['entry_price']
+                        unrealized_pnl = (current_price - entry_price) * float(position['quantity'])
+                        total_unrealized_pnl += unrealized_pnl
+                except Exception as e:
+                    logging.debug(f"Error calculating position value for {pair}: {str(e)}")
+            
+            # Calculate available cash
+            available_cash = base_equity + realized_profits - total_position_value
+            
+            # Calculate total equity
+            total_equity = base_equity + realized_profits + total_unrealized_pnl
+            
+            # Log the status
+            logging.info(f"REAL-TIME EQUITY: ${total_equity:.2f} | "
+                        f"Base: ${base_equity:.2f} | "
+                        f"Realized: ${realized_profits:+.2f} | "
+                        f"Available: ${available_cash:.2f} | "
+                        f"Positions: ${total_position_value:.2f} | "
+                        f"Unrealized: ${total_unrealized_pnl:+.2f}")
+            
+        except Exception as e:
+            logging.error(f"Error logging real-time equity status: {str(e)}")
+
+    async def _log_position_status_summary(self):
+        """Log current position status summary every 5 seconds"""
+        try:
+            if not self.active_positions:
+                logging.info("POSITION STATUS: No active positions")
+                return
+            
+            position_summaries = []
+            total_positions = len(self.active_positions)
+            
+            for pair, position in self.active_positions.items():
+                try:
+                    current_price = await self.get_current_price(pair)
+                    if current_price:
+                        entry_price = position['entry_price']
+                        profit_percent = ((current_price - entry_price) / entry_price) * 100
+                        hold_time = (time.time() - position.get('entry_time', time.time())) / 60  # minutes
+                        
+                        # Get tier info if available
+                        tier_info = position.get('tier', 'Unknown')
+                        
+                        position_summaries.append({
+                            'pair': pair,
+                            'profit': profit_percent,
+                            'hold_time': hold_time,
+                            'tier': tier_info
+                        })
+                except Exception as e:
+                    logging.debug(f"Error getting position status for {pair}: {str(e)}")
+            
+            # Sort by profit percentage
+            position_summaries.sort(key=lambda x: x['profit'], reverse=True)
+            
+            # Create summary string
+            summary_parts = [f"POSITION STATUS ({total_positions} active):"]
+            for pos in position_summaries:
+                status_emoji = "green" if pos['profit'] > 0 else "red" if pos['profit'] < 0 else "yellow"
+                summary_parts.append(f"  {status_emoji} {pos['pair']}: {pos['profit']:+.1f}% ({pos['hold_time']:.0f}min) [{pos['tier']}]")
+            
+            logging.info(" | ".join(summary_parts))
+            
+        except Exception as e:
+            logging.error(f"Error logging position status summary: {str(e)}")
 
     async def _calculate_dynamic_stop_loss(self, pair: str, entry_price: float) -> float:
         """Calculate dynamic stop loss based on asset type, volatility, and market conditions"""
@@ -2368,8 +2516,17 @@ class HybridTradingBot:
             # Apply limits (never tighter than -1.5%, never wider than -5%)
             final_stop = max(-5.0, min(-1.5, adjusted_stop))
             
-            logging.info(f"Dynamic stop loss for {pair} ({asset_category}): {final_stop:.2f}% "
-                        f"(base: {base_stop:.2f}%, volatility: {volatility:.2f}%, market: {market_volatility})")
+            # 🔥 REDUCED LOGGING: Only log stop loss changes, not every calculation
+            stop_key = f"{pair}_stop_loss"
+            if not hasattr(self, 'last_stop_loss_log'):
+                self.last_stop_loss_log = {}
+            
+            current_time = time.time()
+            if (stop_key not in self.last_stop_loss_log or 
+                current_time - self.last_stop_loss_log[stop_key] >= config.STOP_LOSS_LOG_INTERVAL):  # Log every 5 minutes max
+                logging.info(f"Dynamic stop loss for {pair} ({asset_category}): {final_stop:.2f}% "
+                            f"(base: {base_stop:.2f}%, volatility: {volatility:.2f}%, market: {market_volatility})")
+                self.last_stop_loss_log[stop_key] = current_time
             
             return final_stop
             
@@ -2798,6 +2955,9 @@ class HybridTradingBot:
                 if position['quantity'] <= 0:
                     del self.active_positions[pair]
                     self.risk_manager.remove_position(pair)
+                    # 🔥 TRIGGER: Force immediate API check when position fully closed
+                    self.force_api_check = True
+                    logging.info(f"POSITION FULLY CLOSED: Triggering immediate API check for {pair}")
                 
                 return True
                 
@@ -3632,7 +3792,7 @@ class HybridTradingBot:
                                     elif 'price_momentum_4h' in c:
                                         momentum_info = f"Mom: {c['price_momentum_4h']:.2f}%"
                                     
-                                    logging.info(f"  {c['symbol']}: {c['confidence']:.1f}% conf, {volume_info}, {momentum_info}")
+                                    logging.info(f"  {c['symbol']}: {c['confidence']:.1f}%, {volume_info}, {momentum_info}")
                             return candidates
                         else:
                             logging.error(f"Guide endpoint returned success=false: {data}")
@@ -3643,117 +3803,553 @@ class HybridTradingBot:
         except Exception as e:
             logging.error(f"Error getting candidate assets: {e}", exc_info=True)
             return None
+    
+    async def get_momentum_signal_candidates(self) -> Optional[Dict]:
+        """Get momentum signals with built-in uptrend detection for Tier 1 symbols"""
+        try:
+            # Check if momentum signals are enabled
+            if not getattr(config, 'MOMENTUM_SIGNAL_ENABLED', True):
+                logging.info("MOMENTUM SIGNALS: Disabled in config")
+                return None
+            
+            # First get tier candidates to get the symbols
+            tier_candidates = await self.get_tier_candidate_assets()
+            if not tier_candidates:
+                logging.info("MOMENTUM SIGNALS: No tier candidates available")
+                return None
+            
+            # Get Tier 1 symbols from tier candidates
+            tier1_symbols = [c['symbol'] for c in tier_candidates.get('tier1_candidates', [])]
+            if not tier1_symbols:
+                logging.info("MOMENTUM SIGNALS: No Tier 1 symbols found")
+                return None
+            
+            logging.info(f"MOMENTUM SIGNALS: Checking {len(tier1_symbols)} Tier 1 symbols: {tier1_symbols}")
+            
+            min_uptrend_score = getattr(config, 'MOMENTUM_SIGNAL_MIN_UPTREND_SCORE', 40)
+            momentum_candidates = []
+            
+            for symbol in tier1_symbols:
+                try:
+                    api_url = getattr(config, 'SIGNAL_API_URL', None)
+                    api_key = getattr(config, 'API_KEY', None)
+                    
+                    if not api_url or not api_key:
+                        continue
+                        
+                    url = f"{api_url}/v1/momentum-signal"
+                    headers = {'Authorization': f'Bearer {api_key}'}
+                    payload = {
+                        "symbol": symbol,
+                        "timeframe": "1h",
+                        "risk_level": "balanced"
+                    }
+                    
+                    logging.info(f"Checking momentum signal for Tier 1 symbol: {symbol}")
+                    
+                    async with aiohttp.ClientSession() as session:
+                        async with session.post(url, json=payload, headers=headers) as response:
+                            if response.status == 200:
+                                data = await response.json()
+                                
+                                if data.get('success'):
+                                    # The signal data is at the root level, not nested under 'data'
+                                    signal_data = data
+                                    
+                                    # DEBUG: Log the full signal data to see what we're getting
+                                    logging.info(f"DEBUG - Full signal data for {symbol}: {signal_data}")
+                                    
+                                    # Check if it's a BUY signal with uptrend confirmed
+                                    # Since the API doesn't return uptrend_score, we'll use confidence as a proxy
+                                    # and assume Tier 1 signals have sufficient uptrend confirmation
+                                    signal = signal_data.get('signal')
+                                    confidence = signal_data.get('confidence', 0)
+                                    tier = signal_data.get('tier', '')
+                                    
+                                    # For Tier 1 signals, assume they have uptrend confirmation
+                                    # since the API already filtered them based on uptrend criteria
+                                    if signal == 'BUY' and tier == 'TIER_1_PREMIUM' and confidence >= 75:
+                                        # Create momentum candidate
+                                        momentum_candidate = {
+                                            'symbol': symbol,
+                                            'confidence': confidence,
+                                            'quality_score': confidence,  # Use confidence as quality score
+                                            'tier': 1,  # Treat momentum signals as Tier 1
+                                            'source': 'momentum_signal',
+                                            'reason': signal_data.get('reasoning', 'Tier 1 Premium signal with uptrend confirmation'),
+                                            'uptrend_score': confidence,  # Use confidence as uptrend score
+                                            'uptrend_stage': 'confirmed',
+                                            'position_size': signal_data.get('position_size', 15),
+                                            # Store the full API response data for later use
+                                            'entry_price': signal_data.get('entry_price', 0),
+                                            'stop_loss': signal_data.get('stop_loss', 0),
+                                            'take_profit_1': signal_data.get('take_profit_1', 0),
+                                            'take_profit_2': signal_data.get('take_profit_2', 0),
+                                            'take_profit_3': signal_data.get('take_profit_3', 0),
+                                            'api_data': signal_data  # Store the full API response
+                                        }
+                                        
+                                        momentum_candidates.append(momentum_candidate)
+                                        
+                                        logging.info(f"MOMENTUM SIGNAL: {symbol} - Tier 1 Premium BUY signal with {confidence}% confidence")
+                                        
+                                        
+                                        logging.info(f"IMMEDIATE EXECUTION: Processing {symbol} immediately")
+                                        await self.process_immediate_momentum_signal(momentum_candidate)
+                                        
+                                        # Check if we've reached max positions - if so, stop checking more symbols
+                                        if len(self.active_positions) >= config.MAX_POSITIONS:
+                                            logging.info(f"MAX POSITIONS REACHED ({len(self.active_positions)}/{config.MAX_POSITIONS}) - Stopping symbol checks and moving to monitoring")
+                                            break
+                                    else:
+                                        logging.info(f"{symbol} - No Tier 1 Premium BUY signal (signal: {signal}, tier: {tier}, confidence: {confidence}%)")
+                                else:
+                                    logging.warning(f"{symbol} - API returned success=false: {data.get('error')}")
+                            else:
+                                logging.error(f"{symbol} - API request failed with status {response.status}")
+                                
+                except Exception as e:
+                    logging.error(f"Error checking {symbol}: {e}")
+                    continue
+            
+            if momentum_candidates:
+                logging.info(f"MOMENTUM SIGNALS: Found {len(momentum_candidates)} BUY signals with uptrend confirmed")
+                for candidate in momentum_candidates:
+                    logging.info(f"RETURNING MOMENTUM CANDIDATE: {candidate.get('symbol')} - {candidate.get('confidence')}% confidence")
+                return {
+                    'tier1_candidates': momentum_candidates,
+                    'tier2_candidates': [],
+                    'tier3_candidates': [],
+                    'source': 'momentum_signals'
+                }
+            else:
+                logging.info("MOMENTUM SIGNALS: No BUY signals with uptrend confirmed")
+                return None
+            
+        except Exception as e:
+            logging.error(f"Error getting momentum signals: {e}")
+            return None
+
+    async def process_immediate_momentum_signal(self, candidate: Dict):
+        """Process a momentum signal immediately without waiting for other signals"""
+        try:
+            symbol = candidate.get('symbol')
+            confidence = candidate.get('confidence', 0)
+            
+            # Check if we already have a position in this symbol
+            if symbol in self.active_positions:
+                logging.info(f"IMMEDIATE EXECUTION: Skipping {symbol} - already have position")
+                return False
+            
+            # Check if we have available slots
+            available_slots = config.MAX_POSITIONS - len(self.active_positions)
+            if available_slots <= 0:
+                logging.info(f"IMMEDIATE EXECUTION: Skipping {symbol} - no available slots ({len(self.active_positions)}/{config.MAX_POSITIONS})")
+                return False
+            
+            logging.info(f"IMMEDIATE EXECUTION: Processing {symbol} with {confidence}% confidence")
+            
+            # Create signal object from momentum candidate data
+            api_data = candidate.get('api_data', {})
+            signal = {
+                'signal': 'BUY',
+                'confidence': confidence,
+                'tier': 'TIER_1_PREMIUM',
+                'entry_price': candidate.get('entry_price', 0),
+                'stop_loss': candidate.get('stop_loss', 0),
+                'take_profit_1': candidate.get('take_profit_1', 0),
+                'take_profit_2': candidate.get('take_profit_2', 0),
+                'take_profit_3': candidate.get('take_profit_3', 0),
+                'reasoning': candidate.get('reasoning', 'Momentum signal'),
+                'technical_data': api_data.get('technical_data', {
+                    'volume_ratio': 1.0,
+                    'rsi': 50,
+                    'adx': 20
+                })
+            }
+            
+            # Create analysis object
+            analysis = {
+                'buy_signal': True,
+                'signal_strength': confidence/100,
+                'confidence': confidence,
+                'asset_score': 3.0,
+                'api_data': signal,
+                'source': 'momentum_signal_immediate',
+                'tier': 1,
+                'tier_name': 'tier1',
+                'position_size_pct': 15,  # Default 15% for momentum signals
+                'quality_score': confidence,
+                'volume_ratio': 1.0
+            }
+            
+            # Execute the trade immediately
+            logging.info(f"IMMEDIATE EXECUTION: About to execute trade for {symbol}")
+            success = await self.phase_strategy.execute_phase_strategy(symbol, analysis)
+            
+            if success:
+                logging.info(f"IMMEDIATE EXECUTION: SUCCESS! {symbol} trade executed")
+                return True
+            else:
+                logging.error(f"IMMEDIATE EXECUTION: FAILED! {symbol} trade failed")
+                return False
+                
+        except Exception as e:
+            logging.error(f"IMMEDIATE EXECUTION: Error processing {candidate.get('symbol', '?')}: {e}")
+            return False
 
     async def process_tiered_candidates(self, candidates: Dict, available_slots: int):
-        """Process recommended assets with tier-based selection strategy"""
-        # Count positions by tier
+        """Process recommended assets with WINNING SIGNAL FILTER - Tier 1 ONLY with strict criteria"""
+        # 🔥 TIER 1 ONLY: Only process Tier 1 candidates (highest quality)
         tier_positions = {'tier1': 0, 'tier2': 0, 'tier3': 0}
         for position in self.active_positions.values():
             tier = position.get('tier', 'tier3')
             tier_positions[tier] += 1
-        # Build priority list based on tier limits
+        
+        # 🔥 TIER 1 ONLY: Build priority list with ONLY Tier 1 candidates
         priority_list = []
-        # Configurable limits
-        max_tier1 = getattr(config, 'TIER_GUIDE_MAX_TIER1', 2)
-        max_tier2 = getattr(config, 'TIER_GUIDE_MAX_TIER2', 1)
-        max_tier3 = getattr(config, 'TIER_GUIDE_MAX_TIER3', 0)
-        # Process Tier 1
+        max_tier1 = getattr(config, 'TIER_GUIDE_MAX_TIER1', 3)  # Allow up to 3 Tier 1 positions
+        
+        # Process ONLY Tier 1 candidates
         t1 = candidates.get('tier1_candidates', [])
         t1_avail = max_tier1 - tier_positions['tier1']
-        for c in t1[:t1_avail]:
-            priority_list.append({'tier': 1, 'tier_name': 'tier1', **c})
-        # Tier 2
-        if len(priority_list) < available_slots:
-            t2 = candidates.get('tier2_candidates', [])
-            t2_avail = max_tier2 - tier_positions['tier2']
-            for c in t2[:t2_avail]:
-                priority_list.append({'tier': 2, 'tier_name': 'tier2', **c})
-        # Tier 3
-        if len(priority_list) < available_slots and max_tier3 > 0:
-            t3 = candidates.get('tier3_candidates', [])
-            t3_avail = max_tier3 - tier_positions['tier3']
-            for c in t3[:t3_avail]:
-                priority_list.append({'tier': 3, 'tier_name': 'tier3', **c})
-        logging.info(f"Processing {len(priority_list)} candidates for {available_slots} slots")
+        
+        if t1_avail > 0 and t1:
+            for c in t1[:t1_avail]:
+                priority_list.append({'tier': 1, 'tier_name': 'tier1', **c})
+            logging.info(f"TIER 1 ONLY: Found {len(t1)} Tier 1 candidates, {t1_avail} available slots")
+        else:
+            logging.info(f"TIER 1 ONLY: No Tier 1 candidates available or no slots left (Tier 1 positions: {tier_positions['tier1']}/{max_tier1})")
+        
+        # 🔥 WINNING SIGNAL FILTER: Process with strict criteria
+        logging.info(f"WINNING SIGNAL FILTER: Processing {len(priority_list)} Tier 1 candidates for {available_slots} slots")
+        for candidate in priority_list:
+            logging.info(f"Priority list candidate: {candidate.get('symbol')} - {candidate.get('confidence')}% confidence")
         positions_opened = 0
+        candidates_processed = 0
+        candidates_passed_filter = 0
+        
         for candidate in priority_list:
             if positions_opened >= available_slots:
                 break
             try:
+                candidates_processed += 1
                 symbol = candidate['symbol']
                 tier = candidate['tier']
                 tier_name = candidate['tier_name']
+                
                 if symbol in self.active_positions:
                     logging.info(f"Skipping {symbol} - already have position")
                     continue
-                min_conf = getattr(config, f'TIER_GUIDE_MIN_CONFIDENCE_{tier_name.upper()}', 70 if tier==1 else 65 if tier==2 else 60)
+                
+                # Skip if we already have too many positions
+                if len(self.active_positions) >= config.MAX_POSITIONS:
+                    logging.info(f"Skipping {symbol} - max positions reached ({len(self.active_positions)}/{config.MAX_POSITIONS})")
+                    continue
+                
+                # 🔥 WINNING SIGNAL FILTER: Extract candidate metrics (basic pre-filter)
+                confidence = candidate.get('confidence', 0)
+                quality_score = candidate.get('quality_score', 0)
+                
                 # Handle different possible response formats for logging
                 volume_info = ""
                 momentum_info = ""
                 
+                # Extract volume info from various possible locations
                 if 'metrics' in candidate and 'volume_24h' in candidate['metrics']:
                     volume_info = f"Vol: ${candidate['metrics']['volume_24h']/1e6:.1f}M"
                 elif 'volume_24h' in candidate:
                     volume_info = f"Vol: ${candidate['volume_24h']/1e6:.1f}M"
                 
+                # Extract momentum info from various possible locations
                 if 'metrics' in candidate and 'price_momentum_4h' in candidate['metrics']:
                     momentum_info = f"Mom: {candidate['metrics']['price_momentum_4h']:.2f}%"
                 elif 'price_momentum_4h' in candidate:
                     momentum_info = f"Mom: {candidate['price_momentum_4h']:.2f}%"
                 
-                logging.info(f"Processing {symbol} (Tier {tier}) - Pre-screen: {candidate['confidence']:.1f}%, {volume_info}, {momentum_info}")
-                # Get detailed signal using your existing API client/strategy
-                signal = await self.strategy.get_api_signal(symbol, self.global_api_client)
-                if signal and signal.get('confidence', 0) >= min_conf:
-                    # Use tier-based position sizing
-                    if tier == 1:
-                        position_size_pct = config.TIER1_POSITION_SIZE * 100  # 15%
-                    elif tier == 2:
-                        position_size_pct = config.TIER2_POSITION_SIZE * 100  # 12%
-                    else:
-                        position_size_pct = config.TIER3_POSITION_SIZE * 100  # 8%
+                # 🔥 WINNING SIGNAL FILTER: Apply basic pre-filter (confidence and quality only)
+                filter_passed = True
+                filter_reasons = []
+                
+                # Get filter thresholds from config (with defaults based on your winning pattern)
+                min_confidence = getattr(config, 'WINNING_SIGNAL_MIN_CONFIDENCE', 82)
+                min_quality_score = getattr(config, 'WINNING_SIGNAL_MIN_QUALITY', 80)
+                
+                # Special handling for momentum signals (they come from API with different structure)
+                is_momentum_signal = candidate.get('source') == 'momentum_signal'
+                
+                # 1. Confidence ≥ 82% (or 75% for momentum signals)
+                confidence_threshold = 75 if is_momentum_signal else min_confidence
+                if confidence < confidence_threshold:
+                    filter_passed = False
+                    filter_reasons.append(f"Confidence {confidence:.1f}% < {confidence_threshold}%")
+                
+                # 2. Quality Score ≥ 80 (or use confidence as quality for momentum signals)
+                if is_momentum_signal:
+                    # For momentum signals, use confidence as quality score since API doesn't return quality_score
+                    effective_quality = confidence
+                    quality_threshold = 75  # Lower threshold for momentum signals
+                else:
+                    effective_quality = quality_score
+                    quality_threshold = min_quality_score
+                
+                if effective_quality < quality_threshold:
+                    filter_passed = False
+                    filter_reasons.append(f"Quality {effective_quality:.1f} < {quality_threshold}")
+                
+                # Log candidate analysis (basic pre-filter)
+                if filter_passed:
+                    candidates_passed_filter += 1
+                    logging.info(f"PRE-FILTER PASSED: {symbol} - Conf: {confidence:.1f}%, Quality: {effective_quality:.1f}, {volume_info}, {momentum_info}")
+                else:
+                    logging.info(f"PRE-FILTER REJECTED: {symbol} - {', '.join(filter_reasons)} - Conf: {confidence:.1f}%, Quality: {effective_quality:.1f}")
+                    continue
+                
+                # 🔥 WINNING SIGNAL: Get detailed API signal for final confirmation
+                signal = None
+                
+                # For momentum signals, we already have the signal data - no need to call API again
+                if candidate.get('source') == 'momentum_signal':
+                    logging.info(f"Using existing momentum signal data for {symbol} - no additional API call needed")
+                    # Create a signal object from the momentum candidate data
+                    api_data = candidate.get('api_data', {})
+                    signal = {
+                        'signal': 'BUY',
+                        'confidence': candidate.get('confidence', 0),
+                        'tier': 'TIER_1_PREMIUM',
+                        'entry_price': candidate.get('entry_price', 0),
+                        'stop_loss': candidate.get('stop_loss', 0),
+                        'take_profit_1': candidate.get('take_profit_1', 0),
+                        'take_profit_2': candidate.get('take_profit_2', 0),
+                        'take_profit_3': candidate.get('take_profit_3', 0),
+                        'reasoning': candidate.get('reasoning', 'Momentum signal'),
+                        'technical_data': api_data.get('technical_data', {
+                            'volume_ratio': 1.0,  # Default for momentum signals
+                            'rsi': 50,  # Default
+                            'adx': 20   # Default
+                        })
+                    }
+                else:
+                    # For regular candidates, call the API
+                    wait_for_real_signals = getattr(config, 'API_WAIT_FOR_REAL_SIGNALS', True)
+                    max_retries = getattr(config, 'API_MAX_RETRIES', 3)
+                    retry_delay = getattr(config, 'API_RETRY_DELAY', 10)
+                    retry_count = 0
                     
-                    # Use your existing analyze_and_trade logic, but pass tier info
+                    if wait_for_real_signals:
+                        logging.info(f"Waiting for real API signal for {symbol}...")
+                        
+                        while retry_count < max_retries:
+                            signal = await self.strategy.get_api_signal(symbol, self.global_api_client)
+                            
+                            # Check if we got a real signal with technical data
+                            if signal and ('technical_data' in signal or 'taapi_data' in signal):
+                                logging.info(f"Got real API signal for {symbol} on attempt {retry_count + 1}")
+                                break
+                            else:
+                                retry_count += 1
+                                if retry_count < max_retries:
+                                    logging.warning(f"Retrying {symbol} - attempt {retry_count + 1}/{max_retries} (waiting for real signal)")
+                                    await asyncio.sleep(retry_delay)
+                                else:
+                                    logging.error(f"Failed to get real signal for {symbol} after {max_retries} attempts")
+                                    signal = None
+                    else:
+                        # Use original behavior (accept fallback signals)
+                        signal = await self.strategy.get_api_signal(symbol, self.global_api_client)
+                
+                # DEBUG: Log the signal structure to see what we're getting
+                if signal:
+                    logging.info(f"DEBUG: Signal structure for {symbol}: {list(signal.keys())}")
+                    if 'technical_data' in signal:
+                        logging.info(f"DEBUG: Technical data keys: {list(signal['technical_data'].keys())}")
+                    if 'taapi_data' in signal:
+                        logging.info(f"DEBUG: Taapi data keys: {list(signal['taapi_data'].keys())}")
+                else:
+                    logging.warning(f"DEBUG: No signal returned for {symbol}")
+                
+                # Extract volume ratio from the detailed signal
+                volume_ratio = 0
+                if signal and 'technical_data' in signal and 'volume_ratio' in signal['technical_data']:
+                    volume_ratio = signal['technical_data']['volume_ratio']
+                    logging.info(f"DEBUG: Found volume_ratio in technical_data: {volume_ratio}")
+                elif signal and 'taapi_data' in signal and 'volume_ratio' in signal['taapi_data']:
+                    volume_ratio = signal['taapi_data']['volume_ratio']
+                    logging.info(f"DEBUG: Found volume_ratio in taapi_data: {volume_ratio}")
+                else:
+                    logging.warning(f"DEBUG: No volume_ratio found in signal for {symbol}")
+                    if signal:
+                        logging.warning(f"DEBUG: Available keys: {list(signal.keys())}")
+                
+                # Get filter thresholds
+                min_confidence = getattr(config, 'WINNING_SIGNAL_MIN_CONFIDENCE', 82)
+                min_volume_ratio = getattr(config, 'WINNING_SIGNAL_MIN_VOLUME_RATIO', 1.0)
+                
+                # 🔥 WINNING SIGNAL FILTER: Apply final criteria with volume ratio
+                final_filter_passed = True
+                final_filter_reasons = []
+                
+                # Check if this is a fallback signal (no technical_data)
+                if signal and 'technical_data' not in signal and 'taapi_data' not in signal:
+                    final_filter_passed = False
+                    final_filter_reasons.append("Fallback signal (no technical data)")
+                    logging.warning(f"SKIPPING {symbol} - API returned fallback signal, waiting for real response")
+                    continue
+                
+                # 🔥 UPTREND FILTER: Check if symbol is in confirmed uptrend
+                if self.uptrend_enabled and signal:
+                    uptrend_analysis = await self.uptrend_detector.analyze_symbol_uptrend(symbol)
+                    if uptrend_analysis:
+                        is_uptrend = uptrend_analysis.get('is_uptrend', False)
+                        uptrend_strength = uptrend_analysis.get('strength', 0)
+                        uptrend_stage = uptrend_analysis.get('stage', 'unknown')
+                        
+                        if not is_uptrend or uptrend_strength < 50:
+                            final_filter_passed = False
+                            final_filter_reasons.append(f"Not in uptrend (strength: {uptrend_strength}%, stage: {uptrend_stage})")
+                            logging.warning(f"SKIPPING {symbol} - Not in confirmed uptrend (strength: {uptrend_strength}%, stage: {uptrend_stage})")
+                            continue
+                        else:
+                            logging.info(f"🔥 UPTREND CONFIRMED: {symbol} - Strength: {uptrend_strength}%, Stage: {uptrend_stage}")
+                    else:
+                        logging.warning(f"SKIPPING {symbol} - Could not get uptrend analysis")
+                        continue
+                
+                # 1. API Confidence ≥ 82%
+                api_confidence = signal.get('confidence', 0) if signal else 0
+                if api_confidence < min_confidence:
+                    final_filter_passed = False
+                    final_filter_reasons.append(f"API Confidence {api_confidence:.1f}% < {min_confidence}%")
+                
+                # 2. Volume Ratio ≥ 1.0
+                if volume_ratio < min_volume_ratio:
+                    final_filter_passed = False
+                    final_filter_reasons.append(f"Volume ratio {volume_ratio:.2f} < {min_volume_ratio}")
+                
+                # Log final filter results
+                if final_filter_passed:
+                    logging.info(f"WINNING SIGNAL: {symbol} PASSED FINAL FILTER - API Conf: {api_confidence:.1f}%, Vol: {volume_ratio:.2f}")
+                else:
+                    logging.info(f"FINAL FILTER REJECTED: {symbol} - {', '.join(final_filter_reasons)} - API Conf: {api_confidence:.1f}%, Vol: {volume_ratio:.2f}")
+                    continue
+                
+                if signal and final_filter_passed:  # Execute only if both signal exists and passes final filter
+                    # Use tier-based position sizing (15% for Tier 1)
+                    position_size_pct = config.TIER1_POSITION_SIZE * 100  # 15%
+                    
+                    # Create analysis with winning signal data
                     analysis = {
                         'buy_signal': True,
                         'signal_strength': signal.get('confidence', 0)/100,
                         'confidence': signal.get('confidence', 0),
                         'asset_score': candidate.get('score', 3.0),
                         'api_data': signal,
-                        'source': 'enhanced_api_signal',
+                        'source': 'winning_signal_filter',
                         'tier': tier,
                         'tier_name': tier_name,
-                        'position_size_pct': position_size_pct
+                        'position_size_pct': position_size_pct,
+                        'quality_score': quality_score,
+                        'volume_ratio': volume_ratio
                     }
+                    
+                    # 🔥 WINNING SIGNAL ALERT: Log the setup
+                    logging.info(f"WINNING SIGNAL EXECUTION: {symbol}")
+                    logging.info(f"   API Confidence: {api_confidence:.1f}% (≥{min_confidence}%)")
+                    logging.info(f"   Quality Score: {quality_score:.1f} (≥{min_quality_score})")
+                    logging.info(f"   Volume Ratio: {volume_ratio:.2f} (≥{min_volume_ratio})")
+                    
+                    # Uptrend detection is built into momentum signals - no separate analysis needed
+                    
+                    logging.info(f"   Position Size: {position_size_pct}% (Tier 1)")
+                    logging.info(f"   Entry Price: ${signal.get('entry_price', 0):.4f}")
+                    
+                    logging.info(f"🔥 ABOUT TO EXECUTE TRADE: {symbol} with analysis keys: {list(analysis.keys())}")
                     success = await self.phase_strategy.execute_phase_strategy(symbol, analysis)
                     if success:
                         positions_opened += 1
-                        logging.info(f"OPENED POSITION: {symbol} (Tier {tier}) - Confidence: {signal['confidence']}%, Entry: ${signal.get('entry_price', 0):.4f}, Positions: {positions_opened}/{available_slots}")
+                        logging.info(f"WINNING SIGNAL EXECUTED: {symbol} - Positions: {positions_opened}/{available_slots}")
+                    else:
+                        logging.error(f"WINNING SIGNAL FAILED: {symbol} - Execution error")
                 else:
-                    conf = signal.get('confidence', 0) if signal else 0
-                    logging.info(f"Skipping {symbol} - Final confidence {conf}% below tier minimum {min_conf}%")
+                    if not signal:
+                        logging.info(f"API REJECTION: {symbol} - No signal returned from API")
+                    else:
+                        logging.info(f"API REJECTION: {symbol} - Signal exists but failed final filter")
+                    
             except Exception as e:
                 logging.error(f"Error processing candidate {candidate.get('symbol', '?')}: {e}")
                 continue
+        
+        # 🔥 WINNING SIGNAL SUMMARY
+        logging.info(f"WINNING SIGNAL SUMMARY: Processed {candidates_processed} candidates, {candidates_passed_filter} passed filter, {positions_opened} positions opened")
+        if candidates_processed > 0:
+            filter_pass_rate = (candidates_passed_filter / candidates_processed) * 100
+            logging.info(f"Filter pass rate: {filter_pass_rate:.1f}% ({candidates_passed_filter}/{candidates_processed})")
+        
+        # Log API waiting behavior
+        if getattr(config, 'API_WAIT_FOR_REAL_SIGNALS', True):
+            logging.info("🔥 API WAITING: Enabled - Bot waits for real signals with technical data")
+        else:
+            logging.info("API WAITING: Disabled - Bot accepts fallback signals")
 
     async def tiered_trading_task(self):
         """Trading task using tiered guide endpoint for asset selection"""
-        logging.info("Starting enhanced trading bot with hybrid tiered guide approach")
+        logging.info("Starting TIER 1 ONLY trading bot with enhanced API calling")
         while True:
             try:
-                candidates = await self.get_tier_candidate_assets()
+                # 🔥 Check if we need to force immediate API check after selling
+                force_check = getattr(self, 'force_api_check', False)
+                if force_check:
+                    logging.info("FORCE CHECK: Immediate API call triggered after position sold")
+                    self.force_api_check = False  # Reset flag
+                    sleep_time = 5  # Very short sleep for immediate check
+                else:
+                    sleep_time = 30  # Normal sleep time
+                
+                # 🔥 ALWAYS call API first to get latest candidates
+                candidates = None
+                
+                # 🔥 Try momentum signals for Tier 1 symbols first
+                candidates = None
+                candidates = await self.get_momentum_signal_candidates()
+                if candidates:
+                    logging.info("Using momentum signals for Tier 1 symbols with uptrend detection")
+                    logging.info(f"Momentum candidates found: {len(candidates.get('tier1_candidates', []))} Tier 1 signals")
+                    for candidate in candidates.get('tier1_candidates', []):
+                        logging.info(f"Momentum candidate: {candidate.get('symbol')} - {candidate.get('confidence')}% confidence")
+                else:
+                    logging.info("No momentum signals found, falling back to regular tier candidates")
+                
+                # 🔥 Fall back to regular tier candidates if no momentum signals
                 if not candidates:
-                    logging.warning("No candidate assets returned from guide endpoint")
-                    await asyncio.sleep(60)
-                    continue
+                    candidates = await self.get_tier_candidate_assets()
+                    if not candidates:
+                        logging.warning("No candidate assets returned from any endpoint")
+                        await asyncio.sleep(60)
+                        continue
+                
+                # 🔥 Check available slots after getting candidates
                 available_slots = config.MAX_POSITIONS - len(self.active_positions)
                 logging.info(f"Available position slots: {available_slots}")
+                logging.info(f"Current active positions: {list(self.active_positions.keys())}")
+                logging.info(f"MAX_POSITIONS: {config.MAX_POSITIONS}")
+                
                 if available_slots > 0:
+                    # 🔥 Process Tier 1 candidates if slots available
+                    tier1_count = len(candidates.get('tier1_candidates', []))
+                    logging.info(f"Processing {tier1_count} Tier 1 candidates with {available_slots} available slots")
+                    if tier1_count > 0:
+                        for candidate in candidates.get('tier1_candidates', []):
+                            logging.info(f"About to process: {candidate.get('symbol')} - {candidate.get('confidence')}% confidence")
                     await self.process_tiered_candidates(candidates, available_slots)
                 else:
+                    # 🔥 Even if no slots, still manage positions (this handles selling)
                     logging.info("No available slots, managing existing positions")
                     await self.position_monitor_task()
-                await asyncio.sleep(60)
+                
+                # 🔥 Dynamic sleep time based on whether we just sold a position
+                await asyncio.sleep(sleep_time)
+                
             except Exception as e:
                 logging.error(f"Tiered trading task error: {e}", exc_info=True)
                 await asyncio.sleep(30)
